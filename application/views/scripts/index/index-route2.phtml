@@ -1,0 +1,377 @@
+<style>
+		table {
+			font-size: 12px;
+			font-family: verdana;
+			background: #c0c0c0;
+		}
+ 
+		table thead  {
+			cursor: pointer;
+		}
+ 
+		table thead tr,
+		table tfoot tr {
+			background: #c0c0c0;
+		}
+ 
+		table tbody tr {
+			background: #f0f0f0;
+		}
+ 
+		td, th {
+			border: 1px solid white;
+		}
+	</style>
+    
+<script type='text/javascript'>
+var currSelect='row0';
+var currSelect='rowS0';
+
+function radioClick(num){
+document.getElementById(num).checked = true;	
+//clearRows();
+var cell=document.getElementById('row'+num);
+var prev=document.getElementById(currSelect);
+    
+	prev.style.background='white';
+	prev.style.color="black"; 
+
+    cell.style.background='red';
+	cell.style.color="white";
+currSelect = 'row'+num;
+}
+
+function get_radio_value()
+{
+if(document.tableList.radio.value){
+	return document.tableList.radio.value;
+}
+else {
+for (var i=0; i < document.tableList.radio.length; i++)
+   {
+   if (document.tableList.radio[i].checked)
+      {
+      //var rad_val = document.orderform.music[i].value;
+      return document.tableList.radio[i].value;
+	  }
+   }
+}
+}
+
+function rowSelect(row){
+	//alert(row);
+	var cell=document.getElementById('row'+row);
+        cell.style.background='red';
+		cell.style.color="white";
+}
+
+function clearRows(){
+		for (i=0;i<=99;i++){
+		document.getElementById('row'+i).style.background='white';
+        document.getElementById('row'+i).style.color="black";
+		}
+}
+
+function openDecisionView(pageURL, title,w,h){
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+   var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+
+}
+function openDecision(pageURL, title,w,h){
+	if (get_radio_value()){
+	
+
+	//window.open(','mywindow','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes')
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+//var top = (screen.height/2)-(h/2);
+/*
+var targetWin = window.open((pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, dialogWidth:'+w+', dialogHeight:'+h+', dialogTop:'+100+', dialogLeft:'+left);
+*/
+/*
+showModalDialog(pageURL, 'toolbar:no, location:no, directories:no, status:no, menubar:no, scrollbars:yes, resizable:yes, copyhistory:no, dialogWidth:'+w+'px, dialogHeight:'+h+'px, dialogTop:'+100+'px, dialogLeft:'+left+'px');
+*/
+
+
+  var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+
+	<? if($this->chkDigiPassStatus($this->loggedInUser()) === true) { ?>
+	window.open(pageURL,'decisionBox','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+	//alert("TRUE")
+	<? } else { ?>
+	window.open(pageURL,'decisionBox','width=600,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')	
+	//alert("FALSE")
+	<? } ?>
+
+
+
+}else { alert('Please Choose Application to Decide'); }
+}
+
+function openCraw(){
+if (get_radio_value()){
+window.open('<?=$this->baseURL();?>/index/crawammendment/cap/'+get_radio_value()+'/type/print','mywindow','width=1000,height=600,scrollbars=yes,resizable=no, menubar=yes, fullscreen=yes')	
+} 
+else { alert('Please Choose Application to Open the Craw'); }
+}
+
+////////----Separator----------/////////////
+function radioClick2(num){
+document.getElementById(num).checked = true;	
+//clearRows();
+var cell=document.getElementById('rowS'+num);
+var prev=document.getElementById(currSelect2);
+    
+	prev.style.background='white';
+	prev.style.color="black"; 
+
+    cell.style.background='red';
+	cell.style.color="white";
+currSelect2 = 'rowS'+num;
+}
+
+function get_radio_value2()
+{
+
+if(document.tableList.radio2.value){
+	return 	document.tableList.radio2.value;
+}
+else {
+for (var i=0; i < document.tableList.radio2.length; i++)
+   {
+
+   if (document.tableList.radio2[i].checked)
+      {
+      //var rad_val = document.orderform.music[i].value;
+      return document.tableList.radio2[i].value;
+	  }
+   }
+}
+}
+
+function rowSelect2(row){
+	//alert(row);
+	var cell=document.getElementById('rowS'+row);
+        cell.style.background='red';
+		cell.style.color="white";
+}
+
+function clearRows2(){
+		for (i=0;i<=99;i++){
+		document.getElementById('rowS'+i).style.background='white';
+        document.getElementById('rowS'+i).style.color="black";
+		}
+}
+
+function openDecision2(pageURL, title,w,h){
+	if (get_radio_value2()){
+	//window.open(','mywindow','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes')
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+
+  var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+
+}else { alert('Please Choose Application to View'); }
+}
+
+function openCraw2(){
+if (get_radio_value2()){
+window.open('<?=$this->baseURL();?>/index/crawammendment/cap/'+get_radio_value2()+'/type/print','craw2','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes')	
+} 
+else { alert('Please Choose Application to Open the Craw'); }
+	
+}
+
+function openDecisionView2(pageURL, title,w,h){
+if (get_radio_value2()){
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+   var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+}
+else { alert('Please Choose Application to View'); }
+	
+}
+
+
+
+</script>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td align="left" ><strong>
+    Logged in as <?=$this->loggedInUser();?>	</strong> | <a href="<?=$this->baseUrl()?>/index/search">SEARCH</a> | <a href="#" onclick = "window.open('<?=$this->baseURL();?>/admin/digitalpassword','digital','width=600,height=200,scrollbars=yes,resizable=no, menubar=yes')">ELECTRONIC PASSWORD</a> 
+     <? if($this->loggedInUserType() == 'CSH') { ?> |
+     <a href="<?=$this->baseUrl()?>/admin/pricelistapprove">PRICELIST</a>
+    <? } ?>
+    </td>
+
+	<td width="15%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/auth/logout'"><strong>
+      Logout
+    </strong></td>
+</tr>
+</table>
+<br />
+<table  width="100%" align="center" cellpadding="2" cellspacing="1">	   		
+		<tr>
+			<th align="left">PENDING <span class="c1">
+			 
+			 
+			</span></th>
+  </tr>
+</table>
+<form name="tableList" method="post">
+ <input type="radio" name="radio" id="radio-1" value="-1" style="display:none"/>
+<center>
+<table width="98%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTable">
+
+
+    <thead >
+
+		<tr>
+			<th width="40%" class="c1">Name</th>
+			<th width="15%" class="c2">Amount of Loan</th>
+			<th width="5%" align="center" class="c3">DP %</th>
+			<th width="12%" align="center" class="c3">Term</th>
+		  <th width="9%" align="center" class="c3">Score</th>
+			<th width="19%" align="center" class="c3">Date Forwarded</th>
+		</tr>
+  </thead>
+ <!--//onmouseout//this.style.background='white';this.style.color='black';-->
+ <!--//onmouseover//this.style.background='red';this.style.color='white';-->
+	<tbody id="tbody">
+    <? $counter = 0; foreach($this->detail as $detail) { ?>
+		<tr id='row<?=$counter?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail->capno?>'" onclick="radioClick('<?=$counter?>');rowSelect('row<?=$counter?>')">
+			<td class="c1"><input type="radio" name="radio" id="<?=$counter?>" value="<?=$detail->capno?>" />
+			  <?=$detail->borrower_lname?>, <?=$detail->borrower_fname?> <?=$detail->borrower_mname?></th>
+			  <?=$this->autoRouteDecision($detail->capno,$detail->score)?>
+			<td align="center" class="c2"><span class="c1">
+			P <?=number_format($detail->amountloan, 2)?>
+			</span>
+		  </td>
+		  <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>%</td>            
+		  <td align="center" class="c3"><?=$detail->loanterm?>
+		  months</td>
+		  <td align="center" class="c3"><?=$this->viewScore($detail->score,$detail->capbasis,'view')?>
+          
+          </td>
+      <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?>          </tr>
+        <? $counter++;} ?>		
+	</tbody>
+ 
+	<tfoot>
+		<tr>
+			<th colspan="4" class="c1">&nbsp;</th>
+			<th class="c3">
+           <input type="button" name="button" id="button" value="Decide" onclick="openDecision('<?=$this->baseURL();?>/index/routedecision/cap/'+get_radio_value(),'Credit Decision',750,350)"/>
+            </th>
+            <th class="c3"><strong>
+			  <input type="button" name="btnPrintCraw" id="button2" value="View CRAW" onclick = "openCraw();" />
+			</strong></th>
+		</tr>
+	</tfoot>
+</table>
+</center>
+
+<script type="text/javascript">
+var t = new ScrollableTable(document.getElementById('myScrollTable'), 200);
+</script>
+<br />
+<table  width="100%" align="center" cellpadding="2" cellspacing="1">
+  <tr>
+    <th align="left">DECIDED</th>
+  </tr>
+</table>
+<center>
+<table width="98%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTable2">
+  <thead>
+    <tr>
+      <th width="40%" class="c1">Name</th>
+      <th width="15%" class="c2">Amount of Loan</th>
+      <th width="6%" align="center" class="c3">DP %</th>
+      <th width="11%" align="center" class="c3">Term</th>
+      <th width="9%" align="center" class="c3">Score</th>
+      <th width="19%" align="center" class="c3">Date Submitted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? $counter2=0; foreach($this->detail2 as $detail2) { ?>
+    <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+      <td class="c1">
+        <input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+        <?=$detail2->borrower_lname?>
+        ,
+        <?=$detail2->borrower_fname?>
+        <?=$detail2->borrower_mname?>
+        </th></td>
+      <td align="center" class="c2"><span class="c1"> P
+        <?=number_format($detail2->amountloan, 2)?>
+      </span></td>
+      <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>%</td>
+      <td align="center" class="c3"><?=$detail2->loanterm?>
+        months </td>
+      <td align="center" class="c3"><?=$this->viewScore($detail2->score,$detail2->capbasis,'view')?></td>
+      <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($this->getLastDateAutoRoute($detail2->capno)))?></td>
+    </tr>
+    <? $counter2++; } ?>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="4" class="c1"><font color="#6c3">&#9608;</font>  - Approve
+   	<font color="#cf3">&#9608;</font>  - Recommend / Pass      
+<font color="#f33">&#9608;</font>  - Reject      
+      
+      </th>
+      <th class="c3"><input type="button" name="button2" id="button3" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/></th>
+      <th class="c3"><strong>
+        <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+      </strong></th>
+    </tr>
+  </tfoot>
+</table>
+</center>
+</form>
+<script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTable2'), 200);
+</script>
+<p>&nbsp;</p>

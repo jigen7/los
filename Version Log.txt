@@ -1,0 +1,71 @@
+/****
+VERSION LOG
+
+Paolo MArco M. Manarang
+i_love_jigen@yahoo.com
+63+915-435-8410
+
+***/
+
+
+1.0 - Nov 25,2009 11:49am
+-Speed Up Loading Process by adding 2 new table that contains the provinces and vehicle brand namely
+select_chain_address_province and select_chain_vehicle_brand, as the latter will read all the data and dintictly
+return the provinces and brand base on the appropriate column
+
+-Fixed the MA - CA Page as for the vehichle type is type integer while the dropdown value is set to string, changed
+the veh_type column to the exsisitng table - borrower_accounts,borrower_account_audit_ca, borrower_account_audit_ma
+to character varyfying(50)
+
+1.1 - Nov 26, 2009
+-Changed Expiry Date to Member Since/Number of years, date -> Character Varifying(50) , Remove the date format in the
+obligation edit and view view file, tables afftected, 	borrower_ob_creditcard,	borrower_ob_creditcard_ma,borrower_ob_creditcard_ca 	
+
+-Relocate the position of add details in the forms in the bottom area so the encoded information can be seen 1st.
+
+-Add Borrower Name to Audit Detail and Account History
+ 
+1.2 - Dec 01, 2009
+- Added Update button to Employment 
+- Change Deviation of Employment Total Years with adding the previous and current employment with same industry
+- **Will score even with deviation base on the given boundaries per deviation list
+
+1.3 - Dec 03, 2009
+- Added to accomodate same total income per borrower,spouse , coborrower.
+- Change GMI RAtio Computing adding the total monthly amortization of Existing Loans
+
+1.4 - Dec 04, 2009
+- Added Update for Business 
+- Added Total Cost Sales , Total Gross Sales, Total Net Income Before  
+- Added Dosri
+- Remove Model Basis
+- Fix Downpayment Actual Auto Fix
+
+1.5 - Dec 17,2009
+- Craw Improvement
+- Remove Edit to CO profile and change RTS settings for it
+
+1.6 - Jan 28-2010
+- Major Updates - Deviation - Craw
+
+1.7 Feb 02 2010
+-System Generated - thge fields for amountloan,monthly_amortization
+-Add Return function to the Inbox Pending in the borrower-view
+- Add Delete in Edit for Coborrower and Spouse
+- Remove in the deviationlist the selling price vs LCP , selling price vs Appraisal Value 
+
+1.8 Feb 19 , 2010
+- change the viewScore view Helper major improvement
+- change the autoroute procedure
+1.9
+- Autorouting Done
+-Endorsement
+-PAssing 
+- Trace Bug in MArketing no prompt display -- error in javascript where the fields ci_date nfis_date is not specified for CA and CO only
+
+March 02,2010
+- Improve the Credit Decision Allowing Autorouting Decision to be Seen via Craw
+
+March 03,2010
+- Update the Scoremodule of the printed craw added date and printed by and also change the file name 
+- Added CA - Pass in the process

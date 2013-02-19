@@ -1,0 +1,88 @@
+<?
+class Form_AccountPageView extends Zend_Form
+{
+    public function __construct($options = null)
+    {
+	parent::__construct($options);
+
+	$profile = new Zend_Form_Element_Select('profile');
+	$profile->removeDecorator('label')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->setAttrib('style','width: 120px')
+		 ->setAttrib('onChange',"window.location=this.options[this.selectedIndex].value")
+		 ->setAttrib('id', 'prof')
+		 ->addMultiOption(0 ,'Select Profile')
+		 ->setValue('0');
+		 /*$table = new Model_CategoryValues();
+		 $sql = $table->select()
+	    ->where('name LIKE ?', 'Citizenship')->order("seq ASC");
+		 foreach ($table->fetchAll($sql,"seq ASC") as $c) {
+         $citizenship->addMultiOption($c->seq, $c->values);} 
+		*/
+	$this->addElement($profile);
+
+	$car_history = new Zend_Form_Element_Radio('car_history');
+	$car_history->removeDecorator('label')
+			->removeDecorator('HtmlTag')
+			->addMultiOption('1','Ok')
+			->addMultiOption('0','Not Ok');
+	$this->addElement($car_history);
+	
+	$creditanalyst = new Zend_Form_Element_Select('creditanalyst');
+	$creditanalyst->removeDecorator('label')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->addMultiOption(0 ,'')
+		 ->setAttrib('onchange','submitform();')
+		 ->setAttrib('style','width: 120px');
+
+		 $table = new Model_Users();
+		$sql = $table->select()
+	    ->where('role_type LIKE ?', 'CA')->order("id ASC");
+		 foreach ($table->fetchAll($sql,"id ASC") as $c) {
+         $creditanalyst->addMultiOption($c->username, $c->name);} 
+         
+	$this->addElement($creditanalyst);
+	
+	$creditofficer = new Zend_Form_Element_Select('creditofficer');
+	$creditofficer->removeDecorator('label')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->addMultiOption(0 ,'')
+		 ->setAttrib('onchange','submitform();')
+		 ->setAttrib('style','width: 120px');
+
+		 $table = new Model_Users();
+		$sql = $table->select()
+	    ->where('role_type LIKE ?', 'CO')->order("id ASC");
+		 foreach ($table->fetchAll($sql,"id ASC") as $c) {
+         $creditofficer->addMultiOption($c->username, $c->name);} 
+         
+	$this->addElement($creditofficer);	
+	
+	$creditofficer = new Zend_Form_Element_Select('creditofficer');
+	$creditofficer->removeDecorator('label')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->addMultiOption(0 ,'')
+		 ->setAttrib('onchange','submitform();')
+		 ->setAttrib('style','width: 120px');
+
+		 $table = new Model_Users();
+		$sql = $table->select()
+	    ->where('role_type LIKE ?', 'CO')->order("id ASC");
+		 foreach ($table->fetchAll($sql,"id ASC") as $c) {
+         $creditofficer->addMultiOption($c->username, $c->name);} 
+ 	$this->addElement($creditofficer);	
+	
+	}
+}
+
+
+
+function BaseUrl(){
+		return Zend_Controller_Front::getInstance()->getBaseUrl();
+	}
+
+?>

@@ -1,0 +1,176 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<SCRIPT language="JavaScript">
+var counter = false;
+function submitform()
+{
+ if(document.decision.onsubmit())
+ {//this check triggers the validations
+    document.decision.submit();
+	setTimeout(refr(),5000);
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location.reload();
+	}
+}
+
+function winResize(){
+	if(!counter){
+		counter = true;
+window.resizeTo(800,600);	
+
+}else {
+window.resizeTo(800,245);	
+	counter = false;
+}
+}
+
+</SCRIPT> 
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+	var glo;
+	function getdataback() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		 ajaxObj.call("action=getdata&username=<?=$this->loggedInUser();?>",respGetData);
+
+		//alert(getCity());
+	}
+	
+	function respGetData(resp) {
+		//document.getElementById('content').innerHTML = resp;
+		//return resp;
+		//document.writeln(resp);
+		glo = resp;
+	}
+</script>
+<form action="" method="post" name="decision">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CREDIT DECISION 
+	  <?=$this->detail->routetag?>
+	</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+<script>
+getdataback();
+</script>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="6">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="9%">&nbsp;</td>
+    <td colspan="5"><strong>Borrower Name:
+      <?=$this->detail->borrower_lname?>
+      ,
+      <?=$this->detail->borrower_fname?>
+      <?=$this->detail->borrower_mname?>
+    </strong></td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center">Amount of Loan: P
+      <?=number_format($this->detail->amountloan,2)?>
+      &nbsp;&nbsp;&nbsp;&nbsp; 
+      DP%:
+      <?=$this->detail->downpayment_percent?>
+      &nbsp;&nbsp;&nbsp;&nbsp; Term:
+      <?=$this->detail->loanterm?>
+      &nbsp;&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td width="29%" align="center"><strong>Endorsing Authority</strong></td>
+    <td width="14%" align="center"><strong>Position</strong></td>
+    <td width="15%" align="center"><strong>Date</strong></td>
+    <td width="15%" align="center"><strong>Endorse To</strong></td>
+    <td width="18%" align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="center"><?=$this->viewMa($this->user)?></td>
+    <td align="center"><?=$this->role?></td>
+    <td align="center"><input type="text" name="date" value="<?=date('m-d-Y')?>"  readonly="readonly" size="8"/></td>
+    <td align="center"><?=$this->form->endorse_to?></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="4" align="center"><textarea name="remarks" cols="40" rows="3" id="textarea"></textarea></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="4" align="center">Enter Electronic Password:
+      <input type="password" name="digiPass" id="digiPass" />
+      <input type="button" name="button" id="button" value="Submit" onclick="javascript:submitform();"/></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center"><!--
+    <a href="#" onclick="winResize()">&gt;&gt;&gt;More&lt;&lt;&lt;</a>
+    --></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+      <? foreach($this->history as $details) { ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="center"><?=$this->viewMa($details->approved_by)?></td>
+    <td align="center"><?=$this->crawApprovalDate($details->date_type,$details->date_approval);
+			  ?></td>
+    <td align="center"><?=$details->decision?></td>
+    <td colspan="2" align="center"><?=$details->reason?></td>
+    </tr>
+  <? } ?>
+</table>
+</form>
+
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("decision")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("remarks","req","Remarks Required!!");
+
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["decision"];
+	  	    if (calcMD5(frm.digiPass.value) !=  glo){
+	    	  sfm_show_error_msg("Wrong Digital Password Please Enter Again");
+   			  return false
+	  		}
+
+		  	{
+	    return true;
+			}
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+</script>

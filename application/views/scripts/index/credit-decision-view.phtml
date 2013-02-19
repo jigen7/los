@@ -1,0 +1,167 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.decision.onsubmit())
+ {//this check triggers the validations
+    document.decision.submit();
+	self.close();
+	setTimeout(refr(),5000);
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>';
+	}
+}
+
+
+</SCRIPT> 
+<form action="" method="post" name="decision">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CREDIT DECISION</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+  <td width="6%">&nbsp;</td>
+  <td width="8%">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td align="center">Decision</td>
+  <td align="center">Date</td>
+  <td align="center">Remarks</td>
+  </tr>
+<tr>
+  <td colspan="2" align="center">&nbsp;</td>
+  <td width="21%" align="center"><?=$this->viewMa($this->detail->co_name)?></td>
+  <td align="center"><?=$this->viewAccountStatus($this->detail->co_decision)?></td>
+  <td align="center"><?=$this->detail->co_date?></td>
+  <td><?=$this->getLastRemarksAutoRoute($this->detail->capno,'CO')?></td>
+  </tr>
+<tr>
+  <td colspan="2" align="center">&nbsp;</td>
+  <td align="center"><?=$this->viewMa($this->detail->csh_name)?></td>
+  <td align="center"><?=$this->detail->csh_decision?></td>
+  <td align="center"><?=$this->detail->csh_date?></td>
+  <td><?=$this->getLastRemarksAutoRoute($this->detail->capno,'CSH')?></td>
+  </tr>
+<tr>
+  <td colspan="2" align="center">&nbsp;</td>
+  <td align="center"><?=$this->viewMa($this->detail->cmg_name)?></td>
+  <td width="21%" align="center"><?=$this->detail->cmg_decision?></td>
+  <td width="18%" align="center"><?=$this->detail->cmg_date?></td>
+  <td width="26%"><?=$this->getLastRemarksAutoRoute($this->detail->capno,'CMGH')?></td>
+  </tr>
+<tr>
+  <td colspan="2" align="center">&nbsp;</td>
+  <td align="center"><?=$this->viewMa($this->detail->pres_name)?></td>
+  <td align="center"><?=$this->detail->pres_decision?></td>
+  <td align="center"><?=$this->detail->pres_date?></td>
+  <td><?=$this->getLastRemarksAutoRoute($this->detail->capno,'PRES')?></td>
+  </tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td align="center"><strong>Sub - Crecom</strong></td>
+  <td><?=$this->detail->subcrecom_decision?></td>
+  <td align="center"><?=$this->detail->subcrecom_date?></td>
+  <td>&nbsp;</td>
+  </tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td align="center"><strong>Crecom</strong></td>
+  <td><?=$this->detail->crecom_decision?></td>
+  <td align="center"><?=$this->detail->crecom_date?></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td align="center"><strong>Board</strong></td>
+  <td><?=$this->detail->board_decision?></td>
+  <td align="center"><?=$this->detail->board_date?></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+  <td align="center"><strong>Overall Decision</strong></td>
+  <td align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+  </tr>
+<tr>
+  <td align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+  <td colspan="3" align="center"><?=$this->viewMa($this->detail->application_name)?>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <?=$this->viewAccountStatus($this->detail->application_decision)?>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<?=date('m-d-Y',strtotime($this->detail->application_date))?></td>
+  <td align="center">&nbsp;</td>
+</tr>
+<tr>
+  <td align="center">&nbsp;</td>
+  <td colspan="4" align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+</tr>
+</table>
+</form>
+</form>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("decision")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("application_date","req","Final Decision Date Required!!");
+frmvalidator.addValidation("application_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["decision"];
+	  	    if (frm.application_name.value == '')
+	  		{
+	    	  sfm_show_error_msg("Please Provide Overall Approve By: ");
+   			  return false
+	  		}
+			else if (frm.application_decision.value == '')
+	  		{
+	    	  sfm_show_error_msg("Please Provide Overall Decision: ");
+   			  return false
+	  		}
+		  	{
+	    return true;
+			}
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+</script>

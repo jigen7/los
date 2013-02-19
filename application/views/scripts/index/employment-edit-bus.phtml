@@ -1,0 +1,312 @@
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+//Ajax to Call the Total income
+	var ajaxObj;
+
+	
+	function startZip() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCity()+"&brgy="+getBrgy(), respZipcode);
+		//alert(getCity());
+	}
+	
+	function startZipPrev() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCityPrev()+"&brgy="+getBrgyPrev(), respZipcodePrev);
+		//alert(getCity());
+	}
+	
+	function respZipcode(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["business"].bus_zipcode.value = resp;
+		
+	}
+	
+		function respZipcodePrev(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["employment"].emp_zipcode.value = resp;
+		
+	}
+	
+	function getCity(){
+		var city = document.forms["business"].borrower_pres_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgy(){
+		var brgy = document.forms["business"].borrower_pres_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	function getCityPrev(){
+		var city = document.forms["employment"].borrower_prev_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgyPrev(){
+		var brgy = document.forms["employment"].borrower_prev_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	
+
+</script> 
+ 
+  <script type="text/javascript">
+    <!--
+    $(function () {
+
+		var province = $('#categorySelect');
+        var city = $('#citySelect');
+		var brgy = $('#brgySelect');
+
+		city.selectChain({
+            target: brgy,
+            url: '<?=$this->baseUrl();?>/inc/select-city.php?brgy=<?=$this->borrower_pres_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province.selectChain({
+            target: city,
+            url: '<?=$this->baseUrl();?>/inc/select-province.php?city=<?=$this->borrower_pres_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+    });
+
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+
+
+function clearrr(the_sub){
+		if (the_sub == 0){
+		document.getElementById('citySelect').options.length = 0;
+		document.getElementById('brgySelect').options.length = 0;
+		document.getElementById('zipSelect').value = '';
+		}
+	}
+
+function bcompage(bDay){
+ now = new Date()
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+    document.forms["business"].bus_yrs.value = years;
+  document.forms["business"].bus_months.selectedIndex = 0; 
+
+ }
+}
+
+function datefs(formatt){
+ var num = formatt.length;
+ var frm = document.business;
+ if(num == 2){
+	 frm.bus_date.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.bus_date.value = formatt + '/'; 	 
+ }
+	
+}
+
+
+function busyrs(val){
+	 now = new Date();
+	 document.forms["business"].bus_date.value ="01/01/"+(now.getFullYear() - val);
+}
+
+function empannualtomonthly(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_annual.value / frm.emp_multiplier.value;
+	 frm.emp_income.value = result.toFixed(2);
+}
+function empmonthlytoannual(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_income.value * frm.emp_multiplier.value;
+	 frm.emp_annual.value = result.toFixed(2);	
+}
+function busannualtomonthly(){
+	 var frm = document.business;
+	 var result;
+	 result = frm.bus_annual.value / frm.bus_multiplier.value;
+	 frm.bus_income.value = result.toFixed(2);
+}
+function busmonthlytoannual(){
+	var frm = document.business;
+	var result;
+	result = frm.bus_income.value * frm.bus_multiplier.value;
+	frm.bus_annual.value = result.toFixed(2);		
+}
+</script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>EDIT BUSINESS</strong></td>
+</tr>
+</table>
+<center>
+  <form name="business" method="post" style="display:inline">
+
+
+<table width="101%" border="0">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BUSINESS</font></strong></td>
+  </tr>
+  <tr>
+    <td width="16%">Business Name:</td>
+    <td width="16%"><?=$this->form->bus_name?></td>
+    <td width="35%">Nature of Business:      
+    <?=$this->form->bus_nat?></td>
+    <td colspan="2">Landline No.:      
+    <?=$this->form->bus_telno?> <?=$this->form->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Business Address:</td>
+    <td colspan="4"> Street      
+    <?=$this->form->borrower_pres_address_street?></td>
+  </tr>
+  <tr>
+    <td colspan="5">Brgy      
+      <?=$this->form->borrower_pres_address_brgy?> City:     <?=$this->form->borrower_pres_address_city?> Province: <?=$this->form->borrower_pres_address_province?></td>
+    </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$this->form->bus_zipcode?></td>
+    <td>Years in Business:
+    <?=$this->form->bus_yrs?> /  <?=$this->form->bus_months?></td>
+    <td width="13%">&nbsp;</td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Source of Income</td>
+    <td><?=$this->form->bus_srcincome?></td>
+    <td>Business Started:      
+    <?=$this->form->bus_date?></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P <?=$this->form->bus_income?></td>
+    <td>Annual Income: P
+      <?=$this->form->bus_annual?> / 
+      <?=$this->form->bus_multiplier?></td>
+    <td colspan="2" align="left">DTI Registration No:
+      <?=$this->form->bus_dti?></td>
+    </tr>
+  <tr>
+    <td>Total Gross Sales:      </td>
+    <td>P
+      <?=$this->form->total_gross_sales?></td>
+    <td>Total Cost of Sales: 
+    P
+      <?=$this->form->total_cost_sales?></td>
+    <td colspan="2">Total Net Income Before: P
+      <?=$this->form->total_net_income_before?></td>
+    </tr>
+  <tr>
+    <td>Source/Date</td>
+    <td><?=$this->form->bus_source_date?></td>
+    <td>&nbsp;</td>
+    <td><div align="right">
+      <input name="button" type="button" onclick="window.location='<?=$this->baseUrl().'/index/employmentedit/cap/'.$this->capno?>'" value="Back" />
+    </div></td>
+    <td><input name="button2" type="submit"  value="Update Business" /></td>
+    </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+</table>
+  </form>
+</center>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("business")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("bus_name","req","Business Name is Required!!");
+
+frmvalidator.addValidation("bus_zipcode","req","Business Address Zip Code is Required!!");
+frmvalidator.addValidation("bus_date","req","Business Started Required!!");
+frmvalidator.addValidation("bus_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("bus_yrs","req","Business Years is Required!!");
+frmvalidator.addValidation("bus_income","req","Business Monthly Income is Required!!");
+
+
+frmvalidator.addValidation("bus_telno","req","Business Landline is Required!!");
+frmvalidator.addValidation("bus_telno","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+
+frmvalidator.addValidation("borrower_pres_address_street","req","Business Address Street!!");
+
+
+ function DoCustomValidationBusiness()
+	{
+	  var frm = document.forms["business"];
+	  	if (frm.borrower_pres_address_province.value == '0'){
+	    	  sfm_show_error_msg("Business Address Province - Required");
+			  return false }
+	     else if (frm.borrower_pres_address_city.value == ''){
+	    	  sfm_show_error_msg("Business Address City - Required");
+			  return false }
+		else if (frm.borrower_pres_address_brgy.value == ''){
+	    	  sfm_show_error_msg("Business Address Brgy - Required");
+			  return false }
+
+	   else if (frm.bus_srcincome.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Business Source iof Income");
+			  return false
+	  } 
+	  	else if (frm.bus_nat.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Business Nature");
+   			  return false
+	  }
+	   else if (frm.bus_date.value != '')
+	  {
+		var dateString = frm.bus_date.value;
+		var myDate = new Date(dateString);
+		var today = new Date();
+			if(myDate>today){
+			  sfm_show_error_msg("Bus Date:You cannot input a future date!!");
+   			  return false
+			}
+	  }	 
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationBusiness");
+</script>
+

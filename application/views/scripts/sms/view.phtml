@@ -1,0 +1,178 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form action="" method="post" name="account-history">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>SMS - View</strong></td>
+
+	<td width="13%" align="center">&nbsp;</td>
+</tr>
+<tr>
+  <td colspan="2"><a href="<?=$this->baseUrl()?>/sms/view/date/<?=date('Y-m-d')?>">Today </a> | <a href="<?=$this->baseUrl()?>/sms/current">Ongoing </a> | <a href="<?=$this->baseUrl()?>/sms/history">History</a></td>
+  </tr>
+<tr>
+  <td colspan="2">From:<?=$this->form->startdate?> To:<?=$this->form->enddate?>
+    <input type="submit" name="button" id="button" value="Submit" /></td>
+</tr>
+</table>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white; display:none">
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td colspan="3">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+<tr><td width="2%">&nbsp;</td>
+  <td width="9%">&nbsp;</td>
+  <td width="21%">&nbsp;</td>
+  <td colspan="3">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  </tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>Cap No.</td>
+  <td><?=$this->form->capno?></td>
+  <td colspan="5">&nbsp;</td>
+  </tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td width="15%">&nbsp;</td>
+  <td width="5%">&nbsp;</td>
+  <td width="15%">&nbsp;</td>
+  <td width="15%">&nbsp;</td>
+  <td width="18%">&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>Borrower</td>
+  <td><?=$this->form->borrower_lname?></td>
+  <td>&nbsp;</td>
+  <td colspan="2">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td colspan="2">&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+</table>
+</form>
+
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="11" align="left"><strong>Pending</strong></td>
+  </tr>
+  <tr>
+    <td width="2%" align="center"><strong>id</strong></td>
+    <td width="7%" align="center"><strong>Capno</strong></td>
+    <td width="11%" align="center"><strong>Name</strong></td>
+    <td width="15%" align="center"><strong>Approver</strong></td>
+    <td width="8%" align="center"><strong>Decided</strong></td>
+    <td width="10%" align="center"><strong>Time 1st Sent</strong></td>
+    <td width="10%" align="center"><strong>Time Last Sent</strong></td>
+    <td width="11%" align="center"><strong>Status</strong></td>
+    <td width="5%" align="center"><strong># Sent</strong></td>
+    <td width="11%" align="center"><strong>Account Status</strong></td>
+    <td width="10%" align="center"><strong>Current Status</strong></td>
+  </tr>
+  <? foreach($this->detail as $x) { 
+  	$saveStatus = $this->viewAccountStatus($x->account_status);
+	$currStatus = $this->getCurrentStatus($x->capno);
+	$style = '';
+	$styleRow = '';
+	
+  	if($saveStatus != $currStatus){
+		$style = "style='background-color:#F00'";
+	}
+	
+	if($x->decided == "T"){
+		$styleRow =  "style='background-color:#33FF33'";	
+	}
+  ?>
+  <tr <?=$styleRow?> onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$x->capno?>'">
+    <td align="center"><?=$x->id?></td>
+    <td align="center"><?=$x->capno?></td>
+    <td align="center"><?=$x->borrower?></td>
+    <td align="center"><?=$x->approver?></td>
+    <td align="center"><?=$x->decided?></td>
+    <td align="center"><?=$x->time_1st_sent?></td>
+    <td align="center"><?=$x->time_last_sent?></td>
+    <td align="center"><?=$x->status?></td>
+    <td align="center"><?=$x->num_sent?></td>
+    <td align="center"><?=$saveStatus?></td>
+    <td align="center" <?=$style?>><?=$currStatus?></td>
+  </tr>
+  <? } ?>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="11"><strong>History</strong></td>
+  </tr>
+  <tr>
+    <td width="2%" align="center"><strong>id</strong></td>
+    <td width="7%" align="center"><strong>Capno</strong></td>
+    <td width="11%" align="center"><strong>Name</strong></td>
+    <td width="15%" align="center"><strong>Approver</strong></td>
+    <td width="8%" align="center"><strong>Decided</strong></td>
+    <td width="10%" align="center"><strong>Time 1st Sent</strong></td>
+    <td width="10%" align="center"><strong>Time Last Sent</strong></td>
+    <td width="11%" align="center"><strong>Status</strong></td>
+    <td width="5%" align="center"><strong># Sent</strong></td>
+    <td width="11%" align="center"><strong>Account Status</strong></td>
+    <td width="10%" align="center"><strong>Current Status</strong></td>
+  </tr>
+  <? foreach($this->historyDetail as $x) { 
+  	$saveStatus = $this->viewAccountStatus($x->account_status);
+	$currStatus = $this->getCurrentStatus($x->capno);
+	$style = '';
+	$styleRow = '';
+	
+  	if($saveStatus != $currStatus){
+		$style = "style='background-color:#F00'";
+	}
+	
+	if($x->decided == "T"){
+		$styleRow =  "style='background-color:#33FF33'";	
+	}
+  ?>
+  <tr <?=$styleRow?> onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$x->capno?>'">
+    <td align="center"><?=$x->id?></td>
+    <td align="center"><?=$x->capno?></td>
+    <td align="center"><?=$x->borrower?></td>
+    <td align="center"><?=$x->approver?></td>
+    <td align="center"><?=$x->decided?></td>
+    <td align="center"><?=$x->time_1st_sent?></td>
+    <td align="center"><?=$x->time_last_sent?></td>
+    <td align="center"><?=$x->status?></td>
+    <td align="center"><?=$x->num_sent?></td>
+    <td align="center"><?=$saveStatus?></td>
+    <td align="center" <?=$style?>><?=$currStatus?></td>
+  </tr>
+  <? } ?>
+</table>

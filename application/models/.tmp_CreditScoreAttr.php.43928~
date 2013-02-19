@@ -1,0 +1,38 @@
+<?
+/**
+ * Auto Loan System 
+ * @author Paolo Marco Manarang <paolomanarang@gmail.com>
+ * @package LOS
+ */
+class Model_CreditScoreAttr extends Zend_Db_Table {
+	protected $_name="score_attributes";
+	
+	function updateScore($string){
+			
+		parse_str($string,$output);
+		
+		$scoretag = Zend_Controller_Action_HelperBroker::getStaticHelper('ScoreTag');
+		// To get if P1,P2,F1,F2,F3
+		$scoreR = $scoretag->direct($output['totalscore'], $output['empbus_status'],$output['capno']);
+	
+		//LOS Borrower Accounts Model to be change in CIN
+		$borrower = new Model_BorrowerAccount();
+		$principaldetail = $borrower->fetchRowModel($output['capno']);
+		// END OF LOS
+		if($principaldetail->deviation){
+			$ifDev ='D';
+		}			
+		
+		$where = "id =".$output['lastid'];
+		$data = array(
+		'score'=>$output['totalscore'],
+		'score_attributes'=>$string,
+		'scoretag'=>$output['empbus_status'].' '.$output['totalscore'].' '.$scoreR.' '.$ifDev,
+		'modelused'=>$output['modelused'],
+		);
+		$this->update($data, $where);
+		
+		
+	}
+    }
+?>

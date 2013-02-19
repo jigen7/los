@@ -1,0 +1,29 @@
+<?
+/**
+ * Auto Loan System 
+ * @author Paolo Marco Manarang <paolomanarang@gmail.com>
+ * @package LOS
+ */
+class Model_BorrowerAccount extends Zend_Db_Table {
+	protected $_name="borrower_accounts";
+	
+	public function fetchRowModel($capno){
+		
+		$table = new Model_BorrowerAccount();
+		$select = $table->select();
+		$select->where('capno like ?',$capno);
+		
+		$detail = $table->fetchRow($select);
+		
+		return $detail;
+		
+	}
+	
+	public function getRelation($capno){
+		
+		
+		
+	}
+	
+    }
+?>

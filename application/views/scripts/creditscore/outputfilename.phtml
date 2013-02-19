@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	function submitFileName(){
+		var x = document.getElementById('filename').value;
+		if(x == "") alert("Output filename please");
+		else{
+			 window.opener.setCheck();
+			 document.product.submit();
+			 alert("File Saved!");
+			 window.close();
+		}
+	}
+</script>
+
+<form action="" method="post" name="product" id="product" onsubmit="window.close()">
+<table width="300" border="0">
+  <tr>
+    <td><b/>Output File Name: </td>
+    <td colspan="2"><input type="text" name="filename" id="filename" size="20" value=""></td>
+  </tr>
+  <tr>
+	<td><p></p></td>
+    <td><spacer><input name="button" type="button" value="Ok" onclick="submitFileName()"/></td>
+    <td><input name="button" type="button" value="Cancel" onclick="window.close()"/></td>
+  </tr>
+  <tr style="color:#F00"><b/><?=$this->filenameExist?></tr>
+</table>
+</form>

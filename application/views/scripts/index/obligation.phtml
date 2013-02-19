@@ -1,0 +1,115 @@
+     <script type="text/javascript">
+    <!--
+    $(function () {
+        var cat = $('#categorySelect');
+        var el = $('#elementSelect');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+        cat.selectChain({
+            target: el,
+            url: '<?=$this->baseUrl();?>/inc/query.php',
+            data: { ajax: true }
+        }).trigger('change');
+
+    });
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">CREDIT CARDS OWNED</font></strong></td>
+  </tr>
+</table>
+<br />
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="20%" align="center"><strong>CREDIT COMPANY</strong></td>
+    <td width="25%" align="center"><strong>CREDIT LIMIT</strong></td>
+    <td width="19%" align="center"><strong>Number of Years </strong></td>
+  </tr>
+   <?php foreach($this->creditcarddetail as $creditcarddetails) :?>
+  <tr align="left">
+    <td align="center"><?=$creditcarddetails->company?></td>
+    <td align="center">P
+    <?=number_format($creditcarddetails->limit,2)?></td>
+    <td align="center"><?=$creditcarddetails->expiry_date?></td>
+  </tr>
+    <?php endforeach; ?>
+</table>
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">EXISTING LOANS</font></strong></td>
+  </tr>
+</table>
+<br />
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="24%" align="center"><strong>BANK</strong></td>
+    <td width="18%" align="center"><strong>TYPE OF FACILITY</strong></td>
+    <td width="21%" align="center"><strong>OUTSTANDING BALANCE</strong></td>
+    <td width="19%" align="center"><strong>MONTHLY AMORTIZATION</strong></td>
+    <td width="19%" align="center"><strong>LOAN AMOUNT</strong></td>
+    <td width="18%" align="center"><strong>REMARKS</strong></td>
+  </tr>
+  <?php foreach($this->loandetail as $loandetails) :?>
+  <tr align="left">
+    <td align="center"><?=$loandetails->bank?></td>
+    <td align="center"><?=$loandetails->facility_type?></td>
+    <td align="center">P<?=number_format($loandetails->amount,2)?></td>
+    <td align="center">P
+    <?=number_format($loandetails->monthly_amortization,2)?></td>
+    <td align="center">P 
+    <?=number_format($loandetails->loan_amount,2)?></td>
+    <td align="center"><?=$loandetails->collateral?></td>
+  </tr>
+      <?php endforeach; ?>
+</table><br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">Business Financials</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="33%" align="center"><strong>LIABILITIES</strong></td>
+    <td width="35%" align="center"><strong>EMV</strong></td>
+    <td width="32%" align="center"><strong>REMARKS</strong></td>
+  </tr>
+  <?php foreach($this->bf_liabilities_detail as $bf_liabilities_details) :?>
+  <tr align="left">
+    <td align="center"><?=$bf_liabilities_details->business_liability?></td>
+    <td align="center">P
+    <?=number_format($bf_liabilities_details->business_liability_emv,2)?></td>
+    <td align="center"><?=$bf_liabilities_details->business_liability_remarks?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<p>&nbsp;</p>

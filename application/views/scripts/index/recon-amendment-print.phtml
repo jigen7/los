@@ -1,0 +1,519 @@
+<script type="text/Javascript">
+
+
+function openDecision(pageURL, title,w,h){
+	//window.open(','mywindow','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes')
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+
+  var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+	showModalDialog(pageURL,null,option);	
+}
+</script>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.amendmentcolorheader {
+	color: #666;
+}
+.requestcolorheader {
+	color: #000000;
+}
+table.sourceheader {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: solid;
+	border-color: gray;
+	border-collapse: separate;
+	background-color: white;
+}
+table.sourceheader th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: none;
+	border-color: gray;
+	background-color: white;
+	-moz-border-radius: 3px 3px 3px 3px;
+}
+table.sourceheader td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: none;
+	border-color: gray;
+	background-color: white;
+	-moz-border-radius: 3px 3px 3px 3px;
+	}
+.sourceheader1strow {
+	font-size: 8pt;	
+	}
+table.request {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: black;
+	border-collapse: separate;
+	background-color: white;
+}
+table.request th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.request td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}	
+	
+</Style>
+<center>
+<table width="95%" border="0">
+  <tr>
+    <td colspan="2"><img src="<?=$this->baseUrl();?>/images/cbs_craw_logo.jpg" width="314" height="61"/></td>
+    <td width="30%"><table width="100%" border="1" class="sourceheader">
+      <tr>
+        <td class="sourceheader1strow">Source of Application</td>
+      </tr>
+      <tr>
+        <td align="center"><strong>AUTO LOANS</strong></td>
+      </tr>
+    </table></td>
+  </tr>
+  </table>
+  <form name="ammend" method="post">
+<table width="95%" border="0">
+  <tr>
+    <td width="73%"><strong class="amendmentcolorheader">AMENDMENT FORM</strong></td>
+    <td width="27%" align="right" class="sourceheader1strow">Date: <?=$this->detail->recon_amendment_date?></td>
+    </tr>
+</table>
+<table width="95%" border="1" class="sourceheader">
+  <tr>
+    <td class="sourceheader1strow">Borrower's Name</td>
+    </tr>
+  <tr>
+    <td><strong><?=$this->detail->borrower_fname.' '.$this->detail->borrower_mname.' '.$this->detail->borrower_lname?></strong> </td>
+    </tr>
+  <tr>
+    <td height="22">Address: 
+      <?=$this->detail->pres_address_no.' '.$this->detail->pres_address_st.' '.$this->detail->pres_address_brgy.' '.$this->detail->pres_address_city.' '.$this->detail->pres_address_province. ','.$this->detail->pres_zipcode;?>
+   </td>
+    </tr>
+</table>
+<br />
+<table width="95%" border="0">
+  <tr>
+    <td width="73%"><strong class="requestcolorheader">Request:</strong></td>
+    <td width="27%" class="sourceheader1strow">&nbsp;</td>
+  </tr>
+</table>
+<table width="95%" border="1" class="request">
+  <tr> 
+    <td width="44%" align="center" ><strong>AMENDMENT ON</strong></td>
+    <td width="27%" align="center" ><strong>FROM(
+      <?=$this->oldcap?>
+      ) </strong></td>
+    <td width="29%" align="center" ><strong>TO(
+      <?=$this->capno?>
+      ) </strong></td>
+  </tr>
+  <? if($this->amend){ ?>
+  <? foreach ($this->amend as $x){ ?>
+  <tr>
+    <td align="center" ><?=$this->viewFields($x)?></td>
+    <td align="center" ><?=$this->viewReconFormat($this->old->$x,$x)?></td>
+    <td align="center" ><?=$this->viewReconFormat($this->detail->$x,$x)?></td>
+  </tr>
+  <? } }?>
+  
+</table>
+<br />
+<table width="95%" border="0">
+  <tr>
+    <td width="73%"><strong class="requestcolorheader"><!-- Recommendation/s: --></strong></td>
+    <td width="27%" class="sourceheader1strow">&nbsp;</td>
+  </tr>
+</table>
+<table width="95%" border="1" class="sourceheader">
+  <tr>
+    <td ><? // nl2br($this->detail->recon_remarks_ca)?></td>
+  </tr>
+  <tr>
+    <td height="22"><strong>CA Remarks</strong></td>
+  </tr>
+  <tr>
+    <td height="22">
+      <?=nl2br($this->remark_ca->remarks);?>
+    </td>
+  </tr>
+  <tr>
+    <td height="22"><strong>CO Remarks</strong></td>
+  </tr>
+    <tr>
+    <td><?=nl2br($this->detail->recon_remarks_co)?></td>
+  </tr>
+</table>
+<br />
+
+<table width="95%" border="0">
+  <tr>
+    <td width="73%"><strong class="requestcolorheader">Other Terms and Conditions : </strong></td>
+    <td width="27%" class="sourceheader1strow">&nbsp;</td>
+  </tr>
+</table>
+<table width="95%" align="center" class="request">
+  <tr>
+    <td width="27%" align="left"><strong>Items</strong><strong></strong></td>
+    <td width="36%" align="center"><strong>From(
+      <?=$this->oldcap?>
+      )</strong></td>
+    <td width="37%" align="center"><strong>To(
+      <?=$this->capno?>
+      )</strong></td>
+  </tr>
+  <tr>
+    <td align="left">Score </td>
+    <td align="center"><?=$this->viewScoreRating($this->old->score_tag)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->score_tag,$this->detail->score_tag,'ammend')?>><?=$this->viewScoreRating($this->detail->score_tag)?></td>
+  </tr>
+  <!--
+  <tr>
+    <td align="left">Dealer Incentive Rate</td>
+    <td align="center"><?=$this->old->dealer_incentive?>
+      %                 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P
+      <?=number_format($this->old->dealer_incentive2,2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->dealer_incentive,$this->detail->dealer_incentive,'ammend')?>><?=$this->detail->dealer_incentive?>
+      %                 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P
+      <?=number_format($this->detail->dealer_incentive2,2)?></td>
+  </tr>
+  <tr>
+    <td align="left">Effective Yield</td>
+    <td align="center"><?=$this->old->effective_yield?>
+      %</td>
+    <td align="center" <?=$this->viewReconCompare($this->old->effective_yield,$this->detail->effective_yield,'ammend')?>><?=$this->detail->effective_yield?>
+      %</td>
+  </tr>
+  -->
+  <tr>
+    <td align="left">Financing Scheme</td>
+    <td align="center"><?=$this->old->addon_rate?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->addon_rate,$this->detail->addon_rate,'ammend')?>><?=$this->detail->addon_rate?></td>
+  </tr>
+  <tr>
+    <td align="left">Addon Rate</td>
+    <td align="center"><?=$this->old->rate?>
+      %</td>
+    <td align="center" <?=$this->viewReconCompare($this->old->rate,$this->detail->rate,'ammend')?>><?=$this->detail->rate?>
+      %</td>
+  </tr>
+  <tr>
+    <td align="left">Dealer</td>
+    <td align="center"><?=$this->old->dealer?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->dealer,$this->detail->dealer,'ammend')?>><?=$this->detail->dealer?></td>
+  </tr>
+  <tr>
+    <td align="left">Brand</td>
+    <td align="center"><?=$this->old->veh_brand?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->veh_brand,$this->detail->veh_brand,'ammend')?>><?=$this->detail->veh_brand?></td>
+  </tr>
+  <tr>
+    <td align="left">Unit</td>
+    <td align="center"><?=$this->old->veh_yrmodel?>
+      <?=$this->old->veh_unit?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_yrmodel,$this->detail->veh_yrmodel,'ammendFields')?>
+      <?=$this->viewReconCompare($this->old->veh_unit,$this->detail->veh_unit,'ammendFields')?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'veh_status')?>
+>
+    <td align="left">Vehicle Status</td>
+    <td align="center"><?=$this->viewVehStatus($this->old->veh_status)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->veh_status,$this->detail->veh_status,'ammend')?>><?=$this->viewVehStatus($this->detail->veh_status)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'loanterm')?>
+>
+    <td align="left">Term</td>
+    <td align="center"><?=$this->old->loanterm?>
+      mo/s</td>
+    <td align="center"  <?=$this->viewReconCompare($this->old->loanterm,$this->detail->loanterm,'ammend')?>><?=$this->detail->loanterm?>
+      mo/s</td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'lcp')?>
+>
+    <td align="left">LCP</td>
+    <td align="center">P
+      <?=number_format($this->old->lcp,2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->lcp,$this->detail->lcp,'ammend')?>>P
+      <?=number_format($this->detail->lcp,2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'selling_price')?>
+>
+    <td align="left">SRP </td>
+    <td align="center">P
+      <?=number_format($this->old->selling_price,2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->selling_price,$this->detail->selling_price,'ammend')?>>P
+      <?=number_format($this->detail->selling_price,2)?></td>
+  </tr>
+  <tr>
+    <td align="left">Downpayment </td>
+    <td align="center"><?=number_format($this->old->downpayment_percent,2)?>
+      %                 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P
+      <?=number_format($this->old->downpayment_actual,2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->downpayment_actual,$this->detail->downpayment_actual,'ammend')?> ><?=number_format($this->detail->downpayment_percent,2)?>
+      %                 
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; P
+      <?=number_format($this->detail->downpayment_actual,2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'amountloan')?>>
+    <td align="left">Amount Financed</td>
+    <td align="center">P
+      <?=number_format($this->old->amountloan,2)?></td>
+    <td align="center"  <?=$this->viewReconCompare($this->old->amountloan,$this->detail->amountloan,'ammend')?>>P
+      <?=number_format($this->detail->amountloan,2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'monthly_amortization')?>>
+    <td align="left">Net Monthly Installment</td>
+    <td align="center">P
+      <?=number_format(ceil($this->old->monthly_amortization),2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->old->monthly_amortization,$this->detail->monthly_amortization,'ammend')?>>P
+      <?=number_format(ceil($this->detail->monthly_amortization),2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'monthly_amortization')?>>
+    <td align="left">Gross Monthly Installment</td>
+    <td align="center">P
+      <?=number_format(ceil($this->oldgross),2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->oldgross,$this->currgross,'ammend')?>>P
+      <?=number_format(ceil($this->currgross),2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'amountloan')?>>
+    <td align="left">PN Amount</td>
+    <td align="center">P
+      <?=number_format(ceil($this->oldpn),2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->oldpn,$this->currpn,'ammend')?>>P
+      <?=number_format(ceil($this->currpn),2)?></td>
+  </tr>
+  <tr <?=$this->viewReconEffect($this->amend,'gmi_ratio')?>>
+    <td align="left">GMI %</td>
+    <td align="center"><?=number_format($this->old->gmi_ratio,2);?>
+      %</td>
+    <td align="center" <?=$this->viewReconCompare($this->old->gmi_ratio,$this->detail->gmi_ratio,'ammend')?>><?=number_format($this->detail->gmi_ratio,2);?>
+      %</td>
+  </tr>
+  <tr>
+    <td align="left">Total Combine Income</td>
+    <td align="center">P
+      <?=number_format(ceil($this->oldtotalcombine),2)?></td>
+    <td align="center" <?=$this->viewReconCompare($this->oldtotalcombine,$this->currtotalcombine,'ammend')?>>P
+      <?=number_format(ceil($this->currtotalcombine),2)?></td>
+  </tr>
+  <? if ($this->loggedInUserType() == 'MA') { ?>
+  <? } ?>
+</table>
+  </form>
+  <br />
+  <table width="95%" border="0">
+    <tr>
+      <td colspan="7" bgcolor="#CCCCCC" style="border-bottom:groove"><strong>APPROVAL SECTION
+        
+          <? if($this->loggedInUserType() == 'CO' || $this->loggedInUserType() == 'CSH'){ echo $this->autoRouteview($this->detail->capno,$this->viewScore($this->detail->score,$this->highcap,'view'),'full'); }?>
+      </strong></td>
+    </tr>
+    <tr>
+<td><strong>DEVIATION:</strong></td>
+      <td colspan="7" style="border-bottom:groove"><strong>
+          <?=nl2br(stripslashes($this->craw->deviationfield))." / ";?>
+          <? if($this->remark->values_gmi >30 ) { 
+			    	if($this->remark->values_gmi == 1000){
+					echo "Gmi Ratio: <font size = 5>∞</font> /";	
+					}else{
+					echo "Exceeds gmi ratio by " .($this->remark->values_gmi - 30). "%/" ;
+					} 
+			  }
+				?>
+          <? if($this->remark->remarks_downpayment  != NULL) { echo "Downpayment is not within guideline /" ;} ?>
+<? if($this->remark->remarks_veh_use_taxi_downpayment  != NULL) { echo "Downpayment must be at least 40% Taxi /" ;} ?>
+<? if($this->remark->remarks_veh_use_taxi_term  != NULL) { echo "Tenor should not be more than 36mos taxi /" ;} ?>
+          <? if($this->remark->remarks_sell_lcp) { echo "Not Within loan to value guideline. /" ;} ?>
+          <? if($this->remark->remarks_citizenship1 !=  NULL) { echo "Borrower is not a Filipino Citizen /";} ?>
+          <? if($this->remark->remarks_spocitizenship !=  NULL) { echo "Spouse is not a Filipino Citizen /";} ?>
+          <? if($this->remark->remarks_citizenship2 !=  NULL) { echo "Coborrower is not a Filipino Citizen /";} ?>
+          <? if($this->remark->remarks_borrower_age != NULL) { echo "Borrower Age not within guideline /";} ?>
+          <? if($this->remark->remarks_spouse_age != NULL) { echo "Spouse Age not within guideline /";} ?>
+          <? if($this->remark->remarks_coborrower_age != NULL) { echo "Coborrower Age not within guideline /";} ?>
+          <? if($this->remark->remarks_loan_amount !=  NULL) { echo "Not within accepted loanable value /";} ?>
+          <? if($this->remark->remarks_veh_age !=  NULL) { echo "Not within acceptable vehicle age / ";} ?>
+          <? if($this->remark->remarks_totalcombine !=  NULL) { echo "Gross Monthly income for Married is less than P50,000, P30,000 for Single / ";} ?>
+          <? if($this->remark->remarks_business_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Borrower) / ";} ?>
+          <? if($this->remark->remarks_cobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Coborrower) / ";} ?>
+          <? if($this->remark->remarks_spobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Spouse) / ";} ?>
+          <? if($this->remark->remarks_employment_yrs !=  NULL) { echo "(Borrower)Less than 2 yrs at present employer / ";} ?>
+          <? if($this->remark->remarks_coemployment_yrs !=  NULL) { echo "(Coborrower)Less than 2 yrs at present employer / ";} ?>
+          <? if($this->remark->remarks_spoemployment_yrs !=  NULL) { echo "(Spouse)Less than 2 yrs at present employer / ";} ?>
+          <? if($this->remark->remarks_employment_status !=  NULL) { echo "(Borrower) Employment Status not within Guideline / ";} ?>
+          <? if($this->remark->remarks_coemployment_status !=  NULL) { echo "(Coborrower) Employment Status not within Guideline/ ";} ?>
+          <? if($this->remark->remarks_spoemployment_status !=  NULL) { echo "(Spouse) Employment Status not within guideline / ";} ?>
+          <? if($this->remark->remarks_ci_favorable  !=  NULL) { echo "Borrower with Unfavorable CI Report  / ";} ?>
+          <? if($this->remark->remarks_ci_check  !=  NULL) { echo "Credit Investigation on file is more than 3 months / ";} ?>
+          <? if($this->remark->remarks_nfis  !=  NULL) { echo "NFIS Borrower is not within guideline / ";} ?>
+          <? if($this->remark->remarks_spnfis  !=  NULL) { echo "NFIS Spouse is not within guideline /";} ?>
+          <? if($this->remark->remarks_confis  !=  NULL) { echo "NFIS Coborrower is not within guideline / ";} ?>
+          <? if($this->remark->remarks_cmap  !=  NULL) { echo "CMAP Borrower is not within guideline / ";} ?>
+
+		 <? if($this->remark->remarks_spcmap  !=  NULL) { echo "CMAP Spouse is not within guideline /";} ?>
+
+		 <? if($this->remark->remarks_cocmap  !=  NULL) { echo "CMAP Coborrower is not within guideline / ";} ?>
+
+          <? if($this->remark->remarks_residence_yrs !=  NULL) { echo "(Borrower)Less than 2 yrs at present address / ";} ?>
+          <? if($this->remark->remarks_sporesidence_yrs !=  NULL) { echo "(Spouse)Less than 2 yrs at present address / ";} ?>
+          <? if($this->remark->remarks_coresidence_yrs !=  NULL) { echo "Coborrower)Less than 2 yrs at present address / ";} ?>
+          <? 	
+		// show date only for CONFIS COBORROWER	
+			$confischeck = explode (' ',$this->remark->values_confis_check);
+		// show date only for spnfis SPOUSE
+			$spnfischeck = explode (' ',$this->remark->values_spnfis_check);
+		// show date only for nfis BORROWER
+			$nfischeck = explode (' ',$this->remark->values_nfis_check);
+			
+			if($this->remark->remarks_confis_check  !=  NULL) { echo "NFIS check on Coborrower is (not w/in 1 month) / ";} ?>
+          <? if($this->remark->remarks_nfis_check  !=  NULL) { echo "NFIS check on Borrower is (not w/in 1 month) / ";} ?>
+          <? if($this->remark->remarks_spnfis_check  !=  NULL) { echo " NFIS check on Spouse is (not w/in 1 month) / ";} ?>
+          <? if($this->remark->remarks_coci_favorable  !=  NULL) { echo "Coborrower with Unfavorable CI Report / ";} ?>
+          <? if($this->remark->remarks_spci_favorable  !=  NULL) { echo "Spouse with Unfavorable CI Report  / ";} ?>
+          <? if($this->remark->remarks_spci_check  !=  NULL) { echo "Spouse:Credit Investigation on file is more than 3 months / ";} ?>
+          <? if($this->remark->remarks_coci_check  !=  NULL) { echo "Coborrower:Credit Investigation on file is more than 3 months / ";} ?>
+          <? if ($this->remark->remarks_loan_purpose != NULL) { echo "Loan Purpose is not within Guideline / ";} ?>
+          <? if ($this->remark->remarks_veh_yr != NULL) { echo "2nd hand unit exceeds the maximum required years / ";} ?>
+          <? if ($this->remark->remarks_veh_tenor != NULL) { echo "2nd hand unit exceeds the maximum required term / ";} ?>
+          <? if ($this->remark->remarks_veh_car_history != NULL) { echo "2nd hand Unfavorable Car History ";} ?>
+          <? if($this->remark->remarks_cototal_income) {
+	echo "Coborrower has no source of income";		  
+  }?>
+<? if($this->comakerDetail) { ?>
+          <? if($this->comaker_remark->values_gmi >30 ) { echo "Co-Maker Exceeds gmi ratio by " .($this->remark->values_gmi - 30). "%/" ;} ?>
+          <? if($this->comaker_remark->remarks_citizenship1 !=  NULL) { echo "Co-Maker is not a Filipino Citizen /";} ?>
+          <? if($this->comaker_remark->remarks_spocitizenship !=  NULL) { echo "Co-Maker Spouse is not a Filipino Citizen /";} ?>
+          <? if($this->comaker_remark->remarks_borrower_age != NULL) { echo "Co-Maker Age not within guideline /";} ?>
+          <? if($this->comaker_remark->remarks_spouse_age != NULL) { echo "Co-Maker Spouse Age not within guideline /";} ?>
+          <? if($this->comaker_remark->remarks_loan_amount !=  NULL) { echo "Co-Maker Not within accepted loanable value /";} ?>
+          <? if($this->comaker_remark->remarks_totalcombine !=  NULL) { echo "Co-Maker Gross Monthly income for Married is less than P50,000, P30,000 for Single / ";} ?>
+          <? if($this->comaker_remark->remarks_business_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Co-Maker) / ";} ?>
+          <? if($this->comaker_remark->remarks_spobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Co-Maker Spouse) / ";} ?>
+          <? if($this->comaker_remark->remarks_employment_yrs !=  NULL) { echo "(Co-Maker)Less than 2 yrs at present employer / ";} ?>
+          <? if($this->comaker_remark->remarks_spoemployment_yrs !=  NULL) { echo "(Co-Maker Spouse)Less than 2 yrs at present employer / ";} ?>
+          <? if($this->comaker_remark->remarks_employment_status !=  NULL) { echo "(Co-Maker) Employment Status not within Guideline / ";} ?>
+          <? if($this->comaker_remark->remarks_spoemployment_status !=  NULL) { echo "(Co-Maker Spouse) Employment Status not within guideline / ";} ?>
+          <? if($this->comaker_remark->remarks_ci_favorable  !=  NULL) { echo "Co-Maker with Unfavorable CI Report & unsatisfactory experience on all past & outstanding loan / ";} ?>
+          <? if($this->comaker_remark->remarks_ci_check  !=  NULL) { echo "Co-Maker Credit Investigation on file is more than 3 months / ";} ?>
+          <? if($this->comaker_remark->remarks_nfis  !=  NULL) { echo "NFIS Co-Maker is not within guideline / ";} ?>
+          <? if($this->comaker_remark->remarks_spnfis  !=  NULL) { echo "NFIS Co-Maker Spouse is not within guideline /";} ?>
+          <? if($this->comaker_remark->remarks_cmap  !=  NULL) { echo "CMAP Co-Maker is not within guideline / ";} ?>
+		<? if($this->comaker_remark->remarks_spcmap  !=  NULL) { echo "CMAP Co-Maker Spouse is not within guideline /";} ?>
+          <? if($this->comaker_remark->remarks_residence_yrs !=  NULL) { echo "(Co-Maker)Less than 2 yrs at present address / ";} ?>
+          <? if($this->comaker_remark->remarks_sporesidence_yrs !=  NULL) { echo "(Co-Maker Spouse)Less than 2 yrs at present address / ";} ?>
+          <? 	
+		// show date only for spnfis SPOUSE
+			$spnfischeck = explode (' ',$this->comaker_remark->values_spnfis_check);
+		// show date only for nfis BORROWER
+			$nfischeck = explode (' ',$this->comaker_remark->values_nfis_check);
+?>
+          <? if($this->comaker_remark->remarks_nfis_check  !=  NULL) { echo "NFIS check on Co-Maker is (not w/in 1 month) / ";} ?>
+          <? if($this->comaker_remark->remarks_spnfis_check  !=  NULL) { echo " NFIS check on Co-Maker Spouse is (not w/in 1 month) / ";} ?>
+          <? if($this->comaker_remark->remarks_spci_favorable  !=  NULL) { echo "Co-Maker Spouse with Unfavorable CI Report & unsatisfactory experience on all past & outstanding loan / ";} ?>
+          <? if($this->comaker_remark->remarks_spci_check  !=  NULL) { echo "Co-Maker Spouse:Credit Investigation on file is more than 3 months / ";} ?>
+          <? if ($this->comaker_remark->remarks_loan_purpose != NULL) { echo "Co-Maker Loan Purpose is not within Guideline / ";} ?>
+          <? } ?>
+        </strong></td>
+    </tr>
+    <tr>
+      <td><a name="add_approving_auth" id="additional_deviation2"/></a></a></a></td>
+      <td width="104"><div align="left"><strong>Decision</strong></div></td>
+      <td width="22">&nbsp;</td>
+      <td colspan="2"><div align="center"><strong>Approving Authority</strong></div></td>
+      <td width="345" ><div align="center"><strong>Remarks</strong></div></td>
+      <td width="7" >&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="24">&nbsp;</td>
+      <td><div align="left"></div></td>
+      <td><div align="center"></div></td>
+      <td colspan="2">&nbsp;</td>
+      <td ><div align="center"></div></td>
+      <td >&nbsp;</td>
+    </tr>
+    <?php foreach($this->approvaldetail as $approvaldetails) :?>
+    <tr>
+      <td>&nbsp;</td>
+      <td><div align="left">
+        <?=$approvaldetails->decision?>
+      </div></td>
+      <td>by</td>
+      <td colspan="2" style="border-top:groove"><div align="center">
+        <?=$this->viewAuthority($approvaldetails->approved_by)?>
+        <?=$this->crawApprovalDate($approvaldetails->date_type,$approvaldetails->date_approval);
+			  ?>
+      </div></td>
+      <td align="center"><center>
+        <?=nl2br(stripslashes($approvaldetails->reason));?>
+      </center></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" >&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" >&nbsp;</td>
+      <td align="center">&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+    <?php endforeach; ?>
+  </table>
+  <? if($this->rolePermission('craw_decision_button','') === TRUE){ ?>
+
+<table width="100%" border="0">
+  <tr>
+    <td align="center"><span class="c3">
+    <center>
+      <input type="button" name="button" id="button" value="Decide / View" style="width:120px" onclick="openDecision('<?=$this->baseURL();?>/index/routedecision/cap/<?=$this->capno?>','Credit Decision',750,400)"/>
+      <input type="button" name="edocs" id="edocs" value="eDOCS" style="width:120px" onclick = "window.open('<?=$this->baseURL();?>/edocs/accountview/cap/<?=$this->capno?>','edocs','width=800,height=600,scrollbars=yes,resizable=no')"/>
+    <? if ($this->chkIfRecon($this->capno)){ ?>
+    <strong>
+    <input type="button" name="button3" id="button5" value="Previous CRAW" onclick = "window.open('<?=$this->baseURL();?>/index/crawform/cap/<?=$this->prevcapno?>/type/print','View Craw','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+    </strong>
+    <? } ?>
+    </center></td>
+  </tr>
+</table>
+    <? } ?>
+  <p>&nbsp;</p>
+</center>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("ammend")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+</script>

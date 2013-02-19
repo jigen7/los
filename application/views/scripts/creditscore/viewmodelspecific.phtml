@@ -1,0 +1,104 @@
+<script type="text/javascript">
+	function show(field){
+		var fields = document.getElementById('hidden').value;	
+		var hidden = document.getElementById('hidden');
+		fields = field + "," + fields;
+		hidden.value = fields;	
+		document.product.submit();
+	}
+	
+	function hide(field){
+		var fields = document.getElementById('hidden').value;	
+		var hidden = document.getElementById('hidden');
+		arrFields =  new Array();
+		arrFields = fields.split(",");
+		var temp;
+		for(i=0; i!=arrFields.length; i++){
+			if(arrFields[i] != field){ 
+				temp = arrFields[i] + "," + temp;
+			}
+		}
+		hidden.value = temp;	
+		document.product.submit();	
+	}
+</script>
+
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+            <td width="5%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onclick="window.open('<?=$this->baseURL();?>/creditscore/viewocs/prod/<?=$this->prodType?>/namever/<?=$this->namever?>','viewocs','width=600,height=300,scrollbars=yes,resizable=no, menubar =yes');"><strong>
+		        OCS</strong></td>                                
+			<td width="8%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/viewmemo/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        eDOCS</strong></td>
+			<td width="18%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/accounthistory/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        ACCOUNT HISTORY</strong></td>
+			<td width="15%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/audittrail/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        AUDIT TRAIL</strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->place?>/prod/<?=$this->prodType?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+    <p><b/>Status: <?=$this->status?></p>
+<p></p>
+<center>
+<?=$this->form->hidden;?>
+<body>
+	<table width="336" border="0">
+			<tr colspan="2"><b/><h2/>Model: <?=$this->namever?></tr>
+		    <tr><td><b/><? if($this->version > 1) echo "Updated Version of: ".$this->name." ".--$this->version;?></td><td></td></tr>
+		  	<tr><td><b/>Validity Period: <?=date("m-d-Y", strtotime($this->vpfrom))?> - <?=date("m-d-Y", strtotime($this->vpto))?></td><td></td></tr>
+			<tr><td><b/>Regular/Promo: <?=$this->RegularPromo($this->namever)?></td><td></td></tr>
+			<tr><td><b/>Business Center: <?=$this->BusinessCenter($this->namever)?></td><td></td></tr>	
+	</table>
+    <p/>
+	<table width="598" cellpadding="2" cellspacing="1" class="scrolltable" id="myScrollTable" >
+		<thead>
+			<tr>
+				<th width="211" align="center">FIELD</th>
+				<th width="200" align="center">ATTRIBUTE</th>
+				<th width="79" align="center">WEIGHT</th>
+				<th width="85" align="center">ACTION</th>
+			</tr>	
+		</thead>
+		<tbody>
+        	<?php $checker = ""; $counter = 0;?>
+       		<?php foreach($this->afields as $row) : ?>   
+                <?php 
+					$counter++;
+					if($checker == "" || $checker != $row->namefield){
+					   $checker = $row->namefield;
+				?>        
+              	<tr align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white';"
+		        onmouseout="this.style.background='white';this.style.color='black'; UnTip();" onClick="">
+
+                    <td><b/><?=$row->namefield?></td>
+                    <td></td>
+                    <td></td>
+                    <?php $this->CheckShowHide($row->namefield, $this->hiddenFields); ?>
+				 	<?php $this->ShowAll($checker, $this->hiddenFields, $this->namever); ?>
+                 </tr>
+                <? } ?>
+     		<?php endforeach; ?>
+		</tbody>
+	</table>
+</body>     
+</center>	
+</form>
+<? if($counter > 13){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 300);</script>
+<? } ?>

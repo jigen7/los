@@ -1,0 +1,501 @@
+E 353 F3 D
+E 378 F1 D
+2010-02-23 14:02:35
+2010-04-05 16:03:29
+
+Original Cap: 1100102231001100
+Re-encoded Cap: 1100104051000700
+Spouse 1100104051000710
+
+New Cap for the re-encoded account: 1100102231001101
+New Cap for Spouse :1100102231001111
+
+Cesar Pineda
+
+1100103231000900 Main
+1100103231000910 Spouse
+
+1100103231000901 Main New
+1100103231000911 Spouse New
+
+UPDATE 	borrower_account_audit_trail
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE borrower_account_audit_trail
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+------------------------
+
+UPDATE 	borrower_accounts_audit_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_audit_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-------------------------
+
+UPDATE 	borrower_accounts_audit_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_audit_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-------------------------
+
+UPDATE 	borrower_accounts_deviation
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_deviation
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+--------------------------
+
+
+UPDATE 	borrower_accounts_deviation_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_deviation_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+---------------------
+
+UPDATE 	borrower_accounts_deviation_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_deviation_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+------------------------********************
+
+UPDATE 	borrower_accounts_deviation_others
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_deviation_others
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-----------------------
+
+UPDATE 	borrower_accounts_history
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_accounts_history
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+---------------------------
+
+UPDATE 	borrower_business
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_business
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+----------------------------
+
+UPDATE 	borrower_business_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_business_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+--------------------------
+
+UPDATE 	borrower_business_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_business_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-------------------------
+
+UPDATE 	borrower_craw
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_craw
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+----------------------------
+
+
+UPDATE 	borrower_crawform
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_crawform
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+---------------------------
+
+UPDATE 	borrower_crawform_approvalsection
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_crawform_approvalsection
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+---------------------------
+
+UPDATE 	borrower_credit_decision
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_credit_decision
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+------------------------------
+
+UPDATE 	borrower_credit_investigation
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_credit_investigation
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+------------------------------
+UPDATE 	borrower_credit_investigation_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_credit_investigation_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+------------------------------
+
+UPDATE 	borrower_credit_verification
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_credit_verification
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-----------------------------
+
+UPDATE 	borrower_credit_verification_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_credit_verification_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+-----------------
+
+UPDATE 	borrower_documents
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_documents
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+------------------------
+UPDATE 	borrower_documents_images
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_documents_images
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------------
+UPDATE 	borrower_employment
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_employment
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+----------
+UPDATE 	borrower_employment_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_employment_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------------
+UPDATE 	borrower_employment_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_employment_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------------
+UPDATE 	borrower_income_other_monthly
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_income_other_monthly
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------------
+UPDATE 	borrower_income_other_monthly_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_income_other_monthly_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------------
+UPDATE 	borrower_income_other_monthly_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_income_other_monthly_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+------------------------
+UPDATE 	borrower_insurance_charges
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_insurance_charges
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+-----------------------
+UPDATE 	borrower_insurance_perils
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_insurance_perils
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+-----------------------
+UPDATE 	borrower_insurance_policy
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_insurance_policy
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+----------------------
+UPDATE 	borrower_ob_bankaccount
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bankaccount
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_ob_bankaccount_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bankaccount_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_ob_bankaccount_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bankaccount_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_ob_bf_liabilities
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bf_liabilities
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------
+UPDATE 	borrower_ob_bf_liabilities_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bf_liabilities_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------
+UPDATE 	borrower_ob_bf_liabilities_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_bf_liabilities_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+----------------------
+UPDATE 	borrower_ob_creditcard
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_creditcard
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+-----------------------
+UPDATE 	borrower_ob_creditcard_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_creditcard_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------------
+UPDATE 	borrower_ob_creditcard_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_creditcard_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------------
+UPDATE 	borrower_ob_existloan
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_existloan
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------------
+UPDATE 	borrower_ob_existloan_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_existloan_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------------
+UPDATE 	borrower_ob_existloan_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_existloan_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------
+UPDATE 	borrower_ob_trdbusref
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_trdbusref
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_ob_trdbusref_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_trdbusref_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_ob_trdbusref_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_ob_trdbusref_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+-----------------------
+UPDATE 	borrower_other_auto
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_auto
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+-------------
+UPDATE 	borrower_other_auto_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_auto_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--
+UPDATE 	borrower_other_auto_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_auto_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+----------------
+UPDATE 	borrower_other_share
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_share
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---
+UPDATE 	borrower_other_share_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_share_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+----------
+UPDATE 	borrower_other_share_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_other_share_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------
+UPDATE 	borrower_request_ci
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_request_ci
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+--------------------
+UPDATE 	borrower_veh_details
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_veh_details
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------
+UPDATE 	borrower_veh_details_ca
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_veh_details_ca
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+---------------------
+UPDATE 	borrower_veh_details_ma
+SET capno='1100102231001101'
+WHERE capno='1100104051000700'
+
+UPDATE 	borrower_veh_details_ma
+SET capno='1100102231001111'
+WHERE capno='1100104051000710'
+
+
+

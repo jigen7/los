@@ -1,0 +1,98 @@
+<style type="text/css">
+<!--
+input.btn {color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+width: 80px;
+}
+-->
+</style>
+<script type="text/javascript">
+window.onblur=function(){self.close();};
+</script>
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td><strong>REQUEST FOR CI</strong></td>
+  </tr>
+</table>
+<form action="" method="post" name="request" >
+<table width="100%" border="0">
+  <tr>
+    <td align="left" valign="top">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="30%" align="left" valign="top">Cap No.</td>
+    <td width="70%"><?=$this->capno?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Borrower</td>
+    <td><?=$this->row->borrower_lname.','.$this->row->borrower_fname.' '.substr($this->row->borrower_mname, 0,1).'.';?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Permanent Address</td>
+    <td><?=$this->form->chk_permanent_address?>
+      <?=$this->row->pres_address_no.' '.$this->row->pres_address_st.','.$this->row->pres_address_brgy.','.strtoupper($this->row->pres_address_city).','.$this->row->pres_address_province;?>
+    <?=$this->form->permanent_address?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Employer Address</td>
+    <td><?=$this->form->chk_employer_address?>
+    <?=$this->form->employment_address?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Business Address</td>
+    <td><?=$this->form->chk_business_address?>
+      <?=$this->form->business_address?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Unit</td>
+    <td><?=$this->row->veh_unit?>
+      <?=$this->form->unit?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Date Assigned</td>
+    <td><?=date("m/d/Y")?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Manner Checking</td>
+    <td><?=$this->form->manner_checking?></td>
+  </tr>
+  <tr>
+    <td align="left" valign="top">Requested By</td>
+    <td><?=$this->user?></td>
+  </tr>
+</table>
+<br /><table width="50%" border="0" align="center">
+  <tr>
+    <td><input type="button" name="ok" value="OK" class="btn" onclick="chk();return false;" /></td>
+    <td align="right"><input type="button" name="cancel" value="CANCEL" class="btn" onclick="javascript:self.close()"/></td>
+  </tr>
+</table>
+</form>
+
+<script language="JavaScript" type="text/javascript">
+
+function chk(){
+	if (document.getElementById("chk_permanent_address").checked == false && 
+		document.getElementById("chk_business_address").checked == false &&
+		document.getElementById("chk_employer_address").checked == false) {
+	alert ("Please Specify The Adddress");
+	return false; }
+	else if(document.getElementById("manner_checking").value == '0'){
+	alert ("Please Specify The Manner of Checking ");
+	return false;
+	} else {
+	document.request.submit();
+	window.opener.location='<?=$this->baseUrl();?>/index/account/cap/<?=$this->capno?>';
+	top.close();
+	return true;
+	}
+	
+}
+
+</script>

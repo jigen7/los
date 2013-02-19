@@ -1,0 +1,27 @@
+<form method="post" name="attendance">
+<table width="100%" border="0">
+  <tr>
+    <td width="22%"><strong>Approver's</strong></td>
+    <td width="17%"><strong>Status</strong></td>
+    <td width="23%"><strong>Alternate</strong></td>
+    <td width="20%"><strong>Remarks</strong></td>
+    <td width="18%"><strong>Action</strong></td>
+  </tr>
+  <? foreach($this->detail as $row) { ?> 
+  <tr>
+    <td><?=$this->viewMa($row->username)?></td>
+    <td><? if($row->type == 'absent') { echo "On-Leave"; } 
+	elseif($row->type == 'pre-absent') { echo "For Approval"; }
+	?></td>
+    <td><?=$this->viewMa($row->approver_alternative)?></td>
+    <td><?=$row->remarks?></td>
+    <td>
+    <? if($row->type == 'pre-absent') { ?>
+    <input type="button" name="buttonApprove" id="buttonApprove" value="Approve" onclick="javascript: if (confirm('Are you sure you want submit this request?')) window.location='<?=$this->baseUrl().'/admin/attendanceapprove/id/'.$row->id.'/cap/'.$this->capno?>'" />
+    <input type="button" name="buttonReject" id="buttonReject" value="Reject" onclick="javascript: if (confirm('Are you sure you want submit this request?')) window.location='<?=$this->baseUrl().'/admin/attendancereject/id/'.$row->id.'/cap/'.$this->capno?>'" />
+    <? } ?>  
+      </td>
+  </tr>
+  <? } ?>
+  </table>
+</form>

@@ -1,0 +1,69 @@
+<style type="text/css">
+table.sample {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: black black black black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+<form method="post" name="adduser">
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td><strong>ADMIN - ACCOUNT TRAIL</strong></td>
+    <td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/admin'"><strong> Return </strong></td>
+  </tr>
+  </table>
+<br />
+<br />
+
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="22%" align="center"><strong>Date/Time</strong></td>
+    <td width="17%" align="center"><strong>By</strong></td>
+    <td width="24%" align="center"><strong>User</strong></td>
+    <td width="19%" align="center"><strong>Type</strong></td>
+    <td width="18%" align="center"><strong>Remarks</strong></td>
+    </tr>
+  <? foreach($this->details as $x) { ?> 
+  <tr>
+    <td align="center"><?=date("m-d-Y h:i a",strtotime($x->datetime))?></td>
+    <td align="center"><?=$x->by?></td>
+    <td align="center"><?=$x->user?></td>
+    <td align="center"><?=$x->type?></td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <? } ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+</table>
+</form>
+
+    <?= $this->paginationControl($this->details, 'Sliding', 'pagination.phtml'); ?>

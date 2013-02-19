@@ -1,0 +1,156 @@
+<script type="text/javascript">
+
+	function getCSelected(){
+		var selected = document.getElementById('cfields').value;
+		var hfields = document.getElementById('hiddenField1');		
+		hfields.value = selected;	
+		document.product.submit();
+	}
+	
+	function addCField(){
+		var satt = document.getElementById('attribs').value;		
+		var sfield = document.getElementById('cfields').value;
+		var hattribs = document.getElementById('hiddenAtt');
+		var hfields = document.getElementById('hiddenField1');		
+		hattribs.value = satt;
+		hfields.value = sfield;	
+	}	
+	
+	function addNField(){	
+		var selected1 = document.getElementById('nfields1').value;
+		var hfields1 = document.getElementById('hiddenField1');		
+		hfields1.value = selected1;	
+		var selected2 = document.getElementById('nfields2').value;
+		var hfields2 = document.getElementById('hiddenField2');		
+		hfields2.value = selected2;				
+		var r1 = document.getElementById('value1').value;
+		var hR1 = document.getElementById('hiddenR1');		
+		hR1.value = r1;	
+		var r2 = document.getElementById('value2').value;
+		var hR2 = document.getElementById('hiddenR2');		
+		hR2.value = r2;	
+		var c1 = document.getElementById('compare1').value;
+		var hC1 = document.getElementById('hiddenC1');		
+		hC1.value = c1;	
+		var c2 = document.getElementById('compare2').value;
+		var hC2 = document.getElementById('hiddenC2');		
+		hC2.value = c2;	
+		var logic = document.getElementById('logic').value;
+		var hL = document.getElementById('hiddenL');		
+		hL.value = logic;			
+	}	
+	
+	function delField(id){
+		var hdel = document.getElementById('hiddenD');	
+		hdel.value = id;	
+	}		
+
+</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/rules/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+
+<input name="hiddenField1" type="hidden" id="hiddenField1">
+<input name="hiddenField2" type="hidden" id="hiddenField2">
+<input name="hiddenAtt" type="hidden" id="hiddenAtt">
+<input name="hiddenC1" type="hidden" id="hiddenC1">
+<input name="hiddenC2" type="hidden" id="hiddenC2">
+<input name="hiddenR1" type="hidden" id="hiddenR1">
+<input name="hiddenR2" type="hidden" id="hiddenR2">
+<input name="hiddenL" type="hidden" id="hiddenL">
+<input name="hiddenD" type="hidden" id="hiddenD">
+
+ <body>
+	<table width="725" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+		<thead>
+			<tr>
+				<th width="146" align="center">Field</th>
+                <th width="38" align="center">  = </th>
+				<th width="413" align="center">Category</th>
+                <th width="105" align="center">Action</th>
+			</tr>
+        	<tr>
+				<td align="center"><?=$this->cfields?></td>
+                <td align="center"> = </td>
+				<td align="center"><?=$this->attribs?></td>
+                <td align="center"><input type="Submit" name="button" id="button" value="Add" onClick="addCField()"/></td>
+            </tr>              	
+		</thead>
+		<tbody>
+  
+        	<? foreach($this->octable as $ocrow) {?>
+        	<tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+            	onmouseout="this.style.background='white';this.style.color='black'">
+				<td align="center"><?=$this->ViewFieldName($ocrow->field1)?></td>
+                <td align="center"> = </td>
+				<td align="center"><?=$ocrow->value1?></td>
+                <td align="center"><input type="Submit" name="button" id="button" value="Delete" onClick="delField('<?=$ocrow->id?>')"/></td>
+            </tr>    
+            <? } ?>
+		</tbody>
+	</table><p></p>
+	<? if(count($this->octable) > 6){ ?>    
+    <script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable1'), 240);</script>   
+    <? } ?>
+	<table width="725" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable2" >
+		<thead>
+			<tr>
+				<th width="122" align="center">Field</th>
+                <th width="39" align="center"></th>
+				<th width="102" align="center">Range</th>
+                <th width="32" align="center"></th>
+                <th width="122" align="center">Field</th>
+                <th width="35" align="center"></th>
+                <th width="125" align="center">Range</th>
+                <th width="105" align="center">Action</th>
+			</tr>
+        	<tr>
+				<td align="center"><?=$this->nfields1?></td>
+                <td align="center"><?=$this->form->compare1?></td>
+				<td align="center"><input name="value1" id="value1" type="text" size="5" value="<?=$row->rfrom?>" <?=$style?> onKeypress="return numOnly(event)"/></td>
+                <td align="center"><?=$this->form->logic?></td>
+                <td align="center"><?=$this->nfields2?></td>
+                <td align="center"><?=$this->form->compare2?></td>
+                <td align="center"><input name="value2" id="value2" type="text" size="5" value="<?=$row->rfrom?>" <?=$style?> onKeypress="return numOnly(event)"/></td>
+                <td align="center"><input type="Submit" name="button" id="button" value="Add" onClick="addNField()"/></td>
+            </tr>              	
+		</thead>
+		<tbody>
+        	<? foreach($this->ontable as $onrow) {?>
+        	<tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+            	onmouseout="this.style.background='white';this.style.color='black'">
+				<td align="center"><?=$this->ViewFieldName($onrow->field1)?></td>
+                <td align="center"><?=$onrow->compare1?></td>
+				<td align="center"><?=$onrow->value1?></td>
+                <td align="center">
+					<? if ($onrow->logic == "&&") echo "AND";
+					   if ($onrow->logic == "||") echo "OR"; ?>
+                </td>
+                <td align="center"><?=$this->ViewFieldName($onrow->field2)?></td>
+				<td align="center"><?=$onrow->compare2?></td>
+                <td align="center"><?=$onrow->value2?></td>
+                <td align="center"><input type="Submit" name="button" id="button" value="Delete" onClick="delField('<?=$onrow->id?>')"/></td>
+            </tr>    
+            <? } ?>
+		</tbody>
+	</table>    
+    <p style="color:red"><b/><?=$this->checkInput?>
+</body>
+         
+</center>	
+</form>
+	<? if(count($this->ontable) > 6){ ?>
+    <script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable2'), 240);</script>
+    <? } ?>

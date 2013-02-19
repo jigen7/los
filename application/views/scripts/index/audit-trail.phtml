@@ -1,0 +1,95 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form action="" method="post" name="audittrail">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>AUDIT TRAIL - 
+	  <?=$this->detail->borrower_lname?>,
+	  <?=$this->detail->borrower_fname?> 
+	  <?=$this->detail->borrower_mname?>
+	</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="3%" align="center"><strong>Recon</strong></td>
+    <td width="27%" align="center"><strong>USER</strong></td>
+    <td width="10%" align="center"><strong>PROFILE</strong></td>
+    <td width="16%" align="center"><strong>FIELD</strong></td>
+    <td width="14%" align="center"><strong>FROM</strong></td>
+    <td width="13%" align="center"><strong>TO</strong></td>
+    <td width="17%" align="center"><strong>DATE/TIME</strong></td>
+  </tr>
+  <? if ($this->auditDetail){?>
+  <?php  $recon_count = 0; foreach($this->auditDetail as $row) :  ?>
+
+    <? $recon_no = substr($row->capno,-1); if($recon_no != $recon_count) {  ?>
+  <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" ">
+    <td colspan="7" align="center"><strong>    <? if($recon_no == 0) {
+		echo "Original Application";
+	}else { echo "Recon Application ".$recon_no; } ?></strong></td>
+    </tr>
+      <?  } $recon_count=$recon_no;?>  
+
+
+  <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$row->capno?>'">
+    <td align="center"><? 
+	echo $recon_no;
+	?></td>
+    <td align="center"><?  
+	if ($row->values == 'gmi_ratio' || $row->values=='score' || $row->values=='lcp' 
+		|| $row->values=='monthly_amotization' 
+		|| $row->values=='amountloan'
+		|| $row->values=='score_tag' 		
+		){
+	echo ("SYSTEM GENERATED");	
+	}else {
+	echo $this->viewMa($row->change_by);
+	}
+	?></td>
+    <td align="center"><?=$this->profileType($row->capno)?></td>
+    <td align="left"><?=$this->viewFields($row->values)?></td>
+    <td align="center"><?
+    if ($row->values == 'score'){
+		echo 'System Score';
+	}
+ 	else if ($row->values == 'score_tag'){
+		echo 'System Score';
+	}	
+	else {echo $row->from; }?></td>
+    <td align="center"><?
+    if ($row->values == 'score'){
+		echo 'System Score';}
+ 	else if ($row->values == 'score_tag'){
+		echo 'System Score';
+	}else {echo $row->to; }?></td>
+    <td align="center"><?=date("m/d/Y/ h:ia",strtotime($row->date_change))?></td>
+        
+  </tr>
+
+
+    
+  <?php endforeach; ?>
+  <? } ?>
+</table>
+</form>
+<p>&nbsp;</p>

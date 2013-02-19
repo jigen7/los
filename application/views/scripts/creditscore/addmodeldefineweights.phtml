@@ -1,0 +1,131 @@
+<script type="text/javascript">
+	
+	function save(){
+		document.product.submit();
+		alert("Data Saved!");
+	}
+	
+	function replicate(namefield){
+		window.location = <?="'".$this->baseUrl()."'"?> + '/creditscore/replicate/prod/' + <?="'".$this->prodType."'"?> + '/namever/' + namefield + '/func/addmmodeldefineweights';
+	}
+	
+	function copyValue(data){	
+		var x = document.getElementById('hiddenField');	
+		x.value = data;
+	}		
+
+</script>
+<body>
+<form action="" method="post" name="product" id="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'"><strong>
+		        <?=$this->title;?></strong></td>
+            <td width="10%"  align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/rules/prod/<?=$this->prodType;?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong> 
+		        OCS</strong></td>    
+			<td width="11%"  align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="save()"><strong> 
+		        SAVE</strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/addmodeldefinefields/prod/<?=$this->prodType;?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+    <p></p>
+	<center>
+	<table width="600" class="scrolltable" cellspacing="1" cellpadding="2" id="myScrollTable1" >
+		<thead>
+			<tr>
+				<th width="199" rowspan="2" align="center">FIELD</th>
+				<th width="234" rowspan="2" align="center">ATTRIBUTE - EXACT</th>
+                <th colspan="2" align="center">WEIGHT</th>
+			</tr>	
+			<tr>
+				<th width="72" align="center">From</th>
+				<th width="72" align="center">To</th>
+			</tr>
+		</thead>
+		<tbody>
+            <? $checker = ""; $style = ""; $pass = ""; $at1 = 0;?>       
+            <? foreach($this->fieldscat as $row) : ?>
+            <? $at1++;?>
+            <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+                onmouseout="this.style.background='white';this.style.color='black'">
+                <td height="26"><b/><?=$row->namefield?></td>
+                <td><b/><?=$row->attribute?></td>
+                <td align="center"><b/><?=$row->wto?></td>
+                <td align="center"><input name="crow[<?=$row->id?>]" type="text" size="5" value="<?=$row->wto?>" onKeypress="return numOnlyHyphen(event)"/></td>
+            </tr>
+            <? endforeach; ?>
+	  </tbody>
+	</table><p>
+<? if(count($this->fieldscat) > 6){ ?>    
+ <script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable1'), 230);</script>   
+<? } ?>
+    	<table width="600" class="scrolltable" cellspacing="1" cellpadding="2" id="myScrollTable2" >
+    	  <thead>
+    	  	<tr>
+    	      <th width="92" rowspan="2"></th>
+    	      <th width="170" rowspan="2" align="center">FIELD</th>
+    	      <th colspan="2" align="center">ATTRIBUTE - RANGE</th>
+    	      <th colspan="2" align="center">WEIGHT
+   	          <input type="hidden" name="hiddenField" id="hiddenField"></th>
+  	        </tr>
+    	    <tr>
+    	      <th width="77" align="center">Min</th>
+    	      <th width="82" align="center">Max</th>
+    	      <th width="73" align="center">From</th>
+    	      <th width="73" align="center">To</th>
+  	        </tr>
+  	      </thead>
+    	  <tbody>
+    	      <? foreach($this->fieldsnum as $row) : ?>
+    	      <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+                  onMouseOut="this.style.background='white';this.style.color='black'">
+    	          <? $at1++; ?>
+				  <?php
+					//$style = ($row->type == 'String')?"style=\"visibility:hidden\"" : "";
+					$reploc = $this->baseUrl().'/creditscore/replicate/prod/'.$this->prodType.'/namever/'.$row->namever.'-'.$row->field.'/func/addmodeldefineweights';					
+					$delloc = $this->baseUrl().'/creditscore/deletereplicate/prod/'.$this->prodType.'/namever/'.$row->namever.'-'.$row->id.'/func/addmodeldefineweights';					
+
+					if($checker == "" || $checker != $row->namefield){
+						 $checker = $row->namefield;
+						 $value = "Replicate";
+						 //$location = $reploc;
+						 $pass = $row->namever.'-'.$row->field;
+					}else if($checker == $row->namefield){
+						 $checker = $row->namefield;
+						 $value = "Delete";
+						 //$location = $delloc;
+						 $pass = $row->namever.'-'.$row->id;
+					}
+				  ?>
+    	          <td><input <?=$style?> type="submit" name="button" id="button" value="<?=$value?>" onClick="copyValue(<?="'".$pass."'"?>)"></td>
+    	          <td height="26"><b/><?=($value == "Replicate")?$row->namefield: "";?></td>
+    	          <td align="center"><input name="rfrow[<?=$row->id?>]" type="text" size="5" value="<?=$row->rfrom?>" <?=$style?> onKeypress="return numOnly(event)"/></td>
+    	          <td align="center"><input name="rtrow[<?=$row->id?>]" type="text" size="5" value="<?=$row->rto?>" <?=$style?> onKeypress="return numOnly(event)"/></td>
+    	          <td align="center"><b/><?=$row->wto?></td>
+    	          <td align="center"><input name="nrow[<?=$row->id?>]" type="text" size="5" value="<?=$row->wto?>" onKeypress="return numOnlyHyphen(event)"/></td>
+  	          </tr>
+    	      <? endforeach; ?>
+  	     </tbody>
+   	  </table>
+   	  <table width="600" >
+          <tr>
+              <td width="200"></td>
+              <? $submit = ($at1 == 0)? "style=\"visibility:hidden\"" : ""  ?>
+              <td width="200" align="center"><p><input <?=$submit?> type="submit" name="button" id="button" value="Submit" onClick="return window.confirm('Submit this model for approval?')" /></td>     
+              <td width="200" style="color:#F00"><b/><?=$this->errorAttribute?></td>
+          </tr>
+      </table>
+    </center>	
+</form>
+</body>
+<? if(count($this->fieldsnum) > 6){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable2'), 230);</script>
+<? } ?>

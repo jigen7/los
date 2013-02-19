@@ -1,0 +1,129 @@
+<style type="text/css">
+<!--
+input.btn {color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+width: 80px;
+}
+-->
+</style>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+	var glo;
+	function getdataback() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+ 		ajaxObj.method="GET";
+		 ajaxObj.call("action=getdata&username=<?=$this->loggedInUser();?>",respGetData);
+		//alert(getCity());
+	}
+	
+	function respGetData(resp) {
+		//document.getElementById('content').innerHTML = resp;
+		//return resp;
+		//document.writeln(resp);
+		glo = resp;
+	}
+	
+</script>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.masubmit.onsubmit())
+ {//this check triggers the validations
+    document.masubmit.submit();
+	//self.close();
+	//alert('success');
+	//setTimeout(refr(),5000);
+
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location.reload();
+	self.close();
+	}
+}
+</SCRIPT> 
+
+<form name="masubmit" method="post">
+<script>
+getdataback();
+</script>
+
+<table width="50%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="left" valign="top">
+</td>
+</tr>
+  <tr>
+    <td colspan="2" align="left" valign="top"><?=$this->targetRoute?></td>
+    </tr>
+  <tr>
+  <tr>
+    <td width="17%" align="right" valign="top"><strong>Remarks</strong></td>
+    <td width="83%"><?=$this->form->submit_remarks?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->detail?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">Enter Digital Password:
+      <input type="password" name="digiPass" id="digiPass" /></td>
+  </tr>
+</table>
+<table width="50%" border="0" align="center">
+  <tr>
+    <td align="center"><input type="button" name="score" value="OK" class="btn" onclick="javascript:submitform()" /></td>
+    <td align="center"><input type="button" name="score2" value="CANCEL" class="btn" onclick="javascript:self.close()"/></td>
+  </tr>
+</table>
+</form>
+<? if($this->isSubmit) { ?>
+<script type="text/javascript">
+	alert("Submitted");
+	self.close();
+	setTimeout(refr(),5000);
+</script>
+<? } ?>
+
+<script type="text/javascript">
+function popupUnloadHandler() {
+	if (window.opener && !window.opener.closed) {
+window.opener.location.reload();
+}
+}
+window.onunload = popupUnloadHandler;
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("masubmit")
+frmvalidator.EnableMsgsTogether();
+
+//frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["masubmit"];
+	  	    if (calcMD5(frm.digiPass.value) !=  glo)
+	  		{
+	    	  sfm_show_error_msg("Wrong Digital Password Please Enter Again");
+   			  return false
+	  		}
+
+		  	{
+	    return true;
+			}
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+</script>
+
+
+
+
+
+

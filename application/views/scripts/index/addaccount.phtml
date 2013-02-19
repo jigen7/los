@@ -1,0 +1,462 @@
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+//Ajax to Call the Total income
+	var ajaxObj;
+
+	function startZip() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCity()+"&brgy="+getBrgy(), respZipcode);
+		//alert(getCity());
+	}
+	function respZipcode(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["add"].pres_zipcode.value = resp;
+		
+	}
+	function getCity(){
+		var city = document.forms["add"].borrower_pres_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgy(){
+		var brgy = document.forms["add"].borrower_pres_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+
+</script>  
+  
+     <script type="text/javascript">
+    <!--
+
+    $(function () {
+        var province = $('#categorySelect');
+        var city = $('#citySelect');
+		var brgy = $('#brgySelect');
+		var zip = $('#zipSelect');
+
+		
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+		/*
+		brgy.selectChain({
+            target: zip,
+            url: '<?$this->baseUrl();?>/inc/select-brgy.php',
+            data: { ajax: true, anotherval: "anotherAction" }
+        });
+		*/
+		city.selectChain({
+            target: brgy,
+            url: '<?=$this->baseUrl();?>/inc/select-city.php?brgy=<?=$this->borrower_pres_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province.selectChain({
+            target: city,
+            url: '<?=$this->baseUrl();?>/inc/select-province.php?city=<?=$this->borrower_pres_address_city?>',
+            data: { ajax: true }
+			
+        }).trigger('change');
+		
+
+    });
+    //-->
+
+ </script>
+ 
+ <script type="text/javascript">
+/*
+function getCity(){
+	var frm = document.forms["add"];
+	var x = frm.borrower_fname.value;
+	var y = 1;
+	var z = new date();
+	return 'z';
+	//return ;	
+}*/
+
+
+ function compage(bDay){
+ now = new Date()
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+    document.forms["add"].age.value = years;
+ }
+}
+
+ function comsppage(bDay){
+ now = new Date()
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+    document.forms["add"].spage.value = years;
+ }
+}
+function datef(formatt){
+ var num = formatt.length;
+ var frm = document.add;
+ if(num == 2){
+	 frm.birthdate.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.birthdate.value = formatt + '/'; 	 
+ }
+	
+}
+
+function datefs(formatt){
+ var num = formatt.length;
+ var frm = document.add;
+ if(num == 2){
+	 frm.birthdate_spouse.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.birthdate_spouse.value = formatt + '/'; 	 
+ }
+	
+}
+ </script>
+ 
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<form action="" method="post" name="add">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>ADD ACCOUNT</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<br /><br />
+<table width="80%" border="0" align="center">
+  <tr>
+    <td>New Borrower?</td>
+    <td><?=$this->form->new_account?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="19%">Last Name</td>
+    <td width="32%"><?=$this->form->borrower_lname?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td>First Name</td>
+    <td><?=$this->form->borrower_fname?></td>
+    <td>Landline</td>
+    <td><?=$this->form->landline?></td>
+    </tr>
+  <tr>
+    <td>Middle Name</td>
+    <td><?=$this->form->borrower_mname?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Date of Birth</td>
+    <td><?=$this->form->birthdate?></td>
+    <td>Mobile</td>
+    <td><?=$this->form->mobile?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><?=$this->form->age?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Permanent Address</td>
+    <td>&nbsp;</td>
+    <td>Email</td>
+    <td><?=$this->form->email?></td>
+    </tr>
+  <tr>
+    <td>Street.</td>
+    <td><?=$this->form->borrower_pres_address_st?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Barangay</td>
+    <td><?=$this->form->borrower_pres_address_brgy?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td>City/Municipality</td>
+    <td><?=$this->form->borrower_pres_address_city?></td>
+    <td>Gender</td>
+    <td><?=$this->form->gender?></td>
+    </tr>
+  <tr>
+    <td>Province</td>
+    <td>
+    <?=$this->form->borrower_pres_address_province?>    
+    </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$this->form->pres_zipcode?></td>
+    <td>Civil Status</td>
+    <td><?=$this->form->civilstatus?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2" rowspan="5" id="civilstatusdiv" style="display:none"><table width="441" height="154" border="0">
+      <tr>
+        <td colspan="2"><strong>Spouse</strong></td>
+        </tr>
+      <tr>
+        <td width="92">Last Name</td>
+        <td width="339"><?=$this->form->borrower_spouse_lname?></td>
+        </tr>
+      <tr>
+        <td>First Name </td>
+        <td><?=$this->form->borrower_spouse_fname?></td>
+        </tr>
+      <tr>
+        <td>Middle Name</td>
+        <td><?=$this->form->borrower_spouse_mname?></td>
+      </tr>
+      <tr>
+        <td>Birthday</td>
+        <td><?=$this->form->birthdate_spouse?>
+          <?=$this->form->spage?></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td>Type of Loan</td>
+    <td><?=$this->form->typeloan?></td>
+    </tr>
+  <tr>
+    <td>Loan Purpose</td>
+    <td><?=$this->form->loan_purpose?></td>
+    </tr>
+  <tr>
+    <td>Source of Application</td>
+    <td><?=$this->form->source_application?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Promo Application</td>
+    <td><?=$this->form->promo_avail?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="promodiv" style="display:none">
+    <td>What Kind of Promo ?</td>
+    <td><?=$this->form->promo?></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+  <td colspan="4" align="center"><input type="submit" name="button" id="button" value="ADD"  style="width:150px" onclick="return window.confirm('Are you sure you want to add this account?')"/></td>
+  </tr>
+
+</table>
+
+</form>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("add")
+frmvalidator.EnableMsgsTogether();
+var re = new RegExp("(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}");
+
+frmvalidator.addValidation("borrower_fname","req","Borrower First Name is Required!!");
+frmvalidator.addValidation("borrower_fname","alphabetic_space","First Name : Alphabetic and Spaces Only !!");
+frmvalidator.addValidation("borrower_lname","req","Borrower Last Name is Required!!");
+frmvalidator.addValidation("borrower_lname","alphabetic_space","Last Name : Alphabetic and Spaces Only !!");
+//frmvalidator.addValidation("borrower_mname","req","Borrower Middle Name is Required!!");
+frmvalidator.addValidation("borrower_mname","alphabetic_space","Middle Name : Alphabetic and Spaces Only !!");
+frmvalidator.addValidation("birthdate","req","Date of birth is Required!!");
+frmvalidator.addValidation("birthdate","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+//Address Fields
+frmvalidator.addValidation("borrower_pres_address_st","req","Address Street is Required!!");
+frmvalidator.addValidation("borrower_pres_address_brgy","req","Address Barangay is Required!!");
+frmvalidator.addValidation("borrower_pres_address_city","req","Address City is Required!!");
+frmvalidator.addValidation("borrower_pres_address_province","req","Address Province is Required!!");
+
+frmvalidator.addValidation("landline","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+frmvalidator.addValidation("mobile","regexp=[0-9-]","Invalid Mobile Format XX-XXX-XXX");
+frmvalidator.addValidation("email","email","Not a Valid Email Address");
+
+
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["add"];
+   	  if (frm.typeloan.value == '0')
+	  {
+		   	  sfm_show_error_msg("Please Choose Loan Type");
+			  return false }
+	else if (frm.loan_purpose.value == '0')
+	  {
+		   	  sfm_show_error_msg("Please Choose Loan Purpose");
+			  return false }
+	   else if (frm.source_application.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Source Application");
+			  return false
+	  } 
+	    else if (frm.gender.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Enter Gender");
+   			  return false
+	  }	  
+	  	else if (frm.civilstatus.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Enter Civil Status");
+   			  return false
+	  }	  
+	  	else if (frm.promo_avail.value == '1' && frm.promo.value == '1')
+	  {
+	    	  sfm_show_error_msg("Please Choose a Promo");
+			  return false
+	  }
+	  	 else if ((frm.civilstatus.value == '2') && frm.borrower_spouse_lname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Last Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '2') && frm.borrower_spouse_fname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse First Name");
+   			  return false
+	  }
+	  /*
+	  	  else if ((frm.civilstatus.value == '2') && frm.borrower_spouse_mname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Middle Name");
+   			  return false
+	  }*/
+	  	  else if (frm.civilstatus.value == '2') 
+	  {   
+	    	  if(frm.birthdate_spouse.value.match(re)){
+				  
+			  }
+			  else {
+			  sfm_show_error_msg("Please Enter Valid Spouse Birthdate");
+			  return false
+			  }
+	  }
+	  	  	 else if ((frm.civilstatus.value == '3') && frm.borrower_spouse_lname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Last Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '3') && frm.borrower_spouse_fname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse First Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '3') && frm.borrower_spouse_mname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Middle Name");
+   			  return false
+	  }
+	  	  else if (frm.civilstatus.value == '3') 
+	  {   
+	    	  if(frm.birthdate_spouse.value.match(re)){
+				  
+			  }
+			  else {
+			  sfm_show_error_msg("Invalid BirthDate Format MM/DD/YYYY");
+			  return false
+			  }
+	  }
+	   else if ((frm.civilstatus.value == '4') && frm.borrower_spouse_lname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Last Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '4') && frm.borrower_spouse_fname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse First Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '4') && frm.borrower_spouse_mname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Middle Name");
+   			  return false
+	  }
+	  	  else if (frm.civilstatus.value == '4') 
+	  {   
+	    	  if(frm.birthdate_spouse.value.match(re)){
+				  
+			  }
+			  else {
+			  sfm_show_error_msg("Invalid BirthDate Format MM/DD/YYYY");
+			  return false
+			  }
+	  }
+	  
+	   else if ((frm.civilstatus.value == '5') && frm.borrower_spouse_lname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Last Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '5') && frm.borrower_spouse_fname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse First Name");
+   			  return false
+	  }
+	  	  else if ((frm.civilstatus.value == '5') && frm.borrower_spouse_mname.value == '')
+	  {
+	    	  sfm_show_error_msg("Please Enter Spouse Middle Name");
+   			  return false
+	  }
+	  	  else if (frm.civilstatus.value == '5') 
+	  {   
+	    	  if(frm.birthdate_spouse.value.match(re)){
+				  
+			  }
+			  else {
+			  sfm_show_error_msg("Invalid BirthDate Format MM/DD/YYYY");
+			  return false
+			  }
+	  }
+	  
+	  	  else if ((frm.age.value <= 15))
+	  {
+	    	  sfm_show_error_msg("Invalid Age");
+   			  return false
+	  }
+	  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+</script>

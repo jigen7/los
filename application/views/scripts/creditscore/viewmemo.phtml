@@ -1,0 +1,90 @@
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 100);</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="88%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->specific?>/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<fieldset>
+	<legend><b/>MEMORANDUM</legend>
+	<table width="800" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+		<thead>
+			<tr>
+				<th class="c1">Model Name</th>
+				<th class="c2">Date Uploaded</th>
+				<th class="c3">Uploaded By</th>
+				<th class="c3">View</th>
+				<th class="c3">Action</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">30</td>
+				<td class="c1">extra1</td>
+				<td class="c2">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">31</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">32</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">33</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">34</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">35</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">36</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">37</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+		</tbody>
+	</table>
+
+</fieldset>          
+</center>
+</form>

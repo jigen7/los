@@ -1,0 +1,393 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form action="" method="post" name="admin_role">
+<table border=1 width="103%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>ADMIN PAGE - ROLES 
+	    
+	</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table width="103%" height="578" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td height="338"><table width="975" border="0">
+      <tr>
+        <td width="6">&nbsp;</td>
+        <td colspan="2">Role</td>
+        <td width="330"><strong>
+          <?=$this->form->rolecategory?>
+        </strong></td>
+        <td width="21">&nbsp;</td>
+        <td width="331">&nbsp;</td>
+        <td width="27">&nbsp;</td>
+        <td width="17">&nbsp;</td>
+        <td width="155">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2"><strong>
+          <input type="submit" name="button" id="button" value="Add" />
+        </strong></td>
+        <td><strong>
+          <?=$this->form->addrole?>
+        </strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2"><strong>
+          <input type="submit" name="button2" id="button2" value="Modify" />
+        </strong></td>
+        <td><strong>
+          <?=$this->form->modifyrole?>
+        </strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2"><strong>
+          <input type="submit" name="button3" id="button3" value="Save" />
+        </strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="8"><strong>Access Rights </strong></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td width="30">&nbsp;</td>
+        <td width="20"><strong>
+          <?=$this->form->report?>
+        </strong></td>
+        <td>Report</td>
+        <td><strong>
+          <?=$this->form->AP_auto_individ?>
+        </strong></td>
+        <td>Account Profile - Auto Individual </td>
+        <td><strong>
+          <?=$this->form->borowers_profile?>
+        </strong></td>
+        <td colspan="2">Borrower's Profile </td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->search?>
+        </strong></td>
+        <td>Search Page </td>
+        <td><strong>
+          <?=$this->form->AP_auto_partner?>
+        </strong></td>
+        <td>Account Profile - Auto Partnership/Corporation </td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_employment?>
+        </strong></td>
+        <td>Employment</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->add_auto_individ?>
+        </strong></td>
+        <td>Add Account - Auto Individual Page </td>
+        <td><strong>
+          <?=$this->form->AP_housing_individ?>
+        </strong></td>
+        <td>Account Profile - Housing Individual </td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_obligations?>
+        </strong></td>
+        <td>Obligations</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->add_auto_partner?>
+        </strong></td>
+        <td>Add Account - Auto Partnership/ Corporation Page </td>
+        <td><strong>
+          <?=$this->form->AP_housing_partner?>
+        </strong></td>
+        <td>Account Profile - Housing Partnership/Corporation </td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_loan?>
+        </strong></td>
+        <td>Loan</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->add_housing_individ?>
+        </strong></td>
+        <td>Add Account - Housing Individual Page </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_unit?>
+        </strong></td>
+        <td>Unit</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->add_housing_partner?>
+        </strong></td>
+        <td>Add Account - Housing Partnership/ Corporation Page </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_cv?>
+        </strong></td>
+        <td>CV</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->pending?>
+        </strong></td>
+        <td>Pending</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_ci?>
+        </strong></td>
+        <td>CI</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->cs_pending?>
+        </strong></td>
+        <td>CS Pending </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_craw?>
+        </strong></td>
+        <td>Craw</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->asign_task?>
+        </strong></td>
+        <td>Assign Task </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_appraisal?>
+        </strong></td>
+        <td>Appraisal</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->submitted?>
+        </strong></td>
+        <td>Submitted</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->bo_documents?>
+        </strong></td>
+        <td>Documents</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->recommended?>
+        </strong></td>
+        <td>Recommended</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->spouse_profile?>
+        </strong></td>
+        <td colspan="2">Spouse's Profile </td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->decided?>
+        </strong></td>
+        <td>Decided</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->spouse_employment?>
+        </strong></td>
+        <td>Employment</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->with_decision?>
+        </strong></td>
+        <td>With Decision </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->spouse_obligations?>
+        </strong></td>
+        <td>Obligations</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->rts?>
+        </strong></td>
+        <td>RTS</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->spouse_cv?>
+        </strong></td>
+        <td>CV</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->credit_decision?>
+        </strong></td>
+        <td>Credit Decision </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->spouse_ci?>
+        </strong></td>
+        <td>CI</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->account_history?>
+        </strong></td>
+        <td>Account History </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->coborowers_profile?>
+        </strong></td>
+        <td colspan="2">Co-Borrower's Profile </td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->audit_trail?>
+        </strong></td>
+        <td>Audit Trail </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->cobo_employment?>
+        </strong></td>
+        <td>Employment</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->cobo_obligations?>
+        </strong></td>
+        <td>Obligations</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->cobo_cv?>
+        </strong></td>
+        <td>CV</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><strong>
+          <?=$this->form->cobo_ci?>
+        </strong></td>
+        <td>CI</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</form>

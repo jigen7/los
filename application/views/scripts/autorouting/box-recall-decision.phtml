@@ -1,0 +1,87 @@
+<style type="text/css">
+<!--
+input.btn {color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+width: 80px;
+}
+-->
+</style>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.masubmit.onsubmit())
+ {//this check triggers the validations
+    document.masubmit.submit();
+	//self.close();
+	// setTimeout(refr(),5000);
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location='<?=$this->baseUrl()?>/index/routedecisionview/cap/<?=$this->capno?>';
+	}
+}
+</SCRIPT> 
+<form name="masubmit" method="post">
+
+<table width="50%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="left" valign="top">
+
+</td>
+    </tr>
+  <tr>
+    <td align="right" valign="top">&nbsp;</td>
+    <td><?=$this->message?></td>
+  </tr>
+  <tr>
+    <td align="right" valign="top">&nbsp;</td>
+    <td><?=$this->form->decision?></td>
+  </tr>
+  <tr>
+    <td width="17%" align="right" valign="top"><strong>Remarks</strong></td>
+    <td width="83%"><?=$this->form->submit_remarks?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->detail?></td>
+  </tr>
+</table><table width="50%" border="0" align="center">
+  <tr>
+    <td align="center"><input type="button" name="score" value="OK" class="btn" onclick="javascript:submitform()" /></td>
+    <td align="center"><input type="button" name="score2" value="CANCEL" class="btn" onclick="javascript:self.close()"/></td>
+  </tr>
+</table>
+</form>
+<? if($this->isSubmit) { ?>
+<script type="text/javascript">
+	alert("Done");
+	self.close();
+	setTimeout(refr(),5000);
+
+</script>
+<? } ?>
+<script type="text/javascript">
+//window.onblur=function(){self.close();};
+</script>
+<!--
+javascript:window.close();
+if (window.opener && !window.opener.closed) {
+	window.opener.location='http://google.com';
+}
+-->
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("masubmit")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+frmvalidator.addValidation("decision","dontselect=0","Please Select your Decision");
+</script>
+
+
+

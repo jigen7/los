@@ -1,0 +1,48 @@
+<?php
+class Zend_View_Helper_AutoRoutePass extends Zend_Controller_Action_Helper_Abstract
+{
+	protected $_view;
+	
+	function setView($view){
+		$this->_view = $view;
+		}
+
+	function autoRoutePass($routetag){
+	    // Use in changing the routetag when the authority pass 
+		$user = Zend_Auth::getInstance()->getIdentity();
+	    $userRole = $user->role_type;
+		
+		if(strpos($routetag,'-'.$userRole) === false){
+			return $routetag;
+			
+		}
+		else {
+			//check if it is outside
+			if(strpos($routetag,'OUTSIDE') === false){
+				
+			}else {
+				$dev = '-OUTSIDE';
+			}
+			
+		 $pos = strpos($routetag,'-');
+  		 $cut = substr($routetag,0,$pos);
+			if($userRole == 'CO'){
+				return $cut."P-CSH".$dev;			
+			}
+			if($userRole == 'CSH'){
+				return $cut."P-CMGH".$dev;			
+			}
+			if($userRole == 'CMGH'){
+				return $cut."P-PRES".$dev;			
+			}
+			if($userRole == 'PRES'){
+				return $cut."P-SUBCRECOM".$dev;			
+			}
+		}
+		
+	}
+
+	
+}
+
+?>

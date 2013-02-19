@@ -1,0 +1,239 @@
+<style type="text/css">
+input {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+input.btn { 
+color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+} 
+input:focus, input.sffocus { background: #659EC7; }
+</style>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+  <form style="display:inline" method="post" name="insurance"/>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>INSURANCE POLICY 
+  <input type="submit" name="button" id="button" value="Save" />
+</strong></td>
+</tr>
+</table>
+<table width="80%" align="center">
+  <tr><td>
+    
+
+  <table width="100%" border="0" align="center" >
+    <tr>
+      <td width="18%" align="left">Policy No.</td>
+      <td colspan="3" align="left"><?=$this->form->policy_no?></td>
+      </tr>
+    <tr>
+      <td align="left">Insurance Comp</td>
+      <td colspan="3" align="left"><?=$this->form->ins_comp?></td>
+      </tr>
+    <tr>
+      <td align="left">Insurance Type</td>
+      <td colspan="3" align="left"><?=$this->form->ins_type?></td>
+      </tr>
+    <tr>
+      <td align="left">Issue Date</td>
+      <td colspan="3" align="left"><?=$this->form->issue_date?></td>
+      </tr>
+    <tr>
+      <td align="left">Procured By:</td>
+      <td colspan="3" align="left"><?=$this->form->pronscured_by?></td>
+      </tr>
+    <tr>
+      <td align="left">Terms of Payment</td>
+      <td colspan="3" align="left"><?=$this->form->payment_terms?></td>
+      </tr>
+    <tr>
+      <td colspan="4" align="left"><strong>Policy Period</strong></td>
+      </tr>
+    <tr>
+      <td align="left">Effectivity</td>
+      <td colspan="3" align="left"><?=$this->form->effectivity_date?>
+        Expiry Date
+        <?=$this->form->expiry_date?></td>
+      </tr>
+    </table>
+    </td>
+    <td>
+  <table width="107%" border="0" align="center">
+    <tr>
+      <td width="38%" align="left">Amount Coverage</td>
+      <td colspan="2" align="left">P<?=$this->form->amount_coverage?></td>
+      </tr>
+    <tr>
+      <td align="left">Net Premium</td>
+      <td colspan="2" align="left">P<?=$this->form->net_premium?></td>
+      </tr>
+    <tr>
+      <td align="left">Misc Charges</td>
+      <td colspan="2" align="left"><?=$this->form->misce_charges?>
+        <input type="submit" name="button" id="button" value="Add" onclick="chkmisc();return false;"/></td>
+      </tr>
+      <? if($this->miscdetail) { ?>
+        <?php foreach($this->miscdetail as $miscedetails) :?>
+    <tr>
+      <td>&nbsp;</td>
+      <td width="21%">P<?=$miscedetails->misce_charges?></td>
+      <td width="41%"><input type="button" name="button3" id="button3" value="Delete" onclick="javascript: if (confirm('Are you sure you want to delete this Misc Charges Detail?')) window.location='<?=$this->baseUrl().'/index/delcharges/id/'.$miscedetails->id.'/cap/'.$this->capno?>'"/></td>
+      </tr>
+        <?php endforeach; ?>
+        <? } ?>
+    <tr>
+      <td>Total Premium</td>
+      <td colspan="2" align="left">P<?=$this->form->total_premium?></td>
+      </tr>
+  </table>
+  </td>
+  </tr>
+</table>
+</center>
+
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td><strong>PERILS COVERED</strong></td>
+  </tr>
+</table>
+</form>
+<br />
+<form name="peril" method="post" action="">
+<table width="66%" border="0" align="center">
+  <tr>
+    <td width="17%" align="center">Description</td>
+    <td width="14%" align="center">Coverage</td>
+    <td width="30%" align="center">Net Premium</td>
+    <td width="28%" align="center">Net Commission</td>
+    <td width="11%" align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="center"><?=$this->form->desc?></td>
+    <td align="center"><?=$this->form->coverage?></td>
+    <td align="center">P<?=$this->form->net_premium2?></td>
+    <td align="center">P<?=$this->form->net_commision?></td>
+    <td align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2" align="center">
+      <input type="submit" name="button2" value="Submit" />
+  </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2" align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <?php foreach($this->perilsdetail as $perilsdetails) :?>
+  <tr>
+    <td align="center"><?=$perilsdetails->desc?></td>
+    <td align="center"><?=$perilsdetails->coverage?></td>
+    <td align="center">P<?=$perilsdetails->net_premium?></td>
+    <td align="center">P<?=$perilsdetails->net_commision?></td>
+    <td align="center"><input type="button" name="button4" id="button2" value="Delete" onclick="javascript: if (confirm('Are you sure you want to delete this Detail?')) window.location='<?=$this->baseUrl().'/index/delperils/id/'.$perilsdetails->id.'/cap/'.$this->capno?>'"/></td>
+  </tr>
+   <?php endforeach; ?>
+</table>
+  </form>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("peril")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Peril Description is Required!!");
+frmvalidator.addValidation("coverage","req","Peril Coverage is Required!!");
+frmvalidator.addValidation("net_premium2","req","Peril Net Premium is Required!!");
+frmvalidator.addValidation("net_commision","req","Peril Net Commission is Required!!");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("insurance")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("policy_no","req","Policy No is Required!!");
+frmvalidator.addValidation("ins_comp","req","Insurance Company is Required!!");
+frmvalidator.addValidation("ins_type","req","Insurance Type is Required!!");
+frmvalidator.addValidation("pronscured_by","req","Pronscured By is Required!!");
+frmvalidator.addValidation("payment_terms","req","Payment Terms is Required!!");
+frmvalidator.addValidation("amount_coverage","req","Amount Coverage is Required!!");
+frmvalidator.addValidation("net_premium","req","Net Premium By is Required!!");
+frmvalidator.addValidation("total_premium","req","Total Premium is Required!!");
+
+frmvalidator.addValidation("issue_date","req","Date Issued is Required!!");
+frmvalidator.addValidation("issue_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("effectivity_date","req","Effectivity Date is Required!!");
+frmvalidator.addValidation("effectivity_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("expiry_date","req","Expiry Date is Required!!");
+frmvalidator.addValidation("expiry_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+
+  function DoCustomValidation()
+	{
+	 var frm = document.forms["insurance"];
+	 var frm2 = document.getElementById("button");
+     var sDate = new Date(frm.effectivity_date.value);
+	 var eDate = new Date(frm.expiry_date.value);
+
+   	  if (eDate < sDate){
+	    	  sfm_show_error_msg("Expiry Date Invalid");
+			  return false }
+			  
+	  else if((frm.misce_charges.value == '') && (frm2.value == 'Add')){
+		  	  sfm_show_error_msg("Please Enter Misc Charges");
+			  return false }
+		  
+	  	{
+	    return true;
+	 	 }
+	
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+</script>
+
+
+
+<script language="JavaScript" type="text/javascript">
+
+function chkmisc(){
+	if (document.getElementById("misce_charges").value == '') {
+	alert ("Misc Charges is Required");
+	return false;
+	} else {
+	document.insurance.submit();
+	
+	return true;
+	}
+	
+}
+
+</script>

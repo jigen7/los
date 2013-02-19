@@ -1,0 +1,218 @@
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>ADD ACCOUNT FOR BOOKING PAGE</strong></td>
+</tr>
+<tr>
+  <td>
+<ul id="nav">
+ <li><a href="#" class="dropdown" onclick="" >EDIT</a> </li>
+ <li><a href="#" class="dropdown" onclick="" >SUBMIT</a> </li>
+ <li><a href="#" class="dropdown" onclick="" >RTS</a> </li>
+ <li><a href="#" class="dropdown" onclick="" >REVIEWED</a> </li>
+ <li><a href="#" class="dropdown" onclick="" >CHECKED</a> </li>
+</ul>
+</td>
+</tr>
+</table>
+<center>
+  <form name="booking" method="post" style="display:inline">
+<table width="100%" border="0">
+  <tr>
+    <td colspan="4" bgcolor="#FF3333"><strong><font color="#FFFF00">BORROWER'S INFORMATION</font></strong></td>
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    </tr>
+  <tr>
+    <td width="16%">Cap No.:</td>
+    <td colspan="3"><?=$this->detail->capno?></td>
+    </tr>
+  <tr>
+    <td>Borrower's Name:*</td>
+    <td colspan="3"><?=$this->detail->borrower_fname?> <?=$this->detail->borrower_mname?> <?=$this->detail->borrower_lname?></td>
+    </tr>
+  <tr>
+    <td>Permanent Address:</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>City/Municipality</td>
+    <td colspan="3">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td width="31%">&nbsp;</td>
+    <td width="23%">Identification Type</td>
+    <td width="30%">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Home Landline</td>
+    <td>&nbsp;</td>
+    <td>Documentation ID Number</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Mobile No.</td>
+    <td>&nbsp;</td>
+    <td>Customer Since</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Email Address</td>
+    <td>&nbsp;</td>
+    <td>Legal Form of Business</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Identification Number</td>
+    <td>&nbsp;</td>
+    <td>Customer Category</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Short Name</td>
+    <td>&nbsp;</td>
+    <td>Office Address</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Date of Birth</td>
+    <td>&nbsp;</td>
+    <td>Office Landline</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Citizenship</td>
+    <td>&nbsp;</td>
+    <td>Fax No.</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Gender</td>
+    <td>&nbsp;</td>
+    <td>Position </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Civil Status</td>
+    <td>&nbsp;</td>
+    <td>SIC</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Effective Rate</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Dealer Incetinve Rate</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  </table>
+<table width="100%" border="0">
+  <tr>
+    <td colspan="2" bgcolor="#FF3333"><strong><font color="#FFFF00">PLADLO</font></strong></td>
+    <td colspan="2" bgcolor="#FF3333"><strong><font color="#FFFF00">PLCHMI</font></strong></td>
+    <td colspan="2" bgcolor="#FF3333"><strong><font color="#FFFF00">PLCHUF</font></strong></td>
+  </tr>
+  <tr>
+    <td width="16%">PN #</td>
+    <td width="17%">&nbsp;</td>
+    <td width="13%">Location Code</td>
+    <td width="18%">&nbsp;</td>
+    <td width="17%">Industry Type</td>
+    <td width="19%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Loan Type</td>
+    <td>&nbsp;</td>
+    <td>Purpose Code</td>
+    <td>&nbsp;</td>
+    <td>Rediscount Date</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Loan Class</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Type of Credit </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Branch</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Profit/Cost Center</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>GL Table</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Origin</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Borrower Type</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Origin Maturity &gt; 360</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Size of Firm</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Economic Acivity</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Interest Paid to Date</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Bank Loan Classification</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>Original Interest Rate</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+  </form>
+</center>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("booking")
+frmvalidator.EnableMsgsTogether();
+
+
+</script>
+

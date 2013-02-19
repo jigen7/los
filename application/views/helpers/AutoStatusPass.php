@@ -1,0 +1,45 @@
+<?php
+class Zend_View_Helper_AutoStatusPass extends Zend_Controller_Action_Helper_Abstract
+{
+	protected $_view;
+	
+	function setView($view){
+		$this->_view = $view;
+		}
+
+	function autoStatusPass($routetag){
+		//Retire bcoz of new pass system
+	    // Use in changing the routetag when the authority pass 
+
+		$user = Zend_Auth::getInstance()->getIdentity();
+	    $userRole = $user->role_type;
+		
+		if($userRole == 'CO'){
+			if(strpos($routetag,'-'.$userRole) !== false){
+			return 'CO - P';
+			}else{
+			return 'CO - RP';
+			}
+		
+		}
+		if($userRole == 'CSH'){
+			if(strpos($routetag,'-CRECOM')!== false || 
+			strpos($routetag,'-SUBCRECOM')!== false || 
+			strpos($routetag,'-EXE-BOD')!== false || 
+			strpos($routetag,'-CMGH')!== false || 
+			strpos($routetag,'-PRES')!== false){
+			return 'CSH - RP';
+			}else{
+			return 'CSH - P';
+			}
+			
+			
+		}
+
+		
+	}
+
+	
+}
+
+?>

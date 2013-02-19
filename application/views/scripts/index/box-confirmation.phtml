@@ -1,0 +1,252 @@
+<style type="text/css">
+<!--
+input.btn {color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+width: 80px;
+}
+-->
+</style>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.masubmit.onsubmit())
+ {//this check triggers the validations
+    document.masubmit.submit();
+	//self.close();
+	//setTimeout(refr(),5000);
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>';
+	}
+}
+</SCRIPT> 
+<form name="masubmit" method="post">
+<table align="center">
+<? foreach ($this->deviation as $key => $value) {
+    if ($value){ ?>
+<tr>
+<td>
+
+<? echo "*$value";?>
+</td>
+<td>
+<? 	//if ($key == "dev_age"){ echo $this->form->dev_age."<br />\n ";  }
+
+	if ($key == "dev_downpayment"){ echo "<b>Minor</b>".$this->form->dev_downpayment."<br />\n ";  }
+
+	//if ($key == "dev_veh_age"){ echo "<b>Major</b>".$this->form->dev_veh_age."<br />\n ";  }
+	if ($key == "dev_gmi"){ echo "<b>Major</b>".$this->form->dev_gmi."<br />\n ";  }
+	if ($key == "dev_loan_amount"){ echo "Minor".$this->form->loan_amount."<br />\n ";  }
+	if ($key == "dev_loantermhigh"){ echo "<b>Major</b>".$this->form->dev_loantermhigh."<br />\n ";  }
+	if ($key == "dev_loantermlow"){ echo "<b>Major</b>".$this->form->dev_loantermlow."<br />\n ";  }
+	if ($key == "dev_totalcombine"){ echo "Minor".$this->form->dev_totalcombine."<br />\n ";  }
+	if ($key == "dev_sell_lcp"){ echo "<b>Major</b>".$this->form->dev_sell_lcp."<br />\n ";  }
+	if ($key == "dev_sell_appraisal"){ echo "<b>Major</b>".$this->form->dev_sell_appraisal."<br />\n ";  }
+	if ($key == "dev_veh_tenor"){ echo "<b>Major</b>".$this->form->dev_veh_tenor."<br />\n ";  }
+	if ($key == "dev_veh_car_history"){ echo "<b>Major</b>".$this->form->dev_veh_car_history."<br />\n ";  }
+	if ($key == "dev_loan_purpose"){ echo "<b>Major</b>".$this->form->dev_loan_purpose."<br />\n ";  }
+	if ($key == "dev_veh_yr"){ echo "<b>Major</b>".$this->form->dev_veh_yr."<br />\n ";  }
+	if ($key == "dev_residence_yrs"){ echo "Minor".$this->form->dev_residence_yrs."<br />\n ";  }
+	if ($key == "dev_employment_yrs"){ echo "Minor".$this->form->dev_employment_yrs."<br />\n ";  }
+	if ($key == "dev_employment_status"){ echo "Minor".$this->form->dev_employment_status."<br />\n ";  }
+	if ($key == "dev_business_yrs"){ echo "<b>Major</b>".$this->form->dev_business_yrs."<br />\n ";  }
+	if ($key == "dev_citizenship1"){ echo "<b>Major</b>".$this->form->dev_citizenship1."<br />\n ";  }
+	if ($key == "dev_borrower_age"){ echo "Major".$this->form->dev_borrower_age."<br />\n ";  }
+	if ($key == "dev_total_income"){ echo "Major".$this->form->dev_total_income."<br />\n ";  }
+
+
+	//CA
+	if ($key == "dev_nfis"){ echo "<b>Major</b>".$this->form->dev_nfis."<br />\n ";  }
+	if ($key == "dev_cmap"){ echo "<b>Major</b>".$this->form->dev_cmap."<br />\n ";  }
+	if ($key == "dev_nfis_check"){ echo "<b>Major</b>".$this->form->dev_nfis_check."<br />\n ";  }
+	if ($key == "dev_ci_favorable"){ echo "<b>Major</b>".$this->form->dev_ci_favorable."<br />\n ";  }
+	if ($key == "dev_ci_check"){ echo "<b>Major</b>".$this->form->dev_ci_check."<br />\n ";  }	
+
+	//Spouse
+	if ($key == "dev_spouse_age"){ echo "<b>Major</b>".$this->form->dev_spouse_age."<br />\n ";  }
+	if ($key == "dev_sporesidence_yrs"){ echo "Minor".$this->form->dev_sporesidence_yrs."<br />\n ";  }
+	if ($key == "dev_spoemployment_yrs"){ echo "Minor".$this->form->dev_spoemployment_yrs."<br />\n ";  }
+	if ($key == "dev_spoemployment_status"){ echo "Minor".$this->form->dev_spoemployment_status."<br />\n ";} 
+	if ($key == "dev_spobusiness_yrs"){ echo "<b>Major</b>".$this->form->dev_spobusiness_yrs."<br />\n ";  }
+	if ($key == "dev_spocitizenship"){ echo "<b>Major</b>".$this->form->dev_spocitizenship."<br />\n ";  }
+	//CA Spouse
+		if ($key == "dev_spnfis"){ echo "<b>Major</b>".$this->form->dev_spnfis."<br />\n ";  }
+		if ($key == "dev_spcmap"){ echo "<b>Major</b>".$this->form->dev_spcmap."<br />\n ";  }
+		if ($key == "dev_spnfis_check"){ echo "<b>Major</b>".$this->form->dev_spnfis_check."<br />\n ";  }
+		if ($key == "dev_spci_favorable"){ echo "<b>Major</b>".$this->form->dev_spci_favorable."<br />\n ";  }
+		if ($key == "dev_spci_check"){ echo "<b>Major</b>".$this->form->dev_spci_check."<br />\n ";  }		
+	//Co Borrower
+	if ($key == "dev_coborrower_age"){ echo "Major".$this->form->dev_coborrower_age."<br />\n ";  }
+	if ($key == "dev_coresidence_yrs"){ echo "Minor".$this->form->dev_coresidence_yrs."<br />\n ";  }
+	if ($key == "dev_coemployment_yrs"){ echo "Minor".$this->form->dev_coemployment_yrs."<br />\n ";  }
+	if ($key == "dev_coemployment_status"){ echo "Minor".$this->form->dev_coemployment_status."<br />\n ";} 
+	if ($key == "dev_cobusiness_yrs"){ echo "Major".$this->form->dev_cobusiness_yrs."<br />\n ";  }
+	if ($key == "dev_citizenship2"){ echo "<b>Major</b>".$this->form->dev_citizenship2."<br />\n ";  }
+	if ($key == "dev_cototal_income"){ echo "Major".$this->form->dev_cototal_income."<br />\n ";  }
+
+	//Coborrower CA
+	if ($key == "dev_confis"){ echo "<b>Major</b>".$this->form->dev_confis."<br />\n ";  }
+	if ($key == "dev_cocmap"){ echo "<b>Major</b>".$this->form->dev_cocmap."<br />\n ";  }
+	
+	if ($key == "dev_confis_check"){ echo "<b>Major</b>".$this->form->dev_confis_check."<br />\n ";  }
+	if ($key == "dev_coci_favorable"){ echo "<b>Major</b>".$this->form->dev_coci_favorable."<br />\n ";  }
+	if ($key == "dev_coci_check"){ echo "<b>Major</b>".$this->form->dev_coci_check."<br />\n ";  }		
+	if ($key == "dev_veh_use_taxi_downpayment"){ echo "Major".$this->form->dev_veh_use_taxi_downpayment."<br />\n ";  }
+	if ($key == "dev_veh_use_taxi_term"){ echo "Major".$this->form->dev_veh_use_taxi_term."<br />\n ";  }
+	
+	
+?>
+</td>
+</tr>
+<? } } ?>
+</table>
+<table width="50%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="left" valign="top">
+
+</td>
+    </tr>
+  <tr>
+    <td width="17%" align="right" valign="top"><strong>Remarks</strong></td>
+    <td width="83%"><?=$this->form->submit_remarks?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$this->detail?></td>
+  </tr>
+</table><table width="50%" border="0" align="center">
+  <tr>
+    <td align="center"><input type="button" name="score" value="OK" class="btn" onclick="javascript:submitform()" /></td>
+    <td align="center"><input type="button" name="score2" value="CANCEL" class="btn" onclick="javascript:self.close()"/></td>
+  </tr>
+</table>
+</form>
+<? if($this->isSubmit) { ?>
+<script type="text/javascript">
+	alert("Submitted");
+	self.close();
+	setTimeout(refr(),5000);
+</script>
+<? } ?>
+
+<script type="text/javascript">
+//window.onblur=function(){self.close();};
+//alert("hehehe");
+</script>
+<!--
+javascript:window.close();
+if (window.opener && !window.opener.closed) {
+	window.opener.location='http://google.com';
+}
+-->
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("masubmit")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+<? foreach ($this->deviation as $key => $value) {if ($value){ ?>
+
+
+<? if ($key == "dev_loan_amount"){ ?>frmvalidator.addValidation("loan_amount","req","Loan Amount Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_downpayment" && $this->loggedInUserType() == "MA"){ ?>frmvalidator.addValidation("dev_downpayment","req","Downpayment Remarks Required!!");  <? } ?>
+
+<? if ($key == "dev_veh_age"){ ?>frmvalidator.addValidation("dev_veh_age","req","Veh Age Remarks Required!!");  <? } ?>
+
+<? if ($key == "dev_gmi"){ ?>frmvalidator.addValidation("dev_gmi","req","GMI Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_totalcombine"){ ?>frmvalidator.addValidation("dev_totalcombine","req","Total Combine Income Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_borrower_age"){ ?>frmvalidator.addValidation("dev_borrower_age","req","Borrower Age Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_residence_yrs"){ ?>frmvalidator.addValidation("dev_residence_yrs","req","Residence Years Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_employment_yrs"){ ?>frmvalidator.addValidation("dev_employment_yrs","req","Employment Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_employment_status"){ ?>frmvalidator.addValidation("dev_employment_status","req","Employment Status Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_business_yrs"){ ?>frmvalidator.addValidation("dev_business_yrs","req","Business Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_citizenship1"){ ?>frmvalidator.addValidation("dev_citizenship1","req","Citizenship Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_citizenship2"){ ?>frmvalidator.addValidation("dev_citizenship2","req","Coborrower Citizenship Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_coborrower_age"){ ?>frmvalidator.addValidation("dev_coborrower_age","req","Coborrower Age Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_coemployment_yrs"){ ?>frmvalidator.addValidation("dev_coemployment_yrs","req","Coborrower Employment Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_coresidence_yrs"){ ?>frmvalidator.addValidation("dev_coresidence_yrs","req","Coborrower Residence Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_coemployment_status"){ ?>frmvalidator.addValidation("dev_coemployment_status","req","Coborrower Employment Status Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_cobusiness_yrs"){ ?>frmvalidator.addValidation("dev_cobusiness_yrs","req","Coborrower Business Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_spouse_age"){ ?>frmvalidator.addValidation("dev_spouse_age","req","Spouse Age Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_spoemployment_yrs"){ ?>frmvalidator.addValidation("dev_spoemployment_yrs","req","Spouse Employment Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_sporesidence_yrs"){ ?>frmvalidator.addValidation("dev_sporesidence_yrs","req","Spouse Residence Yrs Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_spoemployment_status"){ ?>frmvalidator.addValidation("dev_spoemployment_status","req","Spouse Employment Status Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_spobusiness_yrs"){ ?>frmvalidator.addValidation("dev_spobusiness_yrs","req","Spouse Business Yrs Remarks Required!!");<? } ?>
+<? if ($key == "dev_spocitizenship"){ ?>frmvalidator.addValidation("dev_spocitizenship","req","Spouse Citizenship Remarks Required!!");<? } ?>
+
+
+<? if ($key == "dev_sell_appraisal"){ ?>frmvalidator.addValidation("dev_sell_appraisal","req","Selling Price > Appraisal Value Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_sell_lcp"){ ?>frmvalidator.addValidation("dev_sell_lcp","req","Selling Price > LCP Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_loantermlow"){ ?>frmvalidator.addValidation("dev_loantermlow","req","Loan Term Min Term LCP Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_loantermhigh"){ ?>frmvalidator.addValidation("dev_loantermhigh","req","Loan Term Max Term LCP Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_veh_yr"){ ?>frmvalidator.addValidation("dev_veh_yr","req","Vehicle Year Deviation Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_veh_tenor"){ ?>frmvalidator.addValidation("dev_veh_tenor","req","Vehicle Tenor Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_veh_car_history"){ ?>frmvalidator.addValidation("dev_veh_car_history","req","Vehicle Car History Remarks Required!!");<? } ?>
+
+//Borrower CA
+<? if ($key == "dev_nfis"){ ?>frmvalidator.addValidation("dev_nfis","req","NFIS Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_nfis"){ ?>frmvalidator.addValidation("dev_cmap","req","CMAP Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_nfis_check"){ ?>frmvalidator.addValidation("dev_nfis_check","req","NFIS Date Remarks Required!!");<? } ?>
+<? if ($key == "dev_ci_favorable"){ ?>frmvalidator.addValidation("dev_ci_favorable","req","CI Report Unfavorables Remarks Required!!");<? } ?>
+<? if ($key == "dev_ci_check"){ ?>frmvalidator.addValidation("dev_ci_check","req","CI Date Remarks Required!!");<? } ?>
+//Co Borrower CA
+<? if ($key == "dev_confis"){ ?>frmvalidator.addValidation("dev_confis","req","Coborrower NFIS Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_cocmap"){ ?>frmvalidator.addValidation("dev_cocmap","req","Coborrower CMAP Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_confis_check"){ ?>frmvalidator.addValidation("dev_confis_check","req"," Coborrower NFIS Date Remarks Required!!");<? } ?>
+<? if ($key == "dev_coci_favorable"){ ?>frmvalidator.addValidation("dev_coci_favorable","req","Coborrower CI Report Unfavorables Remarks Required!!");<? } ?>
+<? if ($key == "dev_coci_check"){ ?>frmvalidator.addValidation("dev_coci_check","req","Coborrower CI Date Remarks Required!!");<? } ?>
+
+//Spouse CA
+<? if ($key == "dev_spnfis"){ ?>frmvalidator.addValidation("dev_spnfis","req","Spouse NFIS Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_spcmap"){ ?>frmvalidator.addValidation("dev_spcmap","req","Spouse CMAP Positive Remarks Required!!");<? } ?>
+<? if ($key == "dev_spnfis_check"){ ?>frmvalidator.addValidation("dev_spnfis_check","req"," Spouse NFIS Date Remarks Required!!");<? } ?>
+<? if ($key == "dev_spci_favorable"){ ?>frmvalidator.addValidation("dev_spci_favorable","req","Spouse CI Report Unfavorables Remarks Required!!");<? } ?>
+<? if ($key == "dev_spci_check"){ ?>frmvalidator.addValidation("dev_spci_check","req","Spouse CI Date Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_total_income"){ ?>frmvalidator.addValidation("dev_total_income","req","No Source of Income Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_cototal_income"){ ?>frmvalidator.addValidation("dev_cototal_income","req","No Source of Income Coborrower Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_veh_use_downpayment"){ ?>frmvalidator.addValidation("dev_veh_use_downpayment","req","Taxi Application Downpayment Remarks Required!!");<? } ?>
+
+<? if ($key == "dev_veh_use_taxi_term"){ ?>frmvalidator.addValidation("dev_veh_use_taxi_term","req","Taxi Application Loan Term!!");<? } ?>
+
+<? } } ?>
+
+
+
+</script>
+
+
+

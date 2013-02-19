@@ -1,0 +1,421 @@
+<style type="text/css">
+input {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+input.btn { 
+color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+} 
+input:focus, input.sffocus { background: #659EC7; }
+</style>
+
+  
+     <script type="text/javascript">
+    <!--
+    $(function () {
+        var cat = $('#categorySelect');
+        var el = $('#elementSelect');
+		var cat2 = $('#categorySelect2');
+        var el2 = $('#elementSelect2');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+        cat.selectChain({
+            target: el,
+            url: '<?=$this->baseUrl();?>/inc/query.php?city=<?=$this->borrower_pres_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+		 cat2.selectChain({
+            target: el2,
+            url: '<?=$this->baseUrl();?>/inc/query2.php',
+            data: { ajax: true }
+        }).trigger('change');
+
+    });
+    //-->
+ </script>
+
+<script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.account.onsubmit())
+ {//this check triggers the validations
+    document.account.submit();
+ }
+}
+</SCRIPT> 
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td colspan="3">&nbsp;<strong>SPOUSE PROFILE - CA PAGE</strong></td>
+</tr>
+<tr style="border-bottom:hidden">
+  <td width="52%">
+  <ul id="menu" class="dropdown">
+
+
+  </ul>
+  
+  
+  
+  </td>
+  <td width="41%" style="border-left:hidden">&nbsp;</td>
+  <td width="7%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/capage/cap/<?=$this->origcapno?>'">RETURN</td>
+</tr>
+</table>
+
+<form action="" method="post" name="account">
+  <table width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+    <tr>
+      <td width="14%"><?=$this->form->relation?></td>
+      <td width="14%">&nbsp;</td>
+      <td width="11%">&nbsp;</td>
+      <td width="8%">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td width="19%" colspan="2" align="right">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" align="right">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Cap No.</td>
+      <td><?=$this->capno?></td>
+      <td colspan="6">Spouse Name:
+        <?=$this->detail->borrower_lname?>
+        ,
+          <?=$this->detail->borrower_fname?>
+          ,
+      <?=$this->detail->borrower_mname?></td>
+    </tr>
+    <tr>
+      <td colspan="2">Permanent Address</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td width="21%">&nbsp;</td>
+      <td width="13%">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Street: </td>
+      <td><?=$this->detail->pres_address_st?></td>
+      <td>&nbsp;</td>
+      <td>Landline:</td>
+      <td><?=$this->detail->landline?></td>
+      <td>Tax Identification No.:</td>
+      <td colspan="2"><?=$this->detail->tin_id?></td>
+    </tr>
+    <tr>
+      <td>Barangay: </td>
+      <td><?=$this->detail->pres_address_brgy?></td>
+      <td>&nbsp;</td>
+      <td>Mobile:</td>
+      <td><?=$this->detail->mobile?></td>
+      <td>Total Income:</td>
+      <td colspan="2"><img src="<?=$this->baseUrl();?>/images/peso_sign.png" width="12%"/>
+      <?=$this->totalincome?></td>
+    </tr>
+    <tr>
+      <td>City / Municipality:</td>
+      <td><?=$this->detail->pres_address_city?></td>
+      <td>&nbsp;</td>
+      <td>Email:</td>
+      <td><?=$this->detail->email?></td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Province:</td>
+      <td colspan="2"><?=$this->detail->pres_address_province?> 
+      Zip Code 
+      <?=$this->detail->pres_zipcode?></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="8">
+      
+            
+  </td>
+    </tr>
+  </table>
+
+	  <div class="tabber">
+      
+	  <div class="tabbertab">
+<h2>DETAILS</h2>
+<table width="100%">
+  <tr>
+    <td width="15%">&nbsp;</td>
+    <td width="20%">&nbsp;</td>
+    <td width="14%">&nbsp;</td>
+    <td width="17%">&nbsp;</td>
+    <td width="16%">&nbsp;</td>
+    <td width="18%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Length of            Stay:</td>
+    <td><?=$this->detail->residence_yrs?>
+      Yr.        /
+      <?=$this->detail->residence_months?>
+      Mo.</td>
+    <td>Date of Birth:</td>
+    <td><?=date('m/d/Y',strtotime($this->detail->birthdate))?></td>
+    <td>Age:</td>
+    <td><?=$this->detail->age?></td>
+  </tr>
+  <tr>
+    <td> Residence Type: </td>
+    <td><?=$this->viewResidenceType($this->detail->residence_type)?></td>
+    <td>Place of Birth:</td>
+    <td><?=$this->detail->birthplace?></td>
+    <td>Citizenship:</td>
+    <td><?=$this->viewCitizenship($this->detail->citizenship)?></td>
+  </tr>
+  <tr>
+    <td>Neighborhood Type:</td>
+    <td><?=$this->viewNeighborhoodType($this->detail->neighborhoodtype)?></td>
+    <td>Mother's Maiden:</td>
+    <td><?=$this->detail->maiden_name?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  </table>
+<table width="80%" id="prev_table" <? if($this->detail->residence_yrs_prev == ''){ ?>style="display:none" <? }?> >
+  <tr>
+    <td colspan="4"><strong>Previous Address</strong></td>
+  </tr>
+  <tr>
+    <td width="19%">Length of            Stay:</td>
+    <td width="18%"><?=$this->detail->residence_yrs_prev?>
+      Yr.
+      <?=$this->detail->residence_months_prev?>
+      Mo.</td>
+    <td width="18%">Street:</td>
+    <td width="45%"><?=$this->detail->prev_address_st?></td>
+  </tr>
+  <tr>
+    <td>Residence Type:</td>
+    <td><?=$this->viewResidenceType((int)$this->detail->residence_type_prev)?></td>
+    <td>City / Municipality: </td>
+    <td><?=$this->detail->prev_address_city?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Barangay : </td>
+    <td><?=$this->detail->prev_address_brgy?></td>
+  </tr>
+  <tr>
+    <td>Zip Code: </td>
+    <td><?=$this->detail->prev_zipcode?></td>
+    <td>Province: </td>
+    <td><?=$this->detail->prev_address_province?></td>
+  </tr>
+</table>
+<iframe src ="<?=$this->baseUrl();?>/index/employment/cap/<?=$this->capno?>/page/ca" width="100%" height="500" frameborder="0">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+<!-- End of Form for Main Details -->
+</div>
+
+<div class="tabbertab">
+<h2>OBLIGATIONS</h2>
+      <iframe src ="<?=$this->baseUrl();?>/index/obligation/cap/<?=$this->capno?>/page/ca" width="100%" height="500" frameborder="0">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+</div>
+<div class="tabbertab">
+              <h2>ASSETS</h2>
+                    <iframe src ="<?=$this->baseUrl();?>/index/otherasset/cap/<?=$this->capno?>/page/ca" width="100%" height="500" frameborder="0">
+                <p>Your browser does not support iframes.</p>
+                </iframe>
+        </div>
+<? if ($this->roleAccess('cv','')){ ?>
+      <div class="tabbertab">
+	  <h2>CV</h2>
+	  <table width="100%" border="0">
+	    <tr>
+	      <td width="18%">&nbsp;</td>
+	      <td width="18%" align="center">FINDINGS</td>
+	      <td width="16%" align="center">STATUS</td>
+	      <td width="3%" align="center">&nbsp;</td>
+	      <td width="45%">REMARKS</td>
+        </tr>
+	    <tr>
+	      <td><strong>NFIS / BAP-
+	        <?=$this->cvdetail->date_nfis?>
+	        </strong></td>
+	      <td align="center"><?=$this->cvdetail->nfis?></td>
+	      <td align="center"><?=$this->cvdetail->nfis2?></td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_nfis)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>CMAP </strong></td>
+	      <td align="center"><?=$this->cvdetail->cmap?></td>
+	      <td align="center"><?=$this->cvdetail->cmap2?></td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_cmap)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>SOURCE OF INCOME VERIFICATION</strong></td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;EMPLOYMENT VERIFICATION</td>
+	      <td align="center"><?=$this->cvdetail->empver2?></td>
+	      <td align="center"><?=$this->cvdetail->empver?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cvdetail->model_cv_empver)?></td>
+	      <td><?=stripslashes($this->cvdetail->remarks_empver)?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;BUSINESS VERIFICATION</td>
+	      <td align="center"><?=$this->cvdetail->busver2?></td>
+	      <td align="center"><?=$this->cvdetail->busver?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cvdetail->model_cv_busver)?></td>
+	      <td><?=stripslashes($this->cvdetail->remarks_busver)?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;TRADE CHECKING</td>
+	      <td align="center"><?=$this->cvdetail->trdchk2?></td>
+	      <td align="center"><?=$this->cvdetail->trdchk?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cvdetail->model_cv_trdchk)?></td>
+	      <td><?=stripslashes($this->cvdetail->remarks_trdchk)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>BACKGROUND INVESTIGATION</strong></td>
+	      <td align="center"><?=$this->cvdetail->backgrd?></td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center"><?=$this->viewModelCheck($this->cvdetail->model_cv_backgrd)?></td>
+	      <td><?=stripslashes($this->cvdetail->remarks_backgrd)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>BANK FI REFERENCE CHECKING</strong></td>
+	      <td align="center"><?=$this->cvdetail->bankref?></td>
+	      <td align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_bankref)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>CREDIT CHECKING</strong></td>
+	      <td align="center"><?=$this->cvdetail->creditchk?></td>
+	      <td align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_creditchk)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>PAST DEALINGS W/ CBC</strong></td>
+	      <td align="center"><?=$this->cvdetail->pastdealings?></td>
+	      <td align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_pastdealings)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>INCOME VERIFICATION</strong></td>
+	      <td align="center"><?=$this->cvdetail->income?></td>
+	      <td align="center"><?=$this->cvdetail->income2?></td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cvdetail->remarks_income)?></td>
+        </tr>
+	    </table>
+      </div>
+      <? } ?>
+    
+      <? if ($this->roleAccess('ci','')){ ?>
+      <div class="tabbertab">
+	  <h2>CI</h2>
+	  <table width="100%" border="0">
+	    <tr>
+	      <td width="18%"><strong>CI Date
+	        <?=$this->cidetail->date_ci?>
+	        </strong></td>
+	      <td width="17%" align="center">FINDINGS</td>
+	      <td width="17%" align="center">STATUS</td>
+	      <td width="3%">&nbsp;</td>
+	      <td width="45%">REMARKS</td>
+        </tr>
+	    <tr>
+	      <td><strong>SOURCE OF INCOME VERIFICATION</strong></td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;EMPLOYMENT VERIFICATION</td>
+	      <td align="center"><?=$this->cidetail->empver_ci2?></td>
+	      <td align="center"><?=$this->cidetail->empver_ci?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cidetail->model_ci_empver)?></td>
+	      <td><?=stripslashes($this->cidetail->remarks_empver_ci)?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;BUSINESS VERIFICATION</td>
+	      <td align="center"><?=$this->cidetail->busver_ci2?></td>
+	      <td align="center"><?=$this->cidetail->busver_ci?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cidetail->model_ci_busver)?></td>
+	      <td><?=stripslashes($this->cidetail->remarks_busver_ci)?></td>
+        </tr>
+	    <tr>
+	      <td>TRADE CHECKING</td>
+	      <td align="center"><?=$this->cidetail->trdchk_ci2?></td>
+	      <td align="center"><?=$this->cidetail->trdchk_ci?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cidetail->model_ci_trdchk)?></td>
+	      <td><?=stripslashes($this->cidetail->remarks_trdchk_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>BACKGROUND INVESTIGATION</strong></td>
+	      <td align="center"><?=$this->cidetail->backgrd_ci2?></td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center"><?=$this->viewModelCheck($this->cidetail->model_ci_backgrd)?></td>
+	      <td><?=stripslashes($this->cidetail->remarks_backgrd_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>RESIDENCE VERIFICATION</strong></td>
+	      <td align="center"><?=$this->cidetail->residence_ci2?></td>
+	      <td align="center"><?=$this->cidetail->residence_ci?></td>
+	      <td align="center">&nbsp;</td>
+	      <td><?=stripslashes($this->cidetail->remarks_residence_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>INCOME VERIFICATION</strong></td>
+	      <td align="center"><?=$this->cidetail->income_ci?></td>
+	      <td align="center"><?=$this->cidetail->income_ci2?></td>
+	      <td>&nbsp;</td>
+	      <td><?=stripslashes($this->cidetail->remarks_income_ci)?></td>
+        </tr>
+	    </table>
+      </div>
+      
+<? } ?>
+</div>
+</form> 

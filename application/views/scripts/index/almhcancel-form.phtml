@@ -1,0 +1,66 @@
+<style type="text/css">
+<!--
+input.btn {color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+width: 80px;
+}
+-->
+</style>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.masubmit.onsubmit())
+ {//this check triggers the validations
+    document.masubmit.submit();
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location.reload(); 	
+	}
+}
+ </SCRIPT> 
+<p>&nbsp;</p>
+
+<form name="masubmit" method="post">
+<table width="50%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="left" valign="top">
+
+</td>
+  </tr>
+  <tr>
+    <td width="17%" align="right" valign="top"><strong>Remarks</strong></td>
+    <td width="83%"><?=$this->form->submit_remarks?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">Cancel this Application ?</td>
+  </tr>
+</table><table width="50%" border="0" align="center">
+  <tr>
+    <td align="center"><input type="button" name="score" value="OK" class="btn" onclick="javascript:submitform()" /></td>
+  </tr>
+</table>
+</form>
+<? if($this->isSubmit) { ?>
+<script type="text/javascript">
+	alert("Done");
+	self.close();
+	setTimeout(refr(),5000);
+
+</script>
+<? } ?>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("masubmit")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+</script>
+
+
+

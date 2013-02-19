@@ -1,0 +1,135 @@
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="21%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'"><strong>
+		        Logged in as <?=strtoupper($this->getUsername())?></strong></td>
+			<td width="11%"  align="center" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/home/'" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'"><strong> 
+		        HOME</strong></td>
+            <td width="56%"  align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'"><strong></strong></td>   
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/auth/logout/'"><strong>
+		        LOG-OUT</strong></td>
+		</tr>
+	</table>
+</form> 
+<center>
+<p>&nbsp;</p>
+<body>
+<div id="container">		
+    <h1 class="accordion_toggle_title"><center><strong>PRODUCT</strong></center></h1>       
+	<div id="vertical_container" >
+   		<h1 class="accordion_toggle"><center><strong>AUTO</strong></center></h1>
+		<div class="accordion_content">   
+			<table width="210" border="0">
+              <tr><td colspan="2"><b></>MODEL</td></tr>
+              <? if($this->rolePermission('creditscore_homeadd','') === TRUE) { ?>
+            	  <tr><td>&nbsp;</td><td width="165"><b><a href="<?=$this->baseUrl().'/creditscore/addmodel/prod/auto'?>">Add</a></td></tr>
+              	  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/updatemodel/prod/auto'?>">Update</a></td></tr>
+			  <? } ?>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/pendingmodels/prod/auto'?>">Pending</a></td></tr>
+              <? if($this->rolePermission('creditscore_homeapprove','') === TRUE) { ?>
+                  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/approvemodel/prod/auto'?>">Approve</a></td></tr>
+              <? } ?>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewmodel/prod/auto'?>">View</a></td></tr>
+              <tr><td colspan="2"><b>MULTIPLE SCORING</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/selectaccounts/prod/auto/sesid/'.$this->sesid?>">Perform Multiple Scoring</a></td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewresult/prod/auto'?>">View Result</a></td></tr>
+              <tr><td colspan="2"><b>SCORECARD</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/search/prod/auto'?>">View Scorecard</a></td></tr>
+            </table>      
+    	</div>
+   		<h1 class="accordion_toggle"><center><strong>HOUSING</strong></center></h1>
+		<div class="accordion_content">   
+			<table width="210" border="0">
+              <tr><td colspan="2"><b></>MODEL</td></tr>
+              <? if($this->rolePermission('creditscore_homeadd','') === TRUE) { ?>
+              	  <tr><td>&nbsp;</td><td width="165"><b><a href="<?=$this->baseUrl().'/creditscore/addmodel/prod/housing'?>">Add</a></td></tr>
+              	  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/updatemodel/prod/housing'?>">Update</a></td></tr>
+              <? } ?>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/pendingmodels/prod/housing'?>">Pending</a></td></tr>
+              <? if($this->rolePermission('creditscore_homeapprove','') === TRUE) { ?>
+                  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/approvemodel/prod/housing'?>">Approve</a></td></tr>
+              <? } ?>              
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewmodel/prod/housing'?>">View</a></td></tr>
+              <tr><td colspan="2"><b>MULTIPLE SCORING</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/selectaccounts/prod/housing/sesid/'.$this->sesid?>">Perform Multiple Scoring</a></td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewresult/prod/housing'?>">View Result</a></td></tr>
+              <tr><td colspan="2"><b>SCORECARD</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/search/prod/housing'?>">View Scorecard</a></td></tr>
+            </table>      
+		</div>
+   		<h1 class="accordion_toggle"><center><strong>SME</strong></center></h1>
+		<div class="accordion_content">   
+			<table width="210" border="0">
+              <tr><td colspan="2"><b></>MODEL</td></tr>
+              <? if($this->rolePermission('creditscore_homeadd','') === TRUE) { ?>
+              	  <tr><td>&nbsp;</td><td width="165"><b><a href="<?=$this->baseUrl().'/creditscore/addmodel/prod/sme'?>">Add</a></td></tr>
+                  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/updatemodel/prod/sme'?>">Update</a></td></tr>
+              <? } ?>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/pendingmodels/prod/sme'?>">Pending</a></td></tr>
+              <? if($this->rolePermission('creditscore_homeapprove','') === TRUE) { ?>
+                  <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/approvemodel/prod/sme'?>">Approve</a></td></tr>
+              <? } ?>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewmodel/prod/sme'?>">View</a></td></tr>
+              <tr><td colspan="2"><b>MULTIPLE SCORING</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/selectaccounts/prod/sme/sesid/'.$this->sesid?>">Perform Multiple Scoring</a></td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/viewresult/prod/sme'?>">View Result</a></td></tr>
+              <tr><td colspan="2"><b>SCORECARD</td></tr>
+              <tr><td>&nbsp;</td><td><b><a href="<?=$this->baseUrl().'/creditscore/search/prod/sme'?>">View Scorecard</a></td></tr>
+            </table>      
+		</div>
+	</div>
+</div>
+</body>
+</center>
+<div id="horizontal_container" >
+    <div id="vertical_nested_container"></div>
+    <div id="horizontal_nested_container"></div>  
+</div>    
+<script type="text/javascript">
+		Event.observe(window, 'load', loadAccordions, false);
+		function loadAccordions() {
+			var topAccordion = new accordion('horizontal_container', {
+				classNames : {
+					toggle : 'horizontal_accordion_toggle',
+					toggleActive : 'horizontal_accordion_toggle_active',
+					content : 'horizontal_accordion_content'
+				},
+				defaultSize : {
+					width : 525
+				},
+				direction : 'horizontal'
+			});
+			
+			var bottomAccordion = new accordion('vertical_container');
+			
+			var nestedVerticalAccordion = new accordion('vertical_nested_container', {
+			  classNames : {
+					toggle : 'vertical_accordion_toggle',
+					toggleActive : 'vertical_accordion_toggle_active',
+					content : 'vertical_accordion_content'
+				}
+			});
+			
+			bottomAccordion.activate($$('#vertical_container .accordion_toggle')[0]);
+			
+			topAccordion.activate($$('#horizontal_container .horizontal_accordion_toggle')[2]);
+		}
+		var verticalAccordions = $$('.accordion_toggle');
+        verticalAccordions.each(function(accordion) {
+            $(accordion.next(0)).setStyle({
+              height: '0px'
+            });
+        });		
+</script>
+
+
+
+

@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	function delField(capno){
+		var hdel = document.getElementById('hiddenDel');	
+		hdel.value = capno;	
+	}	
+</script>
+<form action="" method="post" name="product">
+<input name="hiddenDel" type="hidden" id="hiddenDel">
+<center>
+<p></p>
+<? if($this->accounts){ ?>
+	<table width="900" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+  		<thead>
+			<tr>
+				<th width="135" align="center">Cap No.</th>
+				<th width="180" align="center">Borrower</th>
+				<th width="105" align="center">Regular/Promo</th>
+				<th width="125" align="center">Business Center</th>
+				<th width="120" align="center">Model Used</th>
+				<th width="72" align="center">Score</th>
+				<th width="50" align="center">Rating</th>
+				<th width="70" align="center">Action</th>
+			</tr>	
+		</thead>
+		<tbody>
+            <? $i = 0; ?>
+            <? foreach($this->accounts as $row) : ?>
+            <? if ($row->relation == "Principal"){?>
+            <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+                onmouseout="this.style.background='white';this.style.color='black'">
+                <td><?=$row->capno?></td>
+                <td><?=$row->borrower_lname.', '.$row->borrower_fname?></td>
+                <td><?=$row->application_type?></td>
+                <td><?=$value?></td>
+                <td><?=$value?></td>
+				<? $scoreArr = explode(" ", $row->score_tag); ?>
+                <td align="center"><?=$scoreArr[1]?></td>
+                <td align="center"><?=$scoreArr[2]?></td>
+                <td align="center"><input type="Submit" name="button" value="Delete" onclick="delField('<?=$row->capno?>')"></td>
+            </tr>
+            <? } ?>
+            <? $i++; ?>
+            <? endforeach; ?>
+		</tbody>
+	</table>    
+<? } ?> 
+</center>
+</form>
+<!--
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 100);</script>
+-->

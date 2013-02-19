@@ -1,0 +1,288 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+</Style>
+
+<form action="" method="post" name="booking">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>ADD ACCOUNT FOR BOOKING </strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td><strong>BORROWER'S INFORMATION </strong></td>
+  </tr>
+</table>
+<table width="101%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td height="338"><table width="954" border="0">
+      <tr>
+        <td width="10"><span class="style1"></span></td>
+        <td width="154"><div align="left"></div></td>
+        <td width="315"><div align="left"><span class="style1"></span></div></td>
+        <td width="189"><div align="left"><span class="style1"></span></div></td>
+        <td width="264"><div align="left"><span class="style1"></span></div></td>
+      </tr>
+      <tr>
+        <td><span class="style1"></span></td>
+        <td><div align="left">Cap No. </div></td>
+        <td><div align="left">
+          <?=$this->form->capno?>
+        </div></td>
+        <td><div align="left"><span class="style1"></span></div></td>
+        <td><div align="left"><span class="style1"></span></div></td>
+      </tr>
+      <tr>
+        <td><span class="style1"></span></td>
+        <td><div align="left">Borrower's Name </div></td>
+        <td colspan="2"><div align="left"><span class="style1"></span><span class="style1">
+          <?=$this->form->borrowers_name?>
+        </span></div></td>
+        <td><div align="left"><span class="style1"></span></div></td>
+      </tr>
+      <tr>
+        <td><span class="style1"></span></td>
+        <td><div align="left">Permanent Address </div></td>
+        <td colspan="2"><div align="left"><span class="style1"></span><span class="style1">
+          <?=$this->form->permanent_address?>
+        </span></div></td>
+        <td><div align="left"><span class="style1"></span></div></td>
+      </tr>
+      <tr>
+        <td><span class="style1"></span></td>
+        <td><div align="left"><span class="style1">C</span>ity/Municipality</div></td>
+        <td colspan="2"><div align="left"><span class="style1"></span>
+            <?=$this->form->city_municipality?>
+        </div></td>
+        <td><div align="left"><span class="style1"></span></div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Zip Code </div></td>
+        <td><div align="left">
+          <?=$this->form->zip_code?>
+        </div></td>
+        <td><div align="left">Identification Type </div></td>
+        <td><div align="left">
+          <?=$this->form->iden_type?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Home Landline </div></td>
+        <td><div align="left">
+          <?=$this->form->home_landline?>
+        </div></td>
+        <td><div align="left">Documentation ID Number </div></td>
+        <td><div align="left">
+          <?=$this->form->doc_id?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Mobile No. </div></td>
+        <td><div align="left">
+          <?=$this->form->mobileno?>
+        </div></td>
+        <td><div align="left">Customer Since </div></td>
+        <td><div align="left">
+          <?=$this->form->customer_since?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Email Address </div></td>
+        <td><div align="left">
+          <?=$this->form->emailadd?>
+        </div></td>
+        <td><div align="left">Legal Form of Business </div></td>
+        <td><div align="left">
+          <?=$this->form->legal_formof_business?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Identification Number </div></td>
+        <td><div align="left">
+          <?=$this->form->iden_num?>
+        </div></td>
+        <td><div align="left">Customer Category </div></td>
+        <td><div align="left">
+          <?=$this->form->customer_cat?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Short Name </div></td>
+        <td><div align="left">
+          <?=$this->form->short_name?>
+        </div></td>
+        <td><div align="left">Office Address </div></td>
+        <td><div align="left">
+          <?=$this->form->office_address?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Date of Birth </div></td>
+        <td><div align="left">
+          <?=$this->form->date_of_birth?>
+        </div></td>
+        <td><div align="left">Office Landline </div></td>
+        <td><div align="left">
+          <?=$this->form->office_landline?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Citizenship</div></td>
+        <td><div align="left">
+          <?=$this->form->citizenship?>
+        </div></td>
+        <td><div align="left">Fax No. </div></td>
+        <td><div align="left">
+          <?=$this->form->faxno?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Gender</div></td>
+        <td><div align="left">
+          <?=$this->form->gender?>
+        </div></td>
+        <td><div align="left">Position</div></td>
+        <td><div align="left">
+          <?=$this->form->position?>
+        </div></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><div align="left">Civil Status </div></td>
+        <td><div align="left">
+          <?=$this->form->civil_status?>
+        </div></td>
+        <td><div align="left">SIC</div></td>
+        <td><div align="left">
+          <?=$this->form->position?>
+        </div></td>
+      </tr>
+    </table>
+      <table width="958" border="0">
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="314"><div align="center"><strong>PLADLO</strong></div></td>
+          <td width="314"><div align="center"><strong>PLCHMI</strong></div></td>
+          <td width="312"><div align="center"><strong>PLCHUF</strong></div></td>
+        </tr>
+      </table>
+      <table width="961" border="0">
+        <tr>
+          <td width="9">&nbsp;</td>
+          <td width="115">PN # </td>
+          <td width="183"><?=$this->form->pn?></td>
+          <td width="103">Location Code </td>
+          <td colspan="2"><?=$this->form->location_code?></td>
+          <td width="133">Industry Type </td>
+          <td width="181"><?=$this->form->industry_type?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Loan Type </td>
+          <td><?=$this->form->loantype?></td>
+          <td>Purpose Code </td>
+          <td colspan="2"><?=$this->form->purpose_code?></td>
+          <td>Rediscount Date </td>
+          <td><?=$this->form->rediscount_date?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Loan Class </td>
+          <td><?=$this->form->loanclass?></td>
+          <td>&nbsp;</td>
+          <td width="132">&nbsp;</td>
+          <td width="71">&nbsp;</td>
+          <td>Type of Credit </td>
+          <td><?=$this->form->type_of_credit?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Branch</td>
+          <td><?=$this->form->branch?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>Profit/Cost Center </td>
+          <td><?=$this->form->profit_cost?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>GL Table </td>
+          <td><?=$this->form->gltable?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>Origin</td>
+          <td><?=$this->form->origin?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Borrower Type </td>
+          <td><?=$this->form->borrowertype?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>Origin Maturity &gt; 360 </td>
+          <td><?=$this->form->origin_maturity?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Size of Firm </td>
+          <td><?=$this->form->sizeoffirm?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td><div align="left"></div></td>
+          <td><div align="right"></div></td>
+          <td><div align="right"><strong>
+              <input type="submit" name="button" id="button" value="Submit" />
+          </strong></div></td>
+          <td><div align="center"><strong>
+              <input type="submit" name="button2" id="button2" value="Reviewed" />
+          </strong></div></td>
+          <td><div align="left"><strong>
+              <input type="submit" name="button3" id="button3" value="Upload Now to Dimension" />
+          </strong></div></td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>

@@ -1,0 +1,86 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.decision.onsubmit())
+ {//this check triggers the validations
+    document.decision.submit();
+	self.close();
+	setTimeout(refr(),5000);
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>';
+	}
+}
+
+
+</SCRIPT> 
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CREDIT DECISION</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td width="15%" align="center">&nbsp;</td>
+  <td width="25%" align="center">&nbsp;</td>
+  <td width="10%">&nbsp;</td>
+</tr>
+<tr>
+  <td width="3%">&nbsp;</td>
+  <td width="28%">Authority</td>
+  <td width="19%">Decision</td>
+  <td>Date</td>
+  <td>Remarks</td>
+  <td>&nbsp;</td>
+</tr>
+<? foreach($this->history as $details) { ?>
+<tr>
+  <td>&nbsp;</td>
+  <td><?=$this->viewMa($details->approved_by)?></td>
+  <td><?=$details->decision?></td>
+  <td><?=$this->crawApprovalDate($details->date_type,$details->date_approval);
+			  ?></td>
+  <td><?=$details->reason?></td>
+  <td>&nbsp;</td>
+</tr>
+  <? } ?>
+
+<tr>
+  <td colspan="6" align="center"><strong>Overall Decision</strong></td>
+</tr>
+<tr>
+  <td align="center">&nbsp;</td>
+  <td align="center">&nbsp;</td>
+  <td colspan="2" align="center"><?=$this->viewAccountStatus($this->status)?></td>
+  <td>&nbsp;</td>
+  <td align="center">&nbsp;</td>
+</tr>
+</table>
+
+
+

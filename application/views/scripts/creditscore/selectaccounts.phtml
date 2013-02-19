@@ -1,0 +1,119 @@
+<script type="text/javascript">
+	checked=false;
+	check1=false;
+	function checkedAll () {
+		var ctr = 0;
+		var aa= document.getElementById('accounts');
+		checked = (checked == false)? true : false; 
+		for (var i =0; i < aa.elements.length; i++){
+			aa.elements[i].checked = checked;
+		}
+	}
+
+	function selectmodels(){
+		var ctr = 0;
+		var aa = document.getElementById('accounts');
+		for (var i =0; i < aa.elements.length; i++){
+			if(aa.elements[i].checked) ctr++;
+		}	
+		document.accounts.submit()	
+	}	
+	
+</script>
+<body>
+<form action="" method="post" name="accounts" id="accounts">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="68%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+            <td width="20%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="selectmodels()"><strong>
+                SELECT MODELS</strong></td>   
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/home'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+<div style="max-width:90%"><fieldset>
+<table width="850" border="0">
+  <tr>
+    <td width="200" rowspan="2" align='right'><b/>Cap No.</td>
+    <td width="75" rowspan="2" ><?=$this->form->capNo?></td>
+    <td width="115" rowspan="2" align='right'><b/>Business Center</td>
+    <td width="129" rowspan="2" ><?=$this->busctr?></td> 
+  	<td colspan="2" ><b/>Date Submitted</td>
+  </tr>
+  <tr>
+  	<td width="165"><b/>From<?=$this->form->dateFrom?></td>	
+    <td width="140"><b/>To<?=$this->form->dateTo?></td>	
+  </tr>
+  <tr>
+  	<td align='right'><b/>Borrower's Last Name</td>
+	<td><?=$this->form->bLastName?></td>
+    <td align='right'><b/>Regular/Promo</td>
+    <td><?=$this->regpro?></td>  
+	<td colspan="2"><b/>Account Status
+	  <?=$this->form->decision?></td>
+	</tr>
+  <tr>
+  	<td colspan="4" align='center'><input type="Submit" name="button" id="button" value="Retrieve Accounts" onClick="addFields()"/></td>
+    <td align='right'> <input type="Submit" name="button" id="button" value="Add Accounts"/></td>
+    <td align='left'> <input type="Button" name="button" id="button" value="Remove" 
+					         onclick="window.open('<?=$this->baseURL();?>/creditscore/selectaccountsdelete/prod/<?=$this->prodType?>/sesid/<?=$this->sesid?>','selectaccountsdelete','width=950,height=400,scrollbars=yes,resizable=no, menubar =yes');"/></td>
+
+  </tr>
+</table>
+</fieldset></div>
+<p></p>
+	<table width="900" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+  		<thead>
+			<tr>
+				<th width="44" align="center">Cap No.</th>
+				<th width="264" align="center">Borrower</th>
+				<th width="101" align="center">Regular/Promo</th>
+				<th width="120" align="center">Business Center</th>
+				<th width="205" align="center">Model Used</th>
+				<th width="38" align="center">Score</th>
+				<th width="48" align="center">Rating</th>
+				<th width="37" align="center"><input type="checkbox" name="chkAll" id="chkAll" onclick='checkedAll()'/></th>
+			</tr>	
+		</thead>
+		<tbody>
+            <? $i = 0; ?>
+            <? foreach($this->accounts as $row) : ?>
+            <? if ($row->relation == "Principal"){?>
+            <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+                onmouseout="this.style.background='white';this.style.color='black'">
+                <td><?=$row->capno?></td>
+                <td><?=$row->borrower_lname.', '.$row->borrower_fname?></td>
+                <td align="center"><?=$row->application_type?></td>
+                <td><?=$row->account_status?></td>
+                <td><?=$row->application_date?></td>
+                <? $scoreArr = explode(" ", $row->score_tag); 
+				    if($row->score_tag == "Outside Credit Scoring Model Range for Manual Evaluation"){
+						$scoreArr[1] = "";
+						$scoreArr[2] = "OCS";
+					}
+				?>
+                <td align="center"><?=$scoreArr[1]?></td>
+                <td align="center"><?=$scoreArr[2]?></td>
+                <td align="center"><input type="checkbox" name="row[<?=$row->capno?>][chkbox]" id="checkall" value="<?=$i?>"/> </td>
+            </tr>
+            <? } ?>
+            <? $i++; ?>
+            <? endforeach; ?>
+		</tbody>
+	</table>  
+</center>	
+</form>
+<? if($i > 10){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 275);</script>
+<? } ?>
+<p><?=$this->paginationControl($this->accounts, 'Sliding', 'pagination.phtml'); ?></p>
+
+</body>

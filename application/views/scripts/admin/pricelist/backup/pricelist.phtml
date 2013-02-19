@@ -1,0 +1,125 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter( {sortList: [[0,0], [1,0]]} ); 
+    } 
+); 
+</script>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>ADMIN - PRICELIST - RETRIEVE </strong></td>
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">
+    <strong>Return</strong></td>
+</tr>
+</table><form method="post" name="replicate">
+  <table width="100%" border="0">
+  <tr>
+    <td colspan="2" align="right"><a href="<?=$this->baseUrl()?>/admin/pricelistupdate">Go to Updates&gt;&gt;</a></td>
+    </tr>
+  <tr>
+    <td width="101">Dealer</td>
+    <td width="883"><?=$this->form->dealer?></td>
+  </tr>
+  <tr>
+    <td>List Year</td>
+    <td><?=$this->form->listyear?></td>
+  </tr>
+  <tr>
+    <td>List Month</td>
+    <td><?=$this->form->listmonth?></td>
+  </tr>
+  <tr>
+    <td>Brand</td>
+    <td><?=$this->form->veh_brand?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="button" id="button" value="Retrieve" /> <input type="button" name="viewButton" id="viewButton" value="View Pricelist" onclick = "window.open('<?=$this->baseURL();?>/admin/pricelistview','mywindow','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')"/></td>
+  </tr>
+</table>
+
+<br />
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+    <thead>
+  <tr>
+    <th width="16%" align="center"><strong>DEALER</strong></td>
+    <th width="9%" align="center"><strong>YEAR</strong></td>
+    <th width="11%" align="center"><strong>Month</strong></td>
+    <th width="14%" align="center"><strong>BRAND</strong><strong></strong></td>
+    <th width="11%" align="center"><strong>TYPE</strong></td>
+    <th width="25%" align="center"><strong>Unit</strong></td>
+    <th width="11%" align="center"><strong>SELLING PRICE</strong></td>
+    <th width="3%" align="center">&nbsp;</td>
+  </tr>
+  </thead>
+  <tbody>
+  <? if ($this->detail){  ?>
+  <? foreach($this->detail as $row) { ?>
+  <tr>
+    <td height="34" align="center"><?=$row->dealer?></td>
+    <td align="center"><?=$row->year?></td>
+    <td align="center"><?=$this->viewMonths($row->month,'full')?></td>
+    <td align="center"><?=$row->brand?></td>
+    <td align="center"><?=$row->type?></td>
+    <td><?=$row->unit?></td>
+    <td><?=$row->selling_price?></td>
+    <td>&nbsp;</td>
+  </tr>
+        <? } ?>
+  <? } ?>
+  </tbody>
+</table>
+</form>
+<? if($this->ifPost){ ?>
+<form method="post" name="duplicate">
+<table width="100%">
+<tr>
+    <td width="5%">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="41%" align="center">&nbsp;</td>
+    <td width="39%" colspan="3" align="center">List Year 
+      <?=$this->form->listyear2?> List Month 
+      <?=$this->form->listmonth2?></td>
+    </tr>
+
+  <tr>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td colspan="3" align="center">
+    <input type="submit" name="button" id="button" value="Duplicate" />
+    <input type="hidden" name="dealerTemp" value="<?=$this->dealerTemp?>" />
+    <input type="hidden" name="yearTemp" value="<?=$this->yearTemp?>" />
+    <input type="hidden" name="monthTemp" value="<?=$this->monthTemp?>" />
+    <input type="hidden" name="brandTemp" value="<?=$this->brandTemp?>" />
+    
+    </td>
+  </tr>
+  </table>
+</form>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("duplicate")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("listyear2","dontselect=''","Duplicate Year Required !!");
+frmvalidator.addValidation("listmonth2","dontselect=''","Duplicate Month Required!!");
+</script>
+<? } ?>
+<p>&nbsp;</p>

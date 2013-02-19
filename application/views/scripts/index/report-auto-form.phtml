@@ -1,0 +1,643 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{
+	font-family: Arial,Verdana,Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: left;
+}
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+</Style>
+
+<form action="" method="post" name="craw-form">
+<table border=1 width="131%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+
+</table>
+<table border="1" width="101%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="73%"><div align="left"><strong>AUTO LOAN APPLICATION</strong></div></td>
+    <td width="15%">Cap No:
+      <?=$this->capno?></td>
+    <td width="12%">Score:</td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>For Individuals and Sole Proprietorship</strong></div></td>
+    <td colspan="2">Date:
+      <?=$this->date_printed?></td>
+    </tr>
+</table>
+<table width="101%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#CCCCCC"><div align="center"><strong>MOTOR VEHICLE TO BE PURCHASED</strong></div></td>
+    </tr>
+  <tr>
+    <td width="197">Dealer/Agent :</td>
+    <td width="207">Vehicle Status :</td>
+    <td width="101">Year Model :</td>
+    <td width="135">Brand</td>
+    <td width="90">Unit/Collateral</td>
+  </tr>
+  <tr>
+    <td><?=$this->row->dealer?></td>
+    <td><?=$this->viewVehStatus($this->row->veh_status)?></td>
+    <td><?=$this->row->veh_yrmodel?></td>
+    <td><?=$this->row->veh_brand?></td>
+    <td><?=$this->row->veh_unit?></td>
+  </tr>
+  <tr>
+    <td>Selling Price:P<?=number_format($this->row->selling_price,2)?></td>
+    <td colspan="2">DownPayment (actual amount and %): &nbsp;
+      P<?=number_format($this->row->downpayment_actual,2)?> &nbsp;
+      <?=$this->row->downpayment_percent?>
+      %</td>
+    <td colspan="2">Terms (in months):
+      <?=$this->row->loanterm?></td>
+    </tr>
+</table>
+<table width="101%" height="519" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 0.5px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td height="338"><table width="101%" border="0">
+      <tr>
+        <td colspan="9" bgcolor="#CCCCCC"><div align="center"><strong>BORROWER'S INFORMATION</strong></div></td>
+        </tr>
+      <tr>
+        <td width="14">&nbsp;</td>
+        <td width="139">LastName</td>
+        <td width="117">FirstName</td>
+        <td width="105">MiddleName</td>
+        <td width="11">&nbsp;</td>
+        <td width="176">Gender</td>
+        <td width="82">Date of Birth</td>
+        <td colspan="2">Place of Birth</td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><em>
+          <?=$this->row->borrower_lname?>
+        </em></td>
+        <td><em>
+          <?=$this->row->borrower_fname?>
+        </em></td>
+        <td><em>
+          <?=$this->row->borrower_mname?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td><em>
+          <?=$this->viewGender($this->row->gender)?>
+        </em></td>
+        <td><em>
+          <?=date('m/d/Y',strtotime($this->row->birthdate))?>
+        </em></td>
+        <td colspan="2"><em>
+          <?=$this->row->birthplace?>
+        </em></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Civil Status          
+          <em>
+          <?=$this->row->civilstatus?>
+          </em></td>
+        <td>No. of Dependents:</td>
+        <td><em>
+          <?=$this->row->dependentno?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td>Mother's Maiden Name :</td>
+        <td>Citizenship</td>
+        <td width="13">&nbsp;</td>
+        <td width="56">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">Present Home Address:</td>
+        <td>ZipCode : </td>
+        <td>&nbsp;</td>
+        <td><em>
+          <?=$this->row->maiden_name?>
+        </em></td>
+        <td><em>
+          <?=$this->viewCitizenship($this->row->citizenship)?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2"><em>
+          <?=$this->row->pres_address_no.' '.$this->row->pres_address_st.' '.$this->row->pres_address_brgy.' '.$this->row->pres_address_city.' '.$this->row->pres_address_province;?>
+        </em></td>
+        <td><em>
+          <?=$this->row->pres_zipcode?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td>Neighborhood Type:</td>
+        <td colspan="2">Yrs. Of Residency</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>Type of Residency :</td>
+        <td><em>
+          <?=$this->viewResidenceType($this->row->residence_type)?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><em>
+          <?=$this->viewNeighborhoodType($this->row->neighborhoodtype)?>
+        </em></td>
+        <td><em>
+          <?=$this->row->residence_yrs?>
+        </em></td>
+        <td colspan="2">&nbsp;</td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">Previous Address (if residency is less than 2 yrs)</td>
+        <td>Zip Code:</td>
+        <td>&nbsp;</td>
+        <td>Email Address :</td>
+        <td>Tel Num:</td>
+        <td colspan="2"><em>
+          <?=$this->row->landline?>
+        </em></td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+        <td><em>
+          <?=$this->row->prev_zipcode?>
+        </em></td>
+        <td>&nbsp;</td>
+        <td><em>
+          <?=$this->row->email?>
+        </em></td>
+        <td>Mobile:</td>
+        <td colspan="2"><em>
+          <?=$this->row->mobile?>
+        </em></td>
+        </tr>
+    </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6" bgcolor="#CCCCCC"><div align="center"><strong>EMPLOYMENT/OCCUPATION</strong></div></td>
+          </tr>
+        <tr>
+          <td colspan="6"><strong>EMPLOYED</strong></td>
+          </tr>
+        <?php foreach($this->empdetail as $empdetails) :?>  
+        <tr>
+          <td width="16%">Employer</td>
+          <td width="26%"><?=$empdetails->employer?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$empdetails->emp_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$empdetails->emp_yrs?></td>
+          </tr>
+        <tr>
+          <td>Employer Name</td>
+          <td><?=$empdetails->emp_name?></td>
+          <td>Position</td>
+          <td><?=$this->viewEmpPos($empdetails->emp_pos)?></td>
+          <td>Nature of Business </td>
+          <td><?=$this->viewBusNature($empdetails->emp_industry)?></td>
+          </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$empdetails->emp_address?></td>
+          <td>Monthly Income</td>
+          <td><?=number_format($empdetails->emp_income,2)?></td>
+          <td>GSIS NO. </td>
+          <td><?=$empdetails->emp_gsiss?></td>
+          </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+     
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6"><strong>SELF-EMPLOYED/BUSINESS</strong></td>
+        </tr>
+        <?php foreach($this->busdetail as $busdetails) :?> 
+        <tr>
+          <td width="16%">Business Name</td>
+          <td width="26%"><?=$busdetails->bus_name?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$busdetails->bus_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$busdetails->bus_yrs?></td>
+        </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$busdetails->bus_address?></td>
+          <td>Position</td>
+          <td><?=$busdetails->bus_pos?></td>
+          <td>Nature of Business </td>
+          <td><?=$busdetails->bus_nat?></td>
+        </tr>
+        <tr>
+          <td>DTI Registration No.</td>
+          <td><?=$busdetails->bus_dti?></td>
+          <td>Monthly Income</td>
+          <td><?=$busdetails->bus_income?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="4" bgcolor="#CCCCCC"><div align="center"><strong>SPOUSE INFORMATION</strong></div></td>
+          </tr>
+        <tr>
+          <td width="33%">Name (LastName/ First Name/Middle Name)</td>
+          <td width="15%">Nick Name</td>
+          <td width="15%">Date of Birth</td>
+          <td width="37%">Place of Birth</td>
+          </tr>
+          <?php foreach($this->detail as $Spousedetails) :?>  
+        <tr>
+          <td><?=$Spousedetails->borrower_lname?>
+,
+  <?=$Spousedetails->borrower_fname?>
+,
+<?=$Spousedetails->borrower_mname?></td>
+          <td>&nbsp;</td>
+          <td><?=date('m/d/Y',strtotime($Spousedetails->birthdate))?></td>
+          <td><?=$Spousedetails->birthplace?></td>
+          </tr>
+            <?php endforeach; ?>
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6" bgcolor="#CCCCCC"><div align="center"><strong>SPOUSE EMPLOYMENT/OCCUPATION</strong></div></td>
+          </tr>
+        <tr>
+          <td colspan="6"><strong>EMPLOYED</strong></td>
+          </tr>
+        <?php foreach($this->empdetail_sp as $empdetail_sps) :?>
+        <tr>
+          <td width="16%">Employer</td>
+          <td width="26%"><?=$empdetail_sps->employer?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$empdetail_sps->emp_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$empdetail_sps->emp_yrs?></td>
+          </tr>
+        <tr>
+          <td>Employer Name</td>
+          <td><?=$empdetail_sps->emp_name?></td>
+          <td>Position</td>
+          <td><?=$empdetail_sps->emp_pos?></td>
+          <td>Nature of Business </td>
+          <td><?=$empdetail_sps->emp_industry?></td>
+          </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$empdetail_sps->emp_address?></td>
+          <td>Monthly Income</td>
+          <td><?=number_format($empdetail_sps->emp_income)?></td>
+          <td>GSIS NO. </td>
+          <td><?=$empdetail_sps->emp_gsiss?></td>
+          </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+          </tr>
+         <?php endforeach; ?>
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6"><strong>SELF-EMPLOYED/BUSINESS</strong></td>
+        </tr>
+        <?php foreach($this->busdetail_sp as $busdetail_sps) :?>
+        <tr>
+          <td width="16%">Business Name</td>
+          <td width="26%"><?=$busdetail_sps->bus_name?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$busdetail_sps->bus_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$busdetail_sps->bus_yrs?></td>
+        </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$busdetail_sps->bus_address?></td>
+          <td>Position</td>
+          <td><?=$busdetail_sps->bus_pos?></td>
+          <td>Nature of Business </td>
+          <td><?=$busdetail_sps->bus_nat?></td>
+        </tr>
+        <tr>
+          <td>DTI Registration No.</td>
+          <td><?=$busdetail_sps->bus_dti?></td>
+          <td>Monthly Income</td>
+          <td><?=number_format($busdetail_sps->bus_income)?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+    
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="4" bgcolor="#CCCCCC"><div align="center"><strong>CO-BORROWER'S INFORMATION</strong></div></td>
+        </tr>
+        
+        <tr>
+          <td width="33%">Name (LastName/ First Name/Middle Name)</td>
+          <td width="15%">Nick Name</td>
+          <td width="15%">Date of Birth</td>
+          <td width="37%">Place of Birth</td>
+        </tr>
+        <?php foreach($this->detail3 as $Coborrowerdetails) :?>  
+        <tr>
+          <td><?=$Coborrowerdetails->borrower_lname?>
+,
+  <?=$Coborrowerdetails->borrower_fname?>
+,
+<?=$Coborrowerdetails->borrower_mname?></td>
+          <td>&nbsp;</td>
+          <td><?=date('m/d/Y',strtotime($Coborrowerdetails->birthdate))?></td>
+          <td><?=$Coborrowerdetails->birthplace?></td>
+        </tr>
+         <?php endforeach; ?>
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6" bgcolor="#CCCCCC"><div align="center"><strong>CO-BORROWER EMPLOYMENT/OCCUPATION</strong></div></td>
+          </tr>
+        <tr>
+          <td colspan="6"><strong>EMPLOYED</strong></td>
+          </tr>
+        <?php foreach($this->empdetail_cb as $empdetail_cbs) :?>
+        <tr>
+          <td width="16%">Employer</td>
+          <td width="26%"><?=$empdetail_cbs->employer?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$empdetail_cbs->emp_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$empdetail_cbs->emp_yrs?></td>
+          </tr>
+        <tr>
+          <td>Employer Name</td>
+          <td><?=$empdetail_cbs->emp_name?></td>
+          <td>Position</td>
+          <td><?=$empdetail_cbs->emp_pos?></td>
+          <td>Nature of Business </td>
+          <td><?=$empdetail_cbs->emp_industry?></td>
+          </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$empdetail_cbs->emp_address?></td>
+          <td>Monthly Income</td>
+          <td><?=number_format($empdetail_cbs->emp_income,2)?></td>
+          <td>GSIS NO. </td>
+          <td><?=$empdetail_cbs->emp_gsiss?></td>
+          </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+     
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="6"><strong>SELF-EMPLOYED/BUSINESS</strong></td>
+        </tr>
+        <?php foreach($this->busdetail_cb as $busdetail_cbs) :?>
+        <tr>
+          <td width="16%">Business Name</td>
+          <td width="26%"><?=$busdetail_cbs->bus_name?></td>
+          <td width="15%">Telephone No.</td>
+          <td width="11%"><?=$busdetail_cbs->bus_telno?></td>
+          <td width="26%">Yrs. In Employment/ Business</td>
+          <td width="6%"><?=$busdetail_cbs->bus_yrs?></td>
+        </tr>
+        <tr>
+          <td>Office/Business Address</td>
+          <td><?=$busdetail_cbs->bus_address?></td>
+          <td>Position</td>
+          <td><?=$busdetail_cbs->bus_pos?></td>
+          <td>Nature of Business </td>
+          <td><?=$busdetail_cbs->bus_nat?></td>
+        </tr>
+        <tr>
+          <td>DTI Registration No.</td>
+          <td><?=$busdetail_cbs->bus_dti?></td>
+          <td>Monthly Income</td>
+          <td><?=number_format($busdetail_cbs->bus_income,2)?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="6">&nbsp;</td>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+     
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="4" bgcolor="#CCCCCC"><div align="center"><strong>BANK ACCOUNTS</strong></div></td>
+          </tr>
+        <tr>
+          <td width="17%"><strong>Bank</strong></td>
+          <td width="16%"><strong>Branch</strong></td>
+          <td width="17%"><strong>Type of Account</strong></td>
+          <td width="17%"><strong>Account No.</strong></td>
+          </tr>
+          
+          <?php foreach($this->bankdetail as $bankdetails) :?>
+        <tr>
+          <td><?=$bankdetails->bank?></td>
+          <td><?=$bankdetails->branch?></td>
+          <td><?=$bankdetails->account_type?></td>
+          <td><?=$bankdetails->account_no?></td>
+          </tr>
+          <?php endforeach; ?>
+    
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="3" bgcolor="#CCCCCC"><div align="center"><strong>CREDIT CARDS OWNED</strong></div></td>
+          </tr>
+        <tr>
+          <td width="17%"><strong>Card Company</strong></td>
+          <td width="16%"><strong>Credit Limit</strong></td>
+          <td width="17%"><strong>Expiry Date</strong></td>
+          </tr>
+        <?php foreach($this->creditcarddetail as $creditcarddetails) :?>  
+        <tr>
+          <td><?=$creditcarddetails->company?></td>
+          <td><?=$creditcarddetails->limit?></td>
+          <td><?=$creditcarddetails->expiry_date?></td>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+     
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="4" bgcolor="#CCCCCC"><div align="center"><strong>EXISTING LOANS</strong></div></td>
+          </tr>
+        <tr>
+          <td width="17%"><strong>Bank/Branch</strong></td>
+          <td width="17%"><strong>Type of Facility</strong></td>
+          <td width="16%"><strong>Amount</strong></td>
+          <td width="18%"><strong>Collateral</strong></td>
+          </tr>
+         <?php foreach($this->loandetail as $loandetails) :?>
+        <tr>
+          <td><?=$loandetails->bank?></td>
+          <td><?=$loandetails->facility_type?></td>
+          <td><?=number_format($loandetails->amount)?></td>
+          <td><?=$loandetails->collateral?></td>
+          </tr>
+          <?php endforeach; ?>
+      </table>
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td colspan="4" bgcolor="#CCCCCC"><div align="center"><strong>TRADE AND BUSINESS REFERENCE</strong></div></td>
+        </tr>
+        <tr>
+          <td width="17%"><strong>Name</strong></td>
+          <td width="17%"><strong>Contact Person</strong></td>
+          <td width="16%"><strong>Telephone No.</strong></td>
+          <td width="18%"><strong>Nature of Transaction/Volume</strong></td>
+        </tr>
+        <?php foreach($this->trdbusrefdetail as $trdbusrefdetails) :?>
+        <tr>
+          <td><?=$trdbusrefdetails->name?></td>
+          <td><?=$trdbusrefdetails->contact_person?></td>
+          <td><?=$trdbusrefdetails->contact_no?></td>
+          <td><?=$trdbusrefdetails->nature_transaction?></td>
+        </tr>
+        <?php endforeach; ?>
+      </table>
+      
+      <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td width="68%" bgcolor="#CCCCCC"><div align="center"><strong>OTHER ASSETS</strong></div></td>
+        </tr>
+      </table>
+     
+       <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+         <tr>
+           <td colspan="3"><div align="left">REAL ESTATE</div></td>
+         </tr>
+         <tr>
+           <td width="17%"><strong>Location</strong></td>
+           <td width="16%"><strong>Lot Area</strong></td>
+           <td width="17%"><strong>Estimated Market Value</strong></td>
+         </tr>
+         <?php foreach($this->real_estatedetail as $real_estatedetails) :?>
+         <tr>
+           <td><?=$real_estatedetails->location?></td>
+           <td><?=$real_estatedetails->lot_area?></td>
+           <td>P
+            <?=number_format($real_estatedetails->real_emv)?></td>
+         </tr>
+         <?php endforeach; ?>
+       </table>
+       <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+         <tr>
+           <td colspan="3"><div align="left">AUTOMOBILE</div></td>
+         </tr>
+         <tr>
+           <td width="17%"><strong>Year/Make</strong></td>
+           <td width="16%"><strong>Model</strong></td>
+           <td width="17%"><strong>Estimated Market Value</strong></td>
+         </tr>
+         <?php foreach($this->automobiledetail as $automobiledetails) :?>
+         <tr>
+           <td><?=$automobiledetails->year_make?></td>
+           <td><?=$automobiledetails->model?></td>
+           <td>P
+             
+             <?=number_format($automobiledetails->auto_emv)?></td>
+         </tr>
+         <?php endforeach; ?>
+       </table>
+       <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+         <tr>
+           <td colspan="3"><div align="left">SHARES OF STOCK</div></td>
+         </tr>
+         <tr>
+           <td width="17%"><strong>Company Name</strong></td>
+           <td width="16%"><strong>No. of Shares</strong></td>
+           <td width="17%"><strong>Estimated Market Value</strong></td>
+         </tr>
+         <?php foreach($this->sharesdetail as $sharesdetails) :?>
+         <tr>
+           <td><?=$sharesdetails->company?></td>
+           <td><?=$sharesdetails->num_share?></td>
+           <td>P
+             
+             <?=number_format($sharesdetails->shares_emv)?></td>
+         </tr>
+         <?php endforeach; ?>
+       </table>
+      
+       <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+        <tr>
+          <td bgcolor="#CCCCCC"><div align="left"><strong>REMARKS</strong>:</div></td>
+          </tr>
+        <tr>
+          <td>
+          </tr>
+      </table>
+     </td>
+  </tr>
+</table>
+</form>

@@ -1,0 +1,35 @@
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="">
+                <strong><?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/viewresult/prod/<?=$this->prodType?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+    <br />
+	<center>
+	<table width="100%" class="scrolltable" cellspacing="1" cellpadding="2" id="myScrollTable" >
+		<thead><tr>
+            <th>Name</th>
+            <? foreach($this->countModel as $x) { ?>
+            <th align="center"><?=$this->viewModelName($x)?></th>
+            <? } ?>
+        </tr></thead>
+		<tbody>
+        	<? foreach($this->arr as $x) { ?>
+            <tr>
+                <td><a href="#" onclick="window.open('<?=$this->baseURL();?>/index/account/cap/<?=$x[account]?>','LOS Detail','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><?=$this->getBorrowerName($x[account])?></a></td>
+                <? if ($x[data]) { foreach($x[data] as $modellist) { ?>
+                <td align="center"><a href="#" onclick="window.open('<?=$this->baseURL();?>/creditscore/scorecard/prod/<?=$this->prodType?>/cap/<?=$x[account]?>/modelver/<?=$modellist[modelused]?>/scoreid/<?=$modellist[lastid]?>/type/multi','scorecard','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><?=$modellist[totalscore]?></a></td>
+                <? } } ?>
+        	</tr>
+        	<? } ?>
+	  	</tbody>
+	</table>
+	</center>
+</form>

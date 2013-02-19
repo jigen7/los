@@ -1,0 +1,69 @@
+<script type="text/javascript">
+	function setSubmit(str){
+		var x = document.getElementById('hiddenS');
+		x.value = str;
+		document.attendance.submit();
+	}
+</script>
+
+<center>
+<form method="post" name="attendance">
+<table border="0">
+	<tr valign="top">
+    	<td>
+            <table width="114" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+                <thead>
+                    <tr><th colspan="4" align="center">CRECOM</tr>
+                    <tr>
+                        <th width="35" align="center">Type</th>
+                        <th width="66" align="center">Role</th>
+                    </tr>
+                 </thead>
+                <tbody>
+                    <? foreach($this->cctable as $ccrow) { ?> 
+                    <tr>
+                        <td><?=$ccrow->type ?></td>
+                        <td><?=$this->SelectSetValue($ccrow->id, "crecom") ?></td>
+                    </tr>
+                  <? } ?>  
+                  <tr>
+			        <td colspan="4" align="center">
+                    	<input type="button" name="button" id="button" value="Add" onclick="setSubmit('addcrecom')"/>
+        				<input type="button" name="button" id="button" value="Update" onclick="setSubmit('updatecrecom')"/>
+                    </td>              
+                  </tr>
+                </tbody>
+            </table>        
+        </td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td>
+            <table width="77" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+                <thead>
+                    <tr><th colspan="4" align="center">SUBCRECOM</tr>
+                    <tr>
+                        <th width="34" align="center">Type</th>
+                        <th width="32" align="center">Role</th>
+                    </tr>            	
+                </thead>
+                <tbody>
+                    <? foreach($this->sctable as $scrow) { ?> 
+                    <tr>
+                        <td><?=$scrow->type ?></td>
+                        <td><?=$this->SelectSetValue($scrow->id, "subcrecom") ?></td>
+                    </tr>
+                  <? } ?>  
+                    <tr>
+                        <td colspan="4" align="center">
+                            <input type="button" name="button" id="button" value="Add" onclick="setSubmit('addsubcrecom')"/>
+                            <input type="button" name="button" id="button" value="Update" onclick="setSubmit('updatesubcrecom')"/>
+                        </td>              
+                    </tr>    
+                </tbody>
+            </table>     
+        </td>
+    </tr>
+</table>
+<input name="hiddenS" type="hidden" id="hiddenS">
+
+</form>
+</center>

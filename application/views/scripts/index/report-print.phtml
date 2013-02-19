@@ -1,0 +1,52 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{
+	font-family: Arial,Verdana,Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: left;
+}
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+</Style>
+
+<form action="" method="post" name="craw-form">
+<table border=1 width="131%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+
+</table>
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td bgcolor="#CCCCCC"><div align="center">CAP NO.</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">BORROWER</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">ADDRESS</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">EMPLOYMENT</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">APPLICATION DATE</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">DOWNPAYMENT</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">TERM</div></td>
+    <td bgcolor="#CCCCCC"><div align="center">SCORE</div></td>
+  </tr>
+ <?php foreach($this->rows as $row) : ?>  
+  <tr>
+    <td width="10%"><?=$row->capno?></td>
+    <td width="14%"><?=$row->borrower_lname.','.$row->borrower_fname.' '.substr($row->borrower_mname, 0,1).'.';?></td>
+    <td width="32%"><?=$row->pres_address_no.','.$row->pres_address_st.' '.$row->pres_address_brgy.' '.$row->pres_address_city.' '.$row->pres_address_province;?></td>
+    <td width="11%">&nbsp;</td>
+    <td width="10%"><?=$row->application_date?></td>
+    <td width="12%"><?=$row->downpayment_percent?></td>
+    <td width="5%"><?=$row->loanterm?></td>
+    <td width="6%">&nbsp;</td>
+  </tr>
+ <?php endforeach; ?>
+</table>
+<p>&nbsp;</p>
+</form>
+
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>

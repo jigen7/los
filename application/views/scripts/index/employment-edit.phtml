@@ -1,0 +1,1016 @@
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+//Ajax to Call the Total income
+	var ajaxObj;
+
+	
+	function startZip() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCity()+"&brgy="+getBrgy(), respZipcode);
+		//alert(getCity());
+	}
+	
+	function startZipPrev() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCityPrev()+"&brgy="+getBrgyPrev(), respZipcodePrev);
+		//alert(getCity());
+	}
+	
+	function respZipcode(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["business"].bus_zipcode.value = resp;
+		
+	}
+	
+		function respZipcodePrev(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["employment"].emp_zipcode.value = resp;
+		
+	}
+	
+	function getCity(){
+		var city = document.forms["business"].borrower_pres_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgy(){
+		var brgy = document.forms["business"].borrower_pres_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	function getCityPrev(){
+		var city = document.forms["employment"].borrower_prev_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgyPrev(){
+		var brgy = document.forms["employment"].borrower_prev_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	
+
+</script> 
+ 
+  <script type="text/javascript">
+    <!--
+    $(function () {
+		
+
+		var province = $('#categorySelect');
+        var city = $('#citySelect');
+		var brgy = $('#brgySelect');
+		//var zip = $('#zipSelect');
+		
+		var province2 = $('#prevcategorySelect');
+        var city2 = $('#prevcitySelect');
+		var brgy2 = $('#prevbrgySelect');
+		//var zip2 = $('#prevzipSelect');
+		
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+		/*
+		brgy.selectChain({
+            target: zip,
+            url: '<?$this->baseUrl();?>/inc/select-brgy.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		*/
+		city.selectChain({
+            target: brgy,
+            url: '<?=$this->baseUrl();?>/inc/select-city.php?brgy=<?=$this->borrower_pres_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province.selectChain({
+            target: city,
+            url: '<?=$this->baseUrl();?>/inc/select-province.php?city=<?=$this->borrower_pres_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+		<!---Previous Address---!>
+		/*
+		brgy2.selectChain({
+            target: zip2,
+            url: '<?$this->baseUrl();?>/inc/select-brgy-prev.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		*/
+		city2.selectChain({
+            target: brgy2,
+            url: '<?=$this->baseUrl();?>/inc/select-city-prev.php?brgy2=<?=$this->borrower_prev_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province2.selectChain({
+            target: city2,
+            url: '<?=$this->baseUrl();?>/inc/select-province-prev.php?city2=<?=$this->borrower_prev_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+    });
+
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} 
+
+	function clearr(the_sub){
+		if (the_sub == 0){
+		document.getElementById('prevcitySelect').options.length = 0;
+		document.getElementById('prevbrgySelect').options.length = 0;
+		document.getElementById('prevzipSelect').value = '';
+		}
+	}
+	
+		function clearrr(the_sub){
+		if (the_sub == 0){
+		document.getElementById('citySelect').options.length = 0;
+		document.getElementById('brgySelect').options.length = 0;
+		document.getElementById('zipSelect').value = '';
+		}
+	}
+	
+	function bcompage(bDay){
+ now = new Date()
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+    document.forms["business"].bus_yrs.value = years;
+  document.forms["business"].bus_months.selectedIndex = 0; 
+
+ }
+}
+	function ecompage(bDay){
+var frmEmp = document.forms["employment"];
+
+if(frmEmp.employer.value == 'Current' || frmEmp.employer.value == 'Remittance'){
+	
+ now = new Date()
+ bD = bDay.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+  document.forms["employment"].emp_yrs.value = years;
+  document.forms["employment"].emp_months.selectedIndex = 0; 
+ }
+
+ /*
+var user_date = Date.parse(bDay);
+var today_date = new Date();
+var diff_date =  today_date-user_date;
+var years = diff_date/31536000000;
+var months = (diff_date % 31536000000)/2628000000;
+document.forms["employment"].emp_yrs.value = Math.floor(years);
+document.forms["employment"].emp_months.selectedIndex = Math.floor(months); 
+*/
+}//end of current
+ 
+ if(frmEmp.employer.value == 'Previous'){
+ dR = frmEmp.dateresigned.value.split('/');
+ now = new Date(dR[2],dR[0]*1-1,dR[1]);
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+  document.forms["employment"].emp_yrs.value = years;
+  document.forms["employment"].emp_months.selectedIndex = 0; 
+ }
+ }//end of previous
+}
+
+
+function datefe(formatt){
+ var num = formatt.length;
+ var frm = document.employment;
+ if(num == 2){
+	 frm.emp_date.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.emp_date.value = formatt + '/'; 	 
+ }
+	
+}
+function datefs(formatt){
+ var num = formatt.length;
+ var frm = document.business;
+ if(num == 2){
+	 frm.bus_date.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.bus_date.value = formatt + '/'; 	 
+ }
+	
+}
+
+function empyrs(val){
+	 var frmEmp = document.forms["employment"];
+	
+		if(frmEmp.employer.value == 'Current'){
+		 now = new Date();
+		}
+		else {
+		var datelast = frmEmp.dateresigned.value;
+		now = new Date(datelast);
+		}
+	 document.forms["employment"].emp_date.value ="01/01/"+(now.getFullYear() - val);
+		
+
+}
+
+function busyrs(val){
+	 now = new Date();
+	 document.forms["business"].bus_date.value ="01/01/"+(now.getFullYear() - val);
+}
+
+function empannualtomonthly(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_annual.value / frm.emp_multiplier.value;
+	 frm.emp_income.value = result.toFixed(2);
+}
+function empmonthlytoannual(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_income.value * frm.emp_multiplier.value;
+	 frm.emp_annual.value = result.toFixed(2);	
+}
+function busannualtomonthly(){
+	 var frm = document.business;
+	 var result;
+	 result = frm.bus_annual.value / frm.bus_multiplier.value;
+	 frm.bus_income.value = result.toFixed(2);
+}
+function busmonthlytoannual(){
+	var frm = document.business;
+	var result;
+	result = frm.bus_income.value * frm.bus_multiplier.value;
+	frm.bus_annual.value = result.toFixed(2);		
+}
+
+</script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>EMPLOYMENT / OCCUPATION</strong></td>
+<td><?=$this->getEmpBus($this->capno)?></td>
+</tr>
+</table><br />
+
+<table width="100%" border="0">
+  <tr bgcolor="#FF3333">
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">EMPLOYED</font></strong></td>
+  </tr>
+  <?php foreach($this->empdetail as $empdetails) :?>
+  <tr>
+    <td width="14%">Employer:</td>
+    <td width="19%"><?=$empdetails->employer?></td>
+    <? if ($empdetails->date_resigned) {?>
+    <td width="26%">Date Resigned:
+    <?=date('m/d/Y',strtotime($empdetails->date_resigned))?></td>
+    <? } ?>
+    <td colspan="2">Landline No.:
+    <?=$empdetails->emp_telno?> | <?=$empdetails->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Employer's Name:</td>
+    <td colspan="2"><?=$empdetails->emp_name?></td>
+    <td colspan="2">Employer's Industry:
+    <?=$this->viewBusNature($empdetails->emp_industry)?></td>
+  </tr>
+  <tr>
+    <td>Office Address:</td>
+    <td colspan="4">
+      Street 
+<?=$empdetails->emp_street?></td>
+  </tr>
+  <tr>
+    <td>Brgy:
+    <?=$empdetails->emp_brgy?></td>
+    <td colspan="4"><?=$empdetails->emp_city?> ,     <?=$empdetails->emp_province?></td>
+  </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$empdetails->emp_zipcode?></td>
+    <td>Years in Employment:
+    <?=$empdetails->emp_yrs?> / 
+    <?=$empdetails->emp_months?></td>
+    <td colspan="2">Actual Position:
+    <?=$empdetails->emp_actual_position?></td>
+  </tr>
+  <tr>
+    <td>Status:</td>
+    <td><?=$this->viewEmpStatus($empdetails->emp_status)?></td>
+    <td>Employed Since: 
+    <?=date('m/d/Y',strtotime($empdetails->emp_date))?></td>
+    <td colspan="2">Position:
+    <?=$this->viewEmpPos($empdetails->emp_pos)?></td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P
+    <?=number_format($empdetails->emp_income,2)?></td>
+    <td>Annual Income: P 
+    <?=number_format($empdetails->emp_annual,2)?></td>
+    <td width="19%" align="left">GSIS/SSS No:
+    <?=$empdetails->emp_gsiss?></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Source/Date</td>
+    <td><?=$empdetails->emp_source_date?></td>
+    <td>Multiplier: 
+    <?=$empdetails->emp_multiplier?></td>
+    <td>Percentage: 
+    <?=$empdetails->emp_percentage?></td>
+    <td><input name="button2" type="button" onclick="window.location='<?=$this->baseUrl().'/index/editemployment/id/'.$empdetails->id.'/cap/'.$this->capno?>'" value="Update" />
+    <input name="button5" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Employment Detail?')) window.location='<?=$this->baseUrl().'/index/delemployment/id/'.$empdetails->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<table width="100%" border="0">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BUSINESS</font></strong></td>
+  </tr>
+  <?php foreach($this->busdetail as $busdetails) :?>
+  <tr>
+    <td width="17%">Business Name:</td>
+    <td width="16%"><?=$busdetails->bus_name?></td>
+    <td width="35%">Nature of Business:
+    <?=$this->viewBusNature($busdetails->bus_nat)?></td>
+    <td colspan="2">Landline No.:
+    <?=$busdetails->bus_telno?> | <?=$busdetails->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Business Address:</td>
+    <td colspan="4">
+Street
+<?=$busdetails->bus_street?></td>
+  </tr>
+  <tr>
+    <td>Brgy
+    <?=$busdetails->bus_brgy?></td>
+    <td colspan="4"><?=$busdetails->bus_city?>
+,
+  <?=$busdetails->bus_province?></td>
+  </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$busdetails->bus_zipcode?></td>
+    <td>Years in Business:
+    <?=$busdetails->bus_yrs?> / <?=$busdetails->bus_months?></td>
+    <td width="11%">&nbsp;</td>
+    <td width="21%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Source of Income</td>
+    <td><?=$this->viewBusSrcincome($busdetails->bus_srcincome)?></td>
+    <td>Business Started:
+    <?=date('m/d/Y',strtotime($busdetails->bus_date))?></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P<?=number_format($busdetails->bus_income,2)?></td>
+    <td>Annual Income: P<?=number_format($busdetails->bus_annual,2)?></td>
+    <td colspan="2" align="left">DTI Registration No:
+    <?=$busdetails->bus_dti?></td>
+  </tr>
+  <tr>
+    <td>Total Gross Sales:    </td>
+    <td>P
+    <?=number_format($busdetails->total_gross_sales,2)?></td>
+    <td>Total Cost of Sales: 
+    P
+    <?=number_format($busdetails->total_cost_sales,2)?></td>
+    <td colspan="2" align="right"><div align="left">Total Net Income Before: P
+        <?=number_format($busdetails->total_net_income_before,2)?>
+    </div></td>
+  </tr>
+  <tr>
+    <td>Source/Date</td>
+    <td><?=$busdetails->bus_source_date?></td>
+    <td>Multiplier: 
+    <?=$busdetails->bus_multiplier?></td>
+    <td>&nbsp;</td>
+    <td><input name="button3" type="button" onclick="window.location='<?=$this->baseUrl().'/index/editbusiness/id/'.$busdetails->id.'/cap/'.$this->capno?>'" value="Update" />      <input name="button" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Business Detail?')) window.location='<?=$this->baseUrl().'/index/delbusiness/id/'.$busdetails->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+
+<a aiotitle="click to expand" href="javascript:togglecomments('employbus')"
+ >Add Details</a> 
+<div align="center" id="employbus" class="commenthidden">
+
+<form name="employment" method="post" style="display:inline">
+
+<table width="50%" style="display:inline" border="0">
+<tr>
+  <td colspan="2" align="left"><strong>Employed</strong></td>
+  </tr>
+<tr align="left">
+  <td width="38%">Employer</td>
+  <td width="62%"><?=$this->form->employer?></td>
+  </tr>
+<tr align="left" id="dateresigned" style="display:none">
+<td>Date Resigned</td>
+<td><?=$this->form->dateresigned?></td>
+</tr>
+<tr align="left">
+  <td>Employer's Name</td>
+  <td><?=$this->form->emp_name?></td>
+  </tr>
+<tr align="left">
+  <td>Employer's Industry</td>
+  <td><?=$this->form->emp_industry?> <strong><a href="#" onclick = "window.open('<?=$this->baseURL();?>/index/businessnature/','mywindow','width=400,height=500,scrollbars=yes,resizable=no, menubar=no')"> <strong>?</strong> </a></strong></td>
+  </tr>
+<tr align="left">
+  <td>Office Address</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td align="left">
+    Street </td>
+  <td align="left"><?=$this->form->borrower_prev_address_street?></td>
+</tr>
+<tr>
+  <td align="left">Barangay </td>
+  <td align="left"><?=$this->form->borrower_prev_address_brgy?></td>
+</tr>
+<tr>
+  <td align="left">City / Municipality</td>
+  <td align="left"><?=$this->form->borrower_prev_address_city?></td>
+</tr>
+<tr>
+  <td align="left">Province</td>
+  <td align="left"><?=$this->form->borrower_prev_address_province?></td>
+</tr>
+<tr>
+  <td align="left">Zip Code</td>
+  <td align="left"><?=$this->form->emp_zipcode?></td>
+</tr>
+<tr align="left">
+  <td>Landline No.</td>
+  <td><?=$this->form->emp_telno?></td>
+</tr>
+<tr align="left">
+  <td>Actual Position</td>
+  <td><?=$this->form->emp_actual_position?></td>
+</tr>
+<tr align="left">
+  <td>Position</td>
+  <td><?=$this->form->emp_pos?></td>
+  </tr>
+<tr align="left">
+  <td>Status</td>
+  <td><?=$this->form->emp_status?>  <a href="#" onclick = "window.open('<?=$this->baseURL();?>/index/specialoccupation/','mywindow','width=300,height=500,scrollbars=yes,resizable=no, menubar=no')"><strong>?</strong></a></td>
+  </tr>
+<tr align="left">
+  <td>Employed Since</td>
+  <td><?=$this->form->emp_date?></td>
+</tr>
+<tr align="left">
+  <td>Years in Employment</td>
+  <td><?=$this->form->emp_yrs?>
+    <?=$this->form->emp_months?></td>
+  </tr>
+<tr align="left">
+  <td>Monthly Income</td>
+  <td><?=$this->form->emp_income?></td>
+</tr>
+<tr align="left">
+  <td>Annual Income</td>
+  <td><?=$this->form->emp_annual?> / 
+    <?=$this->form->emp_multiplier?></td>
+</tr>
+<tr align="left">
+  <td>GSIS/SSS No</td>
+  <td><?=$this->form->emp_gsiss?></td>
+</tr>
+<tr align="left">
+  <td>Source/Date</td>
+  <td><?=$this->form->emp_source_date?></td>
+  </tr>
+<tr align="left">
+  <td colspan="2" align="center"><input name="submit" type="submit" value="Add Employment" /></td>
+  </tr>
+</table>
+</td>
+</form>
+
+<form name="business" method="post" style="display:inline">
+<table width="50%" style="display:inline" border="0">
+<tr align="left">
+  <td colspan="2"><strong>Business</strong></td>
+  </tr>
+<tr align="left">
+  <td width="48%">Business Name</td>
+  <td width="52%"><?=$this->form->bus_name?></td>
+</tr>
+<tr align="left">
+  <td>Office Address</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td align="left">Street </td>
+  <td align="left"><?=$this->form->borrower_pres_address_street?></td>
+</tr>
+<tr>
+  <td align="left">Barangay </td>
+  <td align="left"><?=$this->form->borrower_pres_address_brgy?></td>
+</tr>
+<tr>
+  <td align="left">City / Municipality</td>
+  <td align="left"><?=$this->form->borrower_pres_address_city?></td>
+</tr>
+<tr>
+  <td align="left">Province</td>
+  <td align="left"><?=$this->form->borrower_pres_address_province?></td>
+</tr>
+<tr>
+  <td align="left">Zip Code</td>
+  <td align="left"><?=$this->form->bus_zipcode?></td>
+</tr>
+<tr align="left">
+  <td>Landline No.</td>
+  <td><?=$this->form->bus_telno?></td>
+</tr>
+<tr align="left">
+  <td>Source of Income</td>
+  <td><?=$this->form->bus_srcincome?></td>
+</tr>
+<tr align="left">
+  <td>Business Started</td>
+  <td><?=$this->form->bus_date?></td>
+</tr>
+<tr align="left">
+  <td>Years in Business</td>
+  <td><?=$this->form->bus_yrs?>
+    <?=$this->form->bus_months?></td>
+</tr>
+<tr align="left">
+  <td>Monthly Income</td>
+  <td><?=$this->form->bus_income?></td>
+</tr>
+<tr align="left">
+  <td>Annual Income</td>
+  <td><?=$this->form->bus_annual?> / 
+    <?=$this->form->bus_multiplier?></td>
+</tr>
+<tr align="left">
+  <td>Nature of Business</td>
+  <td><?=$this->form->bus_nat?> <a href="#" onclick = "window.open('<?=$this->baseURL();?>/index/businessnature/','mywindow','width=400,height=500,scrollbars=yes,resizable=no, menubar=no')"> <strong>?</strong> </a></td>
+</tr>
+<tr align="left">
+  <td>Total Gross Sales</td>
+  <td><?=$this->form->total_gross_sales?></td>
+</tr>
+<tr align="left">
+  <td>Total Cost of Sales</td>
+  <td><?=$this->form->total_cost_sales?></td>
+</tr>
+<tr align="left">
+  <td>Total Net Income Before</td>
+  <td><?=$this->form->total_net_income_before?></td>
+</tr>
+<tr align="left">
+<td>DTI Registration No.</td>
+<td><?=$this->form->bus_dti?></td>
+</tr>
+<tr align="left">
+  <td>Source/Date</td>
+  <td><?=$this->form->bus_source_date?></td>
+</tr>
+<tr align="left">
+  <td colspan="2"><div align="center">
+    <input name="submit" type="submit" value="Add Business" id="submit" />
+    </div></td>
+</tr>
+</table>
+</form>
+
+</div>
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">OTHER MONTHLY INCOME</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="15%" align="center"><strong>TYPE</strong></td>
+    <td width="17%" align="center"><strong>FROM</strong></td>
+    <td width="17%" align="center"><strong>AMOUNT</strong></td>
+    <td width="18%" align="center"><strong>SINCE</strong></td>
+    <td width="27%" align="center"><strong>REMARKS</strong></td>
+    <td width="6%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->othermonthlydetail as $details) :?>
+  <tr align="left">
+    <td align="center"><?=$details->type?></td>
+    <td align="center"><?=$details->from?></td>
+    <td align="center"><?=$details->amount?></td>
+    <td align="center"><?=$details->since?></td>
+    <td align="center"><?=$details->remarks?></td>
+    <td align="left"><input name="button7" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Credit Card Detail?')) window.location='<?=$this->baseUrl().'/index/delmonthlyincome/id/'.$details->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('othermonthly')"
+ >Add Other Monthly Income</a>
+<div align="center" id="othermonthly" class="commenthidden">
+  <form method="post" name="othermonthly" id="othermonthly">
+    <table width="100%" border="0">
+      <tr align="left">
+        <td width="15%" align="center">TYPE*</td>
+        <td width="17%" align="center">FROM*</td>
+        <td width="17%" align="center">AMOUNT*</td>
+        <td width="18%" align="center">SINCE*</td>
+        <td width="33%" align="center">REMARKS*</td>
+      </tr>
+      <tr align="left">
+        <td align="center"><?=$this->form->monthly_type?></td>
+        <td align="center"><?=$this->form->monthly_from?></td>
+        <td align="center"><?=$this->form->monthly_amount?></td>
+        <td align="center"><?=$this->form->monthly_since?></td>
+        <td align="center"><?=$this->form->monthly_remarks?></td>
+      </tr>
+      <tr align="left">
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center"><input name="submit" type="submit" value="Add Other Monthly Income" id="submit" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">OTHER SOURCE OF INCOME</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="15%" align="center">&nbsp;</td>
+    <td width="17%" align="center"><strong>FROM</strong></td>
+    <td width="17%" align="center"><strong>AMOUNT</strong></td>
+    <td width="18%" align="center"><strong>SINCE</strong></td>
+    <td width="27%" align="center"><strong>REMARKS</strong></td>
+    <td width="6%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->othersourcedetail as $details) :?>
+  <tr align="left">
+    <td align="center"></td>
+    <td align="center"><?=$details->from?></td>
+    <td align="center"><?=$details->amount?></td>
+    <td align="center"><?=$details->since?></td>
+    <td align="center"><?=$details->remarks?></td>
+    <td align="left"><input name="button6" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Credit Card Detail?')) window.location='<?=$this->baseUrl().'/index/delsourceincome/id/'.$details->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('othersource')"
+ >Add Other Source of Income</a>
+<div align="center" id="othersource" class="commenthidden">
+  <form method="post" name="othersource" id="othersource">
+    <table width="100%" border="0">
+      <tr align="left">
+        <td width="15%" align="center">&nbsp;</td>
+        <td width="17%" align="center">FROM</td>
+        <td width="17%" align="center">AMOUNT*</td>
+        <td width="18%" align="center">SINCE</td>
+        <td align="center">REMARKS*</td>
+      </tr>
+      <tr align="left">
+        <td align="center"><? //$this->form->source_type?></td>
+        <td align="center"><?=$this->form->source_from?></td>
+        <td align="center"><?=$this->form->source_amount?></td>
+        <td align="center"><?=$this->form->source_since?></td>
+        <td align="center"><?=$this->form->source_remarks?></td>
+      </tr>
+      <tr align="left">
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+        <td align="center"><input name="submit" type="submit" value="Add Other Source Income" id="submit" /></td>
+      </tr>
+
+    </table>
+</form></div>
+
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">TRADE AND BUSINESS REFERENCE</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="19%" align="center"><strong>NAME</strong></td>
+    <td width="21%" align="center"><strong>CONTACT PERSON</strong></td>
+    <td width="22%" align="center"><strong>CONTACT NO.</strong></td>
+    <td width="19%" align="center"><strong>NATURE OF TRANSACT / VOLUME</strong></td>
+    <td width="19%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->trdbusrefdetail as $trdbusrefdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$trdbusrefdetails->name?></td>
+    <td align="center"><?=$trdbusrefdetails->contact_person?></td>
+    <td align="center"><?=$trdbusrefdetails->contact_no?></td>
+    <td align="center"><?=$trdbusrefdetails->nature_transaction?></td>
+    <td align="left"><input name="button4" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Credit Card Detail?')) window.location='<?=$this->baseUrl().'/index/deltrdbusref/id/'.$trdbusrefdetails->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('trdbusref')"
+ >Add Trade & Business Reference</a>
+<div align="center" id="trdbusref" class="commenthidden">
+  <form method="post" name="trdbusref" id="trdbusref">
+    <table width="100%" border="0">
+      <tr align="left">
+        <td width="19%" align="center">NAME</td>
+        <td width="21%" align="center">CONTACT PERSON</td>
+        <td width="22%" align="center">CONTACT NO.</td>
+        <td width="19%" align="center">NATURE OF TRANSACT / VOLUME</td>
+        <td width="19%" align="center">&nbsp;</td>
+      </tr>
+      <tr align="left">
+        <td align="center"><?=$this->form->name?></td>
+        <td align="center"><?=$this->form->contactperson?></td>
+        <td align="center"><?=$this->form->contactno?></td>
+        <td align="center"><?=$this->form->nat_transact?></td>
+        <td align="left"><input name="submit" type="submit" value="Add Trade and Business" id="submit" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("employment")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("emp_name","req","Employer Name is Required!!");
+
+frmvalidator.addValidation("dateresigned","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+//Address Fields
+frmvalidator.addValidation("borrower_prev_address_street","req","Employment Address Street!!");
+frmvalidator.addValidation("emp_yrs","req","Employment Years is Required!!");
+frmvalidator.addValidation("emp_date","req","Employed Since Required!!");
+frmvalidator.addValidation("emp_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("emp_income","req","Employment Monthly Income is Required!!");
+
+frmvalidator.addValidation("emp_telno","req","Employment Landline is Required!!");
+frmvalidator.addValidation("emp_telno","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+frmvalidator.addValidation("emp_telno","minlen=7","Minimum Landline # Length Required!!");
+
+frmvalidator.addValidation("emp_zipcode","req","Employer's Address Zipcode Required!!");
+ function DoCustomValidationEmployment()
+	{
+	  	 var frm = document.forms["employment"];
+   		var dateString = frm.dateresigned.value;
+		var dateR = new Date(dateString);
+		var dateString2 = frm.emp_date.value;
+		var empDate = new Date(dateString2);
+		var myDate = new Date();	 	 
+		 
+		 if (frm.borrower_prev_address_province.value == '0'){
+	    	  sfm_show_error_msg("Employer Address Province - Required");
+			  return false }
+	     else if (frm.borrower_prev_address_city.value == ''){
+	    	  sfm_show_error_msg("Employer Address City - Required");
+			  return false }
+		else if (frm.borrower_prev_address_brgy.value == ''){
+	    	  sfm_show_error_msg("Employer Address Brgy - Required");
+			  return false }
+	 
+	 	else if (frm.employer.value == '0'){
+	    	  sfm_show_error_msg("Please Choose Employer Current/Previous");
+			  return false }
+	   else if (frm.emp_industry.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Employer Industry");
+			  return false
+	  } 
+	  	else if (frm.emp_pos.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Select Employer Position");
+   			  return false
+	  }
+	    else if (frm.emp_status.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Select Employer Status");
+   			  return false
+	  }	  
+  	  //Relational Check Start
+	  else if (frm.emp_yrs.value < 0)
+	  {
+			  sfm_show_error_msg("Invalid Yrs of Employment!!");
+   			  return false
+			
+	  }	 
+	  
+		else if (dateR>myDate)
+	  {
+			  sfm_show_error_msg("Date Resigned:You cannot input a future date!!");
+   			  return false
+
+	  }	 
+	  
+	  	 else if (empDate>myDate)
+	  {
+			  sfm_show_error_msg("Employment Date:You cannot input a future date!!");
+   			  return false
+	  }	 
+	  	 else if (empDate>dateR)
+	  {
+			  sfm_show_error_msg("Employment Date greater than Date Resigned!!");
+   			  return false
+	  }	 
+
+	//End of Relational Check
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationEmployment");
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("business")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("bus_name","req","Business Name is Required!!");
+
+frmvalidator.addValidation("bus_zipcode","req","Business Address Zip Code is Required!!");
+frmvalidator.addValidation("bus_date","req","Business Started Required!!");
+frmvalidator.addValidation("bus_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("bus_yrs","req","Business Years is Required!!");
+frmvalidator.addValidation("bus_income","req","Business Monthly Income is Required!!");
+
+
+frmvalidator.addValidation("bus_telno","req","Business Landline is Required!!");
+frmvalidator.addValidation("bus_telno","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+frmvalidator.addValidation("bus_telno","minlen=7","Invalid Minimum Landline # Required!!");
+frmvalidator.addValidation("borrower_pres_address_street","req","Business Address Street!!");
+
+
+ function DoCustomValidationBusiness()
+	{
+	  var frm = document.forms["business"];
+	  	if (frm.borrower_pres_address_province.value == '0'){
+	    	  sfm_show_error_msg("Business Address Province - Required");
+			  return false }
+	     else if (frm.borrower_pres_address_city.value == ''){
+	    	  sfm_show_error_msg("Business Address City - Required");
+			  return false }
+		else if (frm.borrower_pres_address_brgy.value == ''){
+	    	  sfm_show_error_msg("Business Address Brgy - Required");
+			  return false }
+
+	   else if (frm.bus_srcincome.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Business Source iof Income");
+			  return false
+	  } 
+	  	else if (frm.bus_nat.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Business Nature");
+   			  return false
+	  }
+	 else if (frm.bus_date.value != '')
+	  {
+		var dateString = frm.bus_date.value;
+		var myDate = new Date(dateString);
+		var today = new Date();
+			if(myDate>today){
+			  sfm_show_error_msg("Bus Date:You cannot input a future date!!");
+   			  return false
+			}
+	  }	 
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationBusiness");
+</script>
+
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("trdbusref")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("name","req","Name is Required!!");
+frmvalidator.addValidation("contactperson","req","Contact Person is Required!!");
+frmvalidator.addValidation("contactno","req","Contact No is Required!!");
+frmvalidator.addValidation("nat_transact","req","Nature of Transact / Volume is Required!!");
+</script>
+
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("othermonthly")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("monthly_type","dontselect=''","Type is Required!!");
+frmvalidator.addValidation("monthly_from","req","From is Required!!");
+frmvalidator.addValidation("monthly_amount","req","Amount Value is Required!!");
+frmvalidator.addValidation("monthly_amount","decimal","Invalid Decimal Number!!");
+frmvalidator.addValidation("monthly_since","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+//frmvalidator.addValidation("monthly_since","req","Since Date is Required!!");
+frmvalidator.addValidation("monthly_remarks","req","Remarks is Required!!");
+
+function DoCustomValidationOtherMonthly()
+	{
+	  var frm = document.forms["othermonthly"];
+	  	var dateString2 = frm.monthly_since.value;
+		var datesince = new Date(dateString2);
+		var myDate = new Date();
+	 if (datesince>myDate)
+	  {
+			  sfm_show_error_msg("Date Since :You cannot input a future date!!");
+   			  return false
+	  }	 
+	  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationOtherMonthly");
+</script>
+
+
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("othersource")
+frmvalidator.EnableMsgsTogether();
+//frmvalidator.addValidation("source_type","dontselect=''","Type is Required!!");
+//frmvalidator.addValidation("source_from","req","From is Required!!");
+frmvalidator.addValidation("source_amount","req","Amount Value is Required!!");
+frmvalidator.addValidation("source_amount","decimal","Invalid Decimal Number!!");
+frmvalidator.addValidation("source_since","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+//frmvalidator.addValidation("source_since","req","Since Date is Required!!");
+frmvalidator.addValidation("source_remarks","req","Remarks is Required!!");
+//frmvalidator.addValidation("source_from","req","From is Required!!");
+
+function DoCustomValidationOtherSource()
+	{
+	  var frm = document.forms["othersource"];
+	  	var dateString2 = frm.source_since.value;
+		var datesince = new Date(dateString2);
+		var myDate = new Date();
+	 if (datesince>myDate)
+	  {
+			  sfm_show_error_msg("Date Since :You cannot input a future date!!");
+   			  return false
+	  }	 
+	  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationOtherSource");
+
+</script>

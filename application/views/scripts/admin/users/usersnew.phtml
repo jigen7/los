@@ -1,0 +1,194 @@
+<style type="text/css">
+table.sample {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: black black black black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+<form method="post" name="adduser">
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td><strong>ADMIN - USER</strong></td>
+    <td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/admin'"><strong> Return </strong></td>
+  </tr>
+  <tr>
+    <td><ul id="nav">
+  <li><a href="javascript:submitform()" class="dropdown" onclick="" >Action</a>
+	<ul>
+	<li><a href="<?=$this->baseUrl()?>/admin/logintrail/">User's Login Information</a></li>
+    <li><a href="<?=$this->baseUrl()?>/admin/accounttrail/">Account Trail</a></li>   
+    </ul>
+  </li>
+</ul></td>
+    <td align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/admin'">&nbsp;</td>
+  </tr>
+</table>
+<br />
+<table width="100%" class="sample">
+  <tr>
+    <td width="18%">Name:</td>
+    <td width="58%"><?=$this->form->name?></td>
+    <td width="24%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Username: </td>
+    <td><?=$this->form->username?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Birthday:</td>
+    <td><?=$this->form->birthdate?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Employee Number:</td>
+    <td><?=$this->form->emp_no?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>TIN # :</td>
+    <td><?=$this->form->tin_no?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Group / Division:</td>
+    <td><?=$this->form->group?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Role / Position:</td>
+    <td><?=$this->form->role?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--
+  <tr id="marketing-mh" style="display:none">
+    <td>Marketing Head</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="marketing-dh" style="display:none">
+    <td>Division Head</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr  id="marketing-ah" style="display:none">
+    <td>Area Head</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="marketing-mo" style="display:none" >
+    <td>Marketing Officer</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="creditsrv-co" style="display:none">
+    <td>Credit Officer</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="creditsrv-csh" style="display:none">
+    <td>CSD Head</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="creditmgt-crmh" style="display:none">
+    <td>CRM Head </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="creditmgt-cro" style="display:none">
+    <td>Credit Risk Officer</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="loans-ldh" style="display:none">
+    <td>L&amp;D Head</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr id="loans-ldo" style="display:none">
+    <td>Loans Officer</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Sub-Crecom</td>
+    <td><?=$this->form->subcrecom?></td>
+  </tr>
+  <tr>
+    <td>Crecom</td>
+    <td><?=$this->form->crecom?></td>
+  </tr>
+  -->
+  <tr>
+    <td colspan="3" align="center"><input type="submit" name="button" id="button" value="Submit" /></td>
+  </tr>
+</table>
+
+<br />
+
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="22%" align="center"><strong>Name</strong></td>
+    <td width="17%" align="center"><strong>Username</strong></td>
+    <td width="24%" align="center"><strong>Role</strong></td>
+    <td width="19%" align="center"><strong>Disable</strong></td>
+    <td width="18%" align="center"><strong>Reset</strong></td>
+    <td width="18%" align="center"><strong>Reset</strong></td>
+  </tr>
+  <? foreach($this->details as $x) { ?> 
+  <tr <? if($x->active === false) { ?>bgcolor="RED" <? } ?>>
+    <td><?=strtoupper($x->name)?></td>
+    <td align="center"><?=$x->username?></td>
+    <td align="center"><?=$x->role_type?></td>
+    <td align="center">
+    <? if($x->active === TRUE) { ?>
+    <input type="button" name="disable" id="disable" value="Disable"  onclick="javascript: if (confirm('Are you sure you want to disable this user?')) window.location='<?=$this->baseUrl().'/admin/enabledisable/id/'.$x->id.'/act/false'?>'""/>
+    <? } else { ?>
+    <input type="button" name="enable" id="enable" value="Enable"  onclick="javascript: if (confirm('Are you sure you want to enable this user?')) window.location='<?=$this->baseUrl().'/admin/enabledisable/id/'.$x->id.'/act/true'?>'"""/>
+       <? } ?>
+    </td>
+    <td align="center"><input type="button" name="rspass" id="rspass" value="Password" 
+    onclick="javascript: if (confirm('Are you sure you want to reset this user password?')) window.open('<?=$this->baseUrl().'/admin/resetpassword/id/'.$x->id?>','width=600','height=200','scrollbars=yes','resizable=no',' menubar=yes','toolbar=no','location=no')""/></td>
+    <td align="center"><input type="button" name="rspass2" id="rspass2" value="Digital Password" 
+    onclick="javascript: if (confirm('Are you sure you want to reset this user digital password?')) window.open('<?=$this->baseUrl().'/admin/resetdigipassword/id/'.$x->id?>','width=600','height=200','scrollbars=yes','resizable=no',' menubar=yes','toolbar=no','location=no')"/></td>
+  </tr>
+  <? } ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("adduser")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("name","req","Please Enter Name!!");
+frmvalidator.addValidation("username","req","Please Enter Username!!");
+frmvalidator.addValidation("birthdate","req","Please Enter Birthdate!!");
+frmvalidator.addValidation("birthdate","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("emp_no","req","Please Enter Emp No!!");
+//frmvalidator.addValidation("tin_no","req","Please Enter Tin No!!");
+//frmvalidator.addValidation("group","dontselect=''","Pls Enter Group Division!!");
+frmvalidator.addValidation("role","dontselect=''","Please Enter Role!!");
+</script>

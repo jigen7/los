@@ -1,0 +1,24 @@
+
+		.scrolltable {
+			text-align: left;
+			font-size: 12px;
+			font-family: verdana;
+			background: #c0c0c0;
+		}
+ 
+		.scrolltable thead  {
+			cursor: pointer;
+		}
+ 
+		.scrolltable thead tr,
+		.scrolltable tfoot tr {
+			background: #c0c0c0;
+		}
+ 
+		.scrolltable tbody tr {
+			background: #f0f0f0;
+		}
+ 
+		td, th {
+			border: 1px solid white;
+		}

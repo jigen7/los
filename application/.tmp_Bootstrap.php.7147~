@@ -1,0 +1,47 @@
+<?php
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+{
+ protected function _initAutoload()
+    {
+    //auto loader , load resources forms,models,plugins
+        $moduleLoader = new Zend_Application_Module_Autoloader(array(
+            'namespace' => '', 
+            'basePath'  => APPLICATION_PATH));
+			
+			$fc = Zend_Controller_Front::getInstance();
+			$fc->registerPlugin(new Plugin_AccessCheck);
+			
+        return $moduleLoader;
+    }
+
+ function _initViewHelpers()
+    {
+    // Layout Initialization
+        $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+		$view = $layout->getView();
+		
+        $view->doctype('XHTML1_STRICT');
+        $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+        $view->headTitle()->setSeparator(' - ');
+        $view->headTitle('Loan Origination System');
+   // End of Layout Initialization
+   
+   //Enable Dojo
+   	Zend_Dojo::enableView($view); 
+	$view->dojo()->setLocalPath('/js/dojo/dojo.js')
+                 ->requireModule('dojo.data.ItemFileReadStore'); 
+	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
+	$viewRenderer->setView($view);
+   //End of Dojo 
+   
+       Zend_Controller_Action_HelperBroker::addPath(
+        APPLICATION_PATH .'/controllers/helpers');
+
+    }
+
+	
+
+    
+}
+

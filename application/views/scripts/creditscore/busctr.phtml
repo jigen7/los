@@ -1,0 +1,51 @@
+<script type="text/javascript">
+
+	function deleteField(id)
+	{
+		var hdel = document.getElementById('hiddenD');	
+		hdel.value = id;
+		document.product.submit();		
+	}	
+</script>
+<form action="" method="post" name="product" id="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->place?>/namever/<?=$this->namever?>/prod/<?=$this->prodType;?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<input name="hiddenD" type="hidden" id="hiddenD">
+<body>
+<p></p>
+<table width="200" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+	<thead>
+		<tr>
+            <td width="135"><?=$this->busctr?></td>
+            <td width="52"> <input type="Submit" name="button" id="button" value="Add"/></td>
+        </tr>
+    </thead>  
+    <tbody>
+    	<? $at1 = 0;?>        	
+        <? foreach($this->busctrs as $row) : ?>
+		<? $at1++; ?>    
+        <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+            onmouseout="this.style.background='white';this.style.color='black'">
+            <td><b/><?=ucfirst($row->busctr)?></td>
+            <td align="center"><input type="button" name="button" id="button" value="Delete" onClick="deleteField(<?="'".$row->id."'"?>)"/></td>
+        </tr>
+        <? endforeach; ?>
+    </tbody>        
+</table>
+</body>
+<p></p>
+</center>	
+</form>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 300);</script>

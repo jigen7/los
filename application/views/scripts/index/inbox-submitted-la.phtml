@@ -1,0 +1,60 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
+<form action="" method="post" name="submitted">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>SUBMITTED</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+    <thead>
+  <tr>
+    <th width="11%" align="center"><strong>CAP NO.</strong></td>
+    <th width="19%" align="center"><strong>BORROWER</strong></td>
+    <th width="14%" align="center"><strong>TYPE OF APPLICATION </strong></td>
+    <th width="14%" align="center"><strong>APPLICATION DATE </strong>
+    <th width="15%" align="center"><strong>SUBMITTED TO </strong></td>
+    <th width="15%" align="center"><strong>DATE/TIME SUBMITTED </strong></td>    
+  </tr>
+  </thead>
+  <tbody>
+  <? if ($this->rows){?>
+  <?php foreach($this->rows as $row) : ?>
+  <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$row->capno?>'">
+    <td><?=$row->capno?></td>
+    <td><?=$row->borrower_lname.','.$row->borrower_fname.' '.substr($row->borrower_mname, 0,1).'.';?></td>
+    <td align="center"><?=$row->application_type?></td>
+    <td><?=date("m/d/Y h:i a",strtotime($row->application_date))?></td>
+    <td align="center"><?=$this->viewMa($row->submitted_lo)?></td>
+    <td><?=date("m/d/Y h:i a",strtotime($row->submitted_lalo_date))?></td>
+    </tr>
+  <?php endforeach; ?>
+  <? } ?>
+ </tbody>
+</table>
+</form>
+<p>&nbsp;</p>

@@ -1,0 +1,442 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-size: 9pt}
+</Style>
+
+<form action="" method="post" name="assignment_ca">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>DEVIATION LIST</strong> <?=$this->devHelper;?> <?=$this->detail->borrower_lname.','.$this->detail->borrower_fname.' '.$this->detail->borrower_mname?></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="javascript:self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td align="center"><strong>DEVIATIONS</strong><strong></strong></td>
+    <td width="52%" align="center"><strong>REMARKS</strong><strong></strong></td>
+    </tr>
+<? 
+if($this->detail->veh_status == 1){
+	$downpayment = 20;	
+	$term = 60;
+}
+else if($this->detail->veh_status == 2){
+$age = $this->detail->veh_age;
+	if($age == 1){
+		$downpayment = 20;
+		$term = 36;
+	}else if($age == 2){
+		$downpayment = 30;
+		$term = 24;
+	}else if($age == 3 || $age == 4){
+		$downpayment = 40;
+		$term = 12;
+	}else if($age ==0){
+		$downpayment = 20;
+		$term = 60;
+	}else {
+		$downpayment = 20;
+		$term = 12;	
+	}
+	
+}
+?>
+
+
+<? if ($this->devDetail->remarks_downpayment) { ?>
+<tr>
+<td>Downpayment must be at least <?=$downpayment?>%</td>
+<td><?=stripslashes($this->devDetail->remarks_downpayment)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_veh_tenor) { ?>
+<? } ?>
+
+<? if ($this->devDetail->remarks_loan_amount) { ?>
+<tr>
+<td>Loanable Value must be P250,000 - P4,000,000</td>
+<td><?=stripslashes($this->devDetail->remarks_loan_amount)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_loantermhigh) { ?>
+<tr>
+<td>Max Loan Term 72 mos.</td>
+<td><?=stripslashes($this->devDetail->remarks_loantermhigh)?></td>
+</tr>
+<? } ?>
+<? if ($this->devDetail->remarks_loantermlow) { ?>
+<tr>
+<td>Min Loan Term 12 mos.</td>
+<td><?=stripslashes($this->devDetail->remarks_loantermlow)?></td>
+</tr>
+<? } ?>
+<? if ($this->devDetail->remarks_sell_lcp) { ?>
+
+<tr>
+<td>Selling Price > LCP</td>
+<td><?=stripslashes($this->devDetail->remarks_sell_lcp)?></td>
+</tr>
+
+<? } ?>
+
+<? if ($this->devDetail->remarks_sell_appraisal) { ?>
+<? } ?>
+
+<? if ($this->devDetail->remarks_veh_yr) { ?>
+<tr>
+<td>If 2nd hand, Vehicle age at most 4 years</td>
+<td><?=stripslashes($this->devDetail->remarks_veh_yr)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_veh_tenor) { ?>
+<tr>
+  <td>If 2nd hand tenor should not be more than
+    <?=$term?> months</td>
+  <td><?=stripslashes($this->devDetail->remarks_veh_tenor)?></td>
+</tr>
+<? } ?>
+
+
+<? if ($this->devDetail->remarks_veh_car_history) { ?>
+<tr>
+<td>If 2nd hand, favorable car history is required</td>
+<td><?=stripslashes($this->devDetail->remarks_veh_car_history)?></td>
+</tr>
+<? } ?>
+
+
+<? if ($this->devDetail->remarks_gmi) { ?>
+<tr>
+<td>GMI Ratio must not be > 30%</td>
+<td><?=stripslashes($this->devDetail->remarks_gmi)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_loan_purpose) { ?>
+<tr>
+<td>Loan Purpose is not within Guideline</td>
+<td><?=stripslashes($this->devDetail->remarks_loan_purpose)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_totalcombine) { ?>
+<tr>
+<td>For Married Total Combined Income should be at least P50,000 <br />
+For Single Total Combined Income should be at least P30,000"</td>
+<td><?=stripslashes($this->devDetail->remarks_totalcombine)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_borrower_age) { ?>
+<tr>
+<td>Age must be at least 21 years old - 65 years old</td>
+<td><?=stripslashes($this->devDetail->remarks_borrower_age)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_residence_yrs) { ?>
+<tr>
+<td>Residence Years should be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_residence_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_employment_yrs) { ?>
+<tr>
+<td>Employment Years is less than 2 years Previous Employer is Required</td>
+<td><?=stripslashes($this->devDetail->remarks_employment_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_employment_status) { ?>
+<tr>
+<td>Employment Status must be permanent / regular</td>
+<td><?=stripslashes($this->devDetail->remarks_employment_status)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_business_yrs) { ?>
+<tr>
+<td>Years in Business must be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_business_yrs)?></td>
+</tr>
+<? } ?>
+
+
+<? if ($this->devDetail->remarks_citizenship1) { ?>
+<tr>
+<td>Borrower must be a Filipino Citizen</td>
+<td><?=stripslashes($this->devDetail->remarks_citizenship1)?></td>
+</tr>
+<? } ?>
+
+
+<? if ($this->devDetail->remarks_citizenship2) { ?>
+<tr>
+<td>Coborrower must be a Filipino Citizen</td>
+<td><?=stripslashes($this->devDetail->remarks_citizenship2)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coborrower_age) { ?>
+<tr>
+<td>Coborrower Age must be at least 21 - 65</td>
+<td><?=stripslashes($this->devDetail->remarks_coborrower_age)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coresidence_yrs) { ?>
+<tr>
+<td>CoBorrower Residence Years should be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_coresidence_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coemployment_yrs) { ?>
+<tr>
+<td>Coborrower  Employed At least 2 years uniterrupted employment</td>
+<td><?=stripslashes($this->devDetail->remarks_coemployment_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coemployment_status) { ?>
+<tr>
+<td>CoBorrower Employment Status must be Permanent / Regular</td>
+<td><?=stripslashes($this->devDetail->remarks_coemployment_status)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_cobusiness_yrs) { ?>
+<tr>
+<td>Coborrower Years in Business must be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_cobusiness_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spouse_age) { ?>
+<tr>
+<td>Spouse Age must be at least 21 - 65</td>
+<td><?=stripslashes($this->devDetail->remarks_spouse_age)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spocitizenship) { ?>
+<tr>
+<td>Spouse Citizenship must be a Filipino</td>
+<td><?=stripslashes($this->devDetail->remarks_spocitizenship)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_sporesidence_yrs) { ?>
+<tr>
+<td>Spouse Residence Years should be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_sporesidence_yrs)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spoemployment_yrs) { ?>
+<tr>
+<td>Spouse Employed At least 2 years uniterrupted employment</td>
+<td><?=stripslashes($this->devDetail->remarks_spoemployment_yrs) ?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spoemployment_status) { ?>
+<tr>
+<td>Spouse Employment Status must be Permanent / Regular</td>
+<td><?=stripslashes($this->devDetail->remarks_spoemployment_status) ?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spobusiness_yrs) { ?>
+<tr>
+<td>Spouse Years in Business must be at least 2 years</td>
+<td><?=stripslashes($this->devDetail->remarks_spobusiness_yrs) ?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_nfis) { ?>
+<tr>
+<td>NFIS Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_nfis)?></td>
+</tr>
+<? } ?>
+
+
+<? if ($this->devDetail->remarks_nfis_check) { ?>
+<tr>
+<td>NFIS check is more than 1 month</td>
+<td><?=stripslashes($this->devDetail->remarks_nfis_check)?></td>
+</tr>
+<? } ?>
+
+
+
+<? if ($this->devDetail->remarks_confis_check) { ?>
+<tr>
+<td>Coborrower NFIS check is more than 1 month</td>
+<td><?=stripslashes($this->devDetail->remarks_confis_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_confis) { ?>
+<tr>
+<td>Coborrower NFIS Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_confis)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spnfis) { ?>
+<tr>
+<td>Spouse NFIS Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_spnfis)?></td>
+</tr>
+<? } ?>
+<? if ($this->devDetail->remarks_spnfis_check) { ?>
+<tr>
+<td>Spouse NFIS check is more than 1 month</td>
+<td><?=stripslashes($this->devDetail->remarks_spnfis_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_cmap) { ?>
+<tr>
+<td>CMAP Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_cmap)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_cocmap) { ?>
+<tr>
+<td>Coborrower CMAP Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_cocmap)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spcmap) { ?>
+<tr>
+<td>Spouse CMAP Positive</td>
+<td><?=stripslashes($this->devDetail->remarks_spcmap)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_ci_favorable) { ?>
+<tr>
+<td>Unfavorable CI Report</td>
+<td><?=stripslashes($this->devDetail->remarks_ci_favorable)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spci_favorable) { ?>
+<tr>
+<td>Spouse Unfavorable CI Report</td>
+<td><?=stripslashes($this->devDetail->remarks_spci_favorable)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coci_favorable) { ?>
+<tr>
+<td>Coborrower Unfavorable CI Report</td>
+<td><?=stripslashes($this->devDetail->remarks_coci_favorable)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_ci_check) { ?>
+<tr>
+<td>CI Report is more than 3 months</td>
+<td><?=stripslashes($this->devDetail->remarks_ci_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_spci_check) { ?>
+<tr>
+<td>Spouse CI Report is more than 3 months</td>
+<td><?=stripslashes($this->devDetail->remarks_spci_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coci_check) { ?>
+<tr>
+<td>Coborrower CI Report is more than 3 months</td>
+<td><?=stripslashes($this->devDetail->remarks_coci_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_coci_check) { ?>
+<tr>
+<td>Coborrower CI Report is more than 3 months</td>
+<td><?=stripslashes($this->devDetail->remarks_coci_check)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_total_income) { ?>
+<tr>
+<td>Principal has no Source of Income</td>
+<td><?=stripslashes($this->devDetail->remarks_total_income)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_cototal_income) { ?>
+<tr>
+<td>Coborrower has no Source of Income</td>
+<td><?=stripslashes($this->devDetail->remarks_cototal_income)?></td>
+</tr>
+<? } ?>
+
+<? if ($this->devDetail->remarks_veh_use_taxi_downpayment) { ?>
+<tr>
+<td>Taxi Application: Downpayment must be at least 40%</td>
+<td><?=stripslashes($this->devDetail->remarks_veh_use_taxi_downpayment)?></td>
+</tr>
+<? } ?>
+<? if ($this->devDetail->remarks_veh_use_taxi_term) { ?>
+<tr>
+<td>Taxi Application: tenor should not be more than 36mos</td>
+<td><?=stripslashes($this->devDetail->remarks_veh_use_taxi_term)?></td>
+</tr>
+<? } ?>
+<!--
+//Deprecated as of Feb 16,2010 PAolo 
+<tr>
+  <td align="center"><strong>NONE DEVIATIONS</strong></td>
+  <td align="center"><strong>REMARKS</strong></td>
+</tr>
+<?if ($this->devDetail->remarks_sell_lcp) { ?>
+<tr>
+<td>Brand New: Selling Price > LCP</td>
+<td><?stripslashes($this->devDetail->remarks_sell_lcp)?></td>
+</tr>
+<?} ?>
+<?if ($this->devDetail->remarks_sell_appraisal) { ?>
+<tr>
+<td>Brand New: Selling Price > Appraisal Value</td>
+<td><?stripslashes($this->devDetail->remarks_sell_appraisal)?></td>
+</tr>
+<?} ?>
+
+-->
+<tr><td></td></tr>
+</table>
+<p>&nbsp;</p>
+</form>
+<? foreach ($this->deviation as $key => $value) {
+//echo "*$value";
+} ?>
+<p>&nbsp;</p>

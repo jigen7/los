@@ -1,0 +1,389 @@
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+//Ajax to Call the Total income
+	var ajaxObj;
+
+	
+	function startZip() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCity()+"&brgy="+getBrgy(), respZipcode);
+		//alert(getCity());
+	}
+	
+	function startZipPrev() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCityPrev()+"&brgy="+getBrgyPrev(), respZipcodePrev);
+		//alert(getCity());
+	}
+	
+	function respZipcode(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["business"].bus_zipcode.value = resp;
+		
+	}
+	
+		function respZipcodePrev(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["employment"].emp_zipcode.value = resp;
+		
+	}
+	
+	function getCity(){
+		var city = document.forms["business"].borrower_pres_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgy(){
+		var brgy = document.forms["business"].borrower_pres_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	function getCityPrev(){
+		var city = document.forms["employment"].borrower_prev_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgyPrev(){
+		var brgy = document.forms["employment"].borrower_prev_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	
+
+</script> 
+ 
+  <script type="text/javascript">
+    <!--
+    $(function () {
+
+		var province2 = $('#prevcategorySelect');
+        var city2 = $('#prevcitySelect');
+		var brgy2 = $('#prevbrgySelect');
+
+		city2.selectChain({
+            target: brgy2,
+            url: '<?=$this->baseUrl();?>/inc/select-city-prev.php?brgy2=<?=$this->borrower_prev_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province2.selectChain({
+            target: city2,
+            url: '<?=$this->baseUrl();?>/inc/select-province-prev.php?city2=<?=$this->borrower_prev_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+    });
+
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+
+
+	function clearr(the_sub){
+		if (the_sub == 0){
+		document.getElementById('prevcitySelect').options.length = 0;
+		document.getElementById('prevbrgySelect').options.length = 0;
+		document.getElementById('prevzipSelect').value = '';
+		}
+	}
+	
+
+	
+
+function ecompage(bDay){
+var frmEmp = document.forms["employment"];
+
+if(frmEmp.employer.value == 'Current' || frmEmp.employer.value == 'Remittance'){
+	
+ now = new Date()
+ bD = bDay.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+  document.forms["employment"].emp_yrs.value = years;
+  document.forms["employment"].emp_months.selectedIndex = 0; 
+ }
+
+ /*
+var user_date = Date.parse(bDay);
+var today_date = new Date();
+var diff_date =  today_date-user_date;
+var years = diff_date/31536000000;
+var months = (diff_date % 31536000000)/2628000000;
+document.forms["employment"].emp_yrs.value = Math.floor(years);
+document.forms["employment"].emp_months.selectedIndex = Math.floor(months); 
+*/
+}//end of current
+ 
+ if(frmEmp.employer.value == 'Previous'){
+ dR = frmEmp.dateresigned.value.split('/');
+ now = new Date(dR[2],dR[0]*1-1,dR[1]);
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+  document.forms["employment"].emp_yrs.value = years;
+  document.forms["employment"].emp_months.selectedIndex = 0; 
+ }
+ }//end of previous
+}
+
+function datefe(formatt){
+ var num = formatt.length;
+ var frm = document.employment;
+ if(num == 2){
+	 frm.emp_date.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.emp_date.value = formatt + '/'; 	 
+ }
+	
+}
+
+
+function empyrs(val){
+	 var frmEmp = document.forms["employment"];
+	
+		if(frmEmp.employer.value == 'Current'){
+		 now = new Date();
+		}
+		else {
+		var datelast = frmEmp.dateresigned.value;
+		now = new Date(datelast);
+		}
+		
+		 document.forms["employment"].emp_date.value ="01/01/"+(now.getFullYear() - val);
+		
+}
+
+function empannualtomonthly(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_annual.value / frm.emp_multiplier.value;
+	 frm.emp_income.value = result.toFixed(2);
+}
+function empmonthlytoannual(){
+	 var frm = document.employment;
+	 var result;
+	 result = frm.emp_income.value * frm.emp_multiplier.value;
+	 frm.emp_annual.value = result.toFixed(2);	
+}
+function busannualtomonthly(){
+	 var frm = document.business;
+	 var result;
+	 result = frm.bus_annual.value / frm.bus_multiplier.value;
+	 frm.bus_income.value = result.toFixed(2);
+}
+function busmonthlytoannual(){
+	var frm = document.business;
+	var result;
+	result = frm.bus_income.value * frm.bus_multiplier.value;
+	frm.bus_annual.value = result.toFixed(2);		
+}
+
+
+</script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>EDIT EMPLOYMENT </strong></td>
+</tr>
+</table><br />
+
+<center>
+<form name="employment" method="post" style="display:inline">
+  <table width="100%" border="0">
+    <tr bgcolor="#FF3333">
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">EMPLOYED</font></strong></td>
+  </tr>
+  <tr>
+    <td width="17%">Employer: </td>
+    <td width="16%"><?=$this->form->employer?></td>
+    <td width="32%" id="dateresigned" <? if ($this->employer == 'Current') { echo "style='display:none'"; }?>>Date Resigned:
+      <?=$this->form->dateresigned?></td>
+    <td colspan="2">Landline No.:
+      <?=$this->form->emp_telno?> <?=$this->form->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Employer's Name:</td>
+    <td><?=$this->form->emp_name?></td>
+    <td colspan="3">Employer's Industry:
+      <?=$this->form->emp_industry?>
+      <strong><a href="#" onclick = "window.open('<?=$this->baseURL();?>/index/businessnature/','mywindow','width=400,height=500,scrollbars=yes,resizable=no, menubar=no')"> <strong>?</strong></a></strong></td>
+  </tr>
+  <tr>
+    <td>Office Address:</td>
+    <td colspan="4"> Street
+      <?=$this->form->borrower_prev_address_street?></td>
+  </tr>
+  <tr>
+    <td colspan="5"><?=$this->form->borrower_prev_address_brgy?>
+      <?=$this->form->borrower_prev_address_city?>
+      ,
+      <?=$this->form->borrower_prev_address_province?></td>
+    </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$this->form->emp_zipcode?></td>
+    <td>Years in Employment:
+      <?=$this->form->emp_yrs?> / 
+      <?=$this->form->emp_months?></td>
+    <td colspan="2">Actual Position:
+      <?=$this->form->emp_actual_position?></td>
+    </tr>
+  <tr>
+    <td>Status:</td>
+    <td><?=$this->form->emp_status?>
+      <a href="#" onclick = "window.open('<?=$this->baseURL();?>/index/specialoccupation/','mywindow','width=300,height=500,scrollbars=yes,resizable=no, menubar=no')"><strong>?</strong></a></td>
+    <td>Employed Since:
+      <?=$this->form->emp_date?></td>
+    <td colspan="2">Position:
+      <?=$this->form->emp_pos?></td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P
+      <?=$this->form->emp_income?></td>
+    <td>Annual Income: P
+      <?=$this->form->emp_annual?> / 
+      <?=$this->form->emp_multiplier?></td>
+    <td colspan="2" align="left">GSIS/SSS No:
+      <?=$this->form->emp_gsiss?>
+      <input type="hidden" value="<?=$this->relation?>" name="relation"/></td>
+    </tr>
+  <tr>
+    <td>Source/Date:</td>
+    <td><?=$this->form->emp_source_date?></td>
+    <td>Percentage:
+      <?=$this->form->emp_percentage?>
+%</td>
+    <td width="13%">&nbsp;</td>
+    <td width="22%"><input name="button" type="button" onclick="window.location='<?=$this->baseUrl().'/index/employmentedit/cap/'.$this->capno?>'" value="Back" />      <input name="button2" type="submit"  value="Update Employment" /></td>
+    </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+
+</table>
+</form>
+</center>
+
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("employment")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("emp_name","req","Employer Name is Required!!");
+
+frmvalidator.addValidation("dateresigned","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+//Address Fields
+frmvalidator.addValidation("borrower_prev_address_street","req","Employment Address Street!!");
+frmvalidator.addValidation("emp_yrs","req","Employment Years is Required!!");
+frmvalidator.addValidation("emp_date","req","Employed Since Required!!");
+frmvalidator.addValidation("emp_date","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+frmvalidator.addValidation("emp_income","req","Employment Monthly Income is Required!!");
+
+frmvalidator.addValidation("emp_telno","req","Employment Landline is Required!!");
+frmvalidator.addValidation("emp_telno","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+
+frmvalidator.addValidation("emp_zipcode","req","Employer's Address Zipcode Required!!");
+ function DoCustomValidationEmployment()
+	{
+	  var frm = document.forms["employment"];
+	     var dateString = frm.dateresigned.value;
+		var dateR = new Date(dateString);
+		var dateString2 = frm.emp_date.value;
+		var empDate = new Date(dateString2);
+		var myDate = new Date();	
+   	 	 if (frm.borrower_prev_address_province.value == '0'){
+	    	  sfm_show_error_msg("Employer Address Province - Required");
+			  return false }
+	     else if (frm.borrower_prev_address_city.value == ''){
+	    	  sfm_show_error_msg("Employer Address City - Required");
+			  return false }
+		else if (frm.borrower_prev_address_brgy.value == ''){
+	    	  sfm_show_error_msg("Employer Address Brgy - Required");
+			  return false }
+	 
+	 	else if (frm.employer.value == '0'){
+	    	  sfm_show_error_msg("Please Choose Employer Current/Previous");
+			  return false }
+	   else if (frm.emp_industry.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Choose Employer Industry");
+			  return false
+	  } 
+	  	else if (frm.emp_pos.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Select Employer Position");
+   			  return false
+	  }
+	    else if (frm.emp_status.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Select Employer Status");
+   			  return false
+	  }	  
+  //Relational Check Start
+  	  else if (frm.emp_yrs.value < 0)
+	  {
+			  sfm_show_error_msg("Invalid Yrs of Employment!!");
+   			  return false
+			
+	  }	 
+	 		else if (dateR>myDate)
+	  {
+			  sfm_show_error_msg("Date Resigned:You cannot input a future date!!");
+   			  return false
+
+	  }	 
+	  
+	  	 else if (empDate>myDate)
+	  {
+			  sfm_show_error_msg("Employment Date:You cannot input a future date!!");
+   			  return false
+	  }	 
+	  /*
+	  	 else if (empDate>dateR)
+	  {
+			  sfm_show_error_msg("Employment Date greater than Date Resigned!!");
+   			  return false
+	  }	 
+	*/
+
+	//End of Relational Check
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationEmployment");
+</script>
+

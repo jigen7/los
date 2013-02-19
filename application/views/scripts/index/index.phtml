@@ -1,0 +1,386 @@
+<style type="text/css">
+table.sample {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: black black black black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<table border=1 width="100%"  id="box-table-a">
+ <thead>
+<tr>
+	<th width="15%" align="center" ><strong>
+	Logged in as <?=$this->loggedInUser();?>	</strong></th>
+
+	<th width="6%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+	Home
+	</strong></th>
+    
+    <th width="9%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/search'"><strong>
+	Search
+	</strong></th>
+     <? if ($this->roleAccess('report','')){ ?>
+    <th width="11%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/report/report'"><strong>
+	Report
+	</strong></th>
+    <? } ?>
+     <? if ($this->roleAccess('add_account','')){ ?>
+     <? if($this->loggedInUserType() == 'MA') { ?>
+    <th width="12%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/addaccount'"><strong>
+	Add Account
+	</strong></th>
+    <? } ?>
+   <? } ?>
+   
+
+     <? if($this->loggedInUserType() == 'CA' || $this->loggedInUserType() == 'CRAA' || $this->loggedInUserType() == 'CO') { ?>
+    <th width="12%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" 
+        <? if($this->loggedInUserType() == 'CO') { ?>
+		onclick="window.location.href='<?=$this->baseUrl()?>/admin/pricelistapprove'"
+		<? } else { ?>
+ 		onclick="window.location.href='<?=$this->baseUrl()?>/admin/pricelist'"
+        <? } ?>        
+        ><strong>
+	PriceList
+	</strong></th>
+    <? } ?>
+
+        <? if ($this->roleAccess('admin','')){ ?>
+    <th width="17%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/admin/'"><strong>
+	Admin
+	</strong></th>
+
+        <? } ?>
+
+            <? if($this->loggedInUserType() == 'CA' || $this->loggedInUserType() == 'CO') { ?>
+    <th width="15%" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick = "window.open('<?=$this->baseURL();?>/admin/attendance/','attendance','width=1000,height=200,scrollbars=yes,resizable=no, menubar=yes')" align="center"><strong>Attendance</strong></th>
+        
+        <? } ?>
+
+               
+    <th width="15%" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick = "window.open('<?=$this->baseURL();?>/request/index/','Wish List','width=1000,height=600,scrollbars=yes,resizable=no, menubar=yes')" align="center"><strong>Wish List</strong></th>
+        
+     <? if($this->loggedInUserType() == 'CSH' || $this->loggedInUserType() == 'CO' ||
+	 $this->loggedInUserType() == 'CMGH' || $this->loggedInUserType() == 'PRES' ||
+	 $this->loggedInUserType() == 'ALMH' ) { ?>
+    <th width="15%" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick = "window.open('<?=$this->baseURL();?>/admin/digitalpassword/cap/<?=$this->capno?>','digital','width=600,height=200,scrollbars=yes,resizable=no, menubar=yes')" align="center"><strong>Electronic Password</strong></th>
+	<? } ?> 
+    
+    <th width="15%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#b9c9fe';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/auth/logout'"><strong>
+	Logout
+	</strong></th>
+</tr>
+
+ </thead>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<table width="60%" align="center" id="newspaper-a">
+  <thead>
+    <tr>
+    <th width="21%">Inbox</th>
+    <th width="15%">&nbsp;</th>
+    <th width="36%">&nbsp;</th>
+    <th width="14%">&nbsp;</th>
+    <th width="14%">&nbsp;</th>
+  </tr>
+</thead>
+  <tr>
+    <td width="21%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>
+    <td width="36%">&nbsp;</td>
+    <td width="14%">&nbsp;</td>
+    <td width="14%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><strong>Auto</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+ 
+   <? if ($this->roleAccess('ma_assign','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	  onmouseout="this.style.color='black'"
+      onclick="window.location.href='#'">MA Assignment</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+
+  
+   <? if ($this->roleAccess('ca_assign','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	 onmouseout="this.style.color='black'"
+     onclick="window.location.href='<?=$this->baseUrl()?>/index/assigntaskca'">CA Assignment</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+     <? if ($this->roleAccess('ci_assign','')){ ?>
+  <tr style="display:none">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	  onmouseout="this.style.color='black'"
+      onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxpending'">CI Assignment</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+  <? if ($this->loggedInUserType() == 'LO'){ ?>
+  <tr style="display:none">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	  onmouseout="this.style.color='black'"
+      onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxpending'">LA Assignment</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+  
+   <? if ($this->roleAccess('pending','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	   onmouseout="this.style.color='black'"
+       onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxpending'">Pending (<font color="#FF0000"><b><?=$this->viewInboxPending()?></b></font>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2"><a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxcancel/status/noaction'">No Action(<?=$this->viewInboxCancel('noaction')?>)</a>
+       / <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxcancel/status/cancel'"/>Cancel(<?=$this->viewInboxCancel('cancel')?>)</a>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td colspan="2" align="left"><a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxcancel/status/outright'">Outright Reject(<?=$this->viewInboxCancel('outright')?>)</a>
+     / <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxcancel/status/mareject'"/>Ma Reject(<?=$this->viewInboxCancel('mareject')?>)</a></td>
+       <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+     <? if ($this->roleAccess('submitted','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+  onmouseout="this.style.color='black'"
+   onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxsubmitted'">Submitted (<?=$this->viewInboxSubmit()?>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+    <? } ?>
+   <? if ($this->roleAccess('rts','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2" align="left">
+       
+       <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxrts/act/pending'">
+       Pending RTS (<?=$this->viewInboxRts()?>) </a>
+       
+       <? if($this->loggedInUserType() == 'CA') { ?>
+       / 
+       
+       <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+	   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxrts/act/submitted'">
+       Submitted RTS (<?=$this->viewInboxRtsSubmitted()?>) </a>
+       <? } ?>
+       
+       
+       </td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+     <? if ($this->roleAccess('decision','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="3" align="left">
+	With Decision: <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inbox-with-decision/status/approved'">Approved(<?=$this->viewInboxWithDecision('approved')?></a>) / <a onmouseover="this.style.cursor='pointer';this.style.color='blue'"
+   onmouseout="this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inbox-with-decision/status/rejected'">Rejected(<?=$this->viewInboxWithDecision('rejected')?>)</a>  </td>
+  </tr>
+    <? } ?>
+      <? if ($this->roleAccess('recommended','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	   onmouseout="this.style.color='black'"
+       onclick="window.location.href='<?=$this->baseUrl()?>/index/inbox-recommended'">Recommend (<?=$this->viewInboxRecommend()?>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>    <? } ?>
+      <? if ($this->roleAccess('decided','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="left" onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	   onmouseout="this.style.color='black'"
+       onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxdecided'">Decided (<?=$this->viewInboxDecided()?>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>    <? } ?>
+  <? if ($this->roleAccess('endorsed','')){ ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Endorsed ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+   <? } ?>
+  <? if ($this->rolePermission('index_page_bookaccounts','')) { ?> 
+  <tr onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	   onmouseout="this.style.color='black'"
+       onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxbooked'">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Booked Accounts (<?=$this->viewInboxBooked()?>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+    <? if ($this->rolePermission('index_page_inprocess','')) { ?> 
+  <tr onmouseover=this.style.cursor='pointer';this.style.color='blue'
+	   onmouseout="this.style.color='black'"
+       onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxinprocess'">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>In Process Accounts(<?=$this->viewInboxInProcess()?>)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <? } ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!--
+  <tr>
+    <td>&nbsp;</td>
+    <td><strong>Housing</strong></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Pending ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Submitted ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>RTS ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>With Desicion ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Endorsed ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Decided ( )</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  -->
+</table>
+
+<?=$this->urll?>

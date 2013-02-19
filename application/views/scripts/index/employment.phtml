@@ -1,0 +1,269 @@
+     <script type="text/javascript">
+    <!--
+    $(function () {
+        var cat = $('#categorySelect');
+        var el = $('#elementSelect');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+        cat.selectChain({
+            target: el,
+            url: '<?=$this->baseUrl();?>/inc/query.php',
+            data: { ajax: true }
+        }).trigger('change');
+
+    });
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+<td><strong>EMPLOYMENT / OCCUPATION</strong></td>
+<td><?=$this->getEmpBus($this->capno)?></td>
+</tr>
+</table><br />
+
+<table width="100%" border="0">
+  <tr bgcolor="#FF3333">
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">EMPLOYED</font></strong></td>
+  </tr>
+  <?php foreach($this->empdetail as $empdetails) :?>
+  <tr>
+    <td width="17%">Employer:</td>
+    <td width="16%"><?=$empdetails->employer?></td>
+    <? if ($empdetails->date_resigned) {?>
+    <td>Date Resigned:
+    <?=date('m/d/Y',strtotime($empdetails->date_resigned))?></td>
+    <? } ?>
+    <td width="22%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Employer's Name:</td>
+    <td><?=$empdetails->emp_name?></td>
+    <td>Employer's Industry:
+    <?=$this->viewBusNature($empdetails->emp_industry)?></td>
+    <td colspan="2">Landline No.:
+    <?=$empdetails->emp_telno?> | <?=$empdetails->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Office Address:</td>
+    <td colspan="4">Street
+<?=$empdetails->emp_street?></td>
+  </tr>
+  <tr>
+    <td>Brgy
+      <?=$empdetails->emp_brgy?></td>
+    <td colspan="4"><?=$empdetails->emp_city?>
+      ,
+      <?=$empdetails->emp_province?></td>
+  </tr>
+  <tr>
+    <td>Zip Code:</td>
+    <td><?=$empdetails->emp_zipcode?></td>
+    <td>Years in Employment:
+    <?=$empdetails->emp_yrs?> / 
+    <?=$empdetails->emp_months?></td>
+    <td colspan="2">Actual Position:
+    <?=$empdetails->emp_actual_position?></td>
+  </tr>
+  <tr>
+    <td>Status:</td>
+    <td><?=$this->viewEmpStatus($empdetails->emp_status)?></td>
+    <td>Employed Since: 
+    <?=date('m/d/Y',strtotime($empdetails->emp_date))?></td>
+    <td colspan="2">Position:
+    <?=$this->viewEmpPos($empdetails->emp_pos)?></td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P
+    <?=number_format($empdetails->emp_income,2)?></td>
+    <td>Annual Income: P 
+    <?=number_format($empdetails->emp_annual,2)?> / 
+    <?=$empdetails->emp_multiplier?></td>
+    <td colspan="2">GSIS/SSS No:
+    <?=$empdetails->emp_gsiss?></td>
+  </tr>
+  <tr>
+    <td>Source/Date:</td>
+    <td><?=$empdetails->emp_source_date?></td>
+    <td>Percentage:
+    <?=$empdetails->emp_percentage?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<table width="100%" border="0">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BUSINESS</font></strong></td>
+  </tr>
+  <?php foreach($this->busdetail as $busdetails) :?>
+  <tr>
+    <td width="17%">Business Name:</td>
+    <td width="16%"><?=$busdetails->bus_name?></td>
+    <td width="33%">Nature of Business:
+    <?=$this->viewBusNature($busdetails->bus_nat)?></td>
+    <td colspan="2">Landline No.:
+    <?=$busdetails->bus_telno?> | <?=$busdetails->phone_ver?></td>
+  </tr>
+  <tr>
+    <td>Business Address:</td>
+    <td colspan="4">
+      Street
+      <?=$busdetails->bus_street?></td>
+  </tr>
+  <tr>
+    <td>Brgy
+      <?=$busdetails->bus_brgy?></td>
+    <td colspan="4"><?=$busdetails->bus_city?>
+      ,
+      <?=$busdetails->bus_province?></td>
+  </tr>
+  <tr>
+    <td>Zip Code</td>
+    <td><?=$busdetails->bus_zipcode?></td>
+    <td>Years in Business:
+    <?=$busdetails->bus_yrs?> / 
+    <?=$busdetails->bus_months?></td>
+    <td width="12%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Source of Income</td>
+    <td><?=$this->viewBusSrcincome($busdetails->bus_srcincome)?></td>
+    <td>Business Started 
+    <?=date('m/d/Y',strtotime($busdetails->bus_date))?></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Monthly Income:</td>
+    <td>P<?=number_format($busdetails->bus_income,2)?></td>
+    <td>Annual Income : P
+    <?=number_format($busdetails->bus_annual,2)?> / 
+    <?=$busdetails->bus_multiplier?></td>
+    <td colspan="2">DTI Registration No:
+    <?=$busdetails->bus_dti?></td>
+  </tr>
+  <tr>
+    <td>Total Gross Sales:    </td>
+    <td>P
+    <?=number_format($busdetails->total_gross_sales,2)?></td>
+    <td>Total Cost of Sales: 
+    P
+    <?=number_format($busdetails->total_cost_sales,2)?></td>
+    <td colspan="2">Total Net Income Before: P
+    <?=number_format($busdetails->total_net_income_before,2)?></td>
+  </tr>
+  <tr>
+    <td>Source/Date:
+    <?=$busdetails->bus_source_date?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5">----------------------------------------------------------------------------------------------------------------------------------------</td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">OTHER MONTHLY INCOME</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="15%" align="center"><strong>TYPE</strong></td>
+    <td width="17%" align="center"><strong>FROM</strong></td>
+    <td width="17%" align="center"><strong>AMOUNT</strong></td>
+    <td width="18%" align="center"><strong>SINCE</strong></td>
+    <td align="center"><strong>REMARKS</strong></td>
+  </tr>
+  <?php foreach($this->othermonthlydetail as $details) :?>
+  <tr align="left">
+    <td align="center"><?=$details->type?></td>
+    <td align="center"><?=$details->from?></td>
+    <td align="center"><?=$details->amount?></td>
+    <td align="center"><?=$details->since?></td>
+    <td align="center"><?=$details->remarks?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">OTHER SOURCE OF INCOME</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="15%" align="center">&nbsp;</td>
+    <td width="17%" align="center"><strong>FROM</strong></td>
+    <td width="17%" align="center"><strong>AMOUNT</strong></td>
+    <td width="18%" align="center"><strong>SINCE</strong></td>
+    <td align="center"><strong>REMARKS</strong></td>
+  </tr>
+  <?php foreach($this->othersourcedetail as $details) :?>
+  <tr align="left">
+    <td align="center"></td>
+    <td align="center"><?=$details->from?></td>
+    <td align="center"><?=$details->amount?></td>
+    <td align="center"><?=$details->since?></td>
+    <td align="center"><?=$details->remarks?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">TRADE & BUSINESS REFERENCES</font></strong></td>
+  </tr>
+</table>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="19%" align="center"><strong>NAME</strong></td>
+    <td width="21%" align="center"><strong>CONTACT PERSON</strong></td>
+    <td width="22%" align="center"><strong>CONTACT NO.</strong></td>
+    <td width="19%" align="center"><strong>NATURE OF TRANSACT / VOLUME</strong></td>
+  </tr>
+ <?php foreach($this->trdbusrefdetail as $trdbusrefdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$trdbusrefdetails->name?></td>
+    <td align="center"><?=$trdbusrefdetails->contact_person?></td>
+    <td align="center"><?=$trdbusrefdetails->contact_no?></td>
+    <td align="center"><?=$trdbusrefdetails->nature_transaction?></td>
+  </tr>
+   <?php endforeach; ?>
+</table>

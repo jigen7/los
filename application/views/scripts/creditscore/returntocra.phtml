@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	function submitRemark(){
+		var x = document.getElementById('submit_remarks').value;
+		if(x == ""){ alert("Comments?");
+		}else{
+			 document.product.submit();
+			 alert("Model Returned!");
+			 window.opener.location.reload();
+			 window.close();
+		}
+	}
+</script>
+
+<form action="" method="post" name="product" id="product" onsubmit="window.close()">
+<table width="200" border="0">
+  <tr>
+    <td><b/>Remarks</td>
+    <td colspan="2"><?=$this->form->remark?></td>
+  </tr>
+  <tr>
+	<td></td>
+    <td><input name="button" type="button" value="Submit" onclick="submitRemark()"/></td>
+    <td><input name="button" type="button" value="Cancel" onclick="window.close()"/></td>
+  </tr>
+</table>
+<? if($this->returntocra){ ?>
+<script type="text/javascript">
+//	alert("here");
+//	alert("<?=$this->returntocra?>");
+//	window.opener.location.reload();
+	//window.opener.location.href = '<?=$this->baseUrl()?>/creditscore/home/';
+	//window.opener.focus();
+</script>
+<? } ?>
+</form>

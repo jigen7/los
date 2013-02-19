@@ -1,0 +1,238 @@
+    <script type="text/javascript">
+    <!--
+    $(function () {
+        var cat = $('#categorySelect');
+        var el = $('#elementSelect');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+        cat.selectChain({
+            target: el,
+            url: '<?=$this->baseUrl();?>/inc/query.php',
+            data: { ajax: true }
+        }).trigger('change');
+
+    });
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>    
+   
+
+
+
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BANK ACCOUNTS</font></strong></td>
+  </tr>
+</table><br />
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="16%" align="center"><strong>BANK</strong></td>
+    <td width="23%" align="center"><strong>BRANCH</strong></td>
+    <td width="15%" align="center"><strong>TYPE OF ACCOUNT</strong></td>
+    <td width="13%" align="center"><strong>ACCOUNT NO.</strong></td>
+    <td width="11%" align="center"><strong>ADB</strong></td>
+    <td width="12%" align="center"><strong>DATE OPENED</strong></td>
+  </tr>
+  <?php foreach($this->bankdetail as $bankdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$bankdetails->bank?></td>
+    <td align="center"><?=$bankdetails->branch?></td>
+    <td align="center"><?=$bankdetails->account_type?></td>
+    <td align="center"><?=$bankdetails->account_no?></td>
+    <td align="center">P
+      <?=$bankdetails->adb?></td>
+    <td align="center"><?=$bankdetails->date_opened?></td>
+  </tr>
+  <?php endforeach; ?>
+</table><br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">REALESTATE</font></strong></td>
+  </tr>
+</table>
+<br /><br />
+  
+
+<div align="center" id="real_details" class="commenthidden">
+  
+  <form name="realestate" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">LOCATION</td>
+  <td width="33%" align="center">LOT AREA</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+<tr align="left">
+  <td align="center"><?=$this->form->location?></td>
+  <td align="center">
+    <?=$this->form->lot_area?></td>
+  <td align="center">P<?=$this->form->real_emv?></td>
+  <td align="left"><input name="submit" type="submit" value="Add Real Estate Details" id="submit" /></td>
+</tr>
+  </tr>
+
+</table>
+</form>
+</div>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>LOCATION</strong></td>
+    <td width="33%" align="center"><strong>LOT AREA</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+  </tr>
+   <?php foreach($this->real_estatedetail as $real_estatedetails) :?>
+  <tr align="left">
+    <td align="center"><?=$real_estatedetails->location?></td>
+    <td align="center"><?=$real_estatedetails->lot_area?></td>
+    <td align="center">P    
+    <?=$real_estatedetails->real_emv?></td>
+  </tr>
+    <?php endforeach; ?>
+</table>
+
+
+
+
+
+
+
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">AUTOMOBILE</font></strong></td>
+  </tr>
+</table>
+<br /><br />
+<div align="center" id="automobile_details" class="commenthidden">
+  
+  <form name="automobile" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">YEAR/ MAKE</td>
+  <td width="33%" align="center">MODEL</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+<tr align="left">
+  <td align="center"><?=$this->form->year_make?></td>
+  <td align="center">
+    <?=$this->form->model?></td>
+  <td align="center">P<?=$this->form->auto_emv?></td>
+  <td align="left"><input name="submit" type="submit" value="Add AutoMobile Details" id="submit" /></td>
+</tr>
+  </tr>
+
+</table>
+</form>
+</div>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>YEAR/MAKE</strong></td>
+    <td width="33%" align="center"><strong>MODEL</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+  </tr>
+   <?php foreach($this->automobiledetail as $automobiledetails) :?>
+  <tr align="left">
+    <td align="center"><?=$automobiledetails->year_make?></td>
+    <td align="center"><?=$automobiledetails->model?></td>
+    <td align="center">P    
+    <?=$automobiledetails->auto_emv?></td>
+  </tr>
+    <?php endforeach; ?>
+</table>
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">SHARES OF STOCK</font></strong></td>
+  </tr>
+</table>
+<br /><br />
+<div align="center" id="shares_stock" class="commenthidden">
+  
+  <form name="sharesstock" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">COMPANY NAME</td>
+  <td width="33%" align="center">NO. OF SHARES</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+
+<tr align="left">
+  <td align="center"><?=$this->form->company?></td>
+  <td align="center"><?=$this->form->num_share?></td>
+  <td align="center">P    <?=$this->form->shares_emv?></td>
+  
+  <td align="left"><input name="submit" type="submit" value="Add Shares of Stock" id="submit" /></td>
+</tr>
+
+
+</table>
+</form>
+</div>
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>COMPANY NAME</strong></td>
+    <td width="33%" align="center"><strong>NO. OF SHARES</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+  </tr>
+  <?php foreach($this->sharesdetail as $sharesdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$sharesdetails->company?></td>
+    <td align="center"><?=$sharesdetails->num_share?></td>
+    <td align="center">P    
+    <?=$sharesdetails->shares_emv?></td>
+  </tr>
+      <?php endforeach; ?>
+</table><br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td height="18" colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BUSINESS FINANCIALS</font></strong></td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>ASSET</strong></td>
+    <td width="33%" align="center"><strong>EMV</strong></td>
+    <td width="30%" align="center"><strong>REMARKS</strong></td>
+  </tr>
+  <?php foreach($this->bfdetail as $bfdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$bfdetails->business_asset?></td>
+    <td align="center">P
+    <?=number_format($bfdetails->business_asset_emv,2)?></td>
+    <td align="center"><?=$bfdetails->business_asset_remarks?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>

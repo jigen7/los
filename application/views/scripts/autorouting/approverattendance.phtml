@@ -1,0 +1,49 @@
+<form method="post" name="attendance">
+<table width="100%" border="0">
+  <tr>
+    <td width="23%"><strong>Approver's</strong></td>
+    <td width="17%"><strong>Date From</strong></td>
+    <td width="17%"><strong>Date To</strong></td>
+    <td width="43%"><strong>Remarks</strong></td>
+  </tr>
+  <tr>
+    <td><?=$this->form->approver?></td>
+    <td><?=$this->form->dateFrom?></td>
+    <td><?=$this->form->dateTo?></td>
+    <td><?=$this->form->remarks?></td>
+  </tr>
+  <? foreach($this->detail as $row) { ?> 
+  <tr>
+    <td><?=$this->viewMa($row->username)?></td>
+    <td><?=date("m-d-Y", strtotime($row->from_date))?></td>
+    <td><?=date("m-d-Y", strtotime($row->to_date))?></td>
+    <td><?=$row->remarks?></td>
+  </tr>
+  <? } ?>  
+  <tr>
+    <td colspan="4" align="center"><input type="button" name="button" id="button" value="Submit" onclick="checkSubmit()"/></td>
+  </tr>
+</table>
+</form>
+<script type="text/javascript">
+
+	function checkSubmit(){
+		var approver = document.getElementById('approver').value;
+		var from = document.getElementById('dateFrom').value;
+		var to = document.getElementById('dateTo').value;
+		var str = "";
+		
+		var fromDate = from.split("/");
+		var toDate = to.split("/");
+    	var date1 = new Date(fromDate[2], fromDate[0], fromDate[1]); 
+    	var date2 = new Date(toDate[2], toDate[0], toDate[1]); 
+		
+		if(approver == "") str = str + "Please select from the dropdown list\n";
+		if(from == "")	str = str + "Please check your From date\n";	
+		if(to == "") str = str + "Please check your To date\n";
+		if(date1 >= date2)  str = str + "Please check your date\n";
+		if(str != "") alert(str);
+		else document.attendance.submit();
+	}
+
+</script>

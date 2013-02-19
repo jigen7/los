@@ -1,0 +1,228 @@
+  <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    <!--
+    $(function () {
+		
+
+		var brand = $('#vehbrandSelect');
+        var unitt = $('#vehunitSelect');
+		var sell = $('#vehsellSelect');
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+	
+		unitt.selectChain({
+            target: sell,
+            url: '<?=$this->baseUrl();?>/inc/ajax-brand.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        brand.selectChain({
+            target: unitt,
+            url: '<?=$this->baseUrl();?>/inc/ajax-brand.php',
+            data: { ajax: true }
+        }).trigger('change');
+		
+		
+		
+
+    });
+	
+	
+
+    //-->
+ </script>
+ <script type="text/javascript">
+ function inside(){
+	 var mainfrm = window.opener.document.forms[0];
+
+	var frm = document.forms["vehicle"];
+	
+	var brand = frm.veh_brand.value;
+	var brand_other = frm.other_brand.value;
+	var unitt = frm.veh_unit.value;
+	var unitt_other = frm.other_unit.value;
+	var sell =  frm.veh_sell.value;
+	var sell_other =  frm.other_sell.value;
+
+	if (brand == 'Others'){
+		if (unitt == 'Others'){
+			if(sell == 'Others'){
+			mainfrm.veh_brand.value = brand_other;
+			mainfrm.veh_unit.value = unitt_other;
+			mainfrm.selling_price.value = unformatNumber(sell_other);
+			}
+			else {
+			mainfrm.veh_brand.value = brand_other;
+			mainfrm.veh_unit.value = unitt_other;
+			mainfrm.selling_price.value = unformatNumber(sell);
+			}
+		}
+		else {
+			if(sell == 'Others'){
+			mainfrm.veh_brand.value = brand_other;
+			mainfrm.veh_unit.value = unitt;
+			mainfrm.selling_price.value = unformatNumber(sell_other);
+			}
+			else {
+			mainfrm.veh_brand.value = brand_other;
+			mainfrm.veh_unit.value = unitt;
+			mainfrm.selling_price.value = unformatNumber(sell);
+			}
+		}
+	}
+	else { //Not Others
+	if (unitt == 'Others'){
+			if(sell == 'Others'){
+			mainfrm.veh_brand.value = brand;
+			mainfrm.veh_unit.value = unitt_other;
+			mainfrm.selling_price.value = unformatNumber(sell_other);
+			}
+			else {
+			mainfrm.veh_brand.value = brand;
+			mainfrm.veh_unit.value = unitt_other;
+			mainfrm.selling_price.value = unformatNumber(sell);
+			}
+		}
+		else {
+			if(sell == 'Others'){
+			mainfrm.veh_brand.value = brand;
+			mainfrm.veh_unit.value = unitt;
+			mainfrm.selling_price.value = unformatNumber(sell_other);
+			}
+			else {
+			mainfrm.veh_brand.value = brand;
+			mainfrm.veh_unit.value = unitt;
+			mainfrm.selling_price.value = unformatNumber(sell);
+			}
+		}	
+		
+	}
+	/*
+	mainfrm.veh_brand.value = frm.veh_brand.value;
+	mainfrm.veh_unit.value = frm.veh_unit.value;
+	mainfrm.selling_price.value = unformatNumber(frm.veh_sell.value);
+	*/
+	
+
+	self.close();
+	
+	window.opener.calcfields();
+ }
+ 
+ function formatNumber(num, prefix){
+	
+	prefix = prefix || '';
+	num += '';
+	var splitStr = num.split('.');
+	var splitLeft = splitStr[0];
+	var splitRight = splitStr.length > 1 ? '.' + splitStr[1] : '';
+	var regx = /(\d+)(\d{3})/;
+	while (regx.test(splitLeft)) {
+	splitLeft = splitLeft.replace(regx, '$1' + ',' + '$2');
+	}
+	return prefix + splitLeft + splitRight;
+	}
+	 
+	function unformatNumber(num) {
+	return num.replace(/([^0-9\.\-])/g,'')*1;
+	}
+
+ </script>
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.vehicle.onsubmit())
+ {//this check triggers the validations
+    document.vehicle.submit();
+ 	self.close();
+ }
+}
+
+</SCRIPT> 
+
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form action="" method="post" name="vehicle">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>Vehicle</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="javascript:self.close()"><strong>
+      Close
+    </strong></td>
+</tr>
+</table>
+
+<p>&nbsp;<table width="48%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="center"><strong>Vehicle</strong></td>
+    </tr>
+  <tr id="veh_brand">
+    <td width="41%"> Brand</td>
+    <td width="59%"><?=$this->form->veh_brand?></td>
+    </tr>
+  <tr id="other_brand" style="display:none">
+    <td>Specify Brand</td>
+    <td><?=$this->form->other_brand?></td>
+  </tr>
+  <tr id="veh_unit">
+    <td>Unit:</td>
+    <td><?=$this->form->veh_unit?></td>
+    </tr>
+  <tr id="other_unit" style="display:none">
+    <td>Specify Unit:</td>
+    <td><?=$this->form->other_unit?></td>
+  </tr>
+  <tr id="veh_sell">
+    <td>Price:</td>
+    <td><?=$this->form->veh_sell?></td>
+  </tr>
+  <tr id="other_sell" style="display:none">
+    <td>Specify Price:</td>
+    <td><?=$this->form->other_sell?></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="button" name="button" id="button" value="OK" onclick="javascript:inside()"/></td>
+  </tr>
+  </table>
+</p>
+</form>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("vehicle")
+frmvalidator.EnableMsgsTogether();
+
+ function DoCustomValidation()
+	{
+	 var frm = document.forms["vehicle"];
+	 if (frm.veh_brand.value == '0'){
+	    	  sfm_show_error_msg("Please Choose Vehicle Brand");
+			  return false }
+
+   	 else if (frm.veh_unit.value == '0'){
+	    	  sfm_show_error_msg("Please Choose Vehicle Unit");
+			  return false }
+			  
+
+   	 else if (frm.veh_sell.value == '0'){
+	    	  sfm_show_error_msg("Specify Selling Price");
+			  return false }
+			  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+</script>

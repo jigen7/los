@@ -1,0 +1,223 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 8.5pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
+<form action="" method="post" name="add">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid none solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong><?=$this->reportTitle?> Report Generation</strong></td>
+
+	<td width="13%" rowspan="2" align="center" onclick="window.location.href='<?=$this->baseUrl()?>/index/'" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'"><strong>
+      Return
+    </strong></td>
+</tr>
+<tr>
+  <td>
+    
+    <ul id="nav">
+      <li><a href="<?=$this->baseUrl()?>/report/accountsprocess">ACCOUNTS PROCESS</a></li>
+      <li><a href="<?=$this->baseUrl()?>/report/accountspending"">PENDING</a></li>
+      <li><a href="#">BOOKING</a>
+        <ul>
+          <li><a href="<?=$this->baseUrl()?>/report/mabooktrack">MARKETING</a></li>
+          <li><a href="<?=$this->baseUrl()?>/report/ldbooktrack">L&D</a></li>
+          </ul>	
+        </li>
+      </ul>
+  </td>
+  </tr>
+</table>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+  <td>&nbsp;</td>
+  <td colspan="2">&nbsp;</td>
+  <td colspan="2">&nbsp;</td>
+  <td colspan="2">&nbsp;</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td colspan="2"><strong>Date Booked</strong></td>
+  <td colspan="2"><strong>Total No. of Accounts: 
+    
+    <?=$this->rowsTotal?>
+  </strong></td>
+  <td colspan="2"><strong>
+    <?=$this->criteriaPercent?>
+%</strong></td>
+  <td>&nbsp;</td>
+</tr>
+<tr><td width="5%">&nbsp;</td>
+  <td colspan="2"><strong>  From
+      <?=$this->form->startdate?>
+To
+<?=$this->form->enddate?>
+  </strong></td>
+  <td colspan="2"><strong>No. of Accounts Criteria Result:
+      
+      <?=$this->totalaccounts?>
+  </strong></td>
+  <td colspan="3"><strong>
+    <?  
+	if($this->criteriaArr){
+	echo implode(' ,',$this->criteriaArr); 
+	}?>
+  </strong></td>
+  </tr>
+<tr>
+  <td height="24">&nbsp;</td>
+  <td colspan="7"><strong>Search Criteria :</strong></td>
+  </tr>
+<tr>
+  <td>&nbsp;</td>
+  <td width="15%">Source :</td>
+  <td width="15%"><?=$this->form->source_application?></td>
+  <td width="14%">Approved By:</td>
+  <td width="19%"><?=$this->form->approved_by?></td>
+  <td width="14%">DP:</td>
+  <td width="13%"><?=$this->form->downpayment_from?> - 
+    <?=$this->form->downpayment_to?></td>
+  <td width="5%">&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>AO :</td>
+  <td><?=$this->form->submitted_ao?></td>
+  <td>Approval Level:</td>
+  <td><?=$this->form->approval_level?></td>
+  <td>Dealership:</td>
+  <td><?=$this->form->dealer?></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>Term:</td>
+  <td><?=$this->form->loanterm?> mos.</td>
+  <td>Brand:</td>
+  <td><?=$this->form->veh_brand?></td>
+  <td>Branch:</td>
+  <td><?=$this->form->branch?></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td><? // $this->form->csd_decision CSD Decision:?></td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td><input type="submit" name="button" id="button" value="Submit" /></td>
+  <td>&nbsp;</td>
+</tr>
+</table>
+
+<div style=" width:100%; height:100%; overflow:auto;">
+
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;font-size:11px" id="myTable" class="tablesorter">
+   <thead> 
+  <tr>
+    <th width="6%" align="center">Date</th>   
+    <th width="28%" align="center"><strong>Borrower</strong></th>
+    <th width="10%" align="center"><strong>AO</strong></th>
+    <th width="8%" align="center"><strong>CSD Decision</strong></th>
+    <th width="8%" align="center"><strong>Approved by</strong></th>
+    <th width="6%" align="center"><strong>Brand</strong></th>
+    <th width="5%" align="center"><strong>Term</strong></th>
+    <th width="5%" align="center"><strong>DP</strong></th>
+    <th width="7%" align="center"><strong>Source </strong> </th>
+    <th width="7%" align="center"><strong>Dealer</strong></th>  
+    <th width="10%" align="center"><strong>Branch</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+  <? $totalLoanAmount=0; $totalPnAmount=0; if ($this->rowResult){?>
+  <?php foreach($this->rowResult as $row) :?>  
+  
+  <tr style="font-size:9px; background-color:#e8edff;" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='#e8edff';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$row->capno?>'">
+    <td><?=date('m-d-Y',strtotime($row->date_booked))?></td>
+    <td><?=$row->borrower_lname.','.$row->borrower_fname.' '.substr($row->borrower_mname, 0,1).'.';?></td>
+    <td align="center"><?=$this->viewMa($row->submitted_ao)?></td>
+    <td align="center"><?=$this->csdRecommend($row->capno)?></td>
+    <td align="center"><?=$this->approvalLevel($row->routetag,'level')?></td>
+    <td align="center"><?=$row->veh_brand?></td>
+    <td align="center"><?=$row->loanterm?>
+      mos.</td>
+    <td align="center"><?=number_format($row->downpayment_percent,2)?>
+      %</td>
+    <td align="center"><?=$row->source_application?></td>
+    <td align="center"><?=$row->dealer?></td>
+    <td align="center"><?=$row->branch?></td>
+  </tr>
+  <? 
+  $bookDetails = $this->getBookDetails($row->capno);
+  $totalLoanAmount = $totalLoanAmount+$bookDetails->amount_financed;
+  $totalPnAmount = $totalPnAmount + $bookDetails->pn_amount;
+   ?>
+  <?php endforeach; ?>
+
+  <? } ?>
+  </tbody>
+</table>
+</div>
+  <? //$this->paginationControl($this->rowResult, 'Sliding', 'pagination.phtml'); ?>
+
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" RULES=NONE FRAME=BOX>
+
+    <tr>
+      <td colspan="5" align="right">
+      <? if($this->isSubmit) { ?>
+      <input type="submit" name="button" id="button" value="Export as Excel" />
+      <input type="submit" name="button" id="button" value="Export as PDF" /></td>
+      <? } ?>
+    </tr>
+    <tr>
+      <td width="16%" align="right">&nbsp;</td>
+      <td width="25%" align="left"><strong>Total No. of Accounts:
+          <?=$this->rowsTotal?>
+      </strong></td>
+      <td width="27%" align="left"><strong>Total PN Amount: 
+      P</strong><strong>
+      <?=number_format($totalPnAmount,2)?>
+      </strong></td>
+      <td width="25%" align="left"><strong>Total Amount of Loan: P
+          <?=number_format($totalLoanAmount,2)?>
+          <input type="hidden" name="totalLoan" value="<?=$totalLoanAmount?>"/>
+      </strong></td>
+      <td width="7%" align="right">&nbsp;</td>
+    </tr>
+  </table>
+</form>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("add")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("startdate","req","Borrower First Name is Required!!");
+frmvalidator.addValidation("enddate","req","Borrower First Name is Required!!");
+
+
+
+ 
+</script>

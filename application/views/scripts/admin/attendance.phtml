@@ -1,0 +1,29 @@
+<form method="post" name="attendance">
+<table width="100%" border="0">
+  <tr>
+    <td width="19%"><strong>Approver's</strong></td>
+    <td width="20%"><strong>Status</strong></td>
+    <td width="30%"><strong>Alternate</strong></td>
+    <td width="31%"><strong>Remarks</strong></td>
+  </tr>
+  <? foreach($this->detail as $row) { ?> 
+  <tr>
+    <td><?=$this->viewMa($row->username)?></td>
+    <td><? if($row->type == 'absent') { echo "On-Leave"; } 
+	elseif($row->type == 'pre-absent'){ echo "For Approval"; }
+	?></td>
+    <td><?=$this->viewMa($row->approver_alternative)?></td>
+    <td><?=$row->remarks?></td>
+  </tr>
+  <? } ?>
+  <tr>
+    <td><?=$this->form->approver?></td>
+    <td><?=$this->form->status?></td>
+    <td><?=$this->form->alternate?></td>
+    <td><?=$this->form->remarks?></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center"><input type="submit" name="button" id="button" value="Submit" /></td>
+  </tr>
+</table>
+</form>

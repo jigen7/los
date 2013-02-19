@@ -1,0 +1,27 @@
+ <?
+/**
+ * Auto Loan System 
+ * @author Paolo Marco Manarang <paolomanarang@gmail.com>
+ * @package LOS
+ */
+
+    class Model_UsersApprover extends Zend_Db_Table
+
+    {
+	protected $_name="users_auto_approver";
+		
+	function returnUsernamebyRole($role){
+		//use in autorouting absent
+		$select = $this->select();
+		$select->where('role like ?',$role);
+		$detail = $this->fetchRow($select);
+		return $detail->username;
+		
+	}
+	
+
+	
+    }
+
+
+ ?>

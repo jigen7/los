@@ -1,0 +1,56 @@
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 450);</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="88%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->specific?>/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+<body>
+	<table width="1000" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+		<thead>
+			<tr>
+				<th width="77" align="center">VERSION</th>
+				<th width="170" align="center">PROCESS CODE</th>
+				<th width="200" align="center">USER</th>
+				<th width="185" align="center">DATE/TIME</th>
+				<th width="160" align="center">TAT</th>
+				<th width="175" align="center">REMARKS</th>
+			</tr>	
+		</thead>
+		<tbody>
+        	<?
+				$dates = array(); $i=(-1); 
+				foreach($this->history as $row){
+					if($i >= 0) $dates[$i] = $row->datetime;
+					$i++; 
+				}
+				$dates[$i] = "*";
+				$i = 0;
+			?>
+            <? foreach($this->history as $row) : ?>
+            <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+                    onMouseOut="this.style.background='white';this.style.color='black'">
+              <td align="center"><b/><?=$row->version?></td>
+              <td><b/><?=$row->processcode?></td>
+              <td><b/><?=$row->username?></td>
+              <td><b/><?=date("m-d-Y h:i:sa", strtotime($row->datetime))?></td>
+              <td><b/><? if($dates[$i] != "*") echo $this->dateTimeDiff($row->datetime, $dates[$i])?></td>
+              <td><b/><?=$row->remarks?></td>
+            </tr>
+            <? $date = $row->datetime; $i++;?>
+            <? endforeach; ?>
+		</tbody>
+	</table>
+</body>
+          
+</center>	
+</form>

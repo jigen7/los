@@ -1,0 +1,573 @@
+<style type="text/css">
+input {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+input.btn { 
+color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+} 
+input:focus, input.sffocus { background: #659EC7; }
+</style>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+//Ajax to Call the Total income
+	var ajaxObj;
+	
+	function startZip() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCity()+"&brgy="+getBrgy(), respZipcode);
+		//alert(getCity());
+	}
+	
+	function startZipPrev() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		ajaxObj.call("action=zipcode&city="+getCityPrev()+"&brgy="+getBrgyPrev(), respZipcodePrev);
+		//alert(getCity());
+	}
+	
+	function respZipcode(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["account"].pres_zipcode.value = resp;
+		
+	}
+	
+		function respZipcodePrev(resp) {
+		
+		//document.getElementById('content').innerHTML = resp;
+		document.forms["account"].prev_zipcode.value = resp;
+		
+	}
+	
+	function getCity(){
+		var city = document.forms["account"].borrower_pres_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgy(){
+		var brgy = document.forms["account"].borrower_pres_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	function getCityPrev(){
+		var city = document.forms["account"].borrower_prev_address_city;
+		//alert("hello");
+		return city.options[city.selectedIndex].value;
+	}
+	function getBrgyPrev(){
+		var brgy = document.forms["account"].borrower_prev_address_brgy;
+		//alert("hello");
+		return brgy.options[brgy.selectedIndex].value;
+	}
+	
+	
+
+</script>
+  
+     <script type="text/javascript">
+    <!--
+    $(function () {
+        var province = $('#categorySelect');
+        var city = $('#citySelect');
+		var brgy = $('#brgySelect');
+	
+		
+		var province2 = $('#prevcategorySelect');
+        var city2 = $('#prevcitySelect');
+		var brgy2 = $('#prevbrgySelect');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+		/*
+		brgy.selectChain({
+            target: zip,
+            url: '<?$this->baseUrl();?>/inc/select-brgy.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		*/
+		
+		city.selectChain({
+            target: brgy,
+            url: '<?=$this->baseUrl();?>/inc/select-city.php?brgy=<?=$this->borrower_pres_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province.selectChain({
+            target: city,
+            url: '<?=$this->baseUrl();?>/inc/select-province.php?city=<?=$this->borrower_pres_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+
+<!---Previous Address---!>
+		/*
+		brgy2.selectChain({
+            target: zip2,
+            url: '<?$this->baseUrl();?>/inc/select-brgy-prev.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		*/
+		city2.selectChain({
+            target: brgy2,
+            url: '<?=$this->baseUrl();?>/inc/select-city-prev.php?brgy2=<?=$this->borrower_prev_address_brgy?>',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province2.selectChain({
+            target: city2,
+            url: '<?=$this->baseUrl();?>/inc/select-province-prev.php?city2=<?=$this->borrower_prev_address_city?>',
+            data: { ajax: true }
+        }).trigger('change');
+		
+
+    });
+    //-->
+ </script>
+<script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ if(document.account.onsubmit())
+ {//this check triggers the validations
+    document.account.submit();
+ }
+}
+
+	function clearr(the_sub){
+		if (the_sub == 0){
+		document.getElementById('prevcitySelect').options.length = 0;
+		document.getElementById('prevbrgySelect').options.length = 0;
+		document.getElementById('prevzipSelect').options.length = 0;
+		}
+		
+	}
+	function clearprev(the_sub){
+		var frm = document.forms["account"];
+		if(the_sub <= 2){
+		document.getElementById('prev_table').style.display = "";
+		document.getElementById('prevcitySelect').disabled = false;
+		document.getElementById('prevbrgySelect').disabled = false;
+		document.getElementById('prevzipSelect').disabled = false;
+		document.getElementById('prevcategorySelect').disabled = false;
+		document.getElementById('prevstreetSelect').disabled = false;
+		frm.lenghtstay_prev.disabled = false;
+		frm.lenght_months_prev.disabled = false;
+		frm.residencetype_prev.disabled = false;
+		}
+		else{
+		document.getElementById('prev_table').style.display = "none";
+		document.getElementById('prevcitySelect').options.length = 0;
+		document.getElementById('prevbrgySelect').options.length = 0;
+		document.getElementById('prevzipSelect').options.length = 0;
+		document.getElementById('prevcategorySelect').value = 0;
+		document.getElementById('prevstreetSelect').value = '';
+		document.getElementById('prevstreetSelect').disabled = true;
+		document.getElementById('prevcitySelect').disabled = true;
+		document.getElementById('prevbrgySelect').disabled = true;
+		document.getElementById('prevzipSelect').disabled = true;
+		document.getElementById('prevcategorySelect').disabled = true;
+		frm.lenghtstay_prev.disabled = true;
+		frm.lenght_months_prev.disabled = true;
+		frm.residencetype_prev.disabled = true;
+		frm.lenghtstay_prev.value = '';
+		frm.lenght_months_prev.value = 0;
+		frm.residencetype_prev.value = 0;
+		}
+	}
+	
+	function compage(bDay){
+ now = new Date()
+ bD = bDay.value.split('/');
+ if(bD.length==3){
+   born = new Date(bD[2], bD[0]*1-1, bD[1]);
+   years = Math.floor((now.getTime() - born.getTime()) / (365.25 * 24 * 60 * 60 * 1000));
+    document.forms["account"].age.value = years;
+ }
+}
+
+function datef(formatt){
+ var num = formatt.length;
+ var frm = document.add;
+ if(num == 2){
+	 frm.birthdate.value = formatt + '/'; 	 
+ }
+
+ if(num == 5){
+	 frm.birthdate.value = formatt + '/'; 	 
+ }
+	
+}
+
+function chgCoborrower(value){
+//function to hide the rows for main or extend coborrower
+var form = document.account;
+if(value == 'main'){
+	document.getElementById('main').style.display = "";
+	document.getElementById('extend').style.display = "none";
+	form.coborrower_to.value = '';
+	form.coborrower_extend.value = '';
+
+}
+else if (value == 'extend'){
+	document.getElementById('main').style.display = "none";
+	document.getElementById('extend').style.display = "";	
+	form.coborrower_relation.value = '';
+	}
+}
+</SCRIPT> 
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td colspan="3">&nbsp;<strong>NEW COBORROWER  PROFILE</strong></td>
+</tr>
+<tr>
+  <td width="52%">
+  <ul id="nav">
+  <li><a href="javascript:submitform()" class="dropdown">SAVE</a></li>
+  </ul>
+   </td>
+  <td width="7%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/accountedit/cap/<?=$this->origcapno?>'">RETURN</td>
+</tr>
+</table>
+
+<form action="" method="post" name="account">
+  <table width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+    <tr>
+      <td>As:</td>
+      <td colspan="2"><?=$this->form->coborrower_select?></td>
+      <td width="8%">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td width="19%" colspan="2" align="right">&nbsp;</td>
+    </tr>
+    <tr id = "main" style="display:none">
+      <td>Related by:      </td>
+      <td colspan="2"><?=$this->form->coborrower_relation?></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" align="right">&nbsp;</td>
+    </tr>
+    <tr id = "extend" style="display:none">
+      <td>Related  to: </td>
+      <td colspan="3"><?=$this->form->coborrower_to?> Related by: 
+      <?=$this->form->coborrower_extend?></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" align="right">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="14%">Cap No.</td>
+      <td width="14%"><?=$this->capno?></td>
+      <td colspan="6">Co Name
+        <?=$this->form->borrower_lname?> 
+      <?=$this->form->borrower_fname?> <?=$this->form->borrower_mname?></td>
+    </tr>
+    <tr>
+      <td colspan="2">Permanent Address</td>
+      <td width="11%">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td width="21%">&nbsp;</td>
+      <td width="13%">&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Street </td>
+      <td><?=$this->form->borrower_pres_address_st?></td>
+      <td>&nbsp;</td>
+      <td>Landline</td>
+      <td><?=$this->form->landline?></td>
+      <td>Tax Identification No.</td>
+      <td colspan="2"><?=$this->form->tin_id?></td>
+    </tr>
+    <tr>
+      <td>Barangay </td>
+      <td><?=$this->form->borrower_pres_address_brgy?></td>
+      <td>&nbsp;</td>
+      <td>Mobile</td>
+      <td><?=$this->form->mobile?></td>
+      <td>Total Income</td>
+      <td colspan="2"><img src="<?=$this->baseUrl();?>/images/peso_sign.png" width="12%"/></td>
+    </tr>
+    <tr>
+      <td>City / Municipality</td>
+      <td><?=$this->form->borrower_pres_address_city?></td>
+      <td>&nbsp;</td>
+      <td>Email</td>
+      <td><?=$this->form->email?></td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Province</td>
+      <td colspan="2"><?=$this->form->borrower_pres_address_province?></td>
+      <td>Gender </td>
+      <td><?=$this->form->gender?></td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Zip Code</td>
+      <td colspan="2"><?=$this->form->pres_zipcode?></td>
+      <td>Civil Status</td>
+      <td><?=$this->form->civilstatus?></td>
+      <td>&nbsp;</td>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="8">
+      
+            
+  </td>
+    </tr>
+  </table>
+
+	  <div class="tabber">
+      
+	  <div class="tabbertab">
+<h2>DETAILS</h2>
+      <table width="100%">
+        <tr>
+          <td width="15%">&nbsp;</td>
+          <td width="14%">&nbsp;</td>
+          <td width="14%">&nbsp;</td>
+          <td width="19%">&nbsp;</td>
+          <td width="16%">&nbsp;</td>
+          <td width="22%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>Length of            Stay:</td>
+          <td><?=$this->form->lenghtstay?>
+            <?=$this->form->lenght_months?></td>
+          <td>Date of Birth</td>
+          <td><?=$this->form->birthdate?></td>
+          <td>Age</td>
+          <td><?=$this->form->age?></td>
+        </tr>
+        <tr>
+          <td> Residence Type </td>
+          <td><?=$this->form->residencetype?></td>
+          <td>Place of Birth</td>
+          <td><?=$this->form->birthplace?></td>
+          <td>No. of Dependents</td>
+          <td><?=$this->form->dependentno?></td>
+        </tr>
+        <tr>
+          <td>Neighborhood Type</td>
+          <td><?=$this->form->neighborhoodtype?></td>
+          <td>Mother's Maiden</td>
+          <td><?=$this->form->maiden_name?></td>
+          <td>Citizenship</td>
+          <td><?=$this->form->citizenship?></td>
+        </tr>
+
+        
+      </table>
+      <table width="80%" id="prev_table" <? if(!$this->prevcounter){ ?>style="display:none" <? }?> >
+        <tr>
+          <td colspan="4"><strong>Previous Address</strong></td>
+        </tr>
+        <tr>
+          <td width="19%">Length of            Stay:</td>
+          <td width="18%"><?=$this->form->lenghtstay_prev?>
+            <?=$this->form->lenght_months_prev?></td>
+          <td width="18%">Street:</td>
+          <td width="45%"><?=$this->form->borrower_prev_address_st?></td>
+        </tr>
+        <tr>
+          <td>Residence Type:</td>
+          <td><?=$this->form->residencetype_prev?></td>
+          <td>Barangay : </td>
+          <td><?=$this->form->borrower_prev_address_brgy?></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>City / Municipality: </td>
+          <td><?=$this->form->borrower_prev_address_city?></td>
+        </tr>
+        <tr>
+          <td>Zip Code: </td>
+          <td><?=$this->form->prev_zipcode?></td>
+          <td>Province: </td>
+          <td><?=$this->form->borrower_prev_address_province?></td>
+        </tr>
+      </table>
+<!-- End of Form for Main Details -->
+</div>
+</div>
+</form> 
+
+
+    
+
+
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("account")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("borrower_fname","req","Borrower First Name is Required!!");
+frmvalidator.addValidation("borrower_fname","alphabetic_space","First Name : Alphabetic and Spaces Only !!");
+frmvalidator.addValidation("borrower_lname","req","Borrower Last Name is Required!!");
+frmvalidator.addValidation("borrower_lname","alphabetic_space","Last Name : Alphabetic and Spaces Only !!");
+//frmvalidator.addValidation("borrower_mname","req","Borrower Middle Name is Required!!");
+frmvalidator.addValidation("borrower_mname","alphabetic_space","Middle Name : Alphabetic and Spaces Only !!");
+
+
+//Address Fields
+frmvalidator.addValidation("borrower_pres_address_st","req","Address Street is Required!!");
+frmvalidator.addValidation("borrower_pres_address_brgy","req","Address Barangay is Required!!");
+frmvalidator.addValidation("borrower_pres_address_city","req","Address City is Required!!");
+frmvalidator.addValidation("borrower_pres_address_province","req","Address Province is Required!!");
+
+frmvalidator.addValidation("birthdate","req","Date of birth is Required!!");
+frmvalidator.addValidation("birthdate","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+
+frmvalidator.addValidation("landline","regexp=[0-9-]","Invalid Phone Format XX-XXX-XXX");
+frmvalidator.addValidation("mobile","regexp=[0-9-]","Invalid Mobile Format XX-XXX-XXX");
+frmvalidator.addValidation("email","email","Not a Valid Email Address");
+
+frmvalidator.addValidation("lenghtstay","req","Years of Residency is Required!!");
+
+frmvalidator.addValidation("dependentno","req","Dependent No. is Required!!");
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["account"];
+	  
+	  	if(frm.coborrower_select.value == '') 
+		{
+			  sfm_show_error_msg("Please Select Coborrower Type");
+			  return false
+		}
+		else if((frm.coborrower_select.value == 'extend') && (frm.coborrower_extend.value == '')) 
+		{
+			  sfm_show_error_msg("Please Select Coborrower Related By:");
+			  return false
+		}
+		else if((frm.coborrower_select.value == 'main') && (frm.coborrower_relation.value == '')) 
+		{
+			  sfm_show_error_msg("Please Select Coborrower Relationship");
+			  return false
+		}
+
+		else if((frm.coborrower_select.value == 'extend') && (frm.coborrower_to.value == '')) 
+		{
+			  sfm_show_error_msg("Please Select Coborrower Related To:");
+			  return false
+		}
+	  	else if (frm.gender.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Enter Gender");
+   			  return false
+	  }	  
+	  	else if (frm.civilstatus.value == '0')
+	  {
+	    	  sfm_show_error_msg("Please Enter Civil Status");
+   			  return false
+	  }	  
+	  	else if (frm.residencetype.value == '0')
+		{
+			  sfm_show_error_msg("Please Enter Residence Type");
+   			  return false
+			
+		}
+		
+		else if (frm.neighborhoodtype.value == '0')
+		{
+			  sfm_show_error_msg("Please Enter Neighborhood Type");
+   			  return false
+			
+		}
+		
+		<? if($this->loggedInUserType() == 'CA' || $this->loggedInUserType() == 'CO') { ?>
+
+			else if (frm.lenghtstay.value <= 2 && frm.borrower_prev_address_st.value == '') 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Address Street");
+   			  return false
+		}
+		else if (frm.lenghtstay.value <= 2 && frm.borrower_prev_address_brgy.value == '') 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Address Barangay");
+   			  return false
+		}
+		
+		else if (frm.lenghtstay.value <= 2 && frm.borrower_prev_address_province.value == 0) 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Address Province");
+   			  return false
+		}
+		else if (frm.lenghtstay.value <= 2 && frm.borrower_prev_address_city.value == 0) 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Address City");
+   			  return false
+		}
+		else if (frm.lenghtstay.value <= 2 && frm.prev_zipcode.value == '') 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Zip Code");
+   			  return false
+		}
+		else if (frm.lenghtstay.value <= 2 && frm.lenghtstay_prev.value == '') 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Lenght of Stay ");
+   			  return false
+		}
+		else if (frm.lenghtstay.value <= 2 && frm.residencetype_prev.value == '0') 
+		{
+			 sfm_show_error_msg("Residence Years is less than or equal 2, Please Provide Previous Residence Type ");
+   			  return false
+		}
+		<? } ?>
+	  else if (frm.citizenship.value == '0')
+		{
+			  sfm_show_error_msg("Please Enter Citizenship");
+   			  return false
+			
+		}
+	  else if ((frm.gender.value == 2) && (frm.civilstatus.value != 1) &&
+			(frm.borrower_mname.value == ''))
+		{
+			  sfm_show_error_msg("Middle Name is Required !!");
+			  return false
+		}	
+	   else if ((frm.age.value <= 15))
+	  	{
+	    	  sfm_show_error_msg("Invalid Age");
+   			  return false
+	  	}
+
+	  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+</script>
+

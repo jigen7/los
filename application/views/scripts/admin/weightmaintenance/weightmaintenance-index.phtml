@@ -1,0 +1,39 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>ADMIN - WEIGHTS MAINTENANCE - RETRIEVE </strong></td>
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">
+    <strong>Return</strong></td>
+</tr>
+</table>
+<br />
+<br />
+<br />
+<form method="post" name="weights">
+<table>
+<tr>
+<td><?=$this->form->tables?></td>
+<td><input name="button" type="submit" value="Select Table" id="button" /></td>
+</tr>
+<tr>
+<td><?=$this->form->fields?></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</table>
+  
+
+
+</form>

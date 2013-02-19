@@ -1,0 +1,1167 @@
+<style type="text/css">
+input {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+input.btn { 
+color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+} 
+input:focus, input.sffocus { background: #659EC7; }
+</style>
+
+ 
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+
+<SCRIPT language="JavaScript">
+function submitform()
+{
+ //if(document.account.onsubmit())
+ //{//this check triggers the validations
+    document.account.submit();
+ //}
+}
+
+function openSubmit(pageURL, title,w,h){
+	var left = (screen.width/2) - (w/2);
+	var top = (screen.height/2) - (h/2);
+   //var right = 100;
+   var option = {};
+  //option += "dialogLeft: " + left + "; ";
+  //option += "dialogTop: " + top + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+  option += "resizable: No";
+  option += "center: Yes";
+
+//showModalDialog(pageURL,null,option);
+	window.open(pageURL,'decisionBox','width=800,height=500,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+}
+
+
+</SCRIPT> 
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td>&nbsp;<strong>
+	  <? if($this->isComaker) { echo "Co-Maker's"; } else { echo "Borrower's"; } ?> 
+	  PROFILE </strong>
+	<? if($this->loggedInUserType() == 'CO' || $this->loggedInUserType() == 'CSH'){ 
+	if($this->detail->routetag){
+		echo $this->detail->routetag; 
+			//echo $this->autoRouteview($this->capno,$this->viewScore($this->detail->score,$this->highcap,'view'),'full'); 
+		} 
+	else {
+	echo $this->autoRouteview($this->capno,$this->viewScore($this->detail->score,$this->highcap,'view'),'full'); 
+	} 	}
+	else {
+	echo "<font color='white'>".$this->detail->routetag."</font>";
+	
+	}?> 
+	</td>
+	<td align="center" style="border-left:hidden"><b>
+	  <?=$this->viewPromo($this->detail->promo_fid)?>
+	</b></td>
+	<td align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">HOME</td>
+
+</tr>
+<tr>
+  <td width="51%">
+  <ul id="nav">
+  <? if ($this->roleAccess('edit_borrower',$this->capno)){ ?>
+  <li><a href="<?=$this->baseUrl()?>/index/accountedit/cap/<?=$this->capno?>">EDIT</a></li>
+  <? } ?>
+  <li><a href="#" class="dropdown">ACTION</a>
+    <ul>
+<? if ($this->roleAccess('view_score',$this->capno)){ ?>
+ <!-- <li><a href="<?$this->baseUrl()?>/index/coscore/cap/<?$this->capno?>" class="dropdown" onmouseover="" >SCORE</a></li>
+<li><
+a href="<?=$this->baseUrl()?>/index/coscore/cap/<?=$this->capno?>" class="dropdown" onmouseover="" >SCORE</a></li>
+-->
+	<? } ?> 
+    
+     <? if ($this->roleAccess('view_comaker_submit_ma',$this->comakerCapno)){ ?>
+    <li><a  href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/masubmit/cap/<?=$this->comakerCapno?>','Deviation Box',500,200)">CO-MAKER SUBMIT</a></li>
+    <? } ?>       
+    
+ 
+      <? if ($this->roleAccess('view_submit',$this->capno)){ ?>
+    <li><a  href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/masubmit/cap/<?=$this->capno?>','Deviation Box',500,200)">SUBMIT</a></li>
+    <? } ?> 
+	<?  if ($this->roleAccess('view_mareject',$this->capno)){ ?>
+        <li><a  href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/others/act/mareject/cap/<?=$this->capno?>','MA - Account Reject',500,200)">REJECT</a></li>
+        <? } ?>
+   
+      <? if ($this->roleAccess('view_recommend',$this->capno)){ ?>
+
+     <li><a href="#">RECOMMEND</a><ul>
+               <? if ($this->roleAccess('view_comaker_submit',$this->comakerCapno)){ ?>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/submit/cap/<?=$this->comakerCapno?>/act/comaker','Deviation Box',500,200)">CoMaker Submit</a></li>
+	  		   <? } ?>
+     		   <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/submit/cap/<?=$this->capno?>/act/approval','Deviation Box',500,200)">For Approval</a></li>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/submit/cap/<?=$this->capno?>/act/rejection','Deviation Box',500,200)">For Rejection</a></li>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/submit/cap/<?=$this->capno?>/act/pass','Deviation Box',500,200)">Pass</a></li>
+                
+        </ul></li>
+        <? } ?>
+         <? if ($this->roleAccess('view_requestci','')){ ?>
+	<li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/requestcibox/cap/<?=$this->capno?>','mywindow','width=500,height=350,scrollbars=yes,resizable=no,left=0,top=0,status=no');">REQUEST FOR CI</a></li>
+    	<? } ?>
+    	<? if ($this->roleAccess('view_rts',$this->capno)){ ?>
+    	<li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/camarts/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">RTS</a></li>
+    	<? } ?>
+          <? if ($this->roleAccess('view_recon',$this->capno)){ ?>
+    <li><a href="<?=$this->baseURL();?>/index/recon/cap/<?=$this->capno?>">RECON</a></li>
+    <? } ?>
+
+      <? if ($this->roleAccess('view_outright',$this->capno)){ ?>
+    <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/others/act/outright/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">OUTRIGHT REJECT</a></li>
+    <? } ?>
+    <!--
+      <? if ($this->roleAccess('view_conditional','')){ ?>
+    <li class="dropdown"><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/confirmbox/act/conditionalreject/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">CONDITIONAL APPROVED</a></li>
+    <? } ?>
+    -->
+      <? if ($this->roleAccess('view_endorsed','')){ ?>
+      <li><a href="" class="dropdown">ENDORSED</a></li>
+      <? } ?>
+      <? if ($this->roleAccess('view_outright',$this->capno)){ ?>
+  <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/others/act/cancel/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">CANCELLED</a></li>
+    <? } ?>
+        <? if ($this->roleAccess('view_noaction',$this->capno)){ ?>
+  <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/others/act/noaction/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">NO ACTION</a></li>
+    <? } ?>
+      <? if ($this->roleAccess('view_reprocess',$this->capno)){ ?>
+    <li><a href="<?=$this->baseURL();?>/index/reprocess/cap/<?=$this->capno?>">REPROCESS</a></li>
+      
+	    <? } ?>
+ <? if ($this->roleAccess('view_recall',$this->capno)){ ?>
+      <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/others/act/recall/cap/<?=$this->capno?>','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">RECALL</a></li>
+	    <? } ?>       
+        
+       
+    <? if ($this->roleAccess('view_comaker_submit',$this->capno)){ ?>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/submit/cap/<?=$this->capno?>/act/comaker','Deviation Box',500,200)">CoMaker Submit</a></li>
+	    <? } ?>
+        
+	<? if ($this->roleAccess('view_ma_booking',$this->capno)){ ?>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/mabooksubmit/cap/<?=$this->capno?>','MA For Booking L&D',500,200)">AO For Booking</a></li>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/aocancel/cap/<?=$this->capno?>','AO Cancel',500,200)">AO Cancel</a></li>               
+    <? } ?>
+	<? if ($this->roleAccess('view_la_manual_approve',$this->capno)){ ?>
+               <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/manualapprove/cap/<?=$this->capno?>','LA Manual Approve',500,400)">Manual Approve</a></li>
+    <? } ?>
+	<? if ($this->roleAccess('view_marecall',$this->capno)){ ?>
+       <li><a href="<?=$this->baseURL();?>/index/recall/cap/<?=$this->capno?>">RECALL</a></li>
+    <? } ?> 
+    <? if ($this->roleAccess('view_corecall',$this->capno)){ ?>
+   <li><a href="<?=$this->baseURL();?>/index/corecall/cap/<?=$this->capno?>">CO RECALL</a></li>
+    <? } ?>         
+    </ul>
+  </li>
+  <? if ($this->roleAccess('printreport','')){ ?>
+  <li><a href="#" class="dropdown" onclick="window.open('<?=$this->baseURL();?>/index/reportautoform/cap/<?=$this->capno?>','mywindow','width=1500,height=600,scrollbars=yes,resizable=no, menubar =yes');">PRINT / REPORT</a></li>
+  <? } ?>
+  <? if ($this->roleAccess('account_history','')){ ?>
+  <li><a href="<?=$this->baseUrl()?>/index/accounthistory/cap/<?=$this->capno?>" class="dropdown">ACCOUNT HISTORY</a>
+  <ul>
+  <li><a href="<?=$this->baseUrl()?>/index/audittrail/cap/<?=$this->capno?>" class="dropdown">AUDIT TRAIL</a></li>
+  </ul>
+  
+  </li>
+  <? } ?>
+
+  
+  <li><a href="#" class="dropdown" onclick="javascript:window.open('<?=$this->baseURL();?>/index/creditdecision/cap/<?=$this->capno?>','mywindow','width=800,height=350,scrollbars=yes,resizable=no,left=0,top=0,status=no');">CREDIT DECISION</a>
+  <!--  --> 
+  <ul>
+  <? if ($this->roleAccess('co_auto',$this->capno)){ ?>
+  <? if ($this->autoRoute($this->highcap)){ ?>
+  <li><a href="#">CO DECISION</a>
+  	<ul>
+    <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/coApprove','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">Approve</a></li>
+    <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/coReject','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">Reject</a></li>
+   <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/coPass','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">Pass</a></li>
+    </ul> 
+    </li>
+  <? } ?>
+   <? if (!$this->autoRoute($this->highcap)){ ?>
+  <li><a href="#">RECOMMEND</a>
+      <ul>
+        <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/approval','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">For Approval</a></li>
+        <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/rejection','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">For Rejection</a></li>
+  	   <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/coPass','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">Pass</a></li>      
+      </ul>
+  </li>
+  <? } ?>
+    <? } ?>
+  <? if ($this->roleAccess('co_reject',$this->capno)){ ?>
+   	   <li><a href="#" onclick="javascript:window.open('<?=$this->baseURL();?>/index/routesubmit/cap/<?=$this->capno?>/act/coReject','mywindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');">CO - Reject</a></li>       
+    <? } ?>
+  </ul>
+  </li>
+
+  <? if ($this->roleAccess('booking',$this->capno)){ ?>
+  <li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/booking/bookingview/cap/<?=$this->capno?>','LA Booking L&D',300,400)">BOOKING</a>
+  <!--<?$this->baseUrl()?>/index/booking/cap/<?$this->capno?>-->
+  	<ul>
+      <? if ($this->roleAccess('booking_checking',$this->capno)){ ?>
+<li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/booking/labooksubmit/cap/<?=$this->capno?>','LA Booking L&D',300,400)">CHECKED</a></li>
+	<? } ?>
+    <? if ($this->roleAccess('booking_finalcheck',$this->capno)){ ?>
+<li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/booking/labooksubmit/cap/<?=$this->capno?>','LA Booking L&D',300,400)">BOOK</a></li>        
+	<? } ?>
+    <? if ($this->roleAccess('booking_larts',$this->capno)){ ?>
+<li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/lortslabooksubmit/cap/<?=$this->capno?>','LA Booking L&D',500,200)">RTS to LA</a></li>        
+	<? } ?>    
+<? if ($this->roleAccess('booking_marts',$this->capno)){ ?>
+<li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/lartsmabooksubmit/cap/<?=$this->capno?>','LA Booking L&D',500,200)">RTS to MA</a></li>        
+	<? } ?>    
+    <? if ($this->roleAccess('booking_recall',$this->capno)){ ?>
+<li><a href="#" onclick="openSubmit('<?=$this->baseURL();?>/index/larecallsubmit/cap/<?=$this->capno?>','LA Booking L&D',500,200)" >RECALL ACCOUNT</a></li>
+	<? } ?>
+    </ul>  
+  </li>
+ <? } ?>
+  <? if ($this->roleAccess('testscore',$this->capno)){ ?>
+  <li><a href="<?=$this->baseUrl()?>/index/rascore/cap/<?=$this->capno?>" class="dropdown">TESTSCORE</a>  </li>
+ <? } ?>
+</ul>
+  
+  
+  
+  </td>
+  <td width="35%" align="center" style="border-left:hidden"><a href="#" class="dropdown" onclick="window.open('<?=$this->baseURL();?>/index/deviationlist/cap/<?=$this->capno?>','mywindow','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><?=$this->viewDeviation($this->capno)?></a> |
+    <b>
+	<? if($this->detail->account_status2 == "RECON") {?>
+<a href="#" class="dropdown" onclick="window.open('<?=$this->baseURL();?>/index/viewrecon/cap/<?=$this->capno?>','windowrecon','width=800,height=800,scrollbars=yes,resizable=no, menubar =yes');"><?=$this->detail->account_status2?></a>
+<? } else { echo $this->detail->account_status2; }?> | 
+    <?=$this->detail->application_type?></b></td>
+  <td width="14%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/inboxpending'">RETURN</td>
+</tr>
+</table>
+<table width="100%" border="0">
+  <tr>
+    <td width="8%"><?=$this->form->profile?></td>
+    <td width="50%" align="left"><?=$this->countProfile($this->capno,'coborrower')?> <?=$this->countProfile($this->capno,'comaker')?></td>
+    <td width="42%" align="right"><b>
+      <?=$this->viewAccountStatus($this->detail->account_status)?>
+      <?=$this->viewAccountStatusCmk($this->detail->comaker_accnt_status)?>
+    </b></td>
+  </tr>
+</table>
+
+<form action="" method="post" name="account">
+  <table width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+    <tr>
+      <td colspan="2"><?=$this->detail->dosri?> </td>
+      <td width="13%"><?=$this->form->relation?></td>
+      <td colspan="5" align="right"><? //$this->autoRoute($this->highcap)?>
+        <input type="button" name="score" value="Score" class="btn" />
+        &nbsp;
+      <?  //if($this->detail->score_tag){
+		  //echo $this->detail->score_tag; } else { 		  
+		  echo $this->viewScore($this->detail->score,$this->highcap,'view'); 
+		  //} ?>      &nbsp;</td>
+    </tr>
+    <tr>
+      <td width="14%">Cap No.</td>
+      <td width="16%"><?=$this->capno?></td>
+      <td colspan="4"><? if($this->isComaker) { echo "Co-Maker's"; } else { echo "Borrower's"; } ?> Name:
+        <?=$this->detail->borrower_lname?>
+,
+<?=$this->detail->borrower_fname?>
+,
+<?=$this->detail->borrower_mname?></td>
+      <td colspan="2" align="right"><a href="<?=$this->baseUrl()?>/index/mapage/cap/<?=$this->capno?>">MA Page</a> &nbsp <a href="<?=$this->baseUrl()?>/index/capage/cap/<?=$this->capno?>">CA Page</a>&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="14%">Date Created</td>
+      <td width="16%"><?=$this->application_date?></td>
+      <td><? if($this->isComaker) { echo "Related By :"; } ?></td>
+      <td><? if($this->isComaker) { echo $this->detail->comaker_relation; } ?></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Type of Loan</td>
+      <td><?=$this->viewTypeLoan($this->detail->loantype)?></td>
+      <td colspan="2">Permanent Address</td>
+      <td width="8%">Tin Id.</td>
+      <td width="13%"><?=$this->detail->tin_id?></td>
+      <td colspan="2"><?=$this->detail->routetag?></td>
+    </tr>
+    <tr>
+      <td>Loan Purpose</td>
+      <td><?=$this->detail->loan_purpose?></td>
+      <td>Street </td>
+      <td width="17%"><?=$this->detail->pres_address_st?></td>
+      <td>Landline</td>
+      <td colspan="3"><?=$this->detail->landline?>        | <?=$this->detail->phone_ver?></td>
+    </tr>
+    <tr>
+
+      <td>Source of Application</td>
+      <td><?=$this->detail->source_application?></td>
+      <td>Barangay:      </td>
+      <td><?=$this->detail->pres_address_brgy?></td>
+      <td>Mobile</td>
+      <td><?=$this->detail->mobile?></td>
+      <td colspan="2">Total Income</td>
+    </tr>
+    <tr>
+      <td>Marketing Assistant:</td>
+      <td><?=$this->viewMa($this->detail->created_by)?></td>
+      <td>City / Municipality:</td>
+      <td><?=$this->detail->pres_address_city?></td>
+      <td>Email</td>
+      <td><?=$this->detail->email?></td>
+      <td colspan="2"><img src="<?=$this->baseUrl();?>/images/peso_sign.png" width="12%"/><?=$this->totalincome?></td>
+    </tr>
+    <tr>
+      <td>Credit Analyst:</td>
+      <td>
+	  <? 
+	  if($this->loggedInUserType() == 'CA') { 
+	  echo $this->form->creditanalyst;  
+	  } else { echo $this->viewMa($this->detail->submitted_ca);  } 
+	  ?>
+      </td>
+      <td>Province:</td>
+      <td><?=$this->detail->pres_address_province?></td>
+      <td>Gender </td>
+      <td><?=$this->viewGender($this->detail->gender)?></td>
+      <td colspan="2">Total Combined Income</td>
+    </tr>
+    <tr>
+      <td>Credit Officer:</td>
+      <td><? 
+	  if($this->loggedInUserType() == 'CO') { 
+	  echo $this->form->creditofficer;  
+	  } else { echo $this->viewMa($this->detail->submitted_co);  } 
+	  ?>
+      </td>
+      <td>Zip Code:</td>
+      <td><?=$this->detail->pres_zipcode?></td>
+      <td>Civil Status</td>
+      <td><?=$this->viewCivilStatus($this->detail->civilstatus)?></td>
+      <td colspan="2"><img src="<?=$this->baseUrl();?>/images/peso_sign.png" width="12%"/>
+      <?=$this->totalcombinedincome?></td>
+    </tr>
+    <tr>
+      <td colspan="8">
+      
+            
+  </td>
+    </tr>
+  </table>
+
+	  <div class="tabber">
+     
+     <? if ($this->roleAccess('details','')){ ?> 
+	  <div class="tabbertab">
+  <h2>DETAILS</h2>
+  <table width="100%">
+    <tr>
+      <td width="15%">&nbsp;</td>
+      <td width="20%">&nbsp;</td>
+      <td width="13%">&nbsp;</td>
+      <td width="18%">&nbsp;</td>
+      <td width="16%">&nbsp;</td>
+      <td width="18%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>Length of            Stay:</td>
+      <td><?=$this->detail->residence_yrs?>
+        Yr.        /
+        <?=$this->detail->residence_months?> Mo.</td>
+      <td>Date of Birth:</td>
+      <td><?=date('m/d/Y',strtotime($this->detail->birthdate))?></td>
+      <td>Age:</td>
+      <td><?=$this->detail->age?></td>
+    </tr>
+    <tr>
+      <td> Residence Type: </td>
+      <td><?=$this->viewResidenceType($this->detail->residence_type)?></td>
+      <td>Place of Birth:</td>
+      <td><?=$this->detail->birthplace?></td>
+      <td>No. of Dependents</td>
+      <td><?=$this->detail->dependentno?></td>
+    </tr>
+    <tr>
+      <td>Neighborhood Type:</td>
+      <td><?=$this->viewNeighborhoodType($this->detail->neighborhoodtype)?></td>
+      <td>Mother's Maiden:</td>
+      <td><?=$this->detail->maiden_name?></td>
+      <td>Citizenship:</td>
+      <td><?=$this->viewCitizenship($this->detail->citizenship)?></td>
+      </tr>
+    </table>
+  <table width="80%" id="prev_table" <? if($this->detail->residence_yrs_prev == ''){ ?>style="display:none" <? }?> >
+    <tr>
+      <td colspan="4"><strong>Previous Address</strong></td>
+    </tr>
+    <tr>
+      <td width="19%">Length of            Stay:</td>
+      <td width="18%"><?=$this->detail->residence_yrs_prev?> Yr. <?=$this->detail->residence_months_prev?> Mo.</td>
+      <td width="18%">Street:</td>
+      <td width="45%"><?=$this->detail->prev_address_st?></td>
+    </tr>
+    <tr>
+      <td>Residence Type:</td>
+      <td><?=$this->viewResidenceType((int)$this->detail->residence_type_prev)?></td>
+      <td>City / Municipality: </td>
+      <td><?=$this->detail->prev_address_city?></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>Barangay : </td>
+      <td><?=$this->detail->prev_address_brgy?></td>
+    </tr>
+    <tr>
+      <td>Zip Code: </td>
+      <td><?=$this->detail->prev_zipcode?></td>
+      <td>Province: </td>
+      <td><?=$this->detail->prev_address_province?></td>
+    </tr>
+  </table>
+  <!-- End of Form for Main Details -->
+<iframe src ="<?=$this->baseUrl();?>/index/employment/cap/<?=$this->capno?>" width="100%" height="500" frameborder="0">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+
+	  </div>
+    <? } ?>
+         <? if ($this->roleAccess('obligations','')){ ?>
+      <div class="tabbertab">
+	  <h2>OBLIGATIONS</h2>
+      <iframe src ="<?=$this->baseUrl();?>/index/obligation/cap/<?=$this->capno?>" width="100%" height="500" frameborder="0">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+	  </div>
+      
+                  <div class="tabbertab">
+              <h2>ASSETS</h2>
+                    <iframe src ="<?=$this->baseUrl();?>/index/otherasset/cap/<?=$this->capno?>" width="100%" height="500" frameborder="0">
+                <p>Your browser does not support iframes.</p>
+                </iframe>
+        </div>
+         <? } ?>
+             <? if ($this->roleAccess('unit','')){ ?>
+      <div class="tabbertab">
+	  <h2>UNIT</h2>
+	  <table width="100%" border="0">
+	    <tr>
+	      <td>Dealer&nbsp;: &nbsp; &nbsp; &nbsp;</td>
+	      <td><?=$this->detail->dealer?></td>
+	      <td <? if($this->detail->branch_refferror != ''){ ?>style="display:none" <? }?>>Dealer Agent:</td>
+	      <td <? if($this->detail->branch_refferror != ''){ ?>style="display:none" <? }?>><?=$this->detail->dealer_agent?></td>
+	      <td height="24" <? if($this->detail->branch_refferror != ''){ ?>style="display:none" <? }?>>Dealer Coordinator</td>
+	      <td <? if($this->detail->branch_refferror != ''){ ?>style="display:none" <? }?>><?=$this->viewMa($this->detail->dealer_coordinator)?></td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+	    <tr <? if(!$this->detail->branch_refferror){ ?>style="display:none" <? }?>>
+	      <td width="14%">Branch: </td>
+	      <td width="13%"><?=$this->detail->branch?></td>
+	      <td width="12%">Branch Referror:</td>
+	      <td width="12%"><?=$this->detail->branch_refferror?></td>
+	      <td width="14%" height="24">Marketing Officer</td>
+	      <td width="10%"><?=$this->viewMa($this->detail->submitted_mo)?></td>
+	      <td width="12%">&nbsp;</td>
+	      <td width="13%">&nbsp;</td>
+        </tr>
+	    <tr>
+	      <td>Brand:</td>
+	      <td><?=$this->detail->veh_brand?></td>
+	      <td height="24">Unit:</td>
+	      <td><?=$this->detail->veh_unit?></td>
+	      <td>Vehicle Type:</td>
+	      <td><?=$this->detail->veh_type?></td>
+	      <td>Year Model:</td>
+	      <td><?=$this->detail->veh_yrmodel?></td>
+        </tr>
+	    <tr>
+	      <td>Vehicle Status:</td>
+	      <td><?=$this->viewVehStatus($this->detail->veh_status)?></td>
+	      <td>Vehicle Age:</td>
+	      <td><?=$this->detail->veh_age?></td>
+	      <td>Vehicle Use:</td>
+	      <td><?=$this->viewVehUse($this->detail->veh_use)?></td>
+	      <td>&nbsp;</td>
+	      <td></td>
+        </tr>
+        <? if($this->detail->veh_status == 2 || $this->detail->veh_status == 3 || $this->detail->veh_status == 4){ ?>
+	    <tr>
+	      <td>Appraisal Value</td>
+	      <td>P
+          <? // number_format($this->detail->appraisal_value,2)?> <?=number_format($this->detail->appraisal_value,2)?></td>
+	      <td colspan="2">Request for Waver 
+          <?=$this->detail->appraisal_waver_request?></td>
+	      <td>Car History</td>
+	      <td><?=$this->viewCarHistory($this->detail->car_history)?></td>
+	      <td colspan="2">Appraisal Report
+          <?=$this->cidetail->ci_appraisal_report?></td>
+        </tr>
+        <tr>
+	      <td>Appraisal Date</td>
+	      <td><? if($this->detail->appraisal_date) {
+			  echo date('m/d/Y',strtotime($this->detail->appraisal_date)); } ?></td>
+	      <td>Appraised By</td>
+	      <td><?=$this->detail->appraised_by?></td>
+	      <td colspan="4">Remarks
+	        <?=$this->cidetail->remarks_appraisal?></td>
+        </tr>
+        <? } ?>
+	    </table>
+	  <table width="100%" border="0" style="display:none">
+  <tr>
+    <td width="12%">Motor No.:</td>
+    <td width="12%"><?=$this->vehdetail->motor_no?></td>
+    <td width="11%">Color:</td>
+    <td width="12%"><?=$this->vehdetail->veh_color?></td>
+    <td width="13%">&nbsp;</td>
+    <td width="15%">&nbsp;</td>
+    <td width="11%">&nbsp;</td>
+    <td width="14%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="24">Serial No.:</td>
+    <td><?=$this->vehdetail->serial_no?></td>
+    <td>Plate No:</td>
+    <td><?=$this->vehdetail->plate_no?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>LTO Off:</td>
+    <td colspan="3"><?=$this->vehdetail->lto_off?></td>
+    <td>Ref Doc:</td>
+    <td><?=$this->vehdetail->ref_doc?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>OR No.:</td>
+    <td><?=$this->vehdetail->or_no?></td>
+    <td>OR Date:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->or_date))?></td>
+    <td>Ref No:</td>
+    <td><?=$this->vehdetail->ref_no?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>CR No.:</td>
+    <td><?=$this->vehdetail->cr_no?></td>
+    <td>CR Date:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->cr_date))?></td>
+    <td>Ref Date:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->ref_date))?></td>
+    <td>UV Date:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->uv_date))?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Date Delivered:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->date_delivered))?></td>
+    <td>Last Seen:</td>
+    <td><?=date("m/d/Y",strtotime($this->vehdetail->last_seen))?></td>
+  </tr>
+ </table>
+	  </div>
+      <? } ?>
+      <? if ($this->roleAccess('loan','')){ ?>
+      <div class="tabbertab">
+	  <h2>LOAN</h2>
+	  <table width="100%" border="0">
+	    <tr>
+        <? if($this->detail->veh_status == 1) { ?>
+	      <td colspan="2">LCP: 
+	        P<?=number_format($this->detail->lcp,2)?>
+          Selling Price: P<?=number_format($this->detail->selling_price)?> Discount P<?=number_format($this->detail->veh_discount,2)?></td>
+	      <? } else { ?>
+           	      <td width="19%">Appraisal Value:</td>
+	      <td width="38%">P<?=number_format($this->detail->appraisal_value,2)?>
+   </td>
+           
+           <? } ?>
+	      <td>Term (mos.):</td>
+	      <td><?=$this->detail->loanterm?>
+	        months</td>
+        </tr>
+	    <tr>
+	      <td width="13%">Downpayment:</td>
+	      <td width="38%">P
+	        <?=number_format($this->detail->downpayment_actual,2)?>
+	        |
+	        <?=number_format($this->detail->downpayment_percent,2)?>
+	        %</td>
+	      <td width="19%">Amount of Loan:</td>
+	      <td width="38%">P
+	        <?=number_format($this->detail->amountloan,2)?></td>
+        </tr>
+	    <tr>
+	      <td>Addon Rate: </td>
+	      <td><?=$this->detail->rate?>
+	        %	        </td>
+	      <td>Monthly Amortization:</td>
+	      <td>P
+	        <?=number_format($this->detail->monthly_amortization,2)?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td><?=$this->detail->addon_rate?></td>
+	      <td><strong>GMI Ratio</strong> (%):</td>
+	      <td><?
+          
+		  $format = number_format($this->detail->gmi_ratio,2);
+		  if ($format == 0) {
+			  echo "Invalid GMI No Income Stated";
+		  }else {
+			  echo $format.' %'; }
+		  ?>
+	        </td>
+        </tr>
+        <!--
+	    <tr>
+	      <td><p>Dealer Incentive Rate</p></td>
+	      <td><?=$this->detail->dealer_incentive?> % P 
+          <?=$this->detail->dealer_incentive2?></td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+	    <tr>
+	      <td>Effective Yield</td>
+	      <td><?=$this->detail->effective_yield?>
+          %</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+        -->
+	    </table>
+      </div>
+      <? } ?>
+     <? if ($this->roleAccess('cv','')){ ?>
+      <div class="tabbertab">
+	  <h2>CV</h2>
+      
+       <table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 0px;
+	border-style: solid none solid solid;border-color: black white black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="18%">&nbsp;</td>
+    <td width="18%" align="center">FINDINGS</td>
+    <td width="16%" align="center">STATUS</td>
+    <td align="center">REMARKS</td>
+  </tr>
+  <tr>
+    <td><strong>NFIS / BAP- 
+      <?=$this->cvdetail->date_nfis?>
+    </strong></td>
+    <td align="center"><?=$this->cvdetail->nfis?></td>
+    <td align="center"><?=$this->cvdetail->nfis2?></td>
+    <td><?=stripslashes($this->cvdetail->remarks_nfis)?></td>
+    </tr>
+  <tr>
+    <td><strong>CMAP </strong></td>
+    <td align="center"><?=$this->cvdetail->cmap?></td>
+    <td align="center"><?=$this->cvdetail->cmap2?></td>
+    <td><?=stripslashes($this->cvdetail->remarks_cmap)?></td>
+    </tr>
+  <tr>
+    <td><strong>SOURCE OF INCOME VERIFICATION</strong></td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>&nbsp;&nbsp;EMPLOYMENT VERIFICATION</td>
+    <td align="center"><?=$this->cvdetail->empver2?></td>
+    <td align="center"><?=$this->cvdetail->empver?></td>
+    <td><?  //$this->viewModelCheck($this->cvdetail->model_cv_empver)?>      <?=stripslashes($this->cvdetail->remarks_empver)?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;&nbsp;BUSINESS VERIFICATION</td>
+    <td align="center"><?=$this->cvdetail->busver2?></td>
+    <td align="center"><?=$this->cvdetail->busver?></td>
+    <td><? //$this->viewModelCheck($this->cvdetail->model_cv_busver)?>      <?=stripslashes($this->cvdetail->remarks_busver)?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;&nbsp;TRADE CHECKING</td>
+    <td align="center"><?=$this->cvdetail->trdchk2?></td>
+    <td align="center"><?=$this->cvdetail->trdchk?></td>
+    <td><? //$this->viewModelCheck($this->cvdetail->model_cv_trdchk)?>      <?=stripslashes($this->cvdetail->remarks_trdchk)?></td>
+    </tr>
+  <tr>
+    <td><strong>BACKGROUND INVESTIGATION</strong></td>
+    <td align="center"><?=$this->cvdetail->backgrd?></td>
+    <td align="center"><?=$this->viewModelCheck($this->cvdetail->model_cv_backgrd)?></td>
+    <td><?=stripslashes($this->cvdetail->remarks_backgrd)?></td>
+    </tr>
+  <tr>
+    <td><strong>BANK FI REFERENCE CHECKING</strong></td>
+    <td align="center"><?=$this->cvdetail->bankref?></td>
+    <td align="center">&nbsp;</td>
+    <td><?=stripslashes($this->cvdetail->remarks_bankref)?></td>
+    </tr>
+  <tr>
+    <td><strong>CREDIT CHECKING</strong></td>
+    <td align="center"><?=$this->cvdetail->creditchk?></td>
+    <td align="center">&nbsp;</td>
+    <td><?=stripslashes($this->cvdetail->remarks_creditchk)?></td>
+    </tr>
+  <tr>
+    <td><strong>PAST DEALINGS W/ CBC</strong></td>
+    <td align="center"><?=$this->cvdetail->pastdealings?></td>
+    <td align="center">&nbsp;</td>
+    <td><?=stripslashes($this->cvdetail->remarks_pastdealings)?></td>
+    </tr>
+  <tr>
+    <td><strong>INCOME VERIFICATION</strong></td>
+    <td align="center"><?=$this->cvdetail->income?></td>
+    <td align="center"><?=$this->cvdetail->income2?></td>
+    <td><?=stripslashes($this->cvdetail->remarks_income)?></td>
+    </tr>
+       </table>
+	  </div>
+      <? } ?>
+    
+      <? if ($this->roleAccess('ci','')){ ?>
+      <div class="tabbertab">
+	  <h2>CI</h2>
+	  <table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 0px;
+	border-style: solid none solid solid;border-color: black white black black;
+	border-collapse: collapse;background-color: white;">
+	    <tr>
+	      <td width="18%"><strong>CI Date 
+          <?=$this->cidetail->date_ci?>
+	      </strong></td>
+	      <td width="17%" align="center">FINDINGS</td>
+	      <td width="17%" align="center">STATUS</td>
+	      <td colspan="2" align="center">REMARKS</td>
+        </tr>
+	    <tr>
+	      <td><strong>SOURCE OF INCOME VERIFICATION</strong></td>
+	      <td align="center">&nbsp;</td>
+	      <td align="center">&nbsp;</td>
+	      <td width="19%" align="center">&nbsp;</td>
+	      <td width="29%">&nbsp;</td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;EMPLOYMENT VERIFICATION</td>
+	      <td align="center"><?=$this->cidetail->empver_ci2?></td>
+	      <td align="center"><?=$this->cidetail->empver_ci?></td>
+	      <td colspan="2"><? //$this->viewModelCheck($this->cidetail->model_ci_empver)?>	        <?=stripslashes($this->cidetail->remarks_empver_ci)?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;&nbsp;BUSINESS VERIFICATION</td>
+	      <td align="center"><?=$this->cidetail->busver_ci2?></td>
+	      <td align="center"><?=$this->cidetail->busver_ci?></td>
+	      <td colspan="2"><? //$this->viewModelCheck($this->cidetail->model_ci_busver)?>	        <?=stripslashes($this->cidetail->remarks_busver_ci)?></td>
+        </tr>
+	    <tr>
+	      <td>TRADE CHECKING</td>
+	      <td align="center"><?=$this->cidetail->trdchk_ci2?></td>
+	      <td align="center"><?=$this->cidetail->trdchk_ci?></td>
+	      <td colspan="2"><? //$this->viewModelCheck($this->cidetail->model_ci_trdchk)?>	        <?=stripslashes($this->cidetail->remarks_trdchk_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>BACKGROUND INVESTIGATION</strong></td>
+	      <td align="center"><?=$this->cidetail->backgrd_ci2?></td>
+	      <td align="center"><?=$this->viewModelCheck($this->cidetail->model_ci_backgrd)?></td>
+	      <td colspan="2"><?=stripslashes($this->cidetail->remarks_backgrd_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>RESIDENCE VERIFICATION</strong></td>
+	      <td align="center"><?=$this->cidetail->residence_ci2?></td>
+	      <td align="center"><?=$this->cidetail->residence_ci?></td>
+	      <td colspan="2"><?=stripslashes($this->cidetail->remarks_residence_ci)?></td>
+        </tr>
+	    <tr>
+	      <td><strong>INCOME VERIFICATION</strong></td>
+	      <td align="center"><?=$this->cidetail->income_ci?></td>
+	      <td align="center"><?=$this->cidetail->income_ci2?></td>
+	      <td colspan="2"><?=stripslashes($this->cidetail->remarks_income_ci)?></td>
+        </tr>
+	    </table>
+</div>
+      
+<? } ?>
+           <? if ($this->roleAccess('documents','')){ ?>
+      <div class="tabbertab">
+	  <h2>DOCUMENTS</h2>
+      <table width="100%" border="0">
+      <!--
+  <tr style="display:none">
+    <td width="4%">&nbsp;</td>
+    <td width="14%">CFUSCA</td>
+    <td width="4%">&nbsp;</td>
+    <td width="16%">SEC Registration</td>
+    <td width="5%">&nbsp;</td>
+    <td width="16%">PN with CHM</td>
+    <td width="4%">&nbsp;</td>
+    <td width="17%">Disclosure Statement on Loan/Credit Transaction</td>
+    <td width="4%">&nbsp;</td>
+    <td width="16%">Address Verification / Ocular Inspection Report</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Valid ID's</td>
+    <td>&nbsp;</td>
+    <td>DTI Registration</td>
+    <td>&nbsp;</td>
+    <td>Deed of Assignment</td>
+    <td>&nbsp;</td>
+    <td>Vehicle Insurance Policy</td>
+    <td>&nbsp;</td>
+    <td>Special Power of Attorney</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Latest ITR</td>
+    <td>&nbsp;</td>
+    <td>Board Resolution</td>
+    <td>&nbsp;</td>
+    <td>Duplicate Sales Invoice</td>
+    <td>&nbsp;</td>
+    <td>OR of Insurance Premium Payment</td>
+    <td>&nbsp;</td>
+    <td>Affidavid of Denial</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Statement of Assets and Liabilities</td>
+    <td>&nbsp;</td>
+    <td>Secretary's Certificate</td>
+    <td>&nbsp;</td>
+    <td>Duplicate Delivery Report</td>
+    <td>&nbsp;</td>
+    <td>Appraisal Report</td>
+    <td>&nbsp;</td>
+    <td>Affidavid of one and the same</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Tax Certificate</td>
+    <td>&nbsp;</td>
+    <td>Partnership Resolution</td>
+    <td>&nbsp;</td>
+    <td>Official Receipt of Downpayment</td>
+    <td>&nbsp;</td>
+    <td>Deed of Absolute Sale</td>
+    <td>&nbsp;</td>
+    <td>Affidavid of Non-Tax Use</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Certificate of Employment</td>
+    <td>&nbsp;</td>
+    <td>Audited Financial Statement</td>
+    <td>&nbsp;</td>
+    <td>Official Receipt of Full Payment</td>
+    <td>&nbsp;</td>
+    <td>Car History Report</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Authority to Credit</td>
+    <td>&nbsp;</td>
+    <td>Arcticles of Incorporation and Amendment</td>
+    <td>&nbsp;</td>
+    <td>Stencils w/ Onion Skin</td>
+    <td>&nbsp;</td>
+    <td>PNP Motor Vehicle Clearance </td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0">
+      <tr>
+        <td>Post Dated Checks</td>
+      </tr>
+    </table></td>
+    <td>&nbsp;</td>
+    <td><table cellspacing="0" cellpadding="0">
+      <tr>
+        <td>By Laws</td>
+      </tr>
+    </table></td>
+    <td>&nbsp;</td>
+    <td>Dealer Undertaking</td>
+    <td>&nbsp;</td>
+    <td>PO</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Authority to Debit</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>LTO CR</td>
+    <td>&nbsp;</td>
+    <td>Authority to DeliverDeliver</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>L&amp;D Signature Card</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>LTO OR</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  -->
+  <tr>
+    <td colspan="10" align="center"><input type="button" name="edocs" id="edocs" value="eDOCS" style="width:120px" onclick = "window.open('<?=$this->baseURL();?>/edocs/accountview/cap/<?=$this->capno?>','mywindow','width=800,height=600,scrollbars=yes,resizable=no')"/></td>
+    </tr>
+      </table>
+      
+	  </div>
+      <? } ?>
+      <? if ($this->roleAccess('appraisal','')){ ?>
+      <div class="tabbertab">
+	  <h2>APPRAISAL</h2>
+      
+      <table width="100%" border="0">
+	    <tr>
+	      <td width="4%">&nbsp;</td>
+	      <td width="15%">FMV </td>
+	      <td width="81%">P<?=$this->detail->fmv?> <a href="#">FMV Table</a></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td>Appraisal Value</td>
+	      <td>P<?=$this->detail->appraisal_value?></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td>Car History</td>
+	      <td><? //=$this->form->car_history?> <a href="#">Appraisal Report</a></td>
+        </tr>
+	    </table>
+	  </div>
+      <? } ?>
+       <? if ($this->roleAccess('insurance','')){ ?>
+      <div class="tabbertab">
+	  <h2>INSURANCE</h2>
+	  <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+	    <tr>
+	      <td><strong>INSURANCE POLICY
+	        
+	        </strong></td>
+        </tr>
+	    </table>
+	  <table width="90%" align="center">
+	    <tr>
+	      <td><table width="100%" border="0" align="center" >
+	        <tr>
+	          <td width="32%" align="left">Policy No.</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->policy_no?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Insurance Comp</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->ins_comp?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Insurance Type</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->ins_type?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Issue Date</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->issue_date?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Procured By:</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->pronscured_by?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Terms of Payment</td>
+	          <td colspan="3" align="left"><?=$this->insurancedetail->payment_terms?></td>
+            </tr>
+	        <tr>
+	          <td colspan="4" align="left"><strong>Policy Period</strong></td>
+            </tr>
+	        <tr>
+	          <td align="left">Effectivity:</td>
+	          <td width="12%" align="left"><?=date("m/d/Y",strtotime($this->insurancedetail->effectivity_date))?></td>
+	          <td width="21%" align="left">Expiry Date </td>
+	          <td width="35%" align="left"><?=date("m/d/Y",strtotime($this->insurancedetail->expiry_date))?></td>
+            </tr>
+	        </table></td>
+	      <td><table width="107%" border="0" align="center">
+	        <tr>
+	          <td width="38%" align="left">Amount Coverage</td>
+	          <td colspan="2" align="left">P
+	            <?=$this->insurancedetail->amount_coverage?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Net Premium</td>
+	          <td colspan="2" align="left">P
+	            <?=$this->insurancedetail->net_premium?></td>
+            </tr>
+	        <tr>
+	          <td align="left">Misc Charges</td>
+	          <td colspan="2" align="left">&nbsp;</td>
+            </tr>
+	        <? if($this->insurancecharges) { ?>
+	        <?php foreach($this->insurancecharges as $charges) :?>
+	        <tr>
+	          <td>&nbsp;</td>
+	          <td width="21%">P
+	            <?=$charges->misce_charges?></td>
+	          <td width="41%">&nbsp;</td>
+            </tr>
+	        <?php endforeach; ?>
+	        <? } ?>
+	        <tr>
+	          <td>Total Premium</td>
+	          <td colspan="2" align="left">P
+	            <?=$this->insurancedetail->total_premium?></td>
+            </tr>
+	        </table></td>
+        </tr>
+	    </table>
+	  <table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+	    <tr>
+	      <td><strong>PERILS COVERED</strong></td>
+        </tr>
+	    </table>
+	  <table width="66%" border="0" align="center">
+	    <tr>
+	      <td width="17%" align="center"><strong>Description</strong></td>
+	      <td width="14%" align="center"><strong>Coverage</strong></td>
+	      <td width="30%" align="center"><strong>Net Premium</strong></td>
+	      <td width="28%" align="center"><strong>Net Commission</strong></td>
+        </tr>
+	    <tr>
+	      <td>&nbsp;</td>
+	      <td colspan="2" align="center">&nbsp;</td>
+	      <td>&nbsp;</td>
+        </tr>
+	    <?php foreach($this->insuranceperils as $perils) :?>
+	    <tr>
+	      <td align="center"><?=$perils->desc?></td>
+	      <td align="center"><?=$perils->coverage?></td>
+	      <td align="center">P
+	        <?=$perils->net_premium?></td>
+	      <td align="center">P
+	        <?=$perils->net_commision?></td>
+        </tr>
+	    <?php endforeach; ?>
+	    </table>
+      </div>
+		<? } ?>
+             <? if ($this->roleAccess('craw','')){ ?>
+      <div class="tabbertab">
+	  <h2>CRAW</h2>
+	  
+      <strong>
+      
+      <? if($this->loggedInUserType() == 'CO' || $this->loggedInUserType() == 'LA' || $this->loggedInUserType() == 'LO' || $this->loggedInUserType() == 'PRES' || $this->loggedInUserType() == 'CMGH' || $this->loggedInUserType() == 'CSH' || $this->loggedInUserType() == 'CORPSEC'
+	  || $this->loggedInUserType() == 'AO'
+	  ){ ?>
+      <center>
+       <? if($this->detail->account_status2 != "RECON") {?>
+      <? if($this->isComaker) { echo "Co-Maker"; } else { echo "Main Borrower"; }?>
+      <br />
+        <strong>
+       
+          <? if ($this->roleAccess('craw_edit',$this->capno)){ ?>
+        <input type="button" name="btnPrepCraw" id="button3" value="Prepare CRAW" onclick = "window.open('<?=$this->baseURL();?>/index/crawform/cap/<?=$this->capno?>/type/prepare','mywindow','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        <? } ?>
+        <input type="button" name="btnPrintCraw" id="button" value="View CRAW" onclick = "window.open('<?=$this->baseURL();?>/index/crawform/cap/<?=$this->capno?>/type/print','View Craw','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        </strong><br /> 
+		<? } ?>
+        <strong>
+         <? if ($this->chkIfRecon($this->capno)){ ?>
+        <? if ($this->roleAccess('craw_edit',$this->capno)){ ?>
+        <input type="button" name="button2" id="button4" value="Prepare Amendment Form" onclick = "window.open('<?=$this->baseURL();?>/index/amendmentform/cap/<?=$this->capno?>/type/prepare','mywindow','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        </strong><strong>
+        <? } ?>
+        <input type="button" name="button" id="button2" value="View Amendment Form" onclick = "window.open('<?=$this->baseURL();?>/index/amendmentform/cap/<?=$this->capno?>/type/view','Print Amendment Form','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        </strong><strong>
+        <? } ?>
+        </strong><br />
+        
+        <strong>
+        <? if ($this->chkIfRecon($this->capno)){ ?>
+        </strong><strong>
+        <input type="button" name="button3" id="button5" value="Previous CRAW" onclick = "window.open('<?=$this->baseURL();?>/index/crawform/cap/<?=$this->prevcapno?>/type/print','View Craw','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        <input type="button" name="button4" id="button6" value="Previous Amendment Form" onclick = "window.open('<?=$this->baseURL();?>/index/amendmentform/cap/<?=$this->prevcapno?>/type/view','Print Amendment Form','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+        <? } ?>
+        </strong><br />
+        <? if ($this->comakerCapno){ ?>
+        Co-Maker Craw
+        <br />
+       
+        <input type="button" name="btnPrintCraw" id="button" value="View CRAW" onclick = "window.open('<?=$this->baseURL();?>/index/crawform/cap/<?=$this->comakerCapno?>/type/print','mywindow10','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')" />
+      </center>
+       <? } //End of Comaker Capno ?>
+       <? } ?>
+      </div>
+        <? } ?>
+        </div>
+        </form> 
+   
+   <center>
+<?
+$time = microtime();
+$time = explode(" ", $time);
+$time = $time[1] + $time[0];
+$start = $time;
+?>
+<font color="#FFFFFF">
+<?
+$time = microtime();
+
+$time = explode(" ", $time);
+
+$time = $time[1] + $time[0];
+
+$finish = $time;
+
+$totaltime = ($finish - $start);
+
+printf ("This page took %f seconds to load.", $totaltime);
+?>
+</font>
+</center>

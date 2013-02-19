@@ -1,0 +1,567 @@
+<?
+class Form_PopupBox extends Zend_Form
+{
+	//Form for teh Deviation Box
+    public function __construct($options = null)
+    {
+	$submit_remarks = new Zend_Form_Element_Textarea('submit_remarks');
+	$submit_remarks->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->setAttrib('id','submit_remarks')
+				 ->addFilter('StringTrim')
+				 ->addFilter('StripTags')
+				 ->setAttrib('rows','4')
+				 ->setAttrib('style','width:370px');
+				 //->setAttrib('onKeypress','return alphaNumSpaceOnly(event)');
+	$this->addElement($submit_remarks);
+	
+	$chk_permanent_address = new Zend_Form_Element_Checkbox('chk_permanent_address');
+	$chk_permanent_address->removeDecorator('label')
+			->setAttrib('id','chk_permanent_address')
+			->setAttrib('onchange','javascript:document.getElementById("chk_employer_address").checked = false;document.getElementById("chk_business_address").checked = false;')
+			->removeDecorator('HtmlTag');
+	$this->addElement($chk_permanent_address);
+	
+	$chk_employer_address = new Zend_Form_Element_Checkbox('chk_employer_address');
+	$chk_employer_address->removeDecorator('label')
+			->setAttrib('id','chk_employer_address')
+			->setAttrib('onchange','javascript:document.getElementById("chk_business_address").checked = false;
+			document.getElementById("chk_permanent_address").checked = false;
+			document.getElementById("business_address").disabled = true;
+			document.getElementById("employment_address").disabled = false;			
+			')
+			->removeDecorator('HtmlTag');
+	$this->addElement($chk_employer_address);
+	
+	$chk_employer_address = new Zend_Form_Element_Checkbox('chk_employer_address');
+	$chk_employer_address->removeDecorator('label')
+			->setAttrib('id','chk_employer_address')
+			->setAttrib('onchange','javascript:document.getElementById("chk_business_address").checked = false;
+			document.getElementById("chk_permanent_address").checked = false;
+			document.getElementById("business_address").disabled = true;
+			document.getElementById("employment_address").disabled = false;			
+			')
+			->removeDecorator('HtmlTag');
+	$this->addElement($chk_employer_address);
+	
+	$chk_business_address = new Zend_Form_Element_Checkbox('chk_business_address');
+	$chk_business_address->removeDecorator('label')
+			->setAttrib('id','chk_business_address')
+			->setAttrib('onchange','javascript:document.getElementById("chk_employer_address").checked = false;
+			document.getElementById("chk_permanent_address").checked = false;
+			document.getElementById("business_address").disabled = false;
+			document.getElementById("employment_address").disabled = true;
+						')
+			->removeDecorator('HtmlTag');
+	$this->addElement($chk_business_address);
+	
+	
+	$manner_checking = new Zend_Form_Element_Select('manner_checking');
+	$manner_checking->removeDecorator('label')
+		 ->setAttrib('id','manner_checking')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->setAttrib('style','width: 100px')
+		 ->addMultiOption(0 ,'')
+	     ->setValue('0');
+         $manner_checking->addMultiOption('Disclose','Disclose')
+						->addMultiOption('Discreet','Discreet')
+						->addMultiOption('No Direct Interview','No Direct Interview');
+	$this->addElement($manner_checking);
+	
+	$employment_address = new Zend_Form_Element_Select('employment_address');
+	$employment_address->removeDecorator('label')
+		 ->setAttrib('id','employment_address')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+ 		 ->setAttrib('disabled','disabled')
+         ->setValue('0');
+       $this->addElement($employment_address);
+	   
+	$business_address = new Zend_Form_Element_Select('business_address');
+	$business_address->removeDecorator('label')
+		 ->setAttrib('id','business_address')
+		 ->removeDecorator('HtmlTag')
+		 ->addFilter('StringTrim')
+		 ->setAttrib('disabled','disabled')
+         ->setValue('0');
+       $this->addElement($business_address);
+	   
+	$permanent_address = new Zend_Form_Element_Hidden('permanent_address');
+	$permanent_address->removeDecorator('label')
+		     ->removeDecorator('HtmlTag');
+	$this->addElement($permanent_address);
+	
+	$unit = new Zend_Form_Element_Hidden('unit');
+	$unit->removeDecorator('label')
+		     ->removeDecorator('HtmlTag');
+	$this->addElement($unit);
+	
+	$dev_age = new Zend_Form_Element_Text('dev_age');
+	$dev_age->removeDecorator('label')
+				->setAttrib('id', 'dev_age')
+				->removeDecorator('HtmlTag')
+				 ->addFilter('StringTrim')
+				 ->addFilter('StripTags')
+				 ->addFilter('StringToUpper')
+				 ->setAttrib('size','60');
+	$this->addElement($dev_age);
+	
+	$dev_downpayment = new Zend_Form_Element_Text('dev_downpayment');
+	$dev_downpayment->removeDecorator('label')
+				->setAttrib('id', 'dev_downpayment')
+				->removeDecorator('HtmlTag')
+				 ->addFilter('StringTrim')
+				 ->addFilter('StripTags')
+				 ->addFilter('StringToUpper')
+				 ->setAttrib('size','60');
+	$this->addElement($dev_downpayment);
+	
+	
+
+	
+	$dev_veh_age = new Zend_Form_Element_Text('dev_veh_age');
+	$dev_veh_age->removeDecorator('label')
+				->setAttrib('id', 'dev_veh_age')
+				->removeDecorator('HtmlTag')
+				 ->addFilter('StringTrim')
+				 ->addFilter('StripTags')
+				 ->addFilter('StringToUpper')
+				 ->setAttrib('size','60');
+	$this->addElement($dev_veh_age);
+	
+	$dev_gmi = new Zend_Form_Element_Text('dev_gmi');
+	$dev_gmi->removeDecorator('label')
+				->setAttrib('id', 'dev_gmi')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_gmi);
+	
+	$loan_amount = new Zend_Form_Element_Text('loan_amount');
+	$loan_amount->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($loan_amount);
+	
+	$dev_totalcombine = new Zend_Form_Element_Text('dev_totalcombine');
+	$dev_totalcombine->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_totalcombine);
+	
+	$dev_borrower_age = new Zend_Form_Element_Text('dev_borrower_age');
+	$dev_borrower_age->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_borrower_age);
+	
+	$dev_residence_yrs = new Zend_Form_Element_Text('dev_residence_yrs');
+	$dev_residence_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_residence_yrs);
+	
+	$dev_employment_yrs = new Zend_Form_Element_Text('dev_employment_yrs');
+	$dev_employment_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_employment_yrs);
+	
+	$dev_employment_status = new Zend_Form_Element_Text('dev_employment_status');
+	$dev_employment_status->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_employment_status);
+	
+	$dev_business_yrs = new Zend_Form_Element_Text('$dev_business_yrs');
+	$dev_business_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_business_yrs);
+	
+	$dev_citizenship1 = new Zend_Form_Element_Text('dev_citizenship1');
+	$dev_citizenship1->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_citizenship1);
+	
+	
+	$dev_citizenship2 = new Zend_Form_Element_Text('dev_citizenship2');
+	$dev_citizenship2->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_citizenship2);
+	
+	$dev_coborrower_age = new Zend_Form_Element_Text('dev_coborrower_age');
+	$dev_coborrower_age->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coborrower_age);
+	
+	$dev_coresidence_yrs = new Zend_Form_Element_Text('dev_coresidence_yrs');
+	$dev_coresidence_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coresidence_yrs);
+	
+	$dev_coemployment_yrs = new Zend_Form_Element_Text('dev_coemployment_yrs');
+	$dev_coemployment_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coemployment_yrs);
+	
+	$dev_coemployment_status = new Zend_Form_Element_Text('dev_coemployment_status');
+	$dev_coemployment_status->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coemployment_status);
+	
+	$dev_cobusiness_yrs = new Zend_Form_Element_Text('dev_cobusiness_yrs');
+	$dev_cobusiness_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_cobusiness_yrs);
+	
+	$dev_spouse_age = new Zend_Form_Element_Text('dev_spouse_age');
+	$dev_spouse_age->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spouse_age);
+	
+	$dev_sporesidence_yrs = new Zend_Form_Element_Text('dev_sporesidence_yrs');
+	$dev_sporesidence_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_sporesidence_yrs);
+	
+	$dev_spoemployment_yrs = new Zend_Form_Element_Text('dev_spoemployment_yrs');
+	$dev_spoemployment_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spoemployment_yrs);
+	
+	$dev_spoemployment_status = new Zend_Form_Element_Text('dev_spoemployment_status');
+	$dev_spoemployment_status->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spoemployment_status);
+	
+	$dev_spobusiness_yrs = new Zend_Form_Element_Text('dev_spobusiness_yrs');
+	$dev_spobusiness_yrs->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spobusiness_yrs);
+	
+	$dev_sell_lcp = new Zend_Form_Element_Text('dev_sell_lcp');
+	$dev_sell_lcp->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_sell_lcp);
+	
+		$dev_sell_lcp = new Zend_Form_Element_Text('dev_sell_lcp');
+	$dev_sell_lcp->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_sell_lcp);
+	
+	$dev_loantermhigh = new Zend_Form_Element_Text('dev_loantermhigh');
+	$dev_loantermhigh->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_loantermhigh);
+	
+	$dev_loantermlow = new Zend_Form_Element_Text('dev_loantermlow');
+	$dev_loantermlow->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_loantermlow);
+	
+	$dev_spocitizenship = new Zend_Form_Element_Text('dev_spocitizenship');
+	$dev_spocitizenship->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spocitizenship);
+	
+	//cv ci starts here----------------------------------------------
+	$dev_nfis = new Zend_Form_Element_Text('dev_nfis');
+	$dev_nfis->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_nfis);
+	
+	$dev_spnfis = new Zend_Form_Element_Text('dev_spnfis');
+	$dev_spnfis->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spnfis);
+	
+	$dev_confis = new Zend_Form_Element_Text('dev_confis');
+	$dev_confis->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_confis);
+	
+	$dev_cmap = new Zend_Form_Element_Text('dev_cmap');
+	$dev_cmap->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_cmap);
+	
+	$dev_cocmap = new Zend_Form_Element_Text('dev_cocmap');
+	$dev_cocmap->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_cocmap);
+	
+	$dev_spcmap = new Zend_Form_Element_Text('dev_spcmap');
+	$dev_spcmap->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spcmap);	
+	
+	
+	$dev_nfis_check = new Zend_Form_Element_Text('dev_nfis_check');
+	$dev_nfis_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_nfis_check);
+	
+	$dev_spnfis_check = new Zend_Form_Element_Text('dev_spnfis_check');
+	$dev_spnfis_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spnfis_check);
+	
+	$dev_confis_check = new Zend_Form_Element_Text('dev_confis_check');
+	$dev_confis_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_confis_check);
+	
+	$dev_ci_favorable = new Zend_Form_Element_Text('dev_ci_favorable');
+	$dev_ci_favorable->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_ci_favorable);
+	
+	$dev_coci_favorable = new Zend_Form_Element_Text('dev_coci_favorable');
+	$dev_coci_favorable->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coci_favorable);
+	
+	$dev_spci_favorable = new Zend_Form_Element_Text('dev_spci_favorable');
+	$dev_spci_favorable->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spci_favorable);
+	
+	$dev_ci_check = new Zend_Form_Element_Text('dev_ci_check');
+	$dev_ci_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_ci_check);
+	
+	$dev_spci_check = new Zend_Form_Element_Text('dev_spci_check');
+	$dev_spci_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_spci_check);
+	
+	$dev_coci_check = new Zend_Form_Element_Text('dev_coci_check');
+	$dev_coci_check->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_coci_check);
+	
+	$dev_sell_appraisal = new Zend_Form_Element_Text('dev_sell_appraisal');
+	$dev_sell_appraisal->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_sell_appraisal);
+	
+	$dev_veh_yr = new Zend_Form_Element_Text('dev_veh_yr');
+	$dev_veh_yr->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_veh_yr);
+	
+	$dev_veh_tenor = new Zend_Form_Element_Text('dev_veh_tenor');
+	$dev_veh_tenor->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_veh_tenor);
+	
+	$dev_veh_car_history = new Zend_Form_Element_Text('dev_veh_car_history');
+	$dev_veh_car_history->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_veh_car_history);
+	
+	$dev_loan_purpose = new Zend_Form_Element_Text('dev_loan_purpose');
+	$dev_loan_purpose->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_loan_purpose);
+	
+	$dev_total_income = new Zend_Form_Element_Text('dev_total_income');
+	$dev_total_income->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_total_income);
+	
+	
+	$dev_cototal_income = new Zend_Form_Element_Text('dev_cototal_income');
+	$dev_cototal_income->removeDecorator('label')
+				->removeDecorator('HtmlTag')
+				->addFilter('StringTrim')
+				->addFilter('StripTags')
+				->addFilter('StringToUpper')
+				->setAttrib('size','60');
+	$this->addElement($dev_cototal_income);
+	
+	}
+	
+
+}
+
+
+?>

@@ -1,0 +1,178 @@
+  <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    <!--
+    $(function () {
+		
+
+		var province = $('#categorySelect');
+        var city = $('#citySelect');
+		var brgy = $('#brgySelect');
+		var zip = $('#zipSelect');
+
+		var province2 = $('#categorySelect2');
+        var city2 = $('#citySelect2');
+		var zip2 = $('#zipSelect2');
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+	
+		brgy.selectChain({
+            target: zip,
+            url: '<?=$this->baseUrl();?>/inc/ajax2.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+		city.selectChain({
+            target: brgy,
+            url: '<?=$this->baseUrl();?>/inc/ajax-city2.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province.selectChain({
+            target: city,
+            url: '<?=$this->baseUrl();?>/inc/ajax-province2.php',
+            data: { ajax: true }
+        }).trigger('change');
+		
+		city2.selectChain({
+            target: zip2,
+            url: '<?=$this->baseUrl();?>/inc/ajax-city3.php',
+            data: { ajax: true, anotherval: "anotherAction" }            
+        });      
+		
+        province2.selectChain({
+            target: city2,
+            url: '<?=$this->baseUrl();?>/inc/ajax-province3.php',
+            data: { ajax: true }
+        }).trigger('change');
+		
+
+    });
+	
+	
+
+    //-->
+ </script>
+ <script type="text/javascript">
+ function inside(){
+	 var mainfrm = window.opener.document.forms[0];
+	 var mainfrm2 = window.opener.document.forms[1];
+
+	var frm = document.forms["address"];
+	 var field = '<?=$this->field?>';
+	
+	if (field == 'prev'){
+	mainfrm.prev_zipcode.value = frm.pres_zipcode.value;
+	mainfrm.borrower_prev_address_province.value = frm.pres_address_province.value;
+	mainfrm.borrower_prev_address_city.value = frm.pres_address_city.value;
+	mainfrm.borrower_prev_address_brgy.value = mainfrm.borrower_prev_address_brgy.value + frm.pres_address_brgy.value;
+	}
+	else if (field == 'pres'){
+	mainfrm.pres_zipcode.value = frm.pres_zipcode.value;
+	mainfrm.borrower_pres_address_province.value = frm.pres_address_province.value;
+	mainfrm.borrower_pres_address_city.value = frm.pres_address_city.value;
+	mainfrm.borrower_pres_address_brgy.value = mainfrm.borrower_pres_address_brgy.value + frm.pres_address_brgy.value;	
+	}
+	else if (field == 'emp'){
+	mainfrm.emp_zipcode.value = frm.pres_zipcode.value;
+	}
+	else if (field == 'bus'){
+	mainfrm2.bus_zipcode.value = frm.pres_zipcode.value;
+	}
+	self.close();
+	
+ }
+ 
+  function outside(){
+	 var mainfrm = window.opener.document.forms[0];
+	 var mainfrm2 = window.opener.document.forms[1];
+
+	 var frm = document.forms["address"];
+	 var field = '<?=$this->field?>';
+	
+	if (field == 'prev'){
+	mainfrm.prev_zipcode.value = frm.prev_zipcode.value;
+	mainfrm.borrower_prev_address_province.value = frm.prev_address_province.value;
+	mainfrm.borrower_prev_address_city.value = frm.prev_address_city.value;
+
+	}
+	else if (field == 'pres'){
+	mainfrm.pres_zipcode.value = frm.prev_zipcode.value;
+	mainfrm.borrower_pres_address_province.value = frm.prev_address_province.value;
+	mainfrm.borrower_pres_address_city.value = frm.prev_address_city.value;
+	
+	}
+	else if (field == 'emp'){
+	mainfrm.emp_zipcode.value = frm.prev_zipcode.value;
+	}
+	else if (field == 'bus'){
+	mainfrm2.bus_zipcode.value = frm.prev_zipcode.value;
+	}
+	
+	self.close();
+	
+ }
+
+ </script>
+
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form action="" method="post" name="address">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>Address</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="javascript:self.close()"><strong>
+      Close
+    </strong></td>
+</tr>
+</table>
+
+<p>&nbsp;<table width="80%" border="0" align="center">
+  <tr>
+    <td colspan="2" align="center"><strong>Metro Manila Area
+      
+    </strong></td>
+    <td colspan="2" align="center"><strong>Outside Metro Manila</strong></td>
+  </tr>
+  <tr>
+    <td width="34%">Province:</td>
+    <td width="14%"><?=$this->form->pres_address_province?></td>
+    <td>Province:</td>
+    <td><?=$this->form->prev_address_province?></td>
+    </tr>
+  <tr>
+    <td>City / Municipality:</td>
+    <td><?=$this->form->pres_address_city?></td>
+    <td>City / Municipality:</td>
+    <td><?=$this->form->prev_address_city?></td>
+    </tr>
+  <tr>
+    <td>Barangay: </td>
+    <td><?=$this->form->pres_address_brgy?></td>
+    <td>Zip Code:</td>
+    <td><?=$this->form->prev_zipcode?></td>
+    </tr>
+  <tr>
+    <td>Zip Code:</td>
+    <td><?=$this->form->pres_zipcode?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="button" name="button" id="button" value="Use This Zip code" onclick="javascript:inside()"/></td>
+    <td colspan="2" align="center"><input type="button" name="button2" id="button2" value="Use This Zip code" onclick="javascript:outside()"/></td>
+  </tr>
+  </table>
+</p>
+</form>

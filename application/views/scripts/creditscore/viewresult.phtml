@@ -1,0 +1,54 @@
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 100);</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="88%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/home'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center><p/>
+<table width="500" border="0">
+  <tr>
+    <td align='right'><b/>Output File Name</td>
+    <td><?=$this->form->output?></td>
+	<td><?=$this->form->submit?></td>
+  </tr>
+</table>
+<p></p>
+
+	<table cellspacing="1" cellpadding="2" width="800" class="scrolltable" id="myScrollTable" >
+		<thead>
+			<tr>
+				<th width="154" align="center">OUTPUT</th>
+				<th width="105" align="center">USER</th>
+				<th width="130" align="center">NO. OF MODELS</th>
+				<th width="145" align="center">NO. OF ACCOUNTS</th>
+				<th width="160" align="center">DATE/TIME</th>
+			</tr>	
+		</thead>
+		<tbody>
+		<? foreach($this->files as $file){?>
+        	<tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white';"
+		        onmouseout="this.style.background='white';this.style.color='black';"
+                onclick="window.location.href='<?=$this->baseUrl()?>/creditscore/viewoutput/prod/<?=$this->prodType?>/file/<?=$file->filename;?>'">
+                <td><?=$file->filename?></td>
+                <td><?=$file->user?></td>
+                <td align="center"><?=$file->models?></td>
+                <td align="center"><?=$file->accounts?></td>
+                <td><?=$file->datetime?></td>
+       	</tr>
+		<? } ?>
+		</tbody>
+	</table>
+
+</center>
+</form>
+<? if(count($this->files) > 20){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 440);</script>
+<? } ?>

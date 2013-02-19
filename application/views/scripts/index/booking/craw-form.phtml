@@ -1,0 +1,4291 @@
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+<SCRIPT language="JavaScript">
+function refreshmain()
+//refresh the main page after submit
+{
+//window.opener.location='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>';
+//window.opener.location.reload();
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	window.opener.location='<?=$this->baseUrl()?>/index/account/cap/<?=$this->capno?>';
+	}
+}
+
+function showcvci(){
+
+	if(document.getElementById('hidecvci').style.display == "") {
+		document.getElementById('hidecvci').style.display = "none";}
+		else {
+		document.getElementById('hidecvci').style.display = "";	
+		}
+		
+
+}
+
+function showcomakercvci(){
+
+	if(document.getElementById('hidecomakercvci').style.display == "") {
+		document.getElementById('hidecomakercvci').style.display = "none";}
+		else {
+		document.getElementById('hidecomakercvci').style.display = "";	
+		}
+		
+
+}
+</script>
+
+<script type="text/javascript">
+/*
+function popupUnloadHandler() {
+	if (window.opener && !window.opener.closed) {
+window.opener.location.reload();
+}
+}
+window.onunload = popupUnloadHandler;
+*/
+</script>
+<Style>
+BODY, P,TD{
+	font-family: Arial,Verdana,Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: left;
+}
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+
+
+
+
+
+</Style>
+<center>
+  <img src="<?=$this->baseUrl();?>/images/cbs_craw_logo.jpg" width="250" height="32"/><br />
+</center>
+<br />
+<form action="" method="post" name="craw-form" onsubmit="refreshmain();">
+
+<table width="100%"  border="0"  style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="100%" height="338">
+    
+    <table border="1" width="100%" style="border-collapse: collapse;background-color: white; border-right:none;border-left:none;">
+  <tr>
+    <td><div align="center">CREDIT APPROVAL WORKSHEET (CRAW)</div></td>
+  </tr>
+  <tr>
+    <td><div align="center">AUTO LOANS - Credit Services</div></td>
+  </tr>
+</table>
+<table width="100%" border="1"  style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;border-collapse: collapse; border-right:none;border-left:none;">
+  <tr>
+    <td width="125">Cap No:</td>
+    <td width="111"><?=$this->capno?></td>
+    <td width="38">DC:</td>
+    <td colspan="2"><?=$this->viewMa($this->row->dealer_coordinator)?>      <div align="right"></div></td>
+    <td>Date:</td>
+    <td width="148">
+      <input name="crawdate" type="text" value="<?=date('m-d-Y')?>" size="10" readonly="readonly"/></td>
+    </tr>
+  <tr>
+    <td>Loan Purpose:</td>
+    <td colspan="2"><?=$this->row->loan_purpose?>      <div align="right"></div></td>
+    <td><?=$this->row->dosri?></td>
+    <td width="148">&nbsp;</td>
+    <td width="30">Score:</td>
+    <td><input name="crawscore" type="text" value="<? $crawscore = $this->viewScore($this->row->score,$this->highcap,'view');
+	echo $crawscore;
+	?>" size="15" readonly="readonly"/></td>
+    </tr>
+  <tr>
+    <td>Solicitation/App Source:</td>
+    <td colspan="2"><?=$this->row->source_application?></td>
+    <td width="93">Dealer Agent:</td>
+    <td align = "left"><?=$this->row->dealer_agent?></td>
+    <td colspan="2" align = "left">&nbsp;</td>
+    </tr>
+  <tr>
+    <td>Dealer:</td>
+    <td colspan="2"><?=$this->row->dealer?></td>
+    <td>      Branch Referror:</td>
+    <td><?=$this->row->branch_refferror?></td>
+    <td >Promo:</td>
+    <td ><b>
+      <?=$this->viewPromo($this->row->promo_fid)?>
+    </b></td>
+    </tr>
+</table>
+    
+    <table  border=0 width="100%" style="border-collapse: collapse;background-color: white;">
+  	<tr>
+  	  <td bgcolor="#CCCCCC"><strong>PERSONAL DATA</strong></td>
+    </tr>
+</table>
+    <table width="100%" border="0">
+      <tr>
+        <td width="13%" align="left"><strong>
+          <? if($this->isComaker) { echo "Co-Maker's"; } else { echo "Borrower's"; } ?> 
+          Name</strong></td>
+        <td width="1%" align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->row->borrower_fname.' '.$this->row->borrower_mname.' '. ($this->row->borrower_lname );?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Mailing Address</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC"><?=$this->row->pres_address_no.' '.$this->row->pres_address_st.' '.$this->row->pres_address_brgy.' '.$this->row->pres_address_city.' '.$this->row->pres_address_province. ','.$this->row->pres_zipcode;?></span></td>
+        <td align="left" >Residence Type</td>
+        <td align="left" >:</td>
+        <td align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->viewResidenceType($this->row->residence_type)?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Contact Number</td>
+        <td align="left">:</td>
+        <td width="29%" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC"><?=$this->row->landline?>
+          /
+          <?=$this->emplandline->emp_telno?>
+          /
+          <?=$this->buslandline->bus_telno?></span></td>
+        <td width="12%" align="left" bgcolor="#FFFFFF">Mobile</td>
+        <td width="1%" align="left" bgcolor="#FFFFFF">:</td>
+        <td width="16%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->row->mobile?></span></td>
+        <td align="left">Length of Stay</td>
+        <td align="left">&nbsp;</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->row->residence_yrs?>
+yrs.
+<?=$this->row->residence_months?>
+mos.</span></td>
+      </tr>
+      <tr>
+        <td align="left">BirthDate</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=date('m-d-Y',strtotime($this->row->birthdate))?></span></td>
+        <td align="left" bgcolor="#FFFFFF">Age</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->row->age?></span></td>
+        <td align="left">Dependents</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->row->dependentno?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Civil Status</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewCivilStatus($this->row->civilstatus)?></span></td>
+        <td align="left" bgcolor="#FFFFFF">Nationality</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewCitizenship($this->row->citizenship)?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <?php foreach($this->empdetail as $empdetails) :?>
+      <tr>
+        <td align="left"><strong>Employment</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :<?=date('m-d-Y',strtotime($empdetails->emp_date))?>
+        </span></td>
+        <td align="left" bgcolor="#FFFFFF">Stay in Yrs</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetails->emp_yrs?> 
+          yrs. 
+          <?=$empdetails->emp_months?>
+        mos.</span></td>
+        <td align="left">Work Position</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$empdetails->emp_actual_position?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Employer's Name</td>
+        <td align="left">:</td>
+        <td colspan="2" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetails->emp_name?></span></td>
+        <td align="left" bgcolor="#FFFFFF">&nbsp;</td>
+        <td align="left" bgcolor="#FFFFCC">&nbsp;</td>
+        <td align="left">Industry</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewEmpIndustry($empdetails->emp_industry)?>
+        </span></td>
+        </tr>
+
+      <?php endforeach; ?>
+      <?php foreach($this->busdetail as $busdetails) :?>
+      <tr>
+        <td align="left"><strong>Business</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :<?=date('m-d-Y',strtotime($busdetails->bus_date))?></span></td>
+        <td align="left">Stay in Yrs:</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetails->bus_yrs?>
+        yrs. 
+            <?=$busdetails->bus_months?>
+        mos.</span></td>
+        <td width="11%" align="left">&nbsp;</td>
+        <td width="1%" align="left">&nbsp;</td>
+        <td width="16%" align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Business Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetails->bus_name?></span></td>
+        <td align="left">Business Nature</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewBusNature($busdetails->bus_nat)?>
+        </span></td>
+        </tr>
+      <tr>
+
+      <?php endforeach; ?>
+      <td colspan="9" align="left"><hr /></td>
+      </tr>
+    </table>
+    <table width="100%" border="0" >
+      <?php foreach($this->detail as $Spousedetails) :?>
+      <tr>
+        <td width="13%" align="left"><strong>Spouse</strong></td>
+        <td width="1%" align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Spousedetails->borrower_fname?>
+          <?=$Spousedetails->borrower_mname?> <?=$Spousedetails->borrower_lname?>
+        </span></td>
+        <td width="11%" align="left">&nbsp;</td>
+        <td width="1%" align="left">&nbsp;</td>
+        <td width="16%" align="left">&nbsp;</td>
+        </tr>
+      <tr>
+        <td align="left">Mailing Address</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Spousedetails->pres_address_no.' '.$Spousedetails->pres_address_st.' '.$Spousedetails->pres_address_brgy.' '.$Spousedetails->pres_address_city.' '.$Spousedetails->pres_address_province. ','.$this->row->pres_zipcode;?>
+        </span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+      <tr>
+        <td align="left">Contact Number</td>
+        <td align="left">:</td>
+        <td width="29%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Spousedetails->landline?>
+          /
+          <?=$this->landline_spouse->emp_telno?>
+          /
+          <?=$this->bus_landline_spouse->bus_telno?></span></td>
+        <td width="12%" align="left">Mobile</td>
+        <td width="1%" align="left">:</td>
+        <td width="16%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Spousedetails->mobile?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+      <tr>
+        <td align="left">Birthdate</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=date('m-d-Y',strtotime($Spousedetails->birthdate))?></span></td>
+        <td align="left">Age</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Spousedetails->age?></span></td>
+        <td align="left">Nationality</td>
+        <td align="left"><span style="background-color:#FFFFCC">:
+
+        </span></td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCitizenship($Spousedetails->citizenship)?>
+        </span></td>
+        </tr>
+      <?php foreach($this->listEmpBus($Spousedetails->capno,'emp') as $empdetail_sps) :?>
+      <tr>
+        <td align="left"><strong>Employment</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :<?=date('m-d-Y',strtotime($empdetail_sps->emp_date))?></span></td>
+        <td align="left">Stay in Yrs.</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_yrs?> 
+          yrs. <?=$empdetail_sps->emp_months?>
+        mos.</span></td>
+        <td align="left">Work Position</td>
+        <td align="left"><span style="background-color:#FFFFCC">:
+            
+        </span></td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$empdetail_sps->emp_actual_position?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Employer's Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_name?></span></td>
+        <td align="left">Industry</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewEmpIndustry($empdetail_sps->emp_industry)?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+  
+      <?php endforeach; //End for each emp Spouse ?>
+      
+      <?php foreach($this->listEmpBus($Spousedetails->capno,'bus') as $busdetail_sps) :?>
+      <tr>
+        <td align="left"><strong>Business</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since:
+<?=date('m-d-Y',strtotime($busdetail_sps->bus_date))?></span></td>
+        <td align="left">Stay in Yrs:</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_yrs?>
+        yrs 
+            <?=$busdetail_sps->bus_months?>
+        mos.</span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+      <tr>
+        <td align="left">Business Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_name?></span></td>
+        <td align="left">Business Nature</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewBusNature($busdetail_sps->bus_nat)?></span></td>
+        </tr>
+      <tr>
+        
+        <?php endforeach; ?>
+        <td colspan="9" align="left"><hr /></td>
+      </tr>
+      <?php endforeach; ?>
+
+      
+    </table>
+    <table width="100%" border="0" >
+      <?php foreach($this->detail3 as $Coborrowerdetails) :?>
+      <tr>
+        <td width="13%" align="left"><strong>
+        <? if($Coborrowerdetails->coborrower_type =='comaker'){
+			echo 'Co-Maker'; }
+			else if($Coborrowerdetails->coborrower_type =='extend'){
+			echo 'Coborrower Extend'; }
+			else if($Coborrowerdetails->coborrower_type =='main'){
+			echo 'Coborrower'; }	
+		?>
+        
+        </strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$Coborrowerdetails->borrower_fname?> <?=$Coborrowerdetails->borrower_mname?> <?=$Coborrowerdetails->borrower_lname?></span></td>
+        <td align="left"><? if($Coborrowerdetails->coborrower_type == 'extend'){
+			//echo $Coborrowerdetails->coborrower_extend_relation; 
+			}
+			else {
+			echo 'Relation';	
+			} 
+		  ?></td>
+        <td align="left">:</td>
+        <td width="16%" bgcolor="#FFFFCC"><strong>
+          <span style="background-color:#FFFFCC">
+		  <? if($Coborrowerdetails->coborrower_type == 'extend'){
+			//echo $Coborrowerdetails->coborrower_extend_relation; 
+			}
+			else {
+			echo $Coborrowerdetails->coborrower_relation;	
+			} 
+		  ?></span>
+        </strong></td>
+        <td width="11%" align="left">Civil Status</td>
+        <td width="1%" align="left">:</td>
+        <td width="16%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCivilStatus($Coborrowerdetails->civilstatus)?>
+        </span></td>
+      </tr>
+      <? if($Coborrowerdetails->coborrower_type == 'extend') { ?>
+      <tr>
+        <td align="left"><strong>
+          <span style="background-color:#FFFFCC"><? echo ucfirst($Coborrowerdetails->coborrower_extend_relation);
+			 ?></span>
+        </strong> of </td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->getBorrowerName($Coborrowerdetails->coborrower_extend_capno)?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left" bgcolor="#FFFFCC">&nbsp;</td>
+      </tr>
+      <? } ?>
+      <tr>
+        <td align="left">Mailing Address</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$Coborrowerdetails->pres_address_no.' '.$Coborrowerdetails->pres_address_st.' '.$Coborrowerdetails->pres_address_brgy.' '.$Coborrowerdetails->pres_address_city.' '.$Coborrowerdetails->pres_address_province. ','.$Coborrowerdetails->pres_zipcode;?>
+        </span></td>
+        <td align="left" >Length of Stay</td>
+        <td align="left" >:</td>
+        <td align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC"><?=$Coborrowerdetails->residence_yrs?>
+        yrs. 
+        <?=$Coborrowerdetails->residence_months?>
+        mos.</span></td>
+        <td align="left" >Residence Type</td>
+        <td align="left" >:</td>
+        <td align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->viewResidenceType($Coborrowerdetails->residence_type)?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Contact Number</td>
+        <td width="1%" align="left">:</td>
+        <td width="29%" align="left" bgcolor="#FFFFCC"><?=$Coborrowerdetails->landline?>
+          /
+          <?=$this->emp_landline_Cobo->emp_telno?></td>
+        <td width="12%" align="left">Mobile</td>
+        <td width="1%" align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Coborrowerdetails->mobile?></span></td>
+        <td align="left">Dependents </td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$Coborrowerdetails->dependentno?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Birthdate</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=date('m-d-Y',strtotime($Coborrowerdetails->birthdate))?></span></td>
+        <td align="left">Age</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$Coborrowerdetails->age?></span></td>
+        <td align="left">Nationality</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCitizenship($Coborrowerdetails->citizenship)?>
+        </span></td>
+        </tr>
+      <?php foreach($this->listEmpBus($Coborrowerdetails->capno,'emp') as $empdetail_sps) :?>
+      <tr>
+        <td align="left">Employment</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :
+          <?=date('m-d-Y',strtotime($empdetail_sps->emp_date))?></span></td>
+        <td align="left">Stay in Yrs.</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_yrs?> yrs 
+          <?=$empdetail_sps->emp_months?>
+        mos.</span></td>
+        <td align="left">Work Position</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$empdetail_sps->emp_actual_position?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Employer's Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_name?></span></td>
+        <td align="left">Industry</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewEmpIndustry($empdetail_sps->emp_industry)?>
+        </span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+      <?php endforeach; //End for each emp Spouse ?>
+      <?php foreach($this->listEmpBus($Coborrowerdetails->capno,'bus') as $busdetail_sps) :?>
+      <tr>
+        <td align="left">Business</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since:
+          <?=date('m-d-Y',strtotime($busdetail_sps->bus_date))?></span></td>
+        <td align="left">Stay in Yrs: </td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_yrs?>
+        yrs 
+        <?=$busdetail_sps->bus_months?>
+        mos.</span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Business Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_name?></span></td>
+        <td align="left">Business Nature</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewBusNature($busdetail_sps->bus_nat)?>
+        </span></td>
+        </tr>
+      <?php endforeach; ?>
+            <tr>
+        <td colspan="9" align="left"><hr /></td>
+      </tr>
+      <?php endforeach; ?>
+    </table>
+    <? if($this->comakerDetail) { ?>
+    <table width="100%" border="0">
+      <tr>
+        <td width="13%" align="left"><strong>
+Comaker          Name</strong></td>
+        <td width="1%" align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->borrower_fname.' '.$this->comakerDetail->borrower_mname.' '. ($this->comakerDetail->borrower_lname );?>
+        </span></td>
+        <td align="left">Related by</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->comaker_relation?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="left">Mailing Address</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->pres_address_no.' '.$this->comakerDetail->pres_address_st.' '.$this->comakerDetail->pres_address_brgy.' '.$this->comakerDetail->pres_address_city.' '.$this->comakerDetail->pres_address_province. ','.$this->comakerDetail->pres_zipcode;?>
+        </span></td>
+        <td align="left" >Residence Type</td>
+        <td align="left" >:</td>
+        <td align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->viewResidenceType($this->comakerDetail->residence_type)?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="left">Contact Number</td>
+        <td align="left">:</td>
+        <td width="29%" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->landline?>
+        </span></td>
+        <td width="12%" align="left" bgcolor="#FFFFFF">Mobile</td>
+        <td width="1%" align="left" bgcolor="#FFFFFF">:</td>
+        <td width="16%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->mobile?>
+        </span></td>
+        <td align="left">Length of Stay</td>
+        <td align="left">&nbsp;</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->residence_yrs?>
+          yrs.
+          <?=$this->comakerDetail->residence_months?>
+          mos.</span></td>
+      </tr>
+      <tr>
+        <td align="left">BirthDate</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=date('m-d-Y',strtotime($this->comakerDetail->birthdate))?>
+        </span></td>
+        <td align="left" bgcolor="#FFFFFF">Age</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->age?>
+        </span></td>
+        <td align="left">Dependents</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerDetail->dependentno?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="left">Civil Status</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCivilStatus($this->comakerDetail->civilstatus)?>
+        </span></td>
+        <td align="left" bgcolor="#FFFFFF">Nationality</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCitizenship($this->comakerDetail->citizenship)?>
+        </span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+        <?php foreach($this->listEmpBus($this->comakerDetail->capno,'emp') as $empdetail_sps) :?>
+      <tr>
+        <td align="left"><strong>Employment</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :<?=date('m-d-Y',strtotime($empdetail_sps->emp_date))?></span></td>
+        <td align="left">Stay in Yrs.</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_yrs?> 
+          yrs. <?=$empdetail_sps->emp_months?>
+        mos.</span></td>
+        <td align="left">Work Position</td>
+        <td align="left"><span style="background-color:#FFFFCC">:
+            
+        </span></td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$empdetail_sps->emp_actual_position?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Employer's Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_name?></span></td>
+        <td align="left">Industry</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewEmpIndustry($empdetail_sps->emp_industry)?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+  
+      <?php endforeach; //End for each emp Comaker ?>
+     <?php foreach($this->listEmpBus($this->comakerDetail->capno,'bus') as $busdetail_sps) :?>
+      <tr>
+        <td align="left">Business</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since:
+          <?=date('m-d-Y',strtotime($busdetail_sps->bus_date))?></span></td>
+        <td align="left">Stay in Yrs: </td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_yrs?>
+        yrs 
+        <?=$busdetail_sps->bus_months?>
+        mos.</span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Business Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_name?></span></td>
+        <td align="left">Business Nature</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewBusNature($busdetail_sps->bus_nat)?>
+        </span></td>
+        </tr>
+      <?php endforeach; ?>
+        <td colspan="9" align="left"><hr /></td>
+      </tr>
+    </table>
+    <? } ?>
+     <? if($this->comakerspDetail) { ?>
+    <table width="100%" border="0">
+      <tr>
+        <td width="13%" align="left"><strong>
+Comaker Spouse         Name</strong></td>
+        <td width="1%" align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->borrower_fname.' '.$this->comakerspDetail->borrower_mname.' '. ($this->comakerspDetail->borrower_lname );?>
+        </span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Mailing Address</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->pres_address_no.' '.$this->comakerspDetail->pres_address_st.' '.$this->comakerspDetail->pres_address_brgy.' '.$this->comakerspDetail->pres_address_city.' '.$this->comakerspDetail->pres_address_province. ','.$this->comakerspDetail->pres_zipcode;?>
+        </span></td>
+        <td align="left" >Residence Type</td>
+        <td align="left" >:</td>
+        <td align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->viewResidenceType($this->comakerspDetail->residence_type)?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="left">Contact Number</td>
+        <td align="left">:</td>
+        <td width="29%" align="left" bgcolor="#FFFFCC" ><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->landline?>
+        </span></td>
+        <td width="12%" align="left" bgcolor="#FFFFFF">Mobile</td>
+        <td width="1%" align="left" bgcolor="#FFFFFF">:</td>
+        <td width="16%" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->mobile?>
+        </span></td>
+        <td align="left">Length of Stay</td>
+        <td align="left">&nbsp;</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->residence_yrs?>
+          yrs.
+          <?=$this->comakerspDetail->residence_months?>
+          mos.</span></td>
+      </tr>
+      <tr>
+        <td align="left">BirthDate</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=date('m-d-Y',strtotime($this->comakerspDetail->birthdate))?>
+        </span></td>
+        <td align="left" bgcolor="#FFFFFF">Age</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->age?>
+        </span></td>
+        <td align="left">Dependents</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->comakerspDetail->dependentno?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="left">Civil Status</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCivilStatus($this->comakerspDetail->civilstatus)?>
+        </span></td>
+        <td align="left" bgcolor="#FFFFFF">Nationality</td>
+        <td align="left" bgcolor="#FFFFFF">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$this->viewCitizenship($this->comakerspDetail->citizenship)?>
+        </span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+        <?php foreach($this->listEmpBus($this->comakerspDetail->capno,'emp') as $empdetail_sps) :?>
+      <tr>
+        <td align="left"><strong>Employment</strong></td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since :<?=date('m-d-Y',strtotime($empdetail_sps->emp_date))?></span></td>
+        <td align="left">Stay in Yrs.</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_yrs?> 
+          yrs. <?=$empdetail_sps->emp_months?>
+        mos.</span></td>
+        <td align="left">Work Position</td>
+        <td align="left"><span style="background-color:#FFFFCC">:
+            
+        </span></td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">
+          <?=$empdetail_sps->emp_actual_position?>
+        </span></td>
+        </tr>
+      <tr>
+        <td align="left">Employer's Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$empdetail_sps->emp_name?></span></td>
+        <td align="left">Industry</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewEmpIndustry($empdetail_sps->emp_industry)?></span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        </tr>
+  
+      <?php endforeach; //End for each emp Comaker ?>
+     <?php foreach($this->listEmpBus($this->comakerspDetail->capno,'bus') as $busdetail_sps) :?>
+      <tr>
+        <td align="left">Business</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC">Since:
+          <?=date('m-d-Y',strtotime($busdetail_sps->bus_date))?></span></td>
+        <td align="left">Stay in Yrs: </td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_yrs?>
+        yrs 
+        <?=$busdetail_sps->bus_months?>
+        mos.</span></td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+        <td align="left">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left">Business Name</td>
+        <td align="left">:</td>
+        <td align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$busdetail_sps->bus_name?></span></td>
+        <td align="left">Business Nature</td>
+        <td align="left">:</td>
+        <td colspan="4" align="left" bgcolor="#FFFFCC"><span style="background-color:#FFFFCC"><?=$this->viewBusNature($busdetail_sps->bus_nat)?>
+        </span></td>
+        </tr>
+      <?php endforeach; ?>
+        <td colspan="9" align="left"><hr /></td>
+      </tr>
+    </table>
+    <? } ?>
+    <table width="100%" border="0">
+      <tr>
+        <td height="19"><strong>CA Remarks</strong>:</td>
+        <td style="border-bottom-style:double" height="19" colspan="8"><strong>
+          <? /* foreach ($this->allciDetail as $ci){
+			echo stripslashes($ci->remarks_residence_ci)." ";	
+			echo stripslashes($ci->remarks_backgrd_ci)." ";
+			 } */ ?>
+          <? /*foreach ($this->allcvDetail as $cv){
+			echo stripslashes($cv->remarks_backgrd)." ";	
+			 } */?>
+             
+          <? foreach($this->principalCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'first'); 
+		  	 } 
+		  	 foreach($this->spouseCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'first'); 
+		  	 }
+			 foreach($this->coborrowerCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'first'); 
+		  	 }			 
+		  ?>
+          </strong></td>
+        </tr>
+      <tr>
+        <td height="19"><strong>CO Remarks:</strong></td>
+        <td style="border-bottom-style:double" height="19" colspan="7"><?=$this->form->personaldata_remarks?></td>
+        <td style="border-bottom-style:double" height="19"><input type="submit" name="button" id="button" value="Save/Update 1" />
+          <a name="saveupdate1" id="additional_deviation7"/></a></td>
+      </tr>
+      <tr>
+        <td height="19" colspan="9" bgcolor="#CCCCCC" style="border-bottom:groove"><strong>LOAN DETAILS</strong></td>
+        </tr>
+      <tr>
+      <? if($this->row->veh_status == 1){ ?>
+        <td width="99">Selling Price</td>
+        <td width="6">:</td>
+        <td width="58" bgcolor="#FFFFCC"><?=number_format($this->row->selling_price,2)?></td>
+       <? } else { ?>
+        <td width="99">Appraisal Value</td>
+        <td width="6">:</td>
+        <td width="58" bgcolor="#FFFFCC"><?=number_format($this->row->appraisal_value,2)?></td>      
+       <? } ?> 
+        <td width="84">&nbsp;</td>
+        <td width="111">&nbsp;</td>
+        <td width="136"><strong>Amount Financed</strong></td>
+        <td width="5">:</td>
+        <td width="116" bgcolor="#FFFFCC"><?=number_format($this->row->amountloan,2)?></td>
+        <td width="68">&nbsp;</td>
+        </tr>
+      <tr>
+        <td>DownPayment (P/%)</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=number_format($this->row->downpayment_actual,2)?></td>
+        <td bgcolor="#FFFFCC"><?
+        $explode = explode('.',$this->row->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>%</td>
+        <td>&nbsp;</td>
+        <td>PN Amount</td>
+        <td>:</td>
+        <td colspan="2"><?=number_format(ceil($this->pn_amount),2)?></td>
+        </tr>
+      <tr>
+        <td>Add on Rate</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=$this->row->rate?>%</td>
+        <td bgcolor="#FFFFCC">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Net Monthly Installment</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=number_format(ceil($this->row->monthly_amortization),2)?></td>
+        <td>&nbsp;</td>
+        </tr>
+        
+      <tr>
+        <td><!--Effective Yield--> </td>
+        <td>&nbsp;</td>
+        <td><? //$this->row->effective_yield %?> </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Penalty Charge</td>
+        <td>:</td>
+        <td colspan="2" ><?=$this->penalty_charge?></td>
+      </tr>
+      <tr>
+        <td>Tenor (in months)</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=$this->row->loanterm?></td>
+        <td>(<?=($this->row->loanterm)/12?> year/s)</td>
+        <td>&nbsp;</td>
+        <td>Gross Monthly Installment</td>
+        <td>:</td>
+        <td colspan="2"><?=number_format(ceil($this->gross_monthly_installment),2)?></td>
+        </tr>
+      <tr>
+        <td>GMI Ratio</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><strong><strong>
+          <?//=number_format((($this->total_installment_cbc + $this->row->monthly_amortization +  $this->total_installment_others)/$this->totalcombinedincome) * 100,2)?>
+          <?=$this->row->gmi_ratio?>
+          %</strong></strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Applied Loan To Value</td>
+        <td>:</td>
+        <td colspan="2"><?=number_format($this->applied_to_loanvalue,2)?>%</td>
+        </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td colspan="4">&nbsp;</td>
+        <td>Loan to Value Cap</td>
+        <td>:</td>
+        <td colspan="2"><? 
+			if($this->row->veh_status == 1){
+			//Brand New	
+			echo "80.00";
+			}
+			else if($this->row->veh_status == 2){
+				if($this->row->veh_age == 1){ 
+				echo "80.00";
+				}
+				else if($this->row->veh_age == 2){ 
+				echo "70.00";
+				}
+				else if(($this->row->veh_age == 3 || $this->row->veh_age == 4)){ 
+				echo "60.00";
+			}
+						}
+				
+			?>
+          %</td>
+        </tr>
+      <tr>
+        <td><strong>CA Remarks</strong>:</td>
+        <td style="border-bottom-style:double" colspan="8"><strong>
+          <?
+        $explode = explode('.',$this->row->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+% DOWNPAYMENT /
+<?=$this->row->loanterm?>
+           MONTHS TERM
+          
+          / 
+           <?=number_format($this->row->lcp)?> LCP/
+<? if ($this->row->veh_discount) { echo  number_format($this->row->veh_discount)." DISCOUNT"; }?>
+
+<? if ($this->row->selling_price > $this->row->lcp) { 
+$af = $this->row->lcp *((100 - $this->row->downpayment_percent)/100);
+echo '/ '.number_format($af,2)." AMOUNT FINANCED 2"; }?>
+        </strong>
+        
+        </td>
+        </tr>
+      <tr>
+        <td><strong>CO Remarks:</strong></td>
+        <td style="border-bottom-style:double" colspan="7"><?=$this->form->loandetails_remarks?></td>
+        <td style="border-bottom-style:double"><input type="submit" name="button" id="button" value="Save/Update 2" />
+          <a name="saveupdate2" id="additional_deviation6"/></a></td>
+      </tr>
+    </table>
+      
+      <table width="99%" border="0">
+        <tr>
+          <td colspan="10" bgcolor="#CCCCCC" style="border-bottom:groove"><strong>COLLATERAL DETAILS</strong></td>
+          </tr>
+        <tr>
+          <td width="92">Financing Scheme</td>
+          <td width="8">:</td>
+          <td colspan="3">Straight Financing (
+            <?=$this->row->addon_rate?>
+            )</td>
+          <td width="138">&nbsp;</td>
+          <td width="6">&nbsp;</td>
+          <td width="72">  </td>
+          <td width="49">&nbsp;</td>
+          <td width="55">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>Type</td>
+          <td>:</td>
+          <td width="190" bgcolor="#FFFFCC"><?=$this->viewVehStatus($this->row->veh_status)?></td>
+          <td width="37">&nbsp;</td>
+          <td width="32">&nbsp;</td>
+          <td>Unit/Make</td>
+          <td>:</td>
+          <td colspan="3" bgcolor="#FFFFCC"><?=$this->row->veh_unit?></td>
+          </tr>
+        <tr>
+          <td>Brand</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><?=$this->row->veh_brand?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        <? if($this->row->veh_status == 1){ ?>
+        <td>Selling Price</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=number_format($this->row->selling_price,2)?></td>
+       <? } else { ?>
+        <td>Appraisal Value</td>
+        <td>:</td>
+        <td bgcolor="#FFFFCC"><?=number_format($this->row->appraisal_value,2)?></td>      
+       <? } ?> 
+          </tr>
+        
+        <tr>
+          <td>Year Model</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><?=$this->row->veh_yrmodel?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td><!--Dealer Incentive Rate-->Source of Info</td>
+          <td>::</td>
+          <td colspan="2"><!--<?=$this->row->dealer_incentive?>
+            % P
+            <?=number_format($this->row->dealer_incentive2,2)?>-->
+            <?=$this->form->source_info?></td>
+          <td>&nbsp;</td>
+          </tr>
+
+         <? if($this->row->veh_status == 2){ ?>
+        <tr>
+          <td>Appraised By</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><?=ucfirst($this->row->appraised_by)?></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>Appraisal Date</td>
+          <td>:</td>
+          <td colspan="2" bgcolor="#FFFFCC"><?=$this->row->appraisal_date?></td>
+          <td>&nbsp;</td>
+        </tr>
+		<? } ?>
+        <tr>
+          <td>Remarks</td>
+          <td>:</td>
+          <td colspan="8"><?=$this->viewCrawCiCvRemarks('appraisal',$this->capno,'ci')?></td>
+        </tr>
+      </table>
+  
+      <table width="100%" border="0">
+        <tr bgcolor="#CCCCCC">
+          <td colspan="10" style="border-bottom:groove"><strong>CURRENT LOAN EXPOSURE WITH CBC/CBSI: (Orig Loan/ Line Amount &amp; Outstanding Balance)</strong></td>
+          </tr>
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td width="103">Loan Type</td>
+          <td width="4" >&nbsp;</td>
+          <td width="99" > <div align="center">Limit PHP</div></td>
+          <td width="124"><div align="center">Outstanding PHP</div></td>
+          <td width="9"><div align="center"></div></td>
+          <td width="94"><div align="center">Loan Type</div></td>
+          <td width="15"><div align="center"></div></td>
+          <td width="94"><div align="center">Limit PHP</div></td>
+          <td width="127"><div align="center">Outstanding PHP</div></td>
+        </tr>
+        <tr>
+          <td>I.</td>
+          <td colspan="4">For Approval</td>
+          <td>II.</td>
+          <td>Existing Loans (con't)</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>New Loan Requested:</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->row->amountloan,2)?>
+          </div></td>
+          <td><div align="center"></div></td>
+          <td>&nbsp;</td>
+          <td> Business Loan</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_business_loan,2)?>
+          </div></td>
+          <td><div align="center">
+            <?=number_format($this->existing_business,2)?>
+          </div></td>
+          </tr>
+        <tr>
+          <td>II.</td>
+          <td>Existing Loans</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>Other</td>
+          <td>:</td>
+          <td><div align="center">
+            <?=number_format($this->existing_other_loan,2)?>
+          </div></td>
+          <td><div align="center">
+            <?=number_format($this->existing_other,2)?>
+          </div></td>
+          </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Auto Loan</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_auto_loan,2)?>
+          </div></td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_auto,2)?>
+          </div></td>
+          <td>&nbsp;</td>
+          <td>Total Bank Proper</td>
+          <td>:</td>
+          <td><div align="center">
+            <?=number_format($this->total_bankproper_loan+$this->row->amountloan,2)?>
+          </div></td>
+          <td><div align="center">
+            <?=number_format($this->total_bankproper,2)?>
+          </div></td>
+          </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Housing Loan</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_housing_loan,2)?>
+          </div></td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_housing)?>
+          </div></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td><hr align="center" /></td>
+          <td><hr align="center" /></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>Personal Loan</td>
+          <td>:</td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_personal_loan,2)?>
+          </div></td>
+          <td bgcolor="#FFFFCC"><div align="center">
+            <?=number_format($this->existing_personal,2)?>
+          </div></td>
+          <td>&nbsp;</td>
+          <td >Total Unibank</td>
+          <td >:</td>
+          <td bgcolor="#FFFFCC" style="border-bottom-style:double"><div align="center">
+            <?=number_format($this->total_bankproper_loan+$this->row->amountloan,2)?>
+          </div></td>
+          <td style="border-bottom-style:double"><div align="center">
+            <?=number_format($this->total_bankproper,2)?>
+          </div></td>
+        </tr>
+      </table>
+        <table width="100%" border="0">
+        <tr>
+          <td width="520" bgcolor="#CCCCCC" style="border-bottom:groove"><strong>HIGHLIGHTS <a name="saveupdate" id="additional_deviation5"/></a></strong></td>
+        </tr>
+        <tr>
+          <td><strong>
+            <hr />
+            <?=nl2br($this->remark_ca->remarks);?>
+            <hr />
+          </strong></td>
+        </tr>
+                <tr>
+          <td colspan="8">Prepared by:<span style="border-bottom-style:double">
+            <b><?=$this->viewMa($this->row->submitted_ca)?></b>
+            <?=date('m-d-Y',strtotime($this->row->submitted_co_date))?>
+          </span></td>
+          </tr>
+        </table>
+        <!--Cut Table   --></td></tr></table>
+         <br style="page-break-after: always;" />
+         <table width="100%"  border="0"  style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;"><tr><td>
+        <table width="100%" border="0">
+
+         
+        <tr>
+          <td colspan="8" bgcolor="#CCCCCC" style="border-bottom:groove"><?=$this->form->recc_others?> <?=$this->form->recc_others_remarks?></td>
+          </tr>
+        <tr>
+          <td colspan="7"><?=stripslashes($this->form->recommendation_remarks)?></td>
+          <td><input type="submit" name="button" id="button" value="Save/Update 3" /> <a name="saveupdate3" id="additional_deviation3"/></a></a></td>
+          </tr>
+        <tr>
+          <td colspan="8" bgcolor="#CCCCCC" style="border-bottom:groove"><strong>APPROVAL SECTION 	
+            <? if($this->loggedInUserType() == 'CO' || $this->loggedInUserType() == 'CSH'){ 
+			
+			//$routetag = $this->autoRouteview($this->capno,$this->viewScore($this->row->score,$this->highcap,'view'),'full');
+			
+			$routetag = $this->autoRouteview($this->capno,$this->row->score_tag,'full');
+
+			if(strpos($crawscore,'Outside') === false) {
+				echo $routetag;
+			}
+			
+			 }?>
+          </strong></td>
+          </tr>
+        <tr>
+          <td><strong>DEVIATION:</strong></td>
+          <td colspan="7" style="border-bottom:groove"><?=$this->form->deviationfield?>
+<strong>
+<? if($this->remark->values_gmi >30 ) { 
+			    	if($this->remark->values_gmi == 1000){
+					echo "Gmi Ratio: <font size = 5>∞</font> /";	
+					}else{
+					echo "Exceeds gmi ratio by " .($this->remark->values_gmi - 30). "%/" ;
+					} 
+			  }
+				?>
+<? if($this->remark->remarks_downpayment  != NULL) { echo "Downpayment is not within guideline /" ;} ?>
+<? if($this->remark->remarks_sell_lcp) { echo "Not Within loan to value guideline. /" ;} ?>
+
+<? if($this->remark->remarks_citizenship1 !=  NULL) { echo "Borrower is not a Filipino Citizen /";} ?>
+
+<? if($this->remark->remarks_spocitizenship !=  NULL) { echo "Spouse is not a Filipino Citizen /";} ?>
+
+<? if($this->remark->remarks_citizenship2 !=  NULL) { echo "Coborrower is not a Filipino Citizen /";} ?>
+
+<? if($this->remark->remarks_borrower_age != NULL) { echo "Borrower Age not within guideline /";} ?>
+
+<? if($this->remark->remarks_spouse_age != NULL) { echo "Spouse Age not within guideline /";} ?>
+
+<? if($this->remark->remarks_coborrower_age != NULL) { echo "Coborrower Age not within guideline /";} ?>
+
+<? if($this->remark->remarks_loan_amount !=  NULL) { echo "Not within accepted loanable value /";} ?>
+
+<? if($this->remark->remarks_veh_age !=  NULL) { echo "Not within acceptable vehicle age / ";} ?>
+
+<? if($this->remark->remarks_totalcombine !=  NULL) { echo "Gross Monthly income for Married is less than P50,000, P30,000 for Single / ";} ?>
+
+<? if($this->remark->remarks_business_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Borrower) / ";} ?>
+
+<? if($this->remark->remarks_cobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Coborrower) / ";} ?>
+<? if($this->remark->remarks_spobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Spouse) / ";} ?>
+
+<? if($this->remark->remarks_employment_yrs !=  NULL) { echo "(Borrower)Less than 2 yrs at present employer / ";} ?>
+
+<? if($this->remark->remarks_coemployment_yrs !=  NULL) { echo "(Coborrower)Less than 2 yrs at present employer / ";} ?>
+
+<? if($this->remark->remarks_spoemployment_yrs !=  NULL) { echo "(Spouse)Less than 2 yrs at present employer / ";} ?>
+
+<? if($this->remark->remarks_employment_status !=  NULL) { echo "(Borrower) Employment Status not within Guideline / ";} ?>
+
+<? if($this->remark->remarks_coemployment_status !=  NULL) { echo "(Coborrower) Employment Status not within Guideline/ ";} ?>
+
+<? if($this->remark->remarks_spoemployment_status !=  NULL) { echo "(Spouse) Employment Status not within guideline / ";} ?>
+
+<? if($this->remark->remarks_ci_favorable  !=  NULL) { echo "Borrower with Unfavorable CI Report  / ";} ?>
+
+<? if($this->remark->remarks_ci_check  !=  NULL) { echo "Credit Investigation on file is more than 3 months / ";} ?>
+
+<? if($this->remark->remarks_nfis  !=  NULL) { echo "NFIS Borrower is not within guideline / ";} ?>
+
+<? if($this->remark->remarks_spnfis  !=  NULL) { echo "NFIS Spouse is not within guideline /";} ?>
+
+<? if($this->remark->remarks_confis  !=  NULL) { echo "NFIS Coborrower is not within guideline / ";} ?>
+
+<? if($this->remark->remarks_cmap  !=  NULL) { echo "CMAP Borrower is not within guideline / ";} ?>
+
+<? if($this->remark->remarks_spcmap  !=  NULL) { echo "CMAP Spouse is not within guideline /";} ?>
+
+<? if($this->remark->remarks_cocmap  !=  NULL) { echo "CMAP Coborrower is not within guideline / ";} ?>
+
+
+<? if($this->remark->remarks_residence_yrs !=  NULL) { echo "(Borrower)Less than 2 yrs at present address / ";} ?>
+
+<? if($this->remark->remarks_sporesidence_yrs !=  NULL) { echo "(Spouse)Less than 2 yrs at present address / ";} ?>
+
+<? if($this->remark->remarks_coresidence_yrs !=  NULL) { echo "Coborrower)Less than 2 yrs at present address / ";} ?>
+
+<? 	
+		// show date only for CONFIS COBORROWER	
+			$confischeck = explode (' ',$this->remark->values_confis_check);
+		// show date only for spnfis SPOUSE
+			$spnfischeck = explode (' ',$this->remark->values_spnfis_check);
+		// show date only for nfis BORROWER
+			$nfischeck = explode (' ',$this->remark->values_nfis_check);
+			
+			if($this->remark->remarks_confis_check  !=  NULL) { echo "NFIS check on Coborrower is (not w/in 1 month) / ";} ?>
+
+<? if($this->remark->remarks_nfis_check  !=  NULL) { echo "NFIS check on Borrower is (not w/in 1 month) / ";} ?>
+
+<? if($this->remark->remarks_spnfis_check  !=  NULL) { echo " NFIS check on Spouse is (not w/in 1 month) / ";} ?>
+
+<? if($this->remark->remarks_coci_favorable  !=  NULL) { echo "Coborrower with Unfavorable CI Report  / ";} ?>
+
+<? if($this->remark->remarks_spci_favorable  !=  NULL) { echo "Spouse with Unfavorable CI Report  / ";} ?>
+
+<? if($this->remark->remarks_spci_check  !=  NULL) { echo "Spouse:Credit Investigation on file is more than 3 months / ";} ?>
+
+<? if($this->remark->remarks_coci_check  !=  NULL) { echo "Coborrower:Credit Investigation on file is more than 3 months / ";} ?>
+
+<? if ($this->remark->remarks_loan_purpose != NULL) { echo "Loan Purpose is not within Guideline / ";} ?>
+
+<? if ($this->remark->remarks_veh_yr != NULL) { echo "2nd hand unit exceed the minimum required years / ";} ?>
+
+<? if ($this->remark->remarks_veh_tenor != NULL) { echo "2nd hand unit exceed the minimum required term / ";} ?>
+
+<? if ($this->remark->remarks_veh_car_history != NULL) { echo "2nd hand Unfavorable Car History ";} ?>
+<?
+			foreach($this->allciDetail as $ci){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->row->submitted_co_date)), date('Y-m-d',strtotime($ci->date_ci)));
+			if($ci->date_ci != ''){
+			$daysArrci['days'][] = $daysnum;				
+			$daysArrci['date'][] = $ci->date_ci;				
+			} 	}
+			$count = count($daysArrci);
+			
+			if($count > 0){
+			$max =  max($daysArrci['days']);
+			//Search the key of the highest days
+			
+			$key = array_search($max, $daysArrci['days']);
+			//echo $daysArrci['date'][$key];
+			if($max > 90){
+			echo "Credit Investigation more than 3 months. /";
+			}else {
+
+			} }
+			else {
+			echo "No CI Report Available /";		
+			}
+			
+				
+
+ ?> 
+    <? if($this->remark->remarks_total_income) {
+	// echo "Borrower has no source of income";  
+	}
+  ?>
+
+  <? if($this->remark->remarks_cototal_income) {
+	echo "Coborrower has no source of income";		  
+  }?>
+ 
+ 
+<? if($this->comakerDetail) { ?>
+<? if($this->comaker_remark->values_gmi >30 ) { 
+			    	if($this->comaker_remark->values_gmi == 1000){
+					echo "Gmi Ratio: <font size = 5>∞</font> /";	
+					}else{
+					echo "Exceeds gmi ratio by " .($this->comaker_remark->values_gmi - 30). "%/" ;
+					} 
+			  }
+				?>
+<? if($this->comaker_remark->remarks_citizenship1 !=  NULL) { echo "Co-Maker is not a Filipino Citizen /";} ?>
+<? if($this->comaker_remark->remarks_spocitizenship !=  NULL) { echo "Co-Maker Spouse is not a Filipino Citizen /";} ?>
+<? if($this->comaker_remark->remarks_borrower_age != NULL) { echo "Co-Maker Age not within guideline /";} ?>
+<? if($this->comaker_remark->remarks_spouse_age != NULL) { echo "Co-Maker Spouse Age not within guideline /";} ?>
+<? if($this->comaker_remark->remarks_loan_amount !=  NULL) { echo "Co-Maker Not within accepted loanable value /";} ?>
+<? if($this->comaker_remark->remarks_totalcombine !=  NULL) { echo "Co-Maker Gross Monthly income for Married is less than P50,000, P30,000 for Single / ";} ?>
+<? if($this->comaker_remark->remarks_business_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Co-Maker) / ";} ?>
+<? if($this->comaker_remark->remarks_spobusiness_yrs !=  NULL) { echo "Business operating legitimately for less than 2 yrs (Co-Maker Spouse) / ";} ?>
+<? if($this->comaker_remark->remarks_employment_yrs !=  NULL) { echo "(Co-Maker)Less than 2 yrs at present employer / ";} ?>
+<? if($this->comaker_remark->remarks_spoemployment_yrs !=  NULL) { echo "(Co-Maker Spouse)Less than 2 yrs at present employer / ";} ?>
+<? if($this->comaker_remark->remarks_employment_status !=  NULL) { echo "(Co-Maker) Employment Status not within Guideline / ";} ?>
+<? if($this->comaker_remark->remarks_spoemployment_status !=  NULL) { echo "(Co-Maker Spouse) Employment Status not within guideline / ";} ?>
+<? if($this->comaker_remark->remarks_ci_favorable  !=  NULL) { echo "Co-Maker with Unfavorable CI Report & unsatisfactory experience on all past & outstanding loan / ";} ?>
+<? if($this->comaker_remark->remarks_ci_check  !=  NULL) { echo "Co-Maker Credit Investigation on file is more than 3 months / ";} ?>
+<? if($this->comaker_remark->remarks_nfis  !=  NULL) { echo "NFIS Co-Maker is not within guideline / ";} ?>
+<? if($this->comaker_remark->remarks_spnfis  !=  NULL) { echo "NFIS Co-Maker Spouse is not within guideline /";} ?>
+<? if($this->comaker_remark->remarks_cmap  !=  NULL) { echo "CMAP Co-Maker is not within guideline / ";} ?>
+<? if($this->comaker_remark->remarks_spcmap  !=  NULL) { echo "CMAP Co-Maker Spouse is not within guideline /";} ?>
+<? if($this->comaker_remark->remarks_residence_yrs !=  NULL) { echo "(Co-Maker)Less than 2 yrs at present address / ";} ?>
+<? if($this->comaker_remark->remarks_sporesidence_yrs !=  NULL) { echo "(Co-Maker Spouse)Less than 2 yrs at present address / ";} ?>
+<? 	
+		// show date only for spnfis SPOUSE
+			$spnfischeck = explode (' ',$this->comaker_remark->values_spnfis_check);
+		// show date only for nfis BORROWER
+			$nfischeck = explode (' ',$this->comaker_remark->values_nfis_check);
+?>
+<? if($this->comaker_remark->remarks_nfis_check  !=  NULL) { echo "NFIS check on Co-Maker is (not w/in 1 month) / ";} ?>
+<? if($this->comaker_remark->remarks_spnfis_check  !=  NULL) { echo " NFIS check on Co-Maker Spouse is (not w/in 1 month) / ";} ?>
+<? if($this->comaker_remark->remarks_spci_favorable  !=  NULL) { echo "Co-Maker Spouse with Unfavorable CI Report & unsatisfactory experience on all past & outstanding loan / ";} ?>
+<? if($this->comaker_remark->remarks_spci_check  !=  NULL) { echo "Co-Maker Spouse:Credit Investigation on file is more than 3 months / ";} ?>
+<? if ($this->comaker_remark->remarks_loan_purpose != NULL) { echo "Co-Maker Loan Purpose is not within Guideline / ";} ?> 
+<?
+			foreach($this->allcomakerciDetail as $ci){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->comakerDetail->submitted_co_date)), date('Y-m-d',strtotime($ci->date_ci)));
+			if($ci->date_ci != ''){
+			$daysComakerArrci['days'][] = $daysnum;				
+			$daysComakerArrci['date'][] = $ci->date_ci;				
+			} 	}
+			$count = count($daysComakerArrci);
+			
+			if($count > 0){
+			$max =  max($daysComakerArrci['days']);
+			//Search the key of the highest days
+			
+			$key = array_search($max, $daysComakerArrci['days']);
+			echo $daysComakerArrci['date'][$key];
+			if($max > 90){
+			echo "Comaker - Credit Investigation on file more than 3 months.";
+			}else {
+
+			} }
+			else {
+			echo "Comaker No CI Report Available";		
+
+			}
+			
+				
+
+ ?>
+ <? if($this->comaker_remark->remarks_total_income) {
+	echo "Co-Maker has no source of income"; }   
+  ?>
+<? } ?>
+<? foreach($this->adddevDetail as $addDev){ echo ' / '.$addDev->deviation_name.' / ';} ?>
+</strong></td>
+        </tr>
+        <tr>
+          <td width="73"><a name="add_approving_auth" id="additional_deviation2"/></a></td>
+          <td width="67"><strong>Decision</strong></td>
+          <td width="17">&nbsp;</td>
+          <td colspan="2"><strong>Approving Authority</strong></td>
+          <td width="195" ><strong>Remarks</strong></td>
+          <td width="82" >&nbsp;</td>
+          <td width="165" >&nbsp;</td>
+        </tr>
+        <!--
+        <tr>
+          <td>&nbsp;</td>
+          <td><?=$this->form->decision?></td>
+          <td>by</td>
+          <td colspan="2"><?=$this->form->approved_by?></td>
+          <td><?=stripslashes($this->form->reason)?></td>
+          <td><??></td>
+          <td><input type="submit" name="button" id="button" value="Add" onclick="chkapproval();return false;"/></td>
+        </tr>
+        -->
+         <? if($this->approvaldetail) { ?>
+        <?php foreach($this->approvaldetail as $approvaldetails) :?>
+        <tr>
+          <td>&nbsp;</td>
+          <td><?=$approvaldetails->decision?></td>
+          <td>by</td>
+          <td colspan="2"><?=$this->viewAuthority($approvaldetails->approved_by)?></td>
+          <td><?=nl2br(stripslashes($approvaldetails->reason));?></td>
+          <td><?=$this->crawApprovalDate($approvaldetails->date_type,$approvaldetails->date_approval);
+			  ?></td>
+          <td>
+          
+          <input type="button" name="button" id="button" value="Delete" onclick="javascript: if (confirm('Are you sure you want to delete this?')) window.location='<?=$this->baseUrl().'/index/deldecision/id/'.$approvaldetails->id.'/red/craw/cap/'.$this->capno?>'"/>
+          
+          </td>
+        </tr>
+        <?php endforeach; ?>
+        <? } ?>
+      </table>
+     
+      <table width="100%" border="0" style="border-collapse: collapse;background-color: white;">
+          <tr>
+            <td colspan="6" bgcolor="#CCCCCC" style="border-bottom:groove">D<strong>EVIATIONS/EXCEPTIONS</strong></td>
+          </tr>
+          <tr>
+            <td width="9">I.</td>
+            <td colspan="2"><strong><em>CREDIT PARAMETERS </em></strong></td>
+            <td width="62">&nbsp;</td>
+            <td width="56">Within?</td>
+            <td width="237">JUSTIFICATION</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td width="17">A</td>
+            <td width="323"><a href="#">Credit Criteria </a></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td> Borrower is Filipino Citizen/Philippine registered. If not, with Co-Maker</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewCitizenship($this->row->citizenship)?></td>
+            <td><?=$this->viewDevWithin2('citizenship',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_citizenship1?>
+            </strong></td>
+          </tr>
+         
+          <? $spcount=1; foreach($this->detail as $Spousedetails) : ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Spouse 
+               <?=$spcount?>
+              - 
+            Citizenship  
+            <? //$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?></td>
+            <td bgcolor="#FFFFCC"><?=$this->viewCitizenship($Spousedetails->citizenship)?></td>
+            <td><?=$this->viewDevWithin2('citizenship',$Spousedetails->capno)?></td>
+            <td><strong>
+              <? if($spcount == 1){ echo $this->remark->remarks_spocitizenship; }?>
+            	</strong>
+            </td>
+          </tr>
+          <? $spcount++; endforeach; ?>
+          <? $cocount=1; foreach($this->detail4 as $Coborrowerdetails) { ?>
+          <tr>
+            <td></td>
+            <td>&nbsp;</td>
+            <td>Coborrower
+              <?=$cocount?>
+              - 
+            Citizenship  
+            <? //$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?></td>
+            <td bgcolor="#FFFFCC"><?=$this->viewCitizenship($Coborrowerdetails->citizenship)?></td>
+            <td><?=$this->viewDevWithin2('citizenship',$Coborrowerdetails->capno)?></td>
+            <td rowspan="<?=$this->countCo?>"><strong>
+              <? if($cocount == 1){ echo $this->remark->remarks_citizenship2; }?>
+            </strong></td>
+          </tr>
+
+          
+          <? $cocount++; } ?>
+       
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Borrower: Age is between
+              
+              21 to 65</td>
+            <td bgcolor="#FFFFCC"><?=$this->row->age+($this->row->loanterm/12)?></td>
+            <td><?=$this->viewDevWithin2('age',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_borrower_age?>
+            </strong></td>
+          </tr>
+          <?php $spcount=1; foreach($this->detail as $Spousedetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Spouse 
+              <?=$spcount?>
+              :Age is between
+              
+              21 to 65</td>
+            <td bgcolor="#FFFFCC"><?=$Spousedetails->age+($this->row->loanterm/12)
+ ?></td>
+            <td><?=$this->viewDevWithin2('age',$Spousedetails->capno)?></td>
+            <td><strong>
+              <? if($spcount==1) { echo $this->remark->remarks_spouse_age; }?>
+            </strong></td>
+          </tr>
+          <?php $spcount++; endforeach; ?>
+          <?php $cocount=1; foreach($this->detail4 as $Coborrowerdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Coborrower
+              <?=$cocount?>
+              :Age is between
+              
+              21 to 65</td>
+            <td bgcolor="#FFFFCC"><?=$Coborrowerdetails->age+($this->row->loanterm/12) ?></td>
+            <td><?=$this->viewDevWithin2('age',$Coborrowerdetails->capno)?></td>
+            <td rowspan="<?=$this->countCo?>"><strong>
+               <? if($cocount==1) { echo $this->remark->remarks_coborrower_age; }?>
+            </strong></td>
+          </tr>
+          <?php $cocount++; endforeach; ?>
+          <?php 
+
+		  if($this->countSp > 0){
+		  foreach($this->detail as $Spousedetails) :
+		 	 $arrRes[] = $Spousedetails->residence_yrs + ($Spousedetails->residence_months / 12);
+              endforeach;
+			  $arrRes[] = 0;
+			  $prinRes = number_format($this->row->residence_yrs + ($this->row->residence_months / 12),2);
+  			  ?>
+          <?  if ($prinRes <= max($arrRes)) { ?>   
+          <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Principal):<strong>
+            <?=$this->viewResidenceType($this->row->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($this->row->residence_yrs + ($this->row->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_residence_yrs?>
+            </strong></td>
+          </tr>
+          <? } // end of Higher Principal Lenght of Stay 
+		  else { 
+		  foreach($this->detail as $Spousedetails) : ?>
+		    <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Spouse):<strong>
+            <?=$this->viewResidenceType($Spousedetails->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($Spousedetails->residence_yrs + ($Spousedetails->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$Spousedetails->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_sporesidence_yrs?>
+            </strong></td>
+          </tr>		  
+          <? endforeach; } } else { ?>
+           <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Principal):<strong>
+            <?=$this->viewResidenceType($this->row->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($this->row->residence_yrs + ($this->row->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_residence_yrs?>
+            </strong></td>
+          </tr>
+          <? } ?>
+          <?php $cocount=1; foreach($this->detail4 as $Coborrowerdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Coborrower 
+              <?=$cocount?>
+              : Residence:<strong>
+              <?=$this->viewResidenceType($Coborrowerdetails->residence_type)?>
+            </strong> at least 2
+              
+            yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=$Coborrowerdetails->residence_yrs?> years</td>
+            <td><?=$this->viewDevWithin2('residence',$Coborrowerdetails->capno)?></td>
+            <td rowspan="<?=$this->countCo?>"><strong>
+              <? if($cocount==1) { echo $this->remark->remarks_coresidence_yrs; } ?>
+            </strong></td>
+          </tr>
+           <?php $cocount++; endforeach; ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Joint Gross Monthly Income must atleast be
+              
+              PHP <? if($this->countSpoCo($this->capno) > 0 ){ 
+			  echo "50,000";
+			  } else { echo "30,000"; }
+			  ?> </td>
+            <td bgcolor="#FFFFCC">Php
+              <?=number_format($this->totalcombinedincome,2)?></td>
+            <td><?=$this->viewDevWithin('totalcombine',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_totalcombine?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Gross Monthly Income Ratio within
+              
+              :30 %</td>
+            <td bgcolor="#FFFFCC"><?//=number_format((($this->total_installment_cbc + $this->row->monthly_amortization +  $this->total_installment_others)/$this->totalcombinedincome) * 100,2)?>
+              <?=$this->row->gmi_ratio?>              %</td>
+            <td><?=$this->viewDevWithin('gmi',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_gmi?>
+            </strong></td>
+          </tr>
+          <? if($this->chkEmpBus($this->row->capno,'emp') > 0) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Borrower:<strong> Employed</strong> At least 2 years uniterrupted employment</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewTotalEmpYrs($this->capno)?> year/s</td>
+            <td><?=$this->viewDevWithin2('empyrs',$this->capno)?></td>
+            <td><strong>
+              <?=$this->remark->remarks_employment_yrs?>
+            </strong></td>
+          </tr>
+<? } ?>
+            <?php $counter = 1; foreach($this->empdetail as $empdetails) :?>
+          <tr>
+            <td></td>
+            <td>&nbsp;</td>
+            <td>Borrower:<strong> Employed</strong> Permanent/Regular Status</td>
+            <? if ($empdetails->employer == "Remittance") { ?>
+            <td bgcolor="#FFFFCC"></td>
+            <td><b>NO</b></td>
+            <? } else { ?>
+            <td bgcolor="#FFFFCC"><?=$this->viewEmpStatus($empdetails->emp_status)?></td>
+            <td><? if($this->viewEmpStatus($empdetails->emp_status) != "Permanent") { 
+			echo "<b>NO</b>"; } else { echo "YES"; }?></td>
+            <? } //end of if remittance deviation is no ?>
+            <td rowspan="<?=$this->countEmp?>"><strong>
+              <? if($counter==1){ echo $this->remark->remarks_employment_status; }?>
+            </strong></td>
+          </tr>
+          <?php $counter++; endforeach; ?>
+          <?php $counter=1; foreach($this->busdetail as $busdetails) :?> 
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Borrower:<strong> Business</strong> At least 2
+              
+            years</td>
+            <td bgcolor="#FFFFCC"><?=$busdetails->bus_yrs?>
+            years</td>
+            <td><? if($busdetails->bus_yrs < 2) { echo "<b>NO</b>"; } else { echo "YES";}?></td>
+            <td rowspan="<?=$this->countBus?>"><strong>
+              <? if($counter==1){ echo $this->remark->remarks_business_yrs; }?>
+            </strong></td>
+          </tr>
+         <?php $counter++; endforeach; ?>
+
+		
+         <?php $counter=1; foreach($this->detail as $Spousedetails) :?>    
+         
+         <? if($this->chkEmpBus($Spousedetails->capno,'emp') > 0) { ?>
+<tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>Spouse <?=$counter?>:<strong> Employed</strong> At least 2 years uniterrupted employment</td>
+              <td bgcolor="#FFFFCC"><?=$this->viewTotalEmpYrs($Spousedetails->capno)?>                years</td>
+              <td><?=$this->viewDevWithin2('empyrs',$Spousedetails->capno)?></td>
+              <td rowspan="<?=$this->countSp?>"><strong>
+              <?=$this->remark->remarks_spoemployment_yrs?>
+              </strong></td>
+          </tr>
+          <? } ?>
+          <?php foreach($this->listEmpBus($Spousedetails->capno,'emp') as $empdetail_sps) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Spouse &nbsp; &nbsp;<strong>Employed</strong> Permanent/Regular Status</td>
+            <td bgcolor="#FFFFCC"><?=$this ->viewEmpStatus($empdetail_sps->emp_status)?></td>
+            <td><? if($this->viewEmpStatus($empdetail_sps->emp_status) != "Permanent") { 
+			echo "<b>NO</b>"; } else { echo "YES"; }
+			
+			?></td>
+            <td rowspan="<?=$this->countSpEmp?>"><strong>
+           <?=$this->remark->remarks_spoemployment_status?>
+            </strong></td>
+          </tr>
+          <?php endforeach; ?>
+    <?php foreach($this->listEmpBus($Spousedetails->capno,'bus') as $busdetail_sps) :?><tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Spouse:<strong> &nbsp;&nbsp; Business</strong> At least 2 Years</td>
+             <td bgcolor="#FFFFCC"><?=$busdetail_sps->bus_yrs?> 
+             years</td>
+             <td><? if($busdetail_sps->bus_yrs < 2) { echo "<b>NO</b>"; } else { echo "YES";}?></td>
+             <td rowspan="<?=$this->countSpBus?>"><strong>
+              <?=$this->remark->remarks_spobusiness_yrs?>
+             </strong></td>
+          </tr>
+          <?php endforeach; //End of Business Spouse ?>
+          <?php $counter++; endforeach; // End of SpouseDetails For EAch ?>
+          
+          
+  		<?php $counter=1; foreach($this->detail4 as $Coborrowerdetails) :?>    
+        <? if($this->chkEmpBus($Coborrowerdetails->capno,'emp') > 0) { ?>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Coborrower
+              <?=$counter?>: <strong>Employed</strong>  At least
+              2 years uniterrupted employment</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewTotalEmpYrs($Coborrowerdetails->capno)?>              years</td>
+            <td><?=$this->viewDevWithin2('empyrs',$Coborrowerdetails->capno)?></td>
+            <td rowspan="<?=$this->countCoEmp?>"><strong>
+              <? if($counter==1){ echo $this->remark->remarks_coemployment_yrs; }?>
+            </strong></td>
+          </tr>
+          <? } ?>
+         <?php $counter++; endforeach; ?>
+<?php $counter=1; $count = count($this->detail4); foreach($this->detail4 as $Coborrowerdetails) :?>    
+           <?php $counterx=1; foreach($this->listEmpBus($Coborrowerdetails->capno,'emp') as $empdetail_cbs) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Coborrower
+              <?=$counter?> <?=$counterx?> 
+            Employed Permanent/Regular Status </td>
+            <td bgcolor="#FFFFCC"><?=$this->viewEmpStatus($empdetail_cbs->emp_status)?></td>
+            <td><? if($this->viewEmpStatus($empdetail_cbs->emp_status) != "Permanent") { 
+			echo "<b>NO</b>"; } else { echo "YES"; }
+			
+			?></td>
+            <td rowspan="<?=$this->countCoEmp?>"><strong><? if($counter==1) { echo $this->remark->remarks_coemployment_status; }?>
+            </strong></td>
+          </tr>
+         <?php $counterx++; 1;endforeach; ?>
+         <?php $counter++; endforeach; ?>
+         
+         <?php $counter=1; foreach($this->detail4 as $Coborrowerdetails) :?>   
+         <?php $counterx=1; foreach($this->listEmpBus($Coborrowerdetails->capno,'bus') as $busdetail_cbs) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Coborrower
+              <?=$counter?>
+              &nbsp;Business 
+              <?=$counterx?> 
+             At least 2 years            </td>
+            <td bgcolor="#FFFFCC"><?=$busdetail_cbs->bus_yrs?> years</td>
+            <td><? if($busdetail_cbs->bus_yrs < 2) { echo "<b>NO</b>"; } else { echo "YES";}?></td>
+            <td rowspan="<?=$this->countCoBus?>"><strong><? if($counter==1) { echo $this->remark->remarks_cobusiness_yrs; }?></strong> </td>
+          </tr>
+         <?php $counterx++; 1;endforeach; ?>
+         <?php $counter++; endforeach; ?>
+         <!--
+         <? // if($this->remark->remarks_total_income) {?>
+          <tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Borrower : No Source of Income Spouse/Coborrower will Pay</td>
+            <td bgcolor="#FFFFCC">P0.00</td>
+            <td><b>NO</b></td>
+            <td><strong>
+              <? // $this->remark->remarks_total_income?>
+            </strong></td>
+          </tr>
+          <? // } ?>
+          -->
+        <? if($this->remark->remarks_cototal_income) {?>
+
+          <tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Coborrower : No Source of Income</td>
+             <td bgcolor="#FFFFCC">P0.00</td>
+             <td><b>NO</b></td>
+             <td><strong>
+               <?=$this->remark->remarks_cototal_income?>
+             </strong></td>
+          </tr>
+         <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td> NFIS within guideline.</td>
+            <td bgcolor="#FFFFCC"><?   
+				 
+			   foreach ($this->allcvDetail as $arr) {
+				if ($arr->nfis == 'Positive'){
+				$crawnfis_positive = 'Positive';	
+				}
+
+			  	} //end foreach 1
+  
+			  
+			 if ($crawnfis_positive != 'Positive'){
+		  		$f = 10;
+				foreach ($this->allcvDetail as $arr2) {
+				if($arr2->nfis){
+				if($this->viewNfis($arr2->nfis) < $f){
+				$crawnfis_other = $arr2->nfis;
+				$f = $this->viewNfis($arr2->nfis);
+				}
+				}
+				}//end for each 2
+
+
+				echo $crawnfis_other;
+				}
+			else{
+			  echo $crawnfis_positive;
+			}
+			  ?></td>
+            <td><?
+         if($crawnfis_positive == 'Positive'){
+			echo "<b>NO</b>";
+			}else {
+			echo "YES";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_nfis?>
+              <?=$this->remark->remarks_spnfis?>
+              <?=$this->remark->remarks_confis?>
+              <?=stripslashes($this->cvdetail->remarks_nfis)?>
+            </strong></td>
+          </tr>
+          <tr>
+          <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td> CMAP within guideline.</td>
+            <td bgcolor="#FFFFCC"><?   
+				 
+			   foreach ($this->allcvDetail as $arr) {
+				if ($arr->cmap == 'Positive'){
+				$crawcmap_positive = 'Positive';	
+				}
+
+			  	} //end foreach 1
+  
+			  
+			 if ($crawcmap_positive != 'Positive'){
+		  		$f = 10;
+				foreach ($this->allcvDetail as $arr2) {
+				if($arr2->cmap){
+				if($this->viewCmap($arr2->cmap) < $f){
+				$crawcmap_other = $arr2->cmap;
+				$f = $this->viewCmap($arr2->cmap);
+				}
+				}
+				}//end for each 2
+
+
+				echo $crawcmap_other;
+				}
+			else{
+			  echo $crawcmap_positive;
+			}
+			  ?></td>
+            <td><?
+         if($crawcmap_positive == 'Positive'){
+			echo "<b>NO</b>";
+			}else {
+			echo "YES";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_cmap?>
+              <?=$this->remark->remarks_spcmap?>
+              <?=$this->remark->remarks_cocmap?>
+              <?=stripslashes($this->cvdetail->remarks_cmap)?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>NFIS &amp; CMAP check on Borrower, Coborrower, Authorized Signatory (w/in 1 mo.)</td>
+            <td bgcolor="#FFFFCC"><?
+			foreach($this->allcvDetail as $cv){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->row->submitted_co_date)), date('Y-m-d',strtotime($cv->date_nfis)));
+			if($cv->date_nfis != ''){
+			$daysArrcv['days'][] = $daysnum;				
+			$daysArrcv['date'][] = $cv->date_nfis;				
+			} 	}
+			$count = count($daysArrcv);
+			if($count > 0){
+			$max =  max($daysArrcv['days']);
+			//Search the key of the highest days
+			$key = array_search($max, $daysArrcv['days']);
+			echo $daysArrcv['date'][$key];
+			echo ' '.$max.' day/s';
+			if($max > 30){
+
+			$devcvdate = "<b>NO</b>";
+			}else {
+			$devcvdate = "YES";
+			} } 
+			else {
+			echo "No NFIS Available";		
+			}
+ ?></td>
+            <td><?=$devcvdate?>
+            </td>
+            <td><strong>
+              <?=$this->remark->remarks_nfis_check?>
+              <?=$this->remark->remarks_spnfis_check?>
+              <?=$this->remark->remarks_confis_check?>
+            </strong></td> 
+          </tr>
+          <!--
+          <tr>
+          <td>&nbsp;</td>
+          <td></td>
+          <td>Satisfactory experience on all past and outstanding loan.</td>
+          <td>
+          <? /*$arrCi[] = $this->remark->values_ci_favorable;
+			  $arrCi[] = $this->remark->values_spci_favorable;
+			  $arrCi[] = $this->remark->values_coci_favorable;
+			  $crawci_favorable = 'Favorable';
+			  foreach ($arrCi as $arr) {
+
+				if ($arr == 'Unfavorable'){
+				$crawci_favorable = 'Unfavorable';	
+				}
+
+			  } 
+			  echo $crawci_favorable;
+			  */?>
+          </td>
+          -->
+          <td></td>
+          <td></td>
+          </tr>
+          <tr>
+            <td height="28">&nbsp;</td>
+            <td> <center><a onclick="showcvci();"> +</a> </center></td>
+            <td>Favorable CI Report and satisfactory experience on all past and outstanding loan.</td>
+            <td><? $arrCi[] = $this->remark->values_ci_favorable;
+			  $arrCi[] = $this->remark->values_spci_favorable;
+			  $arrCi[] = $this->remark->values_coci_favorable;
+			  $crawci_favorable = 'Favorable';
+			  foreach ($arrCi as $arr) {
+
+				if ($arr == 'Unfavorable'){
+				$crawci_favorable = 'Unfavorable';	
+				}
+
+			  } 
+			  echo $crawci_favorable;
+			  ?></td>
+            <td><?
+       
+			if($crawci_favorable == 'Favorable'){
+			echo "YES";	
+			}else {
+			echo "<b>NO</b>";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_ci_favorable?>
+              <?=$this->remark->remarks_spci_favorable?>
+              <?=$this->remark->remarks_coci_favorable?>
+            </strong></td>
+          </tr>
+			
+          <tbody style="display:none" id="hidecvci">
+          <? if($this->viewCrawCI('emp',$this->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Principal 
+              <?=$this->row->borrower_lname.', '.$this->row->borrower_fname?>
+            - Employment Verification </td>
+            <td colspan="3">CV - <?=$this->viewCrawCiCvRemarks('emp',$this->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('emp',$this->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+           <? if($this->viewCrawCI('bus',$this->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Principal 
+              <?=$this->row->borrower_lname.', '.$this->row->borrower_fname?>
+- Business Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          
+           <? if($this->viewCrawCI('trade',$this->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Principal 
+              <?=$this->row->borrower_lname.', '.$this->row->borrower_fname?>
+- Trade Checking</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+         <? if($this->viewCrawCI('background',$this->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Principal 
+              <?=$this->row->borrower_lname.', '.$this->row->borrower_fname?>
+- Background Investigation</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->capno,'ci')?></td>
+          </tr>
+           <? } ?>
+           <? if($this->viewCrawCI('income',$this->capno)) { ?>
+
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Principal 
+              <?=$this->row->borrower_lname.', '.$this->row->borrower_fname?>
+- Income Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          <?php foreach($this->detail as $Spousedetails) { ?>
+ <? if($this->viewCrawCI('emp',$Spousedetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse <?=$Spousedetails->borrower_lname.', '.$Spousedetails->borrower_fname?> - Employment Verification </td>
+            <td colspan="3">CV - <?=$this->viewCrawCiCvRemarks('emp',$Spousedetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('emp',$Spousedetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+           <? if($this->viewCrawCI('bus',$Spousedetails->capno)) { $countsp = 0; ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse 
+              <?=$Spousedetails->borrower_lname.', '.$Spousedetails->borrower_fname?>
+            - Business Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('bus',$Spousedetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('bus',$Spousedetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          
+           <? if($this->viewCrawCI('trade',$Spousedetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse 
+              <?=$Spousedetails->borrower_lname.', '.$Spousedetails->borrower_fname?>
+            - Trade Checking</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('trade',$Spousedetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('trade',$Spousedetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+         <? if($this->viewCrawCI('background',$Spousedetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse 
+              <?=$Spousedetails->borrower_lname.', '.$Spousedetails->borrower_fname?>
+            - Background Investigation</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('background',$Spousedetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('background',$Spousedetails->capno,'ci')?></td>
+          </tr>
+           <? } ?>
+           <? if($this->viewCrawCI('income',$Spousedetails->capno)) { ?>
+
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spouse 
+              <?=$Spousedetails->borrower_lname.', '.$Spousedetails->borrower_fname?>
+            - Income Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('income',$Spousedetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('income',$Spousedetails->capno,'ci')?></td>
+          </tr>
+          <? $countsp++;} }?>
+          <?php foreach($this->detail4 as $Coborrowerdetails) { ?>
+ <? if($this->viewCrawCI('emp',$Coborrowerdetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coborrower <?=$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?>
+- Employment Verification </td>
+            <td colspan="3">CV - <?=$this->viewCrawCiCvRemarks('emp',$Coborrowerdetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('emp',$Coborrowerdetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+           <? if($this->viewCrawCI('bus',$Coborrowerdetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coborrower 
+              <?=$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?>
+- Business Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('bus',$Coborrowerdetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('bus',$Coborrowerdetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          
+           <? if($this->viewCrawCI('trade',$Coborrowerdetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coborrower 
+              <?=$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?>
+- Trade Checking</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('trade',$Coborrowerdetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('trade',$Coborrowerdetails->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+         <? if($this->viewCrawCI('background',$Coborrowerdetails->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coborrower 
+              <?=$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?>
+- Background Investigation</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('background',$Coborrowerdetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('background',$Coborrowerdetails->capno,'ci')?></td>
+          </tr>
+           <? } ?>
+           <? if($this->viewCrawCI('income',$Coborrowerdetails->capno)) { ?>
+
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coborrower <?=$Coborrowerdetails->borrower_lname.', '.$Coborrowerdetails->borrower_fname?>
+            - Income Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('income',$Coborrowerdetails->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('income',$Coborrowerdetails->capno,'ci')?></td>
+          </tr>
+          <? } }?>
+		  </tbody>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Credit Investigation on file not more than 3 months.</td>
+            <td bgcolor="#FFFFCC">
+            <?
+			foreach($this->allciDetail as $ci){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->row->submitted_co_date)), date('Y-m-d',strtotime($ci->date_ci)));
+			if($ci->date_ci != ''){
+			$daysArrci['days'][] = $daysnum;				
+			$daysArrci['date'][] = $ci->date_ci;				
+			} 	}
+			$count = count($daysArrci);
+			
+			if($count > 0){
+			$max =  max($daysArrci['days']);
+			//Search the key of the highest days
+			
+			$key = array_search($max, $daysArrci['days']);
+			echo $daysArrci['date'][$key];
+			if($max > 90){
+			$devcidate = "<b>NO</b>";
+			}else {
+			$devcidate = "YES";
+			} }
+			else {
+			echo "No CI Report Available";		
+			$devcidate = "<b>NO</b>";		
+			}
+			
+				
+
+ ?></td>
+            <td><?=$devcidate?></td>
+            <td><strong>
+              <?=$this->remark->remarks_ci_check?>
+              <?=$this->remark->remarks_spci_check?>
+              <?=$this->remark->remarks_coci_check?>
+            </strong></td>
+          </tr>
+ <!--Comaker Section -->
+   <? if($this->comakerDetail) { ?>
+            <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td> Co-Maker Citizenship</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewCitizenship($this->comakerDetail->citizenship)?></td>
+            <td><?=$this->viewDevWithin2('citizenship',$this->comakerDetail->capno)?></td>
+            <td><strong><?=$this->comaker_remark->remarks_citizenship1?></strong></td>
+          </tr>
+          
+          
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker: Age is between 21 to 65</td>
+            <td bgcolor="#FFFFCC"><?=$this->comakerDetail->age+($this->row->loanterm/12)?></td>
+            <td><?=$this->viewDevWithin2('age',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_borrower_age?>
+            </strong></td>
+          </tr>
+			<?
+			if($this->comakerspDetail){
+            $arrComakerRes[] = $this->comakerspDetail->residence_yrs + ($this->comakerspDetail->residence_months / 12);
+            $arrRes[] = 0;
+            $prinComakerRes = number_format($this->comakerDetail->residence_yrs + ($this->comakerDetail->residence_months / 12),2);   
+	 if ($prinComakerRes <= max($arrComakerRes)) { ?>   	
+          <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Co-Maker):<strong>
+            <?=$this->viewResidenceType($this->comakerDetail->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($this->comakerDetail->residence_yrs + ($this->comakerDetail->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_residence_yrs?>
+            </strong></td>
+          </tr>
+  		  <? } // end of Higher Principal Lenght of Stay 
+		  else { 
+		  ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Co-Maker Spouse):<strong>
+            <?=$this->viewResidenceType($this->comakerspDetail->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($this->comakerspDetail->residence_yrs + ($this->comakerspDetail->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$this->comakerspDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_sporesidence_yrs?>
+            </strong></td>
+          </tr>
+          <? } }// end of if spouse exist 
+		  else { ?>
+                    <tr>
+            <td>&nbsp;</td>
+            <td></td>
+            <td>Residence (Co-Maker):<strong>
+            <?=$this->viewResidenceType($this->comakerDetail->residence_type)?>
+            </strong> at least 2 yrs at present address</td>
+            <td bgcolor="#FFFFCC"><?=number_format($this->comakerDetail->residence_yrs + ($this->comakerDetail->residence_months / 12),2)?> year/s</td>
+            <td><?=$this->viewDevWithin2('residence',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_residence_yrs?>
+            </strong></td>
+          </tr>
+          
+          <? } //end of res check ?>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker Joint Gross Monthly Income must atleast be
+              
+              PHP <? if($this->countSpoCo($this->comakerDetail->capno) > 0 ){ 
+			  echo "50,000";
+			  } else { echo "30,000"; }
+			  ?> </td>
+            <td bgcolor="#FFFFCC">Php
+              <?=number_format($this->comakertotalcombine,2)?></td>
+            <td><?=$this->viewDevWithin('totalcombine',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_totalcombine?>
+            </strong></td>
+          </tr>        
+           <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker Gross Monthly Income Ratio within :30 %</td>
+            <td bgcolor="#FFFFCC"><?//=number_format((($this->total_installment_cbc + $this->row->monthly_amortization +  $this->total_installment_others)/$this->totalcombinedincome) * 100,2)?>
+              <?=$this->comakerDetail->gmi_ratio?>              %</td>
+            <td><?=$this->viewDevWithin('gmi',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_gmi?>
+            </strong></td>
+          </tr>
+          
+            <? if($this->chkEmpBus($this->comakerDetail->capno,'emp') > 0) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker:<strong> Employed</strong> At least 2 years uniterrupted employment</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewTotalEmpYrs($this->comakerDetail->capno)?> year/s</td>
+            <td><?=$this->viewDevWithin2('empyrs',$this->comakerDetail->capno)?></td>
+            <td><strong>
+              <?=stripslashes($this->comaker_remark->remarks_employment_yrs)?>
+            </strong></td>
+          </tr>
+			<? } ?>
+            
+      <?php $count=0; foreach($this->listEmpBus($this->comakerDetail->capno,'emp') as $empdetail_sps) :?>
+ <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker:<strong> Employed</strong> Permanent/Regular Status</td>
+            <? if ($empdetail_sps->employer == "Remittance") { ?>
+            <td bgcolor="#FFFFCC"></td>
+            <td><b>NO</b></td>
+            <? } else { ?>
+            <td bgcolor="#FFFFCC"><?=$this->viewEmpStatus($empdetail_sps->emp_status)?></td>
+            <td><? if($this->viewEmpStatus($empdetail_sps->emp_status) != "Permanent") { 
+			echo "<b>NO</b>"; } else { echo "YES"; }?></td>
+            <? } //end of if remittance deviation is no ?>
+            <td rowspan="<?=$this->listEmpBus($this->comakerDetail->capno,'empcount')?>"><strong>
+              <? if($counter==1){ echo $this->comaker_remark->remarks_employment_status; }?>
+            </strong></td>
+          </tr>
+      <?php $counter++; endforeach; //End for each emp Spouse ?>
+
+          <?php foreach($this->listEmpBus($this->comakerDetail->capno,'bus') as $busdetail_sps) :?><tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Co-Maker:<strong> Business</strong> At least 2 Years</td>
+             <td bgcolor="#FFFFCC"><?=$busdetail_sps->bus_yrs?> 
+             year/s</td>
+             <td><? if($busdetail_sps->bus_yrs < 2) { echo "<b>NO</b>"; } else { echo "YES";}?></td>
+            <td rowspan="<?=$this->listEmpBus($this->comakerDetail->capno,'buscount')?>"><strong>
+              <?=$this->comaker_remark->remarks_business_yrs?>
+             </strong></td>
+          </tr>
+          <?php endforeach; //End of Business Spouse ?>
+          
+           <? if($this->comakerspDetail) { ?>
+            <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td> Co-Maker Spouse Citizenship</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewCitizenship($this->comakerspDetail->citizenship)?></td>
+            <td><?=$this->viewDevWithin2('citizenship',$this->comakerspDetail->capno)?></td>
+            <td><strong><?=$this->comaker_remark->remarks_spocitizenship?></strong></td>
+          </tr>
+           <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker Spouse: Age is between 21 to 65</td>
+            <td bgcolor="#FFFFCC"><?=$this->comakerspDetail->age+($this->row->loanterm/12)?></td>
+            <td><?=$this->viewDevWithin2('age',$this->comakerspDetail->capno)?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_borrower_age?>
+            </strong></td>
+          </tr>
+
+          
+        <? if($this->chkEmpBus($this->comakerspDetail->capno,'emp') > 0) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker Spouse:<strong> Employed</strong> At least 2 years uniterrupted employment</td>
+            <td bgcolor="#FFFFCC"><?=$this->viewTotalEmpYrs($this->comakerspDetail->capno)?> year/s</td>
+            <td><?=$this->viewDevWithin2('empyrs',$this->comakerspDetail->capno)?></td>
+            <td><strong>
+              <?=stripslashes($this->comaker_remark->remarks_spoemployment_yrs)?>
+            </strong></td>
+          </tr>
+			<? } ?>
+          
+          <?php foreach($this->listEmpBus($this->comakerspDetail->capno,'emp') as $empdetail_sps) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker Spouse&nbsp;<strong>Employed</strong> Permanent/Regular Status</td>
+
+            <td bgcolor="#FFFFCC"><?=$this ->viewEmpStatus($empdetail_sps->emp_status)?></td>
+            
+            <td><? if($this->viewEmpStatus($empdetail_sps->emp_status) != "Permanent") { 
+			echo "<b>NO</b>"; } else { echo "YES"; }
+			
+			?></td>
+            <td rowspan="rowspan="<?=$this->listEmpBus($this->comakerspDetail->capno,'empcount')?>""><strong>
+           <?=$this->comaker_remark->remarks_spoemployment_status?>
+            </strong></td>
+          </tr>
+          <?php endforeach; ?>
+          
+           <?php foreach($this->listEmpBus($this->comakerspDetail->capno,'bus') as $busdetail_sps) :?><tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Co-Maker Spouse :<strong> Business</strong> At least 2 Years</td>
+             <td bgcolor="#FFFFCC"><?=$busdetail_sps->bus_yrs?> 
+             year/s</td>
+             <td><? if($busdetail_sps->bus_yrs < 2) { echo "<b>NO</b>"; } else { echo "YES";}?></td>
+             <td rowspan="<?=$this->listEmpBus($this->comakerspDetail->capno,'buscount')?>"><strong>
+              <?=$this->comaker_remark->remarks_spobusiness_yrs?>
+             </strong></td>
+          </tr>
+          <?php endforeach; //End of Business Spouse ?>
+          
+          <? } // end of Co-Maker Spouse ?>
+             <? if($this->comaker_remark->remarks_total_income) {?>
+          <tr>
+             <td>&nbsp;</td>
+             <td>&nbsp;</td>
+             <td>Co-Maker No Source of Income</td>
+            <td bgcolor="#FFFFCC">P0.00</td>
+            <td><b>NO</b></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_total_income?>
+            </strong></td>
+          </tr>
+          <? } ?>
+           <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Co-Maker NFIS within guideline.</td>
+            <td bgcolor="#FFFFCC"><?   
+				 
+			   foreach ($this->comakerallcvDetail as $arr) {
+				if ($arr->nfis == 'Positive'){
+				$crawnfis_positive = 'Positive';	
+				}
+
+			  	} //end foreach 1
+  
+			  
+			 if ($crawnfis_positive != 'Positive'){
+		  		$f = 10;
+				foreach ($this->comakerallcvDetail as $arr2) {
+				if($arr2->nfis){
+				if($this->viewNfis($arr2->nfis) < $f){
+				$crawnfis_other = $arr2->nfis;
+				$f = $this->viewNfis($arr2->nfis);
+				}
+				}
+				}//end for each 2
+
+
+				echo $crawnfis_other;
+				}
+			else{
+			  echo $crawnfis_positive;
+			}
+			  ?></td>
+            <td><?
+         if($crawnfis_positive == 'Positive'){
+			echo "<b>NO</b>";
+			}else {
+			echo "YES";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_nfis?>
+              <?=$this->comaker_remark->remarks_spnfis?>
+              <?=$this->comaker_remark->remarks_confis?>
+              <?=stripslashes($this->comakercvdetail->remarks_nfis)?>
+            </strong></td>
+          </tr>
+          
+          <tr>
+          <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Comaker CMAP within guideline.</td>
+            <td bgcolor="#FFFFCC"><?   
+				 
+			   foreach ($this->comakerallcvDetail as $arr) {
+				if ($arr->cmap == 'Positive'){
+				$crawcmap_positive = 'Positive';	
+				}
+
+			  	} //end foreach 1
+  
+			  
+			 if ($crawcmap_positive != 'Positive'){
+		  		$f = 10;
+				foreach ($this->comakerallcvDetail as $arr2) {
+				if($arr2->cmap){
+				if($this->viewCmap($arr2->cmap) < $f){
+				$crawcmap_other = $arr2->cmap;
+				$f = $this->viewCmap($arr2->cmap);
+				}
+				}
+				}//end for each 2
+
+
+				echo $crawcmap_other;
+				}
+			else{
+			  echo $crawcmap_positive;
+			}
+			  ?></td>
+            <td><?
+         if($crawcmap_positive == 'Positive'){
+			echo "<b>NO</b>";
+			}else {
+			echo "YES";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_cmap?>
+              <?=$this->comaker_remark->remarks_spcmap?>
+              <?=$this->comaker_remark->remarks_cocmap?>
+              <?=stripslashes($this->comakercvdetail->remarks_cmap)?>
+            </strong></td>
+          </tr>
+          
+           <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>NFIS check on Co-Maker Authorized Signatory (w/in 1 mo.)</td>
+            <td bgcolor="#FFFFCC"><?
+			foreach($this->comakerallcvDetail as $cv){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->comakerDetail->submitted_co_date)), date('Y-m-d',strtotime($cv->date_nfis)));
+
+			if($cv->date_nfis != ''){
+			$daysComakerArrcv['days'][] = $daysnum;				
+			$daysComakerArrcv['date'][] = $cv->date_nfis;				
+			} 	}
+			$count = count($daysComakerArrcv);
+			if($count > 0){
+			$max =  max($daysComakerArrcv['days']);
+			//Search the key of the highest days
+			$key = array_search($max, $daysComakerArrcv['days']);
+			echo $daysComakerArrcv['date'][$key];
+			echo ' '.$max.' day/s';
+			if($max > 30){
+			$devcvdate = "<b>NO</b>";
+			}else {
+			$devcvdate = "YES";
+			} } 
+			else {
+			echo "No NFIS Available";		
+			}
+ ?></td>
+            <td><?=$devcvdate?>
+            </td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_nfis_check?>
+              <?=$this->comaker_remark->remarks_spnfis_check?>
+              <?=$this->comaker_remark->remarks_confis_check?>
+            </strong></td> 
+          </tr>
+          
+          <tr>
+      <td height="28">&nbsp;</td>
+            <td><center><a onclick="showcomakercvci();"> +</a> </center></td>
+            <td>Co-Maker Favorable CI Report and satisfactory experience on all past and outstanding loan.</td>
+            <td><? $arrCi[] = $this->comaker_remark->values_ci_favorable;
+			  $arrCi[] = $this->comaker_remark->values_spci_favorable;
+			  $arrCi[] = $this->comaker_remark->values_coci_favorable;
+			  $crawci_favorable = 'Favorable';
+			  foreach ($arrCi as $arr) {
+				//echo  $arr;
+				if ($arr == 'Unfavorable'){
+				$crawci_favorable = 'Unfavorable';	
+				}
+
+			  } 
+			  echo $crawci_favorable;
+			  ?></td>
+            <td><?
+       
+			if($crawci_favorable == 'Favorable'){
+			echo "YES";	
+			}else {
+			echo "<b>NO</b>";	
+			}
+			
+			?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_ci_favorable?>
+              <?=$this->comaker_remark->remarks_spci_favorable?>
+              <?=$this->comaker_remark->remarks_coci_favorable?>
+            </strong></td>
+          </tr>
+           <tbody style="display:none" id="hidecomakercvci">
+          <? if($this->viewCrawCI('emp',$this->comakerDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker 
+              <?=$this->comakerDetail->borrower_lname.', '.$this->comakerDetail->borrower_fname?>
+            - Employment Verification </td>
+            <td colspan="3">CV - <?=$this->viewCrawCiCvRemarks('emp',$this->comakerDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('emp',$this->comakerDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+           <? if($this->viewCrawCI('bus',$this->comakerDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker 
+              <?=$this->comakerDetail->borrower_lname.', '.$this->comakerDetail->borrower_fname?>
+- Business Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->comakerDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->comakerDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          
+           <? if($this->viewCrawCI('trade',$this->comakerDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker 
+              <?=$this->comakerDetail->borrower_lname.', '.$this->comakerDetail->borrower_fname?>
+- Trade Checking</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->comakerDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->comakerDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+         <? if($this->viewCrawCI('background',$this->comakerDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker 
+              <?=$this->comakerDetail->borrower_lname.', '.$this->comakerDetail->borrower_fname?>
+- Background Investigation</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->comakerDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->comakerDetail->capno,'ci')?></td>
+          </tr>
+           <? } ?>
+           <? if($this->viewCrawCI('income',$this->comakerDetail->capno)) { ?>
+
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker 
+              <?=$this->comakerDetail->borrower_lname.', '.$this->comakerDetail->borrower_fname?>
+- Income Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->comakerDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->comakerDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+          <? if($this->comakerspDetail->capno) { ?>
+           <? if($this->viewCrawCI('emp',$this->comakerspDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker Spouse
+              <?=$this->comakerspDetail->borrower_lname.', '.$this->comakerspDetail->borrower_fname?>
+            - Employment Verification </td>
+            <td colspan="3">CV - <?=$this->viewCrawCiCvRemarks('emp',$this->comakerspDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('emp',$this->comakerspDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+
+  <? if($this->viewCrawCI('bus',$this->comakerspDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker Spouse
+              <?=$this->comakerspDetail->borrower_lname.', '.$this->comakerspDetail->borrower_fname?>
+- Business Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->comakerspDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('bus',$this->comakerspDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+<? if($this->viewCrawCI('trade',$this->comakerspDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker Spouse
+              <?=$this->comakerspDetail->borrower_lname.', '.$this->comakerspDetail->borrower_fname?>
+- Trade Checking</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->comakerspDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('trade',$this->comakerspDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>
+ <? if($this->viewCrawCI('background',$this->comakerspDetail->capno)) { ?>
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker Spouse
+              <?=$this->comakerspDetail->borrower_lname.', '.$this->comakerspDetail->borrower_fname?>
+- Background Investigation</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->comakerspDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('background',$this->comakerspDetail->capno,'ci')?></td>
+          </tr>
+           <? } ?>
+ <? if($this->viewCrawCI('income',$this->comakerspDetail->capno)) { ?>
+
+          <tr>
+            <td height="28" rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;</td>
+            <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Co-Maker Spouse
+              <?=$this->comakerspDetail->borrower_lname.', '.$this->comakerspDetail->borrower_fname?>
+- Income Verification</td>
+            <td colspan="3">CV - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->comakerspDetail->capno,'cv')?></td>
+          </tr>
+          <tr>
+            <td colspan="3">CI - 
+            <?=$this->viewCrawCiCvRemarks('income',$this->comakerspDetail->capno,'ci')?></td>
+          </tr>
+          <? } ?>          
+		  <? } ?>
+          </tbody>  
+          
+          <tr>
+          <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Comaker - Credit Investigation on file not more than 3 months.</td>
+            <td bgcolor="#FFFFCC">
+            <?
+			foreach($this->allcomakerciDetail as $ci){
+			$daysnum = $this->daysDifference(date('Y-m-d',strtotime($this->comakerDetail->submitted_co_date)), date('Y-m-d',strtotime($ci->date_ci)));
+			if($ci->date_ci != ''){
+			$daysComakerArrci['days'][] = $daysnum;				
+			$daysComakerArrci['date'][] = $ci->date_ci;				
+			} 	}
+			$count = count($daysComakerArrci);
+			
+			if($count > 0){
+			$max =  max($daysComakerArrci['days']);
+			//Search the key of the highest days
+			
+			$key = array_search($max, $daysComakerArrci['days']);
+			echo $daysComakerArrci['date'][$key];
+			if($max > 90){
+			$devcidate = "<b>NO</b>";
+			}else {
+			$devcidate = "YES";
+			} }
+			else {
+			echo "No CI Report Available";		
+			$devcidate = "<b>NO</b>";		
+			}
+			
+				
+
+ ?></td>
+            <td><?=$devcidate?></td>
+            <td><strong>
+              <?=$this->comaker_remark->remarks_ci_check?>
+              <?=$this->comaker_remark->remarks_spci_check?>
+              <?=$this->comaker_remark->remarks_coci_check?>
+            </strong></td>           
+  
+      </tr>
+
+     <? } //end of comaker ?>
+ <!-- End of Comaker Section -->         
+          
+          
+          
+          <tr>
+            <td>&nbsp;</td>
+            <td>B.</td>
+            <td><a href="#">Terms and Collateral</a></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Purpose is within guideline (i.e. Acquisition, Refinancing, Reimbursement)</td>
+            <td bgcolor="#FFFFCC"><?=$this->row->loan_purpose?></td>
+            <td><? if($this->row->loan_purpose == 'Others' || $this->row->loan_purpose == 'Restructure'){ 
+				echo "<b>NO</b>";}
+				else { echo "YES"; }?></td>
+            <td><strong>
+              <?=$this->remark->remarks_loan_purpose ?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Within minimum loanable value of PHP 
+              250,000.</td>
+            <td rowspan="2" bgcolor="#FFFFCC">Php              <?=number_format($this->row->amountloan,2)?></td>
+            <td><?
+            if($this->row->amountloan > 250000){
+			echo "YES";
+			}else{
+			echo "<b>NO</b>";	
+			}
+			
+			
+			?></td>
+            <td rowspan="2"><strong>
+              <?=$this->remark->remarks_loan_amount?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Within maximum loanable value of PHP 
+              4M.</td>
+            <td><?
+       		 if($this->row->amountloan <= 4000000){
+			echo "YES";
+			}else{
+			echo "<b>NO</b>";	
+			}	?></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Within downpayment and loan to value guideline.</td>
+            <td bgcolor="#FFFFCC"><?
+        $explode = explode('.',$this->row->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td><? 
+			$marker=0;
+			if($this->row->veh_status == 1){
+			//Brand New	
+				if($this->row->downpayment_percent < 20){ 
+				$marker  = $marker + 1;
+				//echo "<b>NO</b>";
+				}else { 
+				//echo "YES"; 
+				$marker  = $marker + 0;
+				}
+			}
+			else if($this->row->veh_status == 2){
+				if($this->row->downpayment_percent < 20 && $this->row->veh_age == 1){ 
+				//echo "<b>NO</b>";
+				$marker  = $marker + 1;
+				}
+				else if($this->row->downpayment_percent < 30 && $this->row->veh_age == 2){ 
+				//echo "<b>NO</b>";
+				$marker  = $marker + 1;
+				}
+				else if($this->row->downpayment_percent < 40 && ($this->row->veh_age == 3 || $this->row->veh_age == 4)){ 
+				//echo "<b>NO</b>";
+				$marker  = $marker + 1;
+				}
+				else {
+				//echo "YES";	
+				$marker  = $marker + 0;
+				}
+				
+
+				
+			}
+				if ($this->row->selling_price > $this->row->lcp) { 
+				//New Sept 08,2010 
+				$marker = $marker + 1;
+				}
+				
+				if($marker > 0){
+				echo "<b>NO</b>"; 	
+				}else {
+				echo "YES";	
+				}
+				//echo $marker;
+				
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_downpayment?>
+              <?=$this->remark->remarks_sell_lcp?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><a name="additional_deviation" id="additional_deviation"/></a></td>
+            <td>Make and Model is acceptable.</td>
+            <td>&nbsp;</td>
+            <td>YES</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>If used/ 2nd hand, unit should not be more than
+              
+              4 years old.</td>
+            <td bgcolor="#FFFFCC"><? if($this->row->veh_status == 2) { echo "Vehicle Age: ".$this->row->veh_age; } else {echo "NA";}?></td>
+            <td><?
+			if($this->row->veh_status == 2){
+				if($this->row->veh_age > 4){
+				echo "<b>NO</b>";
+				}
+				else { echo "YES"; }
+			}else { echo "NA"; }
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_veh_yr?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>If used/ 2nd hand, tenor should not be more than
+              
+              <? if($this->row->veh_age==1){
+				$reqTerm = 36;  
+				echo "3 years";  }
+				else if($this->row->veh_age==2){
+				$reqTerm = 24;  
+				echo "2 years";  }
+				else if($this->row->veh_age==3 || $this->row->veh_age==4){
+				$reqTerm = 12;  
+				echo "1 year";  } 
+				else{
+				$reqTerm = 36;  
+				echo "3 years";
+				}
+				  ?>.</td>
+            <td bgcolor="#FFFFCC"><? if($this->row->veh_status == 2) { echo "Loan Term: ".$this->row->loanterm; } else {echo "NA";}?></td>
+            <td><?
+			if($this->row->veh_status == 2){
+			
+				if($this->row->loanterm > $reqTerm){
+				echo "<b>NO</b>";
+				}
+				else { echo "YES"; }
+			} else { echo "NA"; }
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_veh_tenor?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>If used/ 2nd hand, with favorable car history</td>
+            <td bgcolor="#FFFFCC"><? if($this->row->veh_status == 2) { echo $this->viewCarHistory($this->row->car_history); } else {echo "NA";}?></td>
+            <td><?
+			if($this->row->veh_status == 2){
+				if($this->row->car_history == 1){
+				echo "<b>NO</b>";
+				}
+				else { echo "YES"; }
+			} else { echo "NA"; }
+			?></td>
+            <td><strong>
+              <?=$this->remark->remarks_veh_car_history?>
+            </strong></td>
+          </tr>
+          <? if($this->adddevDetail) { ?>
+          <tr>
+              <td>&nbsp;</td>
+              <td>C.</td>
+              <td><a href="#">Additional Deviations and Others</a></td>
+              <td bgcolor="#FFFFCC">&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+          </tr>
+          <? } ?>
+        	<? foreach($this->adddevDetail as $addDev){ ?>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$addDev->deviation_name?></td>
+            <td bgcolor="#FFFFCC"><?=$addDev->deviation_value?></td>
+            <td><b><?=$addDev->deviation_status?></b></td>
+            <td><?=$addDev->deviation_remarks?> <input type="button" name="button" id="button" value="Delete" onclick="javascript: if (confirm('Are you sure you want to delete this?')) window.location='<?=$this->baseUrl().'/index/deladddev/id/'.$addDev->id.'/cap/'.$this->capno?>'"/></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->deviation_type?>               <?=$this->form->deviation_name?></td>
+            <td bgcolor="#FFFFCC"><?=$this->form->deviation_value?></td>
+            <td><?=$this->form->deviation_status?></td>
+            <td><?=$this->form->deviation_remarks?></td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td></a></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><input type="submit" name="button" id="button" value="Add Deviation" /></td>
+          </tr>
+          <tr>
+
+            <td>II.</td>
+            <td colspan="2"><em><strong>DOCUMENTATION REQUIREMENT TO BE SUBMITTED:</strong></em></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><a name="submit" id="additional_deviation4"/></a></a></td>
+            <td> Latest Income Tax Return to be submitted.</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->ITR_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Post-Dated Checks/ Authorization to Debit Account</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->PDC_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Completely Filled Up Signed Credit Application</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->CFUSCA_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Business Registration papers to be in place.</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->bus_reg_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Articles of Incorporation and By-Laws</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->bylaws_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Board Resolution/ Secretary's Certificate</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->board_resolution_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>General Information Sheet to be updated.</td>
+            <td>&nbsp;</td>
+            <td><?=$this->form->Gen_infosheet_within?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><div align="right"></div></td>
+            <td><input type="submit" name="button" id="button" value="Submit" />              </a></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php foreach($this->requirementdetail as $requirementdetails) :?>
+          <?php endforeach; ?>
+        </table>
+        <table width="99%" height="77" border="0">
+          <?php foreach($this->detail3 as $Coborrowerdetails) :?>
+          <?php endforeach; ?>
+          <?php foreach($this->detail3 as $Coborrowerdetails) :?>
+          <?php endforeach; ?>
+          <tr>
+            <td width="13" height="23">&nbsp;</td>
+            <td width="12"><a name="other_requirement" id="other_requirement2"/></a></td>
+            <td width="117">Others, please specify</td>
+            <td colspan="3"><div align="left">
+              <?=$this->form->other_requirement?>
+              <input type="submit" name="button" id="button" value="Add Requirement" onclick="chkrequirement();return false;"/>
+            </div>
+              <div align="left"></div></td>
+          </tr>
+          <? if($this->requirementdetail) { ?>
+          <?php foreach($this->requirementdetail as $requirementdetails) :?>
+          <tr>
+            <td height="23">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td width="229"><?=$requirementdetails->other_requirement?></td>
+            <td width="229"><input type="button" name="button" id="button" value="Delete" onclick="javascript: if (confirm('Are you sure you want to delete this?')) window.location='<?=$this->baseUrl().'/index/delrequirement/id/'.$requirementdetails->id.'/cap/'.$this->capno?>'"/></td>
+            <td width="98">&nbsp;</td>
+          </tr>
+          <?php endforeach; ?>
+          <? } ?>
+          <tr>
+            <td height="23" colspan="6">&nbsp;</td>
+          </tr>
+</table>
+             <br style="page-break-after: always;" />
+        <table width="99%" border="0">
+          <tr>
+            <td height="18" colspan="9" bgcolor="#CCCCCC" style="border-bottom:groove"><strong> DEBT INCOME RATIO (DIR) COMPUTATION SHEET </strong></td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td height="20" colspan="4">Borrower Name:
+            <?=$this->row->borrower_fname.','.$this->row->borrower_mname.'  '. ($this->row->borrower_lname );?></td>
+            <td height="20"><b>
+              <? if($this->row->empbus_status=='E'){ echo "Employed"; } 
+			     else if($this->row->empbus_status=='SE') {echo "Business"; }
+				else { echo "NA"; }	?>
+            </b></td>
+            <td height="20" colspan="2">Cap No: <strong>
+              <?=$this->capno?>
+            </strong></td>
+            <td width="151">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="13" height="20"><strong>I.</strong></td>
+            <td colspan="2"><strong>MONTHLY INCOME SOURCE</strong></td>
+            <td width="54">&nbsp;</td>
+            <td width="74">&nbsp;</td>
+            <td width="85">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="2">Gross Monthly Income:</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Computed As:</td>
+            <td colspan="2">&nbsp;</td>
+            <td>Source/Date</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Borrower : <span style="background-color:#FFFFCC">
+              <?=$this->row->borrower_fname.' '.$this->row->borrower_mname.','. ($this->row->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->row->capno,'current'),2)?></b></td>
+            <td>Gross Income:</td>
+            <td colspan="2"><b>P<?=number_format($this->viewTotalGrossIncome($this->row->capno),2)?></b>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php $e=1; foreach($this->empdetailCurrent as $empdetails) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<?=$e?> - 
+            <? /*
+            if($empdetails->employer == 'Remittance'){
+				echo $empdetails->employer; }				
+			 */ ?> -               <?=$empdetails->emp_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($empdetails->emp_income,2)?></td>
+            <td><?=$empdetails->emp_multiplier?> <? if($empdetails->employer == 'Remittance') {
+			echo "| ".$empdetails->emp_percentage."%";}?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<? if($empdetails->employer == 'Remittance'){
+			echo number_format(($empdetails->emp_income * $empdetails->emp_multiplier) / ($empdetails->emp_percentage / 100),2); }
+			else {
+				echo number_format($empdetails->emp_income * $empdetails->emp_multiplier,2); }?></td>
+            <td><?=$empdetails->emp_source_date?></td>
+          </tr>
+          <? $e++; } ?>
+          <? $b=1; foreach($this->busdetail as $busdetails) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<?=$b?>
+            - <?=$busdetails->bus_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($busdetails->bus_income,2)?></td>
+            <td><?=$busdetails->bus_multiplier?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($busdetails->bus_income * $busdetails->bus_multiplier,2)?></td>
+            <td><?=$busdetails->bus_source_date?></td>
+          </tr>
+          <? $b++; } ?>
+          <?php foreach($this->detail as $Spousedetails) :?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Spouse : <span style="background-color:#FFFFCC">
+              <?=$Spousedetails->borrower_fname?>
+              <?=$Spousedetails->borrower_mname?>
+,
+<?=$Spousedetails->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P
+              <?=number_format($this->viewTotalIncome($Spousedetails->capno,'current'),2)?>
+            </b></td>
+            <td>Gross Income:</td>
+            <td colspan="2"><b>P
+                <?=number_format($this->viewTotalGrossIncome($Spousedetails->capno),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php $es=1; foreach($this->listEmpBus($Spousedetails->capno,'empCurrent') as $detailsp) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<?=$es?> - 
+            <?
+			/*
+            if($detailsp->employer == 'Remittance'){
+				echo $empdetails->employer; }				
+			*/
+			?> -              <?=$detailsp->emp_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->emp_income, 2)?></td>
+            <td><?=$detailsp->emp_multiplier?> <? if($detailsp->employer == 'Remittance') {
+			echo "| ".$detailsp->emp_percentage."%";}?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<? if($detailsp->employer == 'Remittance'){
+			echo number_format(($detailsp->emp_income * $detailsp->emp_multiplier)/($detailsp->emp_percentage / 100), 2);	
+			}else { 
+			echo number_format($detailsp->emp_income * $detailsp->emp_multiplier, 2); }?></td>
+            <td><?=$detailsp->emp_source_date?></td>
+          </tr>
+          <? $es++; }//end of foreach spouse emp  ?>
+           
+         <?php $bs=1; foreach($this->listEmpBus($Spousedetails->capno,'bus') as $detailsp) {?>
+           <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<?=$bs?> - 
+             <?=$detailsp->bus_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->bus_income,2)?></td>
+            <td><?=$detailsp->bus_multiplier?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->bus_income * $detailsp->bus_multiplier,2)?></td>
+            <td><?=$detailsp->bus_source_date?></td>
+          </tr>
+		<? $bs++; } ?>         
+         
+         
+          <?php endforeach; ?>
+
+
+          <?php foreach($this->detail4 as $Coborrowerdetails) {  ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Coborrower <strong><span style="background-color:#FFFFCC">
+              <?=ucfirst($Coborrowerdetails->coborrower_type)?>
+            </span></strong>: <span style="background-color:#FFFFCC">
+              <?=$Coborrowerdetails->borrower_fname?>
+              <?=$Coborrowerdetails->borrower_mname?>
+,
+<?=$Coborrowerdetails->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P
+              <?=number_format($this->viewTotalIncome($Coborrowerdetails->capno,'current'),2)?>
+            </b></td>
+            <td>Gross Income:</td>
+            <td colspan="2"><b>P <?=number_format($this->viewTotalGrossIncome($Coborrowerdetails->capno),2)?></b></td>
+            <td>&nbsp;</td>
+          </tr>
+         <?php $eb=1; foreach($this->listEmpBus($Coborrowerdetails->capno,'emp') as $empdetail){?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<?=$eb?> - <span style="background-color:#FFFFCC">
+                <?
+				/*
+            if($empdetail->employer == 'Remittance'){
+				echo $empdetails->employer; }				
+			*/
+			?> -
+              <?=$empdetail->emp_name?>
+            </span></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC">
+              P<?=number_format($empdetail->emp_income, 2)?>
+            </span></td>
+            <td><span style="background-color:#FFFFCC">
+              <?=$empdetail->emp_multiplier?>
+              <? if($empdetail->employer == 'Remittance') {
+			echo "| ".$empdetail->emp_percentage."%";}?>
+            </span></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<span style="background-color:#FFFFCC">
+			<? if ($empdetail->employer == 'Remittance'){
+			echo number_format(($empdetail->emp_income * $empdetail->emp_multiplier) / ($empdetail->emp_percentage / 100) ,2);	
+			}
+			else { echo	number_format($empdetail->emp_income * $empdetail->emp_multiplier,2); }
+			?>
+            
+            </span>
+            </td>
+            <td><span style="background-color:#FFFFCC">
+              <?=$empdetail->emp_source_date?>
+            </span></td>
+          </tr>
+		<? $eb++; } ?>
+       <?php $es=1; foreach($this->listEmpBus($Coborrowerdetails->capno,'bus') as $busdetail){?>
+         <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<?=$es?> - <span style="background-color:#FFFFCC">
+              <?=$busdetail->bus_name?>
+            </span></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC">
+              P<?=number_format($busdetail->bus_income,2)?>
+            </span></td>
+            <td><span style="background-color:#FFFFCC">
+              <?=$busdetail->bus_multiplier?>
+            </span></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<span style="background-color:#FFFFCC"><?=number_format($busdetail->bus_income * $busdetail->bus_multiplier,2)?>
+            </span></td>
+            <td><span style="background-color:#FFFFCC">
+              <?=$busdetail->bus_source_date?>
+            </span></td>
+          </tr>
+		<? $es++; } ?>
+          <?php } ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">OTHER MONTHLY INCOME</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <? if($this->listEmpBus($this->row->capno,'othermonthlyArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Borrower : <span style="background-color:#FFFFCC">
+              <?=$this->row->borrower_fname.' '.$this->row->borrower_mname.','. ($this->row->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->row->capno,'othermonthly'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php $e=1; foreach($this->empdetailOther as $empdetails) {?>
+
+          <? } }?>
+          <?php foreach($this->detail as $Spousedetails) {?>
+		  <? if ($this->listEmpBus($Spousedetails->capno,'othermonthlyArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Spouse : <span style="background-color:#FFFFCC">
+              <?=$Spousedetails->borrower_fname?>
+              <?=$Spousedetails->borrower_mname?>
+              ,<?=$Spousedetails->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($Spousedetails->capno,'othermonthly'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <? // $es=1; foreach($this->listEmpBus($Spousedetails->capno,'othermonthly') as $detailsp) {?>
+
+          <? } }?>
+          <?php foreach($this->detail4 as $Coborrowerdetails) {  ?>
+   		  <? if ($this->listEmpBus($Coborrowerdetails->capno,'othermonthlyArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Coborrower <strong><span style="background-color:#FFFFCC">
+              <?=ucfirst($Coborrowerdetails->coborrower_type)?>
+              </span></strong>: <span style="background-color:#FFFFCC">
+                <?=$Coborrowerdetails->borrower_fname?>
+                <?=$Coborrowerdetails->borrower_mname?>
+                ,<?=$Coborrowerdetails->borrower_lname?>
+              </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($Coborrowerdetails->capno,'othermonthly'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <? } } ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3"><strong>TOTAL MONTHLY INCOME</strong></td>
+            <td><b>P<?=number_format($this->totalcombinedincome,2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">OTHER SOURCE OF INCOME</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+<? if($this->listEmpBus($this->row->capno,'othersourceArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Borrower : <span style="background-color:#FFFFCC">
+              <?=$this->row->borrower_fname.' '.$this->row->borrower_mname.','. ($this->row->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->row->capno,'othersource'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php $e=1; foreach($this->empdetailOther as $empdetails) {?>
+
+          <? } }?>
+          <?php foreach($this->detail as $Spousedetails) {?>
+		  <? if ($this->listEmpBus($Spousedetails->capno,'othersourceArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Spouse : <span style="background-color:#FFFFCC">
+              <?=$Spousedetails->borrower_fname?>
+              <?=$Spousedetails->borrower_mname?>
+              ,<?=$Spousedetails->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($Spousedetails->capno,'othersource'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <? // $es=1; foreach($this->listEmpBus($Spousedetails->capno,'othermonthly') as $detailsp) {?>
+
+          <? } }?>
+          <?php foreach($this->detail4 as $Coborrowerdetails) {  ?>
+   		  <? if ($this->listEmpBus($Coborrowerdetails->capno,'othersourceArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Coborrower <strong><span style="background-color:#FFFFCC">
+              <?=ucfirst($Coborrowerdetails->coborrower_type)?>
+              </span></strong>: <span style="background-color:#FFFFCC">
+                <?=$Coborrowerdetails->borrower_fname?>
+                <?=$Coborrowerdetails->borrower_mname?>
+                ,<?=$Coborrowerdetails->borrower_lname?>
+              </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($Coborrowerdetails->capno,'othersource'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+            
+          </tr>
+          <? } } ?>
+          
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td width="98">&nbsp;</td>
+            <td width="92">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <!--Start of Co-Maker --> 
+         <? if($this->comakerDetail) { ?>
+            <tr>
+            <td height="20">&nbsp;</td>
+            <td height="20" colspan="4">Co-Maker Name:
+              <?=$this->comakerDetail->borrower_fname.','.$this->comakerDetail->borrower_mname.'  '. ($this->comakerDetail->borrower_lname );?></td>
+            <td height="20"><b>
+              <? if($this->comakerDetail->empbus_status=='E'){ echo "Employed"; } 
+			     else if($this->comakerDetail->empbus_status=='SE') {echo "Business"; }
+				else { echo "NA"; }	?>
+            </b></td>
+            <td width="78">&nbsp;</td>
+            <td width="36">&nbsp;</td>
+            <td width="151">&nbsp;</td>
+          </tr>
+            <tr>
+            <td width="13" height="20"><strong>I.b</strong></td>
+            <td colspan="2"><strong>MONTHLY INCOME SOURCE</strong></td>
+            <td width="54">&nbsp;</td>
+            <td width="74">&nbsp;</td>
+            <td width="85">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="2">Gross Monthly Income:</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>Computed As:</td>
+            <td colspan="2">&nbsp;</td>
+            <td>Source/Date</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Maker : <span style="background-color:#FFFFCC">
+              <?=$this->comakerDetail->borrower_fname.' '.$this->comakerDetail->borrower_mname.','. ($this->comakerDetail->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->comakerDetail->capno,'current'),2)?></b></td>
+            <td>Gross Income:</td>
+            <td colspan="2"><b>P<?=number_format($this->viewTotalGrossIncome($this->comakerDetail->capno),2)?></b>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+   <?php $e=1; foreach($this->listEmpBus($this->comakerDetail->capno,'emp') as $empdetails) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<?=$e?> - 
+            <?=$empdetails->emp_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($empdetails->emp_income,2)?></td>
+            <td><?=$empdetails->emp_multiplier?> <? if($empdetails->employer == 'Remittance') {
+			echo "| ".$empdetails->emp_percentage."%";}?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<? if($empdetails->employer == 'Remittance'){
+			echo number_format(($empdetails->emp_income * $empdetails->emp_multiplier) / ($empdetails->emp_percentage / 100),2); }
+			else {
+				echo number_format($empdetails->emp_income * $empdetails->emp_multiplier,2); }?></td>
+            <td><?=$empdetails->emp_source_date?></td>
+          </tr>
+          <? $e++; } ?>
+  <?php $b=1; foreach($this->listEmpBus($this->comakerDetail->capno,'bus') as $busdetails) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<?=$b?>
+            - <?=$busdetails->bus_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($busdetails->bus_income,2)?></td>
+            <td><?=$busdetails->bus_multiplier?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($busdetails->bus_income * $busdetails->bus_multiplier,2)?></td>
+            <td><?=$busdetails->bus_source_date?></td>
+          </tr>
+          <? $b++; } ?>
+          <?php if($this->comakerspDetail) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Maker Spouse : <span style="background-color:#FFFFCC">
+              <?=$this->comakerspDetail->borrower_fname?>
+              <?=$this->comakerspDetail->borrower_mname?>
+,
+<?=$this->comakerspDetail->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P
+              <?=number_format($this->viewTotalIncome($this->comakerspDetail->capno,'current'),2)?>
+            </b></td>
+            <td>Gross Income:</td>
+            <td colspan="2"><b>P
+                <?=number_format($this->viewTotalGrossIncome($this->comakerspDetail->capno),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php $es=1; foreach($this->listEmpBus($this->comakerspDetail->capno,'empCurrent') as $detailsp) {?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<?=$es?> - 
+            <?
+			/*
+            if($detailsp->employer == 'Remittance'){
+				echo $empdetails->employer; }				
+			*/
+			?> -              <?=$detailsp->emp_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->emp_income, 2)?></td>
+            <td><?=$detailsp->emp_multiplier?> <? if($detailsp->employer == 'Remittance') {
+			echo "| ".$detailsp->emp_percentage."%";}?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<? if($detailsp->employer == 'Remittance'){
+			echo number_format(($detailsp->emp_income * $detailsp->emp_multiplier)/($detailsp->emp_percentage / 100), 2);	
+			}else { 
+			echo number_format($detailsp->emp_income * $detailsp->emp_multiplier, 2); }?></td>
+            <td><?=$detailsp->emp_source_date?></td>
+          </tr>
+          <? $es++; }//end of foreach spouse emp  ?>
+           
+         <?php $bs=1; foreach($this->listEmpBus($this->comakerspDetail->capno,'bus') as $detailsp) {?>
+           <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B<?=$bs?> - 
+             <?=$detailsp->bus_name?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->bus_income,2)?></td>
+            <td><?=$detailsp->bus_multiplier?></td>
+            <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P<?=number_format($detailsp->bus_income * $detailsp->bus_multiplier,2)?></td>
+            <td><?=$detailsp->bus_source_date?></td>
+          </tr>
+		<? $bs++; } ?>         
+          <?php } // end of comaker spouse ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3"><strong>CO-MAKER</strong> OTHER MONTHLY INCOME</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <? if($this->listEmpBus($this->comakerDetail->capno,'othermonthlyArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Maker : <span style="background-color:#FFFFCC">
+              <?=$this->comakerDetail->borrower_fname.' '.$this->comakerDetail->borrower_mname.','. ($this->comakerDetail->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->comakerDetail->capno,'othermonthly'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <? } ?>
+          <?php if($this->comakerspDetail) {?>
+		  <? if ($this->listEmpBus($this->comakerspDetail->capno,'othermonthlyArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Make Spouse : <span style="background-color:#FFFFCC">
+              <?=$Spousedetails->borrower_fname?>
+              <?=$Spousedetails->borrower_mname?>
+              ,<?=$Spousedetails->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->comakerspDetail->capno,'othermonthly'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <? // $es=1; foreach($this->listEmpBus($Spousedetails->capno,'othermonthly') as $detailsp) {?>
+
+          <? } }?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3"><strong>CO-MAKER TOTAL MONTHLY INCOME</strong></td>
+            <td><b>P<?=number_format($this->comakertotalcombine,2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3"><strong>CO-MAKER</strong> OTHER SOURCE OF INCOME</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+<? if($this->listEmpBus($this->comakerDetail->capno,'othersourceArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Maker : <span style="background-color:#FFFFCC">
+              <?=$this->comakerDetail->borrower_fname.' '.$this->comakerDetail->borrower_mname.','. ($this->comakerDetail->borrower_lname );?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->comakerDetail->capno,'othersource'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <? }?>
+          <?php if($this->comakerspDetail) {?>
+		  <? if ($this->listEmpBus($this->comakerspDetail->capno,'othersourceArray')) { ?>
+          <tr>
+            <td height="20">&nbsp;</td>
+            <td colspan="3">Co-Maker Spouse : <span style="background-color:#FFFFCC">
+              <?=$this->comakerspDetail->borrower_fname?>
+              <?=$this->comakerspDetail->borrower_mname?>
+              ,<?=$this->comakerspDetail->borrower_lname?>
+            </span></td>
+            <td bgcolor="#FFFFCC"><b>P<?=number_format($this->viewTotalIncome($this->comakerspDetail->capno,'othersource'),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <? // $es=1; foreach($this->listEmpBus($Spousedetails->capno,'othermonthly') as $detailsp) {?>
+
+          <? } }?>
+
+          <? } //end of comaker ?>
+          <!-- End of Comaker Section -->
+          <tr>
+            <td height="24">&nbsp;</td>
+            <td  colspan="8"><strong>CA Remarks:</strong><strong>
+              <? /*foreach ($this->allcvDetail as $cv){
+			echo stripslashes($cv->remarks_empver)." ";	
+			echo stripslashes($cv->remarks_busver)." ";
+			echo stripslashes($cv->remarks_income)." ";
+			 } */?>
+              <? /*foreach ($this->allciDetail as $ci){
+			echo stripslashes($ci->remarks_empver_ci)." ";	
+			echo stripslashes($ci->remarks_busver_ci)." ";
+			echo stripslashes($ci->remarks_income_ci)." ";
+			 } */?>
+             <? foreach($this->principalCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'second'); 
+		  	 } 
+		  	 foreach($this->spouseCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'second'); 
+		  	 }
+			 foreach($this->coborrowerCapno as $x ){
+			 echo $this->getCrawRemarks($x->capno,'second'); 
+		  	 }			 
+		  ?>
+            </strong></td>
+          </tr>
+          <tr>
+            <td height="24">&nbsp;</td>
+            <td height="24" style="border-bottom-style:double"><strong>CO Remarks:</strong></td>
+            <td height="24" colspan="4" style="border-bottom-style:double"><strong>
+              <?=$this->form->debtincome_remarks?>
+            </strong></td>
+            <td height="24" style="border-bottom-style:double"><strong>
+              <input type="submit" name="button" id="button" value="Save/Update 4" />
+            </strong></td>
+            <td height="24" style="border-bottom-style:double"><a name="saveupdate4" id="additional_deviation8"/></a></td>
+            <td height="24" style="border-bottom-style:double">&nbsp;</td>
+          </tr>
+          <? if ($this->viewBusCount($this->capno) > 0){ ?>
+          <? } ?>
+          <?php foreach($this->savings_cbsdetail as $savings_cbsdetails) :?>
+          <?php endforeach; ?>
+          <?php foreach($this->check_cbsdetail as $check_cbsdetails) :?>
+          <?php endforeach; ?>
+          <?php foreach($this->timedep_cbsdetail as $timedep_cbsdetails) :?>
+          <?php endforeach; ?>
+          <?php foreach($this->others_cbsdetail as $others_cbsdetails) :?>
+          <?php endforeach; ?>
+        </table>
+        <table width="100%" border="0">
+          <? if ($this->viewBusCount($this->capno) > 0){ ?>
+          <tr>
+            <td width="9">&nbsp;</td>
+            <td colspan="2"><strong>BUSINESS FINANCIALS:</strong></td>
+            <td width="105">&nbsp;</td>
+            <td width="218">&nbsp;</td>
+            <td width="79">&nbsp;</td>
+            <td width="213">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Assets</td>
+            <td><?=number_format($this->total_asset,2)?></td>
+            <td>Total Gross Sales:</td>
+            <td><?=$this->total_gross_sales?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Liabilities</td>
+            <td><?=number_format($this->total_liabilities,2)?></td>
+            <td>Total Net Income Before: Tax:</td>
+            <td><?=number_format($this->total_net_income_before,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Net Worth</td>
+            <td><strong>
+              <?=number_format($this->total_asset+$this->total_liabilities,2)?>
+            </strong></td>
+            <td>Total Cost of Sales:</td>
+            <td><?=number_format($this->total_cost_sales,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+    
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Relationship Deposit Balance (within CBSI):</td>
+            <td><strong>
+              <?=number_format($this->total_all_bank,2)?>
+            </strong></td>
+            <td>&nbsp;</td>
+            <td>Client since:</td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php foreach($this->savings_cbsdetail as $savings_cbsdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td width="231">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"><strong>
+              <?=$this->getBorrowerName($savings_cbsdetails->capno)?>
+            </strong></span></td>
+            <td width="72">Savings</td>
+            <td><strong>
+              <?=number_format($savings_cbsdetails->adb,2)?>
+            </strong></td>
+            <td>&nbsp;</td>
+            <td><?=$savings_cbsdetails->date_opened?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php endforeach; ?>
+          <?php foreach($this->check_cbsdetail as $check_cbsdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"><strong>
+              <?=$this->getBorrowerName($check_cbsdetails->capno)?>
+            </strong></span></td>
+            <td>Check</td>
+            <td><strong>
+              <?=number_format($check_cbsdetails->adb,2)?>
+            </strong></td>
+            <td>&nbsp;</td>
+            <td><?=$check_cbsdetails->date_opened?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php endforeach; ?>
+          <?php foreach($this->timedep_cbsdetail as $timedep_cbsdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"><strong>
+              <?=$this->getBorrowerName($timedep_cbsdetails->capno)?>
+            </strong></span></td>
+            <td>Time Deposit</td>
+            <td><strong>
+              <?=number_format($timedep_cbsdetails->adb,2)?>
+            </strong></td>
+            <td>&nbsp;</td>
+            <td><?=$timedep_cbsdetails->date_opened?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <?php endforeach; ?>
+          <?php foreach($this->others_cbsdetail as $others_cbsdetails) :?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"><strong>
+              <?=$this->getBorrowerName($others_cbsdetails->capno)?>
+            </strong></span></td>
+            <td>Others</td>
+            <td><strong>
+              <?=number_format($others_cbsdetails->adb,2)?>
+            </strong></td>
+            <td>&nbsp;</td>
+            <td><?=$others_cbsdetails->date_opened?></td>
+            <td>&nbsp;</td>
+          </tr>
+
+<tr>          <td>&nbsp;</td>
+            <td colspan="6" style="border-bottom-style:double"><strong>Remark<strong>s:</strong></strong></td></tr>
+          <?php endforeach; ?>
+      <? } ?>
+        </table>
+        
+        <table width="99%" border="0">
+          <tr>
+            <td width="11"><strong>II</strong>.</td>
+            <td colspan="3"><strong>EXISTING LOAN COMMITMENTS (IN MONTHLY AMORTIZATION)</strong></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td width="42">&nbsp;</td>
+            <td width="213">&nbsp;</td>
+            <td width="87">&nbsp;</td>
+            <td width="344">&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">New Installment (CBSI):</td>
+            <td bgcolor="#FFFFCC">
+             P<?
+             $ma = ceil($this->row->monthly_amortization);
+			 echo number_format($ma,2);?>
+           </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Auto Loan Installment (CBC/CBSI):</td>
+            <td bgcolor="#FFFFCC">P<?=number_format($this->auto_installment,2)?>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_auto_installment as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td align="center" bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"> </span>P<?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Housing Loan Installment (CBC/CBSI):</td>
+            <td bgcolor="#FFFFCC">
+              P<?=number_format($this->house_installment,2)?>
+          </td>
+            <td>&nbsp;</td>
+          </tr>
+         <? foreach ($this->all_house_installment as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+            <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Personal Loan Installment (CBC/CBSI):</td>
+            <td bgcolor="#FFFFCC">
+              P<?=number_format($this->personal_installment,2)?>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_personal_installment as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+            <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Business Loan Installment (CBC/CBSI):</td>
+            <td bgcolor="#FFFFCC">
+              P<?=number_format($this->business_installment,2)?>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+           <? foreach ($this->all_business_installment as $detail) { ?>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+            <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Other Loans  (CBC/CBSI):</td>
+            <td bgcolor="#FFFFCC">
+              P<?=number_format($this->other_installment,2)?>
+          </td>
+            <td>&nbsp;</td>
+          </tr>
+         <? foreach ($this->all_other_installment as $detail) { ?>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+            <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?> 
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><b>Total Commitments (CBC/CBSI):</b></td>
+            <td bgcolor="#CCFFFF" style="border-bottom:thin">
+              <b>P<?=number_format(ceil($this->total_installment_cbc) + $ma ,2)?></b>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td width="11">&nbsp;</td>
+            <td colspan="2">Total Auto Loan Installment (Others):</td>
+            <td width="87" bgcolor="#FFFFCC">P
+              <?=number_format($this->auto_other,2)?></td>
+            <td width="344">&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_auto_other as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td width="42">&nbsp;</td>
+            <td width="213"><?=$detail->bank?></td>
+            <td align="center" bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"> </span>P
+              <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Housing Loan Installment (Others):</td>
+            <td bgcolor="#FFFFCC"> P
+              <?=number_format($this->house_other,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_house_other as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+              <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Personal Loan Installment (Others):</td>
+            <td bgcolor="#FFFFCC"> P
+              <?=number_format($this->personal_other,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_personal_other as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td bgcolor="#FFFFCC">&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+              <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Total Business Loan Installment (Others):</td>
+            <td bgcolor="#FFFFCC"> P
+              <?=number_format($this->business_other,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_business_other as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+              <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">Other Loans  (Others):</td>
+            <td bgcolor="#FFFFCC"> P
+              <?=number_format($this->other_other,2)?></td>
+            <td>&nbsp;</td>
+          </tr>
+          <? foreach ($this->all_other_other as $detail) { ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><?=$detail->bank?></td>
+            <td bgcolor="#FFFFCC">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:#FFFFCC"></span>P
+              <?=number_format($detail->monthly_amortization,2)?></td>
+            <td><?=$detail->collateral?></td>
+          </tr>
+          <? } ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><b>Total Commitments (Others):</b></td>
+            <td bgcolor="#CCFFFF" style="border-bottom:thin"><b>P<strong>
+              <?=number_format(ceil($this->total_installment_others),2)?>
+            </strong></b></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2"><b>TOTAL COMMITMENT CBSI / CBC + OTHERS</b></td>
+            <td bgcolor="#CCFFFF" style="border-bottom:thin"><b>
+              P <?=number_format(ceil($this->total_installment_cbc + $this->row->monthly_amortization + $this->total_installment_others),2)?>
+            </b></td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <table width="99%" border="0">
+          <?php //foreach($this->loan as $loandetails) :?>
+          <?php //endforeach; ?>
+        <tr>
+          <td width="11">&nbsp;</td>
+          <td width="61">&nbsp;</td>
+          <td width="106">&nbsp;</td>
+          <td width="155">&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td><strong>III</strong>.</td>
+          <td colspan="2"><strong>DEBT INCOME RATIO (DIR)</strong></td>
+          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>GMI RATIO</td>
+          <td bgcolor="#FFFFCC" style="border:groove"><strong><strong>
+            <?//=number_format((($this->total_installment_cbc + $this->row->monthly_amortization +  $this->total_installment_others)/$this->totalcombinedincome ) * 100,2)?>
+            <strong><strong>
+            <?=$this->row->gmi_ratio?>
+            </strong></strong>          %</strong></strong></td>
+          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">Prepared by:</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#CCFFFF">&nbsp;</td>
+          <td bgcolor="#CCFFFF"><span style="border-bottom-style:double">
+            <b><?=$this->viewMa($this->remark_ca->by)?></b>
+          </span></td>
+          <td bgcolor="#CCFFFF">&nbsp;</td>
+          <td colspan="3" bgcolor="#CCFFFF">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" bgcolor="#CCFFFF">&nbsp;</td>
+          <td bgcolor="#CCFFFF"><?=date('m-d-Y',strtotime($this->row->submitted_co_date))?></td>
+          <td bgcolor="#CCFFFF">&nbsp;</td>
+          <td colspan="3" bgcolor="#CCFFFF">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td width="163">&nbsp;</td>
+          <td width="142">&nbsp;</td>
+          <td width="58">&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+</table>
+</form>
+<? if($this->isSubmit) { ?>
+<script type="text/javascript">
+	alert("Save");
+	//self.close();
+	setTimeout(refr(),5000);
+</script>
+<? } ?>
+
+<script language="JavaScript" type="text/javascript">
+
+function chkapproval(){
+	if (document.getElementById("decision").value == '0') {
+	alert ("Decision field is required");
+	return false;
+	} else {
+	document.craw-form.submit();
+	
+	return true;
+	}
+	
+	if (document.getElementById("approved_by").value == '0') {
+	alert ("Approver is required");
+	return false;
+	} else {
+	document.craw-form.submit();
+	
+	return true;
+	}
+}
+
+function chkrequirement(){
+	if (document.getElementById("other_requirement").value == '') {
+	alert ("Requirement field is required");
+	return false;
+	} else {
+	document.craw-form.submit();
+	
+	return true;
+	}
+}
+
+
+</script>

@@ -1,0 +1,28 @@
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 100);</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+		</tr>
+	</table>
+<p></p>
+<body>
+<fieldset><legend><b>DEVIATION</b></legend>
+	<table width="100%" border="0">
+    <? foreach($this->deviation as $row) {?>
+		<tr><br><b>RULE : </b><?=$row['rule']?><br></tr>
+		<tr><b>DESCRIPTION : </b><?=$row['desc']?><br></tr>
+        <tr><b>PARAMETER/S :</b><br></tr>
+		<? foreach($row['data'] as $str){ ?>
+        	<tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ● <?=$str?><br></tr>
+		<? } ?>
+	<? } ?>
+	</table>
+    
+</fieldset>
+</body>
+</form>

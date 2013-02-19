@@ -1,0 +1,148 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<script type="text/javascript">
+checked=false;
+function checkedAll () {
+
+	var aa= document.getElementById('update');
+	 if (checked == false)
+          {
+           checked = true
+          }
+        else
+          {
+          checked = false
+          }
+	for (var i =0; i < aa.elements.length; i++) 
+	{
+	 aa.elements[i].checked = checked;
+	}
+      }
+</script>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>ADMIN - PRICELIST - PENDING UPDATE</strong></td>
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">
+    <strong>Return</strong></td>
+</tr>
+</table>
+
+<form method="post" name="add" id="add">
+<table width="100%" border="0">
+  <tr>
+    <td colspan="3"><a href="<?=$this->baseUrl()?>/admin/pricelist">&lt;&lt;Go to Retrieve</a></td>
+    <td width="307" align="center">&nbsp;</td>
+    <td width="320" align="right"><a href="<?=$this->baseUrl()?>/admin/pricelistapprove">Go to Pending Approve &gt;&gt;</a></td>
+  </tr>
+  <tr>
+    <td width="92">&nbsp;</td>
+    <td width="100"><a href="<?=$this->baseURL()?>/admin/dealer">Dealer       </a></td>
+    <td width="136"><?=$this->form->dealer?></td>
+    <td colspan="2">Brand      
+      <?=$this->form->veh_brand?>
+      
+      List Year 
+      <?=$this->form->listyear?>
+      List Month
+      <?=$this->form->listmonth?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+       Unit      </td>
+    <td colspan="3"><?=$this->form->veh_unit?></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Selling Price</td>
+    <td><?=$this->form->selling_price?></td>
+    <td>Type
+      <?=$this->form->veh_type?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5" align="center"><input type="submit" name="button" id="button" value="Add Unit" onclick="return window.confirm('Are you sure you want to Add this Unit?')"/></td>
+    </tr>
+</table>
+</form>
+<form method="post" name="update" id="update">
+<br />
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+    <thead>
+  <tr>
+    <th width="8%" align="center"><strong> By</strong></td>
+    <th width="15%" align="center"><strong>DEALER</strong></td>
+    <th width="10%" align="center"><strong>MOS-YEAR</strong></td>
+    <th width="10%" align="center"><strong>BRAND</strong><strong></strong></td>
+    <th width="9%" align="center"><strong>TYPE</strong></td>
+    <th width="21%" align="center"><strong>UNIT</strong></td>
+    <th width="17%" align="center"><strong>SELLING PRICE</strong></td>
+    <td width="10%" align="center"><input type="checkbox" name="chkAll" id="chkAll" onclick='checkedAll()'/></td>
+  </tr>
+  </thead>
+  <tbody>
+  <? if ($this->detail){  ?>
+  <? foreach($this->detail as $row) { ?>
+  <tr>
+    <td align="center"><?=$this->viewMa($row->duplicate_by)?> - 
+      <?=$row->duplicate_date?></td>
+    <td height="34" align="center"><?=$row->dealer?></td>
+    <td align="center"><?=$this->viewMonths($row->month,'shortcut')?> -
+      <?=$row->year?></td>
+    <td align="center"><?=$row->brand?></td>
+    <td align="center"><?=$row->type?></td>
+    <td><?=$row->unit?></td>
+    <td><input name="row[<?=$row->id?>][selling_price]" type="text" value="<?=$row->selling_price?>"/> </td>
+    <td align="center"> <input type="hidden" name="row[<?=$row->id?>][id]" value="<?=$row->id?>" />    
+      <input type="checkbox" name="row[<?=$row->id?>][chkbox]" id="checkall" value="<?=$row->id?>"/> </td>
+  </tr>
+        <? } ?>
+  <? } ?>
+  </tbody>
+</table>
+
+<table width="100%">
+  <tr>
+    <td width="5%">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="5%" align="center">&nbsp;</td>
+    <td width="41%" align="center">&nbsp;</td>
+    <td width="117%" colspan="3" align="center"><input type="submit" name="button" id="button" value="Update" onclick="return window.confirm('Are you sure you want to Update all checked rows?')"/> 
+    <!--
+    <input type="submit" name="button" id="button" value="Delete" onclick="return window.confirm('Are you sure you want to delete all checked rows?')"/>--></td>
+  </tr>
+</table>
+</form>
+<p>&nbsp;</p>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("add")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("dealer","dontselect=''","Dealer Required !!");
+frmvalidator.addValidation("veh_brand","dontselect=''","Brand Required!!");
+frmvalidator.addValidation("veh_type","dontselect=''","Vehicle Type Required!!");
+frmvalidator.addValidation("listyear","dontselect=''","Year Required!!");
+frmvalidator.addValidation("listmonth","dontselect=''","Month Required!!");
+frmvalidator.addValidation("selling_price","req","Selling Price Required!!");
+frmvalidator.addValidation("veh_unit","req","Vehicle Unit Required!!");
+
+</script>

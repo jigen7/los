@@ -1,0 +1,110 @@
+<style type="text/css">
+table.sample {
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: black black black black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: none none none none;
+	border-color: gray gray gray gray;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 9pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+<form method="post" name="reqsubmit">
+<table width="60%" border="0" align="center">
+  <tr>
+    <td colspan="4"><strong>WISH LIST</strong></td>
+    </tr>
+  <tr>
+    <td width="28">&nbsp;</td>
+    <td width="107" align="left">Topic:</td>
+    <td width="262" align="left"><?=$this->form->request_name?></td>
+    <td width="31">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="left"> By:</td>
+    <td align="left"><?=$this->viewMa($this->loggedInUser())?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td align="left">Type</td>
+    <td align="left"><?=$this->form->request_type?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2" align="left">Remarks:      
+      <?=$this->form->request_remarks?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2" align="center"><input type="submit" name="Submit" id="button" value="Submit"/></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<br />
+<table width="100%" border="0" align="center">
+  <tr>
+    <td width="53"><strong> By:</strong></td>
+    <td width="112" align="left"><strong>Topic</strong></td>
+    <td width="398" align="left"><strong>Description</strong></td>
+    <td width="176" align="left">&nbsp;</td>
+    </tr>
+  <? foreach ($this->request as $x) { ?>
+      <tr>
+    <td colspan="5"><hr style="color: #fff; background-color: #fff; border: 1px dotted #000000; border-style: none none dotted;"/>&nbsp;</td>
+    </tr>
+  <tr>
+    <td><?=$this->viewMa(strtolower($x->by))?></td>
+    <td align="left"><?=$x->request_name?></td>
+    <td rowspan="2" align="left"><?=$x->remarks?>
+	<? if ($this->loggedInUserType() == "ADMIN") { ?>
+		<a href="<?=$this->baseUrl()?>/request/reply/id/<?=$x->id?>">Update</a></td>
+    <td><strong>
+      <?=$x->status?>
+- 
+<? if($x->date_finished) { 
+echo date("m-d-Y h:i a",strtotime($x->date_finished)); }?>
+    </strong></td>
+    <? } ?>
+    </tr>
+  <tr>
+    <td><?=date("m-d-Y h:i a",strtotime($x->date_request))?></td>
+    <td align="left"><?=$x->type?></td>
+    <td align="left"><?=$x->finished_remarks?> - 
+      <?=$this->viewMA(strtolower($x->done_by))?></td>
+  </tr>
+  <? } ?>
+</table>
+</form>
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("reqsubmit")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("request_remarks","req","Submit Remarks is Required!!");
+frmvalidator.addValidation("request_name","req","Request Name Required!!");
+frmvalidator.addValidation("request_type","dontselect=''","Request Type Required!!");
+</script>

@@ -1,0 +1,47 @@
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="88%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->specific?>/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+<body>
+<table width="1000" cellpadding="2" cellspacing="1" class="scrolltable" id="myScrollTable" >
+  <thead>
+    <tr>
+      <th width="75" align="center">VERSION</th>
+      <th width="124" align="center">USER</th>
+      <th width="183" align="center">FIELD</th>
+      <th width="212" align="center">ATTRIBUTE</th>
+      <th width="79" align="center">FROM</th>
+      <th width="80" align="center">TO</th>
+      <th width="209" align="center">DATE/TIME</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? foreach($this->audit as $row) : ?>
+    <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onMouseOut="this.style.background='white';this.style.color='black'">
+      <td align="center"><b/><?=$row->version?></td>
+      <td><b/><?=$row->username?></td>
+      <td><b/><?=$row->field?></td>
+      <td><b/><?=$row->attribute?></td>
+      <td align="center"><b/><?=$row->wfrom?></td>
+      <td align="center"><b/><?=$row->wto?></td>
+      <td><b/><?=date("m-d-Y h:i:s a", strtotime($row->datetime))?></td>
+    </tr>
+    <? endforeach; ?>
+  </tbody>
+</table>
+</body>     
+</center>	
+</form>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 450);</script>

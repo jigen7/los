@@ -1,0 +1,58 @@
+<?php
+
+class Zend_Controller_Action_Helper_AutoRouteSms extends
+                Zend_Controller_Action_Helper_Abstract
+{
+    function direct($capno,$status,$route)
+    {
+	
+	$sms = new Model_SmsApproval();
+	$users = new Model_Users();
+	$approval = new Model_UsersApprover();
+	
+	
+	//$role = $approval->returnStatusRole($status,chkRoute($route));
+	$role = $approval->returnStatusRole($status,chkRoute($route));
+
+	$approver = $users->returnUsernamebyRole($role);
+	
+
+	//$sms->addtoDB($capno, $users->returnFullname($approver));
+
+	}
+	
+}
+
+function chkRoute($route){
+	$x='';
+	
+	$user = Zend_Auth::getInstance()->getIdentity();
+	$userRole = $user->role_type;
+	
+	if($userRole =='CSH' || $userRole =='CMGH'){
+	if(strpos($route,'-CMGH') !== FALSE){
+		$x='CMGH';
+	}
+	if(strpos($route,'-PRES') !== FALSE){
+		$x='PRES';
+	}
+	if(strpos($route,'CMGH-PRES') !== FALSE){
+		$x='PRES';
+	}
+
+	}
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	//Add codes for SUBCRECOM,CRECOM,BOARD,EXECOM
+	return $x;
+	
+	
+	
+	
+}
+
+
+?>

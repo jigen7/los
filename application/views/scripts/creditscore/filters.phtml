@@ -1,0 +1,113 @@
+<script type="text/javascript">
+	function deleteField(id)
+	{
+		var data = id.split("-");
+		var hsel = document.getElementById('hiddenA');	
+		hsel.value = data[0];
+		var hdel = document.getElementById('hiddenS');	
+		hdel.value = data[1];
+		document.product.submit();		
+	}	
+	
+	function addfilter(filter)
+	{
+		if(filter == 'addbusctr'){
+			var busctr = document.getElementById('busctr').value;
+			if(busctr != ""){
+				var hsel = document.getElementById('hiddenS');	
+				hsel.value = busctr;
+				var hact = document.getElementById('hiddenA');	
+				hact.value = filter;	
+				document.product.submit();	
+			}	
+		}else if(filter == 'addregpro'){
+			var regpro = document.getElementById('regpro').value;
+			if(regpro != ""){
+				var hsel = document.getElementById('hiddenS');	
+				hsel.value = regpro;
+				var hact = document.getElementById('hiddenA');	
+				hact.value = filter;	
+				document.product.submit();	
+			}		
+		}
+	}
+</script>
+<form action="" method="post" name="product" id="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->place?>/prod/<?=$this->prodType;?>/namever/<?=$this->namever?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<input name="hiddenS" type="hidden" id="hiddenS">
+<input name="hiddenA" type="hidden" id="hiddenA">
+<body>
+<p></p>
+<table>
+    <tr valign="top">
+        <td>
+            <table width="200" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+                <thead>
+                    <tr align="center"><td colspan="2"><b/>Business Center</td></tr>
+                    <tr align="center">
+                        <td width="135"><?=$this->busctr?></td>
+                        <td width="52"> <input type="button" name="button" id="button" value="Add" onClick="addfilter('addbusctr')"/></td>
+                    </tr>
+                </thead>  
+                <tbody>
+                    <? $at1 = 0;?>        	
+                    <? foreach($this->busctrs as $row) : ?>
+                    <? $at1++; ?>    
+                    <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+                        onmouseout="this.style.background='white';this.style.color='black'">
+                        <td><b/><?=ucfirst($row->busctr)?></td>
+                        <td align="center"><input type="button" name="button" id="button" value="Delete" onClick="deleteField(<?="'delbusctr-".$row->id."'"?>)"/></td>
+                    </tr>
+                    <? endforeach; ?>
+                </tbody>        
+            </table>
+        </td>
+    	<td>
+            <table width="200" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+                <thead>
+                    <tr align="center"><td colspan="2"><b/>Regular / Promo</td></tr>
+                    <tr align="center">
+                        <td width="135"><?=$this->regpro?></td>
+                        <td width="52"><input type="button" name="button" id="button" value="Add" onClick="addfilter('addregpro')"/></td>
+                    </tr>
+                </thead>  
+                <tbody> 
+                    <? $at2 = 0;?>     	
+                    <? foreach($this->regpros as $row) : ?>
+                    <? $at2++; ?>    
+                    <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+                        onmouseout="this.style.background='white';this.style.color='black'">
+                        <td><b/><?=ucfirst($row->regpro)?></td>
+                        <td align="center"><input type="button" name="button" id="button" value="Delete" onClick="deleteField(<?="'delregpro-".$row->id."'"?>)"/></td>
+                    </tr>
+                    <? endforeach; ?>
+                </tbody>        
+            </table>        
+        </td>
+    </tr>
+    <tr>
+    	<td colspan="2" align="center">
+			<? $submit = ($at1 == 0 || $at2 == 0)? "style=\"visibility:hidden\"" : "";  
+			   $value = ($this->place == "addmodel")? "Define Fields": "Edit Fields"; ?>
+   			<input <?=$submit?> type="Submit" name="button" id="button" value="<?=$value?>"/> 
+		</td>
+	</tr>
+</table>
+</body>
+<p></p>
+</center>	
+</form>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 300);</script>

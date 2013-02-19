@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	function submitRemark(){
+		var x = document.getElementById('submit_remarks').value;
+		if(x == ""){ alert("Comments?");
+		}else{ 
+			document.product.submit();
+			alert("Model Approved!");
+ 			window.opener.location.reload();
+			window.close();
+		}
+	}
+</script>
+
+<form action="" method="post" name="product" onsubmit="window.close()">
+<table width="360" height="147" border="0">
+  <tr>
+    <td width="104"><b/>Remarks</td>
+    <td colspan="2"><?=$this->form->remark?></td>
+  </tr>
+<tr><td colspan="2"><b/>Enter Digital Password:</td><td width="153"><?=$this->form->password?></td></tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td width="89"><input name="button" type="button" value="Submit" onclick="submitRemark()"/></td>
+    <td><input name="button" type="button" value="Cancel" onclick="window.close()"/></td>
+  </tr>
+</table>
+</form>

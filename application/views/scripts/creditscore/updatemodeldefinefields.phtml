@@ -1,0 +1,62 @@
+<script type="text/javascript">
+	checked=false;
+	function checkedAll () {
+		var aa= document.getElementById('fields');
+		checked = (checked == false)? true : false; 
+		for (var i =0; i < aa.elements.length; i++){
+			aa.elements[i].checked = checked;
+		}
+	}
+	
+	function deleteField(namefield)
+	{
+		if (confirm('Are you sure you want to delete this?')) 
+			window.location = <?="'".$this->baseUrl()."'"?> + '/creditscore/deletefield/prod/' + <?="'".$this->prodType."'"?> + '/namever/' + namefield + '/func/updatemodeldefinefields';
+	}
+</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>                                
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/filters/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<body>
+<p><h2>FIELDS</p><p></p>
+<table width="275" cellpadding="2" cellspacing="1" class="scrolltable" id="myScrollTable" >
+  	<thead>
+		<tr>
+			<th width="207" align="center"><?=$this->fields?></th>
+			<th width="42" align="center"><input type="Submit" name="button" id="button" value="Add"/></th>
+		</tr>	
+	</thead>   
+<? if($this->afields) {?>         
+    <tbody>
+    	<? $at1 = 0;?>        	
+        <? foreach($this->afields as $row) : ?>
+		<? $at1++; ?>    
+        <tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+            onmouseout="this.style.background='white';this.style.color='black'">
+            <td><b/><?=ucfirst($row->namefield)?></td>
+            <td align="center"><input type="button" name="button" id="button" value="Delete" onClick="deleteField(<?="'".$row->namever.'-'.$row->field."'"?>)"/></td>
+        </tr>
+        <? endforeach; ?>
+    </tbody>        
+<? } ?>
+</table>
+</body>
+<p></p>
+   <? $submit = ($at1 == 0)? "style=\"visibility:hidden\"" : ""  ?>
+   <p><input <?=$submit?> type="Submit" name="button" id="button" value="Edit Weights"/> </p>   
+</center>	
+</form>
+<? if(count($this->afields) > 10){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 340);</script>
+<? } ?>

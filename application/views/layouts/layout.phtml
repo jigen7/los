@@ -1,0 +1,57 @@
+<?
+$time = microtime();
+$time = explode(" ", $time);
+$time = $time[1] + $time[0];
+$start = $time;
+?>
+<?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+    <?php echo $this->headMeta(); ?> 
+    <?php echo $this->headTitle(); ?> 
+	<?php echo $this->headScript() ?> 
+	<?php echo $this->headStyle() ?>
+	<?php echo $this->headLink() ?>
+</head>
+
+<?php
+if($this->layout()->usedojo) {
+$this->dojo()->setDjConfigOption('usePlainJson',true)
+        ->addStylesheetModule('dijit.themes.tundra')
+		->addLayer($this->baseUrl().'/js/dojo/dojo/custom.js')
+        ->setLocalPath($this->baseUrl().'/js/dojo/dojo/dojo.js');
+		 
+echo $this->dojo();	
+
+}else {
+
+}
+
+?>
+
+<body class="tundra">
+
+<div id="content">
+    <?php echo $this->layout()->content; ?>
+   
+</div>
+</body>
+</html>
+ <center>
+<font color="#FFFFFF">
+<?
+//$time = microtime();
+
+//$time = explode(" ", $time);
+
+//$time = $time[1] + $time[0];
+
+//$finish = $time;
+
+//$totaltime = ($finish - $start);
+
+//printf ("This page took %f seconds to load.", $totaltime);
+?>
+</font>
+</center>

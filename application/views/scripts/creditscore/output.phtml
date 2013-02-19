@@ -1,0 +1,53 @@
+<script type="text/javascript">
+	var checker = 0;
+
+	function setCheck(){checker++; document.getElementById('showsave').style.visibility = 'hidden';}
+	
+	function reminder(){
+		if(checker == 0){ var txt = confirm("Leave without saving?");
+			if(txt) window.location =<?="'".$this->baseUrl()."'"?> + '/creditscore/selectmodels/prod/' + <?="'".$this->prodType."'"?> + '/sesid/' + <?="'".$this->sesid."'"?>;
+		}else{ window.location =<?="'".$this->baseUrl()."'"?> + '/creditscore/selectmodels/prod/' + <?="'".$this->prodType."'"?> + '/sesid/' + <?="'".$this->sesid."'"?>;	}
+	}
+</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="">
+                <strong><?=$this->title;?></strong></td>
+			<td width="11%"  id="showsave" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.open('<?=$this->baseURL();?>/creditscore/outputfilename/sesid/<?=$this->sesid?>/accounts/<?=$this->accounts?>/models/<?=$this->models?>/prod/<?=$this->prodType?>','mywindow','width=350,height=50,scrollbars=yes,resizable=no, menubar =yes');" >
+                <strong>SAVE</strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="reminder()">
+                <strong>RETURN</strong></td>
+		</tr>
+	</table>
+    <br>
+	<center>
+	<table width="100%" class="scrolltable" cellspacing="1" cellpadding="2" id="myScrollTable" >
+		<thead><tr>
+            <th>Name</th>
+            <? foreach($this->countModel as $x) { ?>
+            <th align="center"><?=$this->viewModelName($x)?></th>
+            <? } ?>
+        </tr></thead>
+		<tbody>
+        	<? foreach($this->arr as $x) { ?>
+            <tr>
+                <td><a href="#" onclick="window.open('<?=$this->baseURL();?>/index/account/cap/<?=$x[account]?>','LOS Detail','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><?=$this->getBorrowerName($x[account])?></a></td>
+                <? if ($x[data]) { foreach($x[data] as $modellist) { ?>
+                <? $this->checkOCS($modellist[lastid], $modellist[modelused], $x[account], $this->sesid); ?>
+                <td align="center"><a href="#" onclick="window.open('<?=$this->baseURL();?>/creditscore/scorecard/prod/<?=$this->prodType?>/cap/<?=$x[account]?>/modelver/<?=$modellist[modelused]?>/scoreid/<?=$modellist[lastid]?>/type/multi','scorecard','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><?=$modellist[totalscore]?></a></td>
+                <? } } ?>
+        	</tr>
+        	<? } ?>
+	  	</tbody>
+	</table>
+    <br/>
+    <input type="button" name="button" value="EXPORT" onClick="window.open('<?=$this->baseURL();?>/creditscore/export/sesid/<?=$this->sesid?>','mywindow','width=350,height=50,scrollbars=yes,resizable=no, menubar =yes');">
+	</center>
+</form>

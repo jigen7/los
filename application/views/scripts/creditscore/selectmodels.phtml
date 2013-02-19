@@ -1,0 +1,89 @@
+<script type="text/javascript">
+	checked=false;
+	function checkedAll () {
+		var aa= document.getElementById('fields');
+		checked = (checked == false)? true : false; 
+		for (var i =0; i < aa.elements.length; i++){
+			aa.elements[i].checked = checked;
+		}
+	}
+	
+	function score(){
+		var ctr = 0;
+		var aa = document.getElementById('fields');
+		for (var i =0; i < aa.elements.length; i++){
+			if(aa.elements[i].checked) ctr++;
+		}				
+		if (ctr > 0 ) document.product.submit();	
+		else alert('Please select at least one model');
+	}
+	
+</script>
+<form action="" method="post" name="product" id="fields">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="76%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+            <td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="score()"><strong>
+		        SCORE</strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/selectaccounts/prod/<?=$this->prodType?>/sesid/<?=$this->sesid?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+<fieldset style="max-width:80%">
+    <table align="center" width="750" border="0">
+      <tr>
+        <td width="303" align="right"><b/>Model Name</td>
+        <td width="80" ><?=$this->form->name?></td>
+        <td width="148" align="right"><b/>Business Center</td>
+        <td width="279" ><?=$this->busctr?></td> 
+      </tr>
+      <tr>
+        <td width="303" align="right"><b/>Model Status</td>
+        <td width="80"><?=$this->form->status?></td>
+        <td width="148" align="right"><b/>Regular/Promo</td>
+        <td width="279"><?=$this->regpro?></td>  
+      </tr>
+      <tr><td colspan="8" align='center'><?=$this->form->button?></td></tr>
+    </table>
+</fieldset>    
+<p></p>
+	<table cellspacing="1" width="825" cellpadding="2" class="scrolltable" id="myScrollTable" >
+  		<thead>
+			<tr>
+				<th width="202" align="center">Model</th>
+				<th width="115" align="center">From</th>
+				<th width="115" align="center">To</th>
+				<th width="105" align="center">Regular/Promo</th>
+				<th width="115" align="center">Business Center</th>
+				<th width="90" align="center">Status</th>
+				<th width="20" align="center"><input type="checkbox" name="row[<?=$i?>][chkbox]" id="checkall" value="<?=$i?>" onclick="checkedAll()"/></th>
+			</tr>	
+		</thead>
+		<tbody>
+            <? foreach($this->table as $row) : ?>
+            <tr align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+                onmouseout="this.style.background='white';this.style.color='black'">
+                <td><b/><?=$row->namever?></td>
+                <td><b/><?=date("m-d-Y",strtotime($row->vpfrom))?></td>
+                <td><b/><?=date("m-d-Y",strtotime($row->vpto))?></td>
+                <td><b/><?=$this->RegularPromo($row->namever)?></td>
+                <td><b/><?=$this->BusinessCenter($row->namever)?></td>
+                <td><b/><?=$row->status?></td>
+                <td align="center"><input type="checkbox" name="row[<?=$row->namever?>][chkbox]" id="checkall" value="<?=$row->namever?>"/> </td>
+            </tr>
+            <? endforeach; ?>
+		</tbody>
+	</table>
+</center>	
+</form>
+<? if(count($this->table) > 13){ ?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 365);</script>
+<? } ?>

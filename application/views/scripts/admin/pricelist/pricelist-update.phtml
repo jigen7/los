@@ -1,0 +1,247 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<script type="text/javascript">
+checked=false;
+function checkedAll () {
+
+	var aa= document.getElementById('update');
+	 if (checked == false)
+          {
+           checked = true
+          }
+        else
+          {
+          checked = false
+          }
+	for (var i =0; i < aa.elements.length; i++) 
+	{
+	 aa.elements[i].checked = checked;
+	}
+      }
+</script>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+		$("#myTable2").tablesorter(); 
+    } 
+); 
+</script>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>ADMIN - PRICELIST - PENDING UPDATE </strong></td>
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">
+    <strong>Return</strong></td>
+</tr>
+</table>
+
+
+<table width="100%" border="0">
+  <tr>
+    <td width="255"><a href="<?=$this->baseUrl()?>/admin/pricelist">&lt;&lt;Go to Retrieve</a></td>
+    <td width="230" align="center">&nbsp;</td>
+    <td width="255" align="right"><a href="<?=$this->baseUrl()?>/admin/pricelistapprove">Go to Pending Approve &gt;&gt;</a></td>
+  </tr>
+</table>
+
+<form method="post" name="update" id="update">
+<br />
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;border-collapse: collapse;background-color: white;
+    " class="tablesorter">
+    <thead>
+  <tr>
+    <th width="47%" align="left">Select Dealer : <?=$this->form->dealer_new?> Select Month
+      <?=$this->form->listmonth2?> <span style="border-left:hidden">
+      <input type="submit" name="button" id="button" value="Go"/>
+      </span>
+<input name="postDealer" type="hidden" id="postDealer" value="<?=$this->postDealer?>" />
+      <input name="postMonth" type="hidden" id="postMonth" value="<?=$this->postMonth?>" />
+      <input name="postYear" type="hidden" id="postYear" value="<?=$this->postYear?>" /></th>
+    <th width="53%" align="right" style="border-left:hidden"><input type="submit" name="button" id="button" value="Delete Checked" onclick="return window.confirm('Are you sure you want to delete all checked rows?')"/>
+      <input type="submit" name="button" id="button" value="Save Checked" onclick="return window.confirm('Are you sure you want to Save the current Pricelist?')" />
+      <input type="submit" name="button" id="button" value="Submit All" onclick="return window.confirm('Are you sure you want to Submit the current Pricelist?')" />
+      <input type="submit" name="button" id="button" value="Submit Checked" onclick="return window.confirm('Are you sure you want to Submit the current Pricelist?')" /></th>
+    </tr>
+  </table>
+  
+  <? 
+  if($this->remarksDetail){
+  echo $this->remarksDetail->by.':'.$this->remarksDetail->remarks;
+  }
+  ?>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+  <thead>
+    <tr>
+      <th colspan="9" align="left">Existing Units </th>
+    </tr>
+    <tr>
+      <th width="4%" align="center"><strong> By</strong>
+        </td>
+      </th>
+      <th width="10%" align="center"><strong>DEALER</strong>
+        </td>
+      </th>
+      <th width="9%" align="center"><strong>BRAND</strong><strong></strong>
+        </td>
+      </th>
+      <th width="14%" align="center"><strong>TYPE</strong>
+        </td>
+      </th>
+      <th width="21%" align="center"><strong>UNIT</strong>
+        </td>
+      </th>
+      <th width="10%" align="center"><strong>MOS-YEAR</strong>
+        </td>
+      </th>
+      <th width="15%" align="center">Last Month </th>
+      <th width="12%" align="center"><strong>Present Month</strong> </th>
+      <th width="5%" align="center"><input type="checkbox" name="chkAll2" id="chkAll2" onclick='checkedAll()'/>      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <? if ($this->detail){  ?>
+    <? foreach($this->detail as $row) { ?>
+    <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+      <td align="center"><?=$this->viewMa($row->duplicate_by)?>
+        -
+        <?=$row->duplicate_date?></td>
+      <td height="34" align="center"><?=$row->dealer?></td>
+      <td align="center"><?=$row->brand?></td>
+      <td align="center"><?=$row->type?></td>
+      <td><?=$row->unit?></td>
+      <td align="center"><?=$this->viewMonths($row->month,'shortcut')?>
+        -
+        <?=$row->year?></td>
+      <td align="center" onmouseover="Tip('<?=$this->getSellPriceDifference($row->id,'monthyear') ?>')" onmouseout="UnTip()"><span style="background-color: <?=$this->getSellPriceDifference($row->id,'color')?>">
+        <?=$this->getSellPriceDifference($row->id,'history')?>
+      </span></td>
+      <td><input name="row[<?=$row->id?>][selling_price]" type="text" value="<?=$row->selling_price?>" size="12"/></td>
+      <td><input type="hidden" name="row[<?=$row->id?>][id]" value="<?=$row->id?>" />
+        <input type="checkbox" name="row[<?=$row->id?>][chkbox]" id="checkall" value="<?=$row->id?>"/></td>
+    </tr>
+    <? } ?>
+    <? } ?>
+  </tbody>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable2" class="tablesorter">
+
+  <thead>
+        <tr>
+      <th colspan="9" align="left">New Units</th>
+    </tr>
+    <tr>
+      <th width="4%" align="center"><strong> By</strong>
+        </td>
+      </th>
+      <th width="10%" align="center"><strong>DEALER</strong>
+        </td>
+      </th>
+      <th width="9%" align="center"><strong>BRAND</strong><strong></strong>
+        </td>
+      </th>
+      <th width="14%" align="center"><strong>TYPE</strong>
+        </td>
+      </th>
+      <th width="21%" align="center"><strong>UNIT</strong>
+        </td>
+      </th>
+      <th width="10%" align="center"><strong>MOS-YEAR</strong>
+        </td>
+      </th>
+      <th width="15%" align="center">Last Month </th>
+      <th width="12%" align="center"><strong>Present Month</strong></th>
+      <th width="5%" align="center">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? if ($this->detailNew){  ?>
+    <? foreach($this->detailNew as $row) { ?>
+    <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+      <td align="center"><?=$this->viewMa($row->duplicate_by)?>
+        -
+        <?=$row->duplicate_date?></td>
+      <td height="34" align="center"><?=$row->dealer?></td>
+      <td align="center"><?=$row->brand?></td>
+      <td align="center"><?=$row->type?></td>
+      <td><?=$row->unit?></td>
+      <td align="center"><?=$this->viewMonths($row->month,'shortcut')?>
+        -
+        <?=$row->year?></td>
+      <td align="center" onmouseover="Tip('<?=$this->getSellPriceDifference($row->id,'monthyear') ?>')" onmouseout="UnTip()"><span style="background-color: <?=$this->getSellPriceDifference($row->id,'color')?>">
+        <?=$this->getSellPriceDifference($row->id,'history')?>
+        </span></td>
+      <td><input name="rowNew[<?=$row->id?>][selling_price]" type="text" value="<?=$row->selling_price?>" size="12"/></td>
+      <td align="center"><input type="hidden" name="rowNew[<?=$row->id?>][id]" value="<?=$row->id?>" />
+        <input type="checkbox" name="rowNew[<?=$row->id?>][chkbox]" id="checkall" value="<?=$row->id?>"/></td>
+    </tr>
+    <? } ?>
+    <tr>
+    <td height="34" colspan="9" align="right">&nbsp;</td>
+      </tr>
+    <? } ?>
+    
+  </tbody>
+</table>
+</form>
+<form method="post" name="add" id="add">
+<table width="100%" border="0">
+  <tr>
+    <td width="69">&nbsp;</td>
+    <td width="84"><a href="<?=$this->baseURL()?>/admin/dealer">Dealer </a></td>
+    <td width="102"><?=$this->form->dealer?></td>
+    <td colspan="2">Brand
+      <?=$this->form->veh_brand?>
+      List Year
+      <?=$this->form->listyear?>
+      List Month
+      <?=$this->form->listmonth?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td> Unit </td>
+    <td colspan="3"><?=$this->form->veh_unit?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Selling Price</td>
+    <td><?=$this->form->selling_price?></td>
+    <td width="429">Type
+      <?=$this->form->veh_type?></td>
+    <td width="41">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="26" colspan="5" align="center"><input type="submit" name="button" id="button" value="Add Unit" onclick="return window.confirm('Are you sure you want to Add this Unit?')"/>
+      <input type="hidden" name="dealerTemp" value="<?=$this->dealerTemp?>" /></td>
+  </tr>
+</table>
+</form>
+<p>&nbsp;</p>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("add")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("dealer","dontselect=''","Dealer Required !!");
+frmvalidator.addValidation("veh_brand","dontselect=''","Brand Required!!");
+frmvalidator.addValidation("veh_type","dontselect=''","Vehicle Type Required!!");
+frmvalidator.addValidation("listyear","dontselect=''","Year Required!!");
+frmvalidator.addValidation("listmonth","dontselect=''","Month Required!!");
+frmvalidator.addValidation("selling_price","req","Selling Price Required!!");
+frmvalidator.addValidation("veh_unit","req","Vehicle Unit Required!!");
+
+</script>

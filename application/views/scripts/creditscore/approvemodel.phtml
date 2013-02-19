@@ -1,0 +1,60 @@
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="10%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/home/'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+ <body>
+	<table width="336" border="0">
+	  <tr>
+	    <td align='right'><b/>Model</td>
+	    <td><?=$this->form->modelName?></td>
+	    <td colspan="2" align='center'><?=$this->form->search; ?></td>
+	  </tr>
+	</table>
+<p></p>
+	<table width="800" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+		<thead>
+			<tr>
+				<th width="257" rowspan="2" align="center">Model</th>
+				<th colspan="2" align="center">Validity Period</th>
+				<th width="105" rowspan="2" align="center">Regular/Promo</th>
+				<th width="120" rowspan="2" align="center">Business Center</th>
+				<th width="85" rowspan="2" align="center">Status</th>
+			</tr>	
+			<tr>
+				<th width="100" align="center">From</th>
+				<th width="100" align="center">To</th>
+			</tr>
+		</thead>
+		<tbody>
+       		<?php foreach($this->table as $row) : ?>           
+              	<tr align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/approvemodelspecific/prod/<?=$this->prodType?>/namever/<?=$row->namever;?>/place/approvemodel'">
+        			<td><?=$row->namever?></td>
+                    <td><?=date("m-d-Y", strtotime($row->vpfrom))?></td>
+                    <td><?=date("m-d-Y", strtotime($row->vpto))?></td>
+                    <td><?=$this->RegularPromo($row->namever)?></td>
+                    <td><?=$this->BusinessCenter($row->namever)?></td>
+                    <td><?=$row->status?></td>
+        		</tr>
+     		<?php endforeach; ?>
+		</tbody>
+	</table>
+</body>
+         
+</center>	
+</form>
+<? if(count($this->table) > 17){?>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 400);</script>
+<? } ?>

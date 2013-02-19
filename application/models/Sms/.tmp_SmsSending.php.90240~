@@ -1,0 +1,20 @@
+ <?
+/**
+ * Auto Loan System 
+ * @author Paolo Marco Manarang <paolomanarang@gmail.com>
+ * @package LOS
+ */
+
+    class Model_Sms_SmsSending extends Zend_Db_Table
+
+    {
+	protected $_name="sms_sending";
+		
+	
+	
+
+	
+    }
+
+
+ ?>

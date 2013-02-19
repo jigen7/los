@@ -1,0 +1,250 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<script type="text/javascript">
+checked=false;
+function checkedAll () {
+
+	var aa= document.getElementById('update');
+	 if (checked == false)
+          {
+           checked = true
+          }
+        else
+          {
+          checked = false
+          }
+	for (var i =0; i < aa.elements.length; i++) 
+	{
+	 aa.elements[i].checked = checked;
+	}
+      }
+</script>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+		$("#myTable2").tablesorter(); 
+    } 
+); 
+</script>
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>ADMIN - PRICELIST - APPROVE</strong></td>
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'">
+    <strong>Return</strong></td>
+</tr>
+</table>
+<br />
+<form method="post" name="add" id="add">
+<table width="100%" border="0" align="center">
+<? if($this->counter == 1) { ?>
+  <tr>
+    <td width="204" align="left"><a href="<?=$this->baseUrl()?>/admin/pricelistupdate">&lt;&lt;Go to Updates</a></td>
+    <td width="292" align="center">&nbsp;</td>
+    <td width="243" align="left">&nbsp;</td>
+  </tr>
+<? } ?>
+  </table>
+</form>
+<form method="post" name="update" id="update">
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;border-collapse: collapse;background-color: white;" class="tablesorter">
+  <thead>
+    <tr>
+      <th width="58%" align="left">Select Dealer :
+        <?=$this->form->dealer_new?> Select Month : 
+        <?=$this->form->listmonth?> <span style="border-left:hidden">
+        <input type="submit" name="button" id="button" value="Go"/>
+        <input type="button" name="viewButton" id="viewButton" value="View Pricelist" onclick = "window.open('<?=$this->baseURL();?>/admin/pricelistview','mywindow','width=980,height=600,scrollbars=yes,resizable=no, menubar=yes')"/>
+        </span></th>
+      <th width="42%" align="right" style="border-left:hidden"><? if($this->counter == 0) { ?>
+        <input type="submit" name="button" id="button" value="Save Check" onclick="return window.confirm('Are you sure you want to save the check units?')" />
+        <input type="submit" name="button" id="button" value="Approve Pricelist" onclick="return window.confirm('Are you sure you want to Approve the current Pricelist?')" />
+        <input type="submit" name="button" id="button" value="Approve Checked" onclick="return window.confirm('Are you sure you want to Approve the selected Units?')" />
+        <? } ?></th>
+    </tr>
+  </thead>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+    <thead> 
+  <tr>
+    <th colspan="10" align="left">Existing Units
+	<?
+	$month = $this->targetMonth;
+	$targetMonth = date("Y-".$month."-d");
+	
+	?> <input name="postDealer" type="hidden" id="postDealer" value="<?=$this->postDealer?>" />
+	<input name="postMonth" type="hidden" id="postMonth" value="<?=$this->postMonth?>" />
+	<input name="postYear" type="hidden" id="postYear" value="<?=$this->postYear?>" /></th>
+    </tr>
+  <tr>
+    <th width="9%" align="center"><strong>BRAND</strong><strong></strong></td>
+    <th width="7%" align="center"><strong>TYPE</strong></td>
+    <th width="14%" align="center"><strong>UNIT</strong></td>
+    <th width="12%" align="center"><strong>
+    <?
+    $prevmonth05 = date('F',strtotime($targetMonth." -5 months"));
+	$prevmonth05_num = date('n',strtotime($targetMonth." -5 months"));
+	$prevyear05_num = date('Y',strtotime($targetMonth." -5 months"));
+	echo $prevmonth05; 
+	?>
+    </strong></th>
+    <th width="11%" align="center"><strong>
+      <?
+    $prevmonth04 = date('F',strtotime($targetMonth." -4 months"));
+	$prevmonth04_num = date('n',strtotime($targetMonth." -4 months"));
+	$prevyear04_num = date('Y',strtotime($targetMonth." -4 months"));
+	echo $prevmonth04; 
+	?>
+    </strong>      </td>
+    </th>
+    <th width="10%" align="center"><strong>
+      <?
+    $prevmonth03 = date('F',strtotime($targetMonth." -3 months"));
+	$prevmonth03_num = date('n',strtotime($targetMonth." -3 months"));
+	$prevyear03_num = date('Y',strtotime($targetMonth." -3 months"));
+	echo $prevmonth03; 
+	?>
+    </strong>      </td>
+    </th>
+    <th width="11%" align="center"><strong>
+      <?
+    $prevmonth02 = date('F',strtotime($targetMonth." -2 months"));
+	$prevmonth02_num = date('n',strtotime($targetMonth." -2 months"));
+	$prevyear02_num = date('Y',strtotime($targetMonth." -2 months"));
+	echo $prevmonth02; 
+	?>
+    </strong>      </td>
+    </th>
+    <th width="10%" align="center"><strong> <?
+    $prevmonth01 = date('F',strtotime($targetMonth." -1 months"));
+	$prevmonth01_num = date('n',strtotime($targetMonth." -1 months"));
+	$prevyear01_num = date('Y',strtotime($targetMonth." -1 months"));
+	echo $prevmonth01; 
+	?></strong>
+      </td>
+    </th>
+    <th width="11%" align="center"><strong>
+      <?=date('F',strtotime($targetMonth))?>
+    </strong></th>
+    <th width="5%" align="center"><input type="checkbox" name="chkAll2" id="chkAll2" onclick='checkedAll()'/></th>
+    </tr>
+  </thead> 
+  <tbody>
+  <? if ($this->detail){  ?>
+  <? foreach($this->detail as $row) { ?>
+   <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+     <td height="34" align="center"><?=$row->brand?></td>
+    <td align="center"><?=$row->type?></td>
+    <td><?=$row->unit?></td>
+    <td align="center"><font color="<?=$this->getSellPricePrevious($prevmonth05_num,$prevyear05_num,'colorSub',$row->id)?>"> &#9608;</font> <?=$this->getSellPricePrevious($prevmonth05_num,$prevyear05_num,'previous',$row->id)?></td>
+    <td align="center"><font color="<?=$this->getSellPricePrevious($prevmonth04_num,$prevyear04_num,'colorSub',$row->id)?>"> &#9608;</font> <?=$this->getSellPricePrevious($prevmonth04_num,$prevyear04_num,'previous',$row->id)?></td>
+    <td align="center"><font color="<?=$this->getSellPricePrevious($prevmonth03_num,$prevyear03_num,'colorSub',$row->id)?>"> &#9608;</font><?=$this->getSellPricePrevious($prevmonth03_num,$prevyear03_num,'previous',$row->id)?></td>
+    <td align="center"><font color="<?=$this->getSellPricePrevious($prevmonth02_num,$prevyear02_num,'colorSub',$row->id)?>"> &#9608;</font> <?=$this->getSellPricePrevious($prevmonth02_num,$prevyear02_num,'previous',$row->id)?></td>
+    <td align="center"><font color="<?=$this->getSellPricePrevious($prevmonth01_num,$prevyear01_num,'colorSub',$row->id)?>"> &#9608;</font> <?=$this->getSellPricePrevious($prevmonth01_num,$prevyear01_num,'previous',$row->id)?></td>
+    <td align="center"  ><font color="<?=$this->getSellPricePrevious('','','colorMain',$row->id)?>">&#9608;</font> <b><?=$row->selling_price?>
+    </b></td>
+    <td align="center"  ><b>
+      <input type="hidden" name="row[<?=$row->id?>][id]" value="<?=$row->id?>" />
+    </b>      <input type="checkbox" name="row[<?=$row->id?>][chkbox]" id="checkall" value="<?=$row->id?>" <? if ($row->checked === true) { ?>checked="checked" <? } ?>/></td>
+    </tr>
+        <? } ?>
+  <? } ?>
+  </tbody> 
+</table>
+<table width="100%">
+  <tr>
+    <td width="2%">&nbsp;</td>
+    <td width="2%" align="center">&nbsp;</td>
+    <td width="2%" align="center">&nbsp;</td>
+    <td width="2%" align="center">&nbsp;</td>
+    <td width="77%" align="center"><span class="c1"><font color="#FFFF00">&#9608;</font> - No Changes <font color="#0000FF">&#9608;</font> - Increase <font color="#CC0000">&#9608;</font> - Decrease <font color="#66CC00"> &#9608;</font> - New Unit <font color="#999966">&#9608;</font> - Dropout</span></td>
+    <td width="15%" colspan="3" align="center">&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable2" class="tablesorter">
+  <thead>
+    <tr>
+      <th colspan="5" align="left">New Units</th>
+    </tr>
+    <tr>
+      <th width="22%" align="center"><strong>BRAND</strong><strong></strong>
+        </td>
+      </th>
+      <th width="19%" align="center"><strong>TYPE</strong>
+        </td>
+      </th>
+      <th width="22%" align="center"><strong>UNIT</strong>
+        </td>
+      </th>
+      <th width="32%" align="center"><strong>
+        <?=date('F',strtotime($targetMonth))?>
+      </strong></th>
+      <th width="5%" align="center">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <? if ($this->detailNew){  ?>
+    <? foreach($this->detailNew as $row) { ?>
+    <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+      <td height="34" align="center"><?=$row->brand?></td>
+      <td align="center"><?=$row->type?></td>
+      <td><?=$row->unit?></td>
+      <td align="center" bgcolor="#66CC00"><b>P
+        <?=$row->selling_price?> 
+         <input type="hidden" name="rowNew[<?=$row->id?>][id]" value="<?=$row->id?>" />
+      </b></td>
+      <td align="center" bgcolor="#66CC00"><input type="checkbox" name="rowNew[<?=$row->id?>][chkbox]" id="checkall" value="<?=$row->id?>" <? if ($row->checked === true) { ?>checked="checked" <? } ?>/></td>
+    </tr>
+    <? } ?>
+    <? } ?>
+  </tbody>
+</table>
+
+<? if($this->counter == 0) { ?>
+<center>
+<table width="70%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <thead>
+    <tr>
+      <th width="100%" align="left">Return Pricelist</th>
+    </tr>
+    <tr>
+      <th align="left"><textarea name="remarks" id="remarks" cols="100" rows="5"></textarea></th>
+    </tr>
+    <tr>
+      <th align="center"><span style="border-left:hidden">
+        <input type="submit" name="button" id="button" value="Return Pricelist" onclick="return window.confirm('Are you sure you want to Return the current Pricelist?')" />
+      </span></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+</center>
+<? } ?>
+</form>
+<!--
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("returnprice")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("remarks","req","Submit Remarks is Required!!");
+</script>
+-->

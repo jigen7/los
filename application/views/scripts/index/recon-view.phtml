@@ -1,0 +1,233 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-size: 9pt}
+</Style>
+
+<form action="" method="post" name="reconform">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+<tr>
+	<td><strong>RECON LIST </strong><?=$this->curr->borrower_lname.','.$this->curr->borrower_fname.' '.$this->curr->borrower_mname?></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="javascript:self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table><br />
+<strong>Requested Amendment </strong>:
+<? 
+$arr = explode(',',$this->curr->recon_fields);
+foreach($arr as $x) { 
+echo $this->viewFields($x).',';
+} ?>
+<br />
+<strong>Changes Made</strong>:
+<? 
+if($this->reconfields){
+foreach($this->reconfields as $x) { 
+echo $this->viewFields($x).',';
+} }?>
+<br/ >
+<? // echo print_r(array_diff($this->reconfields, $arr)); ?>
+<br />
+<table width="100%" border="0">
+ <? if ($this->loggedInUserType() == 'CA') { ?>
+
+  <tr>
+    <td align="center"><?=$this->form->submit_remarks?></td>
+  </tr>
+  <tr>
+    <td align="center"><input type="submit" name="submit" id="button" value="Submit Ca Recommendation" /></td>
+  </tr>
+   <? } ?>
+</table>
+<br />
+<table width="100%" align="center" id="gradient-style">
+  <tr>
+    <td width="22%" align="center"><strong>Amendment On</strong><strong></strong></td>
+    <td width="25%" align="center"><strong>From(<?=$this->oldcap?>)</strong></td>
+    <td width="29%" align="center"><strong>To(<?=$this->capno?>)</strong></td>
+    <td width="24%" align="center"><strong>Status</strong></td>
+    </tr>
+  <tr>
+    <td align="center">Dealer</td>
+    <td align="center"><?=$this->old->dealer?></td>
+    <td align="center"><?=$this->curr->dealer?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->dealer,$this->curr->dealer,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Brand</td>
+    <td align="center">
+      <?=$this->old->veh_brand?>
+    </td>
+    <td align="center"><?=$this->curr->veh_brand?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_brand,$this->curr->veh_brand,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Unit</td>
+    <td align="center">
+      <?=$this->old->veh_unit?>
+</td>
+    <td align="center">
+      <?=$this->curr->veh_unit?>
+</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_unit,$this->curr->veh_unit,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Vehicle Type</td>
+    <td align="center">
+      <?=$this->old->veh_type?>
+</td>
+    <td align="center">
+      <?=$this->curr->veh_type?>
+</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_type,$this->curr->veh_type,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Year Model</td>
+    <td align="center">
+      <?=$this->old->veh_yrmodel?>
+   </td>
+    <td align="center">
+      <?=$this->curr->veh_yrmodel?>
+</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_yrmodel,$this->curr->veh_yrmodel,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Vehicle Status</td>
+    <td align="center"><?=$this->viewVehStatus($this->old->veh_status)?></td>
+    <td align="center"><?=$this->viewVehStatus($this->curr->veh_status)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_status,$this->curr->veh_status,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">LCP</td>
+    <td align="center">P<?=number_format($this->old->lcp,2)?></td>
+    <td align="center">P<?=number_format($this->curr->lcp,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->lcp,$this->curr->lcp,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">SRP </td>
+    <td align="center">P
+      <?=number_format($this->old->selling_price,2)?></td>
+    <td align="center">P
+      <?=number_format($this->curr->selling_price,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->selling_price,$this->curr->selling_price,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Discount</td>
+    <td align="center"><?=number_format($this->old->veh_discount,2)?></td>
+    <td align="center"><?=number_format($this->curr->veh_discount,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->veh_discount,$this->curr->veh_discount,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Downpayment %</td>
+    <td align="center"><?=number_format($this->old->downpayment_percent,2)?> %</td>
+    <td align="center"><?=number_format($this->curr->downpayment_percent,2)?> %</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->downpayment_percent,$this->curr->downpayment_percent,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Downpayment Actual</td>
+    <td align="center">P<?=number_format($this->old->downpayment_actual,2)?></td>
+    <td align="center">P<?=number_format($this->curr->downpayment_actual,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->downpayment_actual,$this->curr->downpayment_actual,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Addon Rate</td>
+    <td align="center"><?=$this->old->rate?> %</td>
+    <td align="center"><?=$this->curr->rate?> %</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->rate,$this->curr->rate,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Term</td>
+    <td align="center"><?=$this->old->loanterm?>
+mo/s</td>
+    <td align="center"><?=$this->curr->loanterm?>
+mo/s</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->loanterm,$this->curr->loanterm,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Amount of Loan</td>
+    <td align="center">P
+      <?=number_format($this->old->amountloan,2)?></td>
+    <td align="center">P
+      <?=number_format($this->curr->amountloan,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->amountloan,$this->curr->amountloan,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Monthly Amortization</td>
+    <td align="center">P
+      <?=number_format(ceil($this->old->monthly_amortization),2)?></td>
+    <td align="center">P
+      <?=number_format(ceil($this->curr->monthly_amortization),2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->monthly_amortization,$this->curr->monthly_amortization,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">GMI %</td>
+    <td align="center"><?=number_format($this->old->gmi_ratio,2);?> %</td>
+    <td align="center"><?=number_format($this->curr->gmi_ratio,2);?> %</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->gmi_ratio,$this->curr->gmi_ratio,'changes' )?></td>
+  </tr>
+  <tr>
+    <td align="center">Financing Scheme</td>
+    <td align="center"><?=$this->old->addon_rate?></td>
+    <td align="center"><?=$this->curr->addon_rate?></td>
+    <td align="center"><?=$this->viewReconCompare($this->old->addon_rate,$this->curr->addon_rate,'changes')?></td>
+  </tr>
+  <!--
+  <tr>
+    <td align="center">Dealer Incentive</td>
+    <td align="center"><?=$this->old->dealer_incentive?>
+%</td>
+    <td align="center"><?=$this->curr->dealer_incentive?>
+%</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->dealer_incentive,$this->curr->dealer_incentive,'changes')?></td>
+  </tr>
+  <tr>
+    <td align="center">Effective Yield</td>
+    <td align="center"><?=$this->old->effective_yield?>
+%</td>
+    <td align="center"><?=$this->curr->effective_yield?>
+%</td>
+    <td align="center"><?=$this->viewReconCompare($this->old->effective_yield,$this->curr->effective_yield,'changes' )?></td>
+  </tr>
+-->
+  <tr>
+    <td align="center">Total Combine Income</td>
+    <td align="center">P 
+      <?=number_format($this->oldtotalcombine,2)?></td>
+    <td align="center">P
+      <?=number_format($this->currtotalcombine,2)?></td>
+    <td align="center"><?=$this->viewReconCompare($this->oldtotalcombine,$this->currtotalcombine,'changes' )?></td>
+  </tr>
+</table>
+</form>
+<table width="100%" align="center" id="gradient-style">
+  <tr>
+    <td width="22%" align="center"><strong>Audit Trail</strong><strong></strong></td>
+    <td width="25%" align="center"><strong>From(<?=$this->oldcap?>)</strong></td>
+    <td width="29%" align="center"><strong>To(<?=$this->capno?>)</strong></td>
+    <td width="24%" align="center"><strong>Status</strong></td>
+  </tr>
+    
+</table>
+
+
+
+
+
+
+ <? if ($this->loggedInUserType() == 'CA') { ?>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("reconform")
+frmvalidator.EnableMsgsTogether();
+frmvalidator.addValidation("submit_remarks","req","Submit Remarks is Required!!");
+</script>
+ <? } ?>

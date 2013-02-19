@@ -1,0 +1,839 @@
+<meta http-equiv="refresh" content="60" />
+<style>
+		table {
+			font-size: 12px;
+			font-family: verdana;
+			background: #c0c0c0;
+		}
+ 
+		table thead  {
+			cursor: pointer;
+		}
+ 
+		table thead tr,
+		table tfoot tr {
+			background: #c0c0c0;
+		}
+ 
+		table tbody tr {
+			background: #f0f0f0;
+		}
+ 
+		td, th {
+			border: 1px solid white;
+		}
+</style>
+<script type="text/javascript">
+			
+		//
+		//  In my case I want to load them onload, this is how you do it!
+		// 
+		Event.observe(window, 'load', loadAccordions, false);
+	
+		//
+		//	Set up all accordions
+		//
+		function loadAccordions() {
+			
+			
+			var bottomAccordion = new accordion('vertical_container');
+			
+
+			
+			// Open first one
+			bottomAccordion.activate($$('#vertical_container .accordion_toggle')[0]);
+			
+			// Open second one
+			topAccordion.activate($$('#horizontal_container .horizontal_accordion_toggle')[2]);
+		}
+		
+	</script>
+	
+	<!-- CSS -->
+	
+<script type='text/javascript'>
+var currSelect='row0';
+var currSelect='rowS0';
+
+function radioClick(num){
+document.getElementById(num).checked = true;	
+//clearRows();
+var cell=document.getElementById('row'+num);
+var prev=document.getElementById(currSelect);
+    
+	prev.style.background='white';
+	prev.style.color="black"; 
+
+    cell.style.background='red';
+	cell.style.color="white";
+currSelect = 'row'+num;
+}
+
+function get_radio_value()
+{
+if(document.tableList.radio.value){
+	return document.tableList.radio.value;
+}
+else {
+for (var i=0; i < document.tableList.radio.length; i++)
+   {
+   if (document.tableList.radio[i].checked)
+      {
+      //var rad_val = document.orderform.music[i].value;
+      return document.tableList.radio[i].value;
+	  }
+   }
+}
+}
+
+function rowSelect(row){
+	//alert(row);
+	var cell=document.getElementById('row'+row);
+        cell.style.background='red';
+		cell.style.color="white";
+}
+
+function clearRows(){
+		for (i=0;i<=99;i++){
+		document.getElementById('row'+i).style.background='white';
+        document.getElementById('row'+i).style.color="black";
+		}
+}
+
+function openDecisionView(pageURL, title,w,h){
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+   var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+
+}
+function openDecision(pageURL, title,w,h){
+	if (get_radio_value()){
+	
+
+	//window.open(','mywindow','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes')
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+//var top = (screen.height/2)-(h/2);
+/*
+var targetWin = window.open((pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, dialogWidth:'+w+', dialogHeight:'+h+', dialogTop:'+100+', dialogLeft:'+left);
+*/
+/*
+showModalDialog(pageURL, 'toolbar:no, location:no, directories:no, status:no, menubar:no, scrollbars:yes, resizable:yes, copyhistory:no, dialogWidth:'+w+'px, dialogHeight:'+h+'px, dialogTop:'+100+'px, dialogLeft:'+left+'px');
+*/
+
+
+  var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+
+	<? if($this->chkDigiPassStatus($this->loggedInUser()) === true) { ?>
+	window.open(pageURL,'decisionBox','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+	//alert("TRUE")
+	<? } else { ?>
+	window.open(pageURL,'decisionBox','width=600,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')	
+	//alert("FALSE")
+	<? } ?>
+
+
+
+}else { alert('Please Choose Application to Decide'); }
+}
+
+function openCraw(){
+if (get_radio_value()){
+window.open('<?=$this->baseURL();?>/index/crawammendment/cap/'+get_radio_value()+'/type/print','mywindow','width=1000,height=600,scrollbars=yes,resizable=no, menubar=yes, fullscreen=yes')	
+} 
+else { alert('Please Choose Application to Open the Craw'); }
+}
+
+////////----Separator----------/////////////
+function radioClick2(num){
+document.getElementById(num).checked = true;	
+//clearRows();
+var cell=document.getElementById('rowS'+num);
+var prev=document.getElementById(currSelect2);
+    
+	prev.style.background='white';
+	prev.style.color="black"; 
+
+    cell.style.background='red';
+	cell.style.color="white";
+currSelect2 = 'rowS'+num;
+}
+
+function get_radio_value2()
+{
+
+if(document.tableList.radio2.value){
+	return 	document.tableList.radio2.value;
+}
+else {
+for (var i=0; i < document.tableList.radio2.length; i++)
+   {
+
+   if (document.tableList.radio2[i].checked)
+      {
+      //var rad_val = document.orderform.music[i].value;
+      return document.tableList.radio2[i].value;
+	  }
+   }
+}
+}
+
+function rowSelect2(row){
+	//alert(row);
+	var cell=document.getElementById('rowS'+row);
+        cell.style.background='red';
+		cell.style.color="white";
+}
+
+function clearRows2(){
+		for (i=0;i<=99;i++){
+		document.getElementById('rowS'+i).style.background='white';
+        document.getElementById('rowS'+i).style.color="black";
+		}
+}
+
+function openDecision2(pageURL, title,w,h){
+	if (get_radio_value2()){
+	//window.open(','mywindow','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes')
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+
+  var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+
+}else { alert('Please Choose Application to View'); }
+}
+
+function openCraw2(){
+if (get_radio_value2()){
+window.open('<?=$this->baseURL();?>/index/crawammendment/cap/'+get_radio_value2()+'/type/print','craw2','width=800,height=600,scrollbars=yes,resizable=no, menubar=yes')	
+} 
+else { alert('Please Choose Application to Open the Craw'); }
+	
+}
+
+function openDecisionView2(pageURL, title,w,h){
+if (get_radio_value2()){
+	var left = (screen.width/2)-(w/2);
+	var right = 100;
+   var option = {};
+  option += "dialogLeft: " + left + "; ";
+  option += "dialogTop: " + right + "; ";
+  option += "dialogWidth: " + w + "; ";
+  option += "dialogHeight: " + h + "; ";
+  option += "status: Yes";
+
+//showModalDialog(pageURL,null,option);
+window.open(pageURL,'decisionBox','width=800,height=200,scrollbars=yes,resizable=no, menubar=yes,toolbar=no,location=no')
+}
+else { alert('Please Choose Application to View'); }
+	
+}
+
+
+
+</script>
+<table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td align="left" ><ul id="nav">
+      <li><a href="#">Logged in as
+        <?=$this->loggedInUser();?>
+      </a><strong></li>
+      <li><a href="<?=$this->baseUrl()?>/index/search">SEARCH</a></li>
+      <li><a href="#" onclick = "window.open('<?=$this->baseURL();?>/admin/digitalpassword','digital','width=600,height=200,scrollbars=yes,resizable=no, menubar=yes')">ELECTRONIC PASSWORD</a></li>
+      <? if($this->loggedInUserType() == 'CSH') { ?>
+      <li><a href="<?=$this->baseUrl()?>/admin/pricelistapprove">PRICELIST</a></li>
+      <? } ?>
+      <li><a href="<?=$this->baseUrl()?>/report/report">REPORT</a></li>
+       <li><a href="#" onclick = "window.open('<?=$this->baseURL();?>/request/index/','wishlist','width=1000,height=600,scrollbars=yes,resizable=no, menubar=yes')">WISHLIST</a></li>
+    </ul></td>
+    <td width="15%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/auth/logout'"><strong> Logout </strong></td>
+  </tr>
+</table>
+<br />
+<center>
+<form name="tableList" method="post">
+  <input type="radio" name="radio" id="radio-1" value="-1" style="display:none"/>
+
+
+  <div id="container">
+    <div id="vertical_container" >
+      <h1 class="accordion_toggle"><strong style="font-size: 12px;
+			font-family: verdana;">Rejected / Passed Account/s(<?=count($this->detail)?>)</strong></h1>
+		<div class="accordion_content">   
+          <table width="95%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTable">
+            <thead >
+              <tr>
+                <th width="40%" class="c1">Name</th>
+                <th width="13%" class="c2">Amount of Loan</th>
+                <th width="7%" align="center" class="c3">DP %</th>
+                <th width="12%" align="center" class="c3">Term</th>
+                <th width="9%" align="center" class="c3">Status</th>
+                <th width="19%" align="center" class="c3">Date Forwarded</th>
+              </tr>
+            </thead>
+            <!--//onmouseout//this.style.background='white';this.style.color='black';-->
+            <!--//onmouseover//this.style.background='red';this.style.color='white';-->
+            <tbody id="tbody">
+              <? $counter = 0; foreach($this->detail as $detail) { ?>
+              <tr id='row<?=$counter?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail->capno?>'" onclick="radioClick('<?=$counter?>');rowSelect('row<?=$counter?>')">
+                <td class="c1"><input type="radio" name="radio" id="<?=$counter?>" value="<?=$detail->capno?>" />
+                  <?=$detail->borrower_lname?>
+                  ,
+                  <?=$detail->borrower_fname?>
+                  <?=$detail->borrower_mname?>
+                  </th>
+                  <?=$this->autoRouteDecision($detail->capno,$detail->score)?></td>
+                <td align="center" class="c2"><span class="c1"> P
+                  <?=number_format($detail->amountloan, 2)?>
+                </span></td>
+                <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+                  %</td>
+                <td align="center" class="c3"><?=$detail->loanterm?>
+                  months</td>
+                <td align="center" class="c3"><?=$this->viewAccountStatus($detail->account_status)?></td>
+                <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail->date_decided))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+              </tr>
+              <? $counter++;} ?>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th class="c1">&nbsp;</th>
+                <th class="c1">&nbsp;</th>
+                <th class="c1">&nbsp;</th>
+                <th class="c1"><span class="c3">
+                  <input type="button" name="button7" id="button11" value="Cancel Application" onclick="openDecision('<?=$this->baseURL();?>/index/almhcancel/cap/'+get_radio_value(),'Credit Decision',1000,400)"/>
+                </span></th>
+                <th class="c3"><input type="button" name="button" id="button5" value="Endorse" onclick="openDecision('<?=$this->baseURL();?>/index/routeendorse/cap/'+get_radio_value(),'Credit Decision',1000,400)"/></th>
+                <th class="c3"><strong>
+                  <input type="button" name="button4" id="button6" value="View CRAW" onclick = "openCraw();" />
+                </strong></th>
+              </tr>
+            </tfoot>
+          </table>
+          <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTable'), 200);
+</script>
+	  </div>
+      
+      
+    
+  <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">Endorsed Account/s(<?=count($this->detail2)?>)</strong></h1>
+     	<div class="accordion_content">
+	    <div id="vertical_container" >
+      <table width="95%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTableDecided">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="9%" align="center" class="c3">Endorse To</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <? $counter2 = 0;foreach($this->detail2 as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=$this->viewMa($this->getUser(substr($detail2->routetag,3)))?></td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail2->date_endorsed))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="c1"><font color="#6c3">&#9608;</font> - Approve <font color="#cf3">&#9608;</font> - Recommend / Pass <font color="#f33">&#9608;</font> - Reject </th>
+            <th class="c3"><input type="button" name="button2" id="button3" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+      
+ <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTableDecided'), 200);
+</script>
+    </div>
+    </div>
+    
+ <h1 class="accordion_toggle"><strong style="font-size: 12px;
+			font-family: verdana;">Crecom / Board Level(<?=count($this->resultCrecom)?>)</strong></h1>
+  <div class="accordion_content">
+            <div id="vertical_container" >
+<table width="95%" align="center" cellpadding="2" cellspacing="1" id="Crecom">
+                <thead >
+                  <tr>
+                    <th width="40%" class="c1">Name</th>
+                    <th width="13%" class="c2">Amount of Loan</th>
+                    <th width="7%" align="center" class="c3">DP %</th>
+                    <th width="12%" align="center" class="c3">Term</th>
+                    <th width="9%" align="center" class="c3">Score</th>
+                    <th width="19%" align="center" class="c3">Date Forwarded</th>
+                  </tr>
+                </thead>
+                <!--//onmouseout//this.style.background='white';this.style.color='black';-->
+                <!--//onmouseover//this.style.background='red';this.style.color='white';-->
+                <tbody id="tbody3">
+                  <? foreach($this->resultCrecom as $detail) { 
+  				  $color = $this->getColorAutoRouting($detail->capno,'crecom');	  ?>
+                  
+                  <tr id='row<?=$counter?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$color?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail->capno?>'" onclick="radioClick('<?=$counter?>');rowSelect('row<?=$counter?>')" style="background:<?=$color?>">
+                    <td class="c1"><input type="radio" name="radio" id="<?=$counter?>" value="<?=$detail->capno?>" />
+                      <?=$detail->borrower_lname?>
+                      ,
+                      <?=$detail->borrower_fname?>
+                      <?=$detail->borrower_mname?>
+                      </th>
+                      <?=$this->autoRouteDecision($detail->capno,$detail->score)?></td>
+                    <td align="center" class="c2"><span class="c1"> P
+                      <?=number_format($detail->amountloan, 2)?>
+                    </span></td>
+                    <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+                      %</td>
+                    <td align="center" class="c3"><?=$detail->loanterm?>
+                      months</td>
+                    <td align="center" class="c3"><?=$detail->score_tag
+				//$this->viewScore($detail->score,$detail->capbasis,'view')?></td>
+                    <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail->date_decided))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+                  </tr>
+                  <? $counter++;} ?>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="4" class="c1">&nbsp;</th>
+                    <th class="c3"> <input type="button" name="button5" id="button7" value="Decide" onclick="openDecision('<?=$this->baseURL();?>/autorouting/crecomdecision/grp/crecom/cap/'+get_radio_value(),'Credit Decision',750,350)"/>
+                    </th>
+                    <th class="c3"><strong>
+                      <input type="button" name="button5" id="button8" value="View CRAW" onclick = "openCraw();" />
+                    </strong></th>
+                  </tr>
+                </tfoot>
+              </table>
+<script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('Crecom'), 200);
+</script>
+          </div>
+      </div>
+   	<!--------------------------End of Crecom Accordion-------------------------------------->	
+
+
+   	  <h1 class="accordion_toggle"><strong style="font-size: 12px;
+			font-family: verdana;">Sub-Crecom Level(<?=count($this->resultSubCrecom)?>)</strong></h1>
+ <div class="accordion_content">
+    <div id="vertical_container" >
+	 <table width="95%" align="center" cellpadding="2" cellspacing="1" id="SubCrecom">
+	        <thead >
+	          <tr>
+	            <th width="40%" class="c1">Name</th>
+	            <th width="13%" class="c2">Amount of Loan</th>
+	            <th width="7%" align="center" class="c3">DP %</th>
+	            <th width="12%" align="center" class="c3">Term</th>
+	            <th width="9%" align="center" class="c3">Score</th>
+	            <th width="19%" align="center" class="c3">Date Forwarded</th>
+	            </tr>
+	          </thead>
+	        <!--//onmouseout//this.style.background='white';this.style.color='black';-->
+	        <!--//onmouseover//this.style.background='red';this.style.color='white';-->
+	        <tbody id="tbody4">
+	          <? foreach($this->resultSubCrecom as $detail) { ?>
+	          <tr id='row<?=$counter?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='white';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail->capno?>'" onclick="radioClick('<?=$counter?>');rowSelect('row<?=$counter?>')">
+	            <td class="c1"><input type="radio" name="radio" id="<?=$counter?>" value="<?=$detail->capno?>" />
+	              <?=$detail->borrower_lname?>
+	              ,
+	              <?=$detail->borrower_fname?>
+	              <?=$detail->borrower_mname?>
+	              </th>
+	              <?=$this->autoRouteDecision($detail->capno,$detail->score)?></td>
+	            <td align="center" class="c2"><span class="c1"> P
+	              <?=number_format($detail->amountloan, 2)?>
+	              </span></td>
+	            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+	              %</td>
+	            <td align="center" class="c3"><?=$detail->loanterm?>
+	              months</td>
+	            <td align="center" class="c3"><?=$detail->score_tag
+				//$this->viewScore($detail->score,$detail->capbasis,'view')?></td>
+	            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail->date_decided))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+	            </tr>
+	          <? $counter++;} ?>
+	          </tbody>
+	        <tfoot>
+	          <tr>
+	            <th colspan="4" class="c1">&nbsp;</th>
+	            <th class="c3"> <input type="button" name="button6" id="button9" value="Decide" onclick="openDecision('<?=$this->baseURL();?>/autorouting/crecomdecision/grp/subcrecom/cap/'+get_radio_value(),'Credit Decision',750,350)"/>
+	              </th>
+	            <th class="c3"><strong>
+	              <input type="button" name="button6" id="button10" value="View CRAW" onclick = "openCraw();" />
+	              </strong></th>
+	            </tr>
+	          </tfoot>
+	        </table>
+          <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('SubCrecom'), 200);
+</script>
+	    </div>
+	  </div>    
+    
+    
+      <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">Approved Account/s(<?=count($this->resultApproved)?>)</strong></h1>
+   	<div class="accordion_content">
+	    <div id="vertical_container" >
+      <table width="95%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTableApprove">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <? foreach($this->resultApproved as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail2->date_decided))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" align="right" class="c1"><span class="c3">
+              <input type="button" name="button6" id="button2" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/>
+            </span></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+       <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTableApprove'), 200);
+</script>
+    </div>
+  	</div>     
+    
+    
+    
+    <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">For Booking(<?=count($this->resultForBooking)?>)</strong></h1>
+   	<div class="accordion_content">
+	    <div id="vertical_container" >
+      <table width="95%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTableForBooking">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <? foreach($this->resultForBooking as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail2->submitted_mala_date))
+				//date('m-d-Y h:ia',strtotime($this->getLastDate($detail->capno)))?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" align="right" class="c1"><span class="c3">
+              <input type="button" name="button6" id="button2" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/>
+            </span></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+       <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTableForBooking'), 200);
+</script>
+    </div>
+  	</div>     
+    
+      <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">Booked Account/s(<?=count($this->resultBooked)?>)</strong></h1>
+   	<div class="accordion_content">
+	    <div id="vertical_container" >
+      <table width="95%" align="center" cellpadding="2" cellspacing="1" class="" id="myScrollTableBooked">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <? foreach($this->resultBooked as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($this->getLastDateAutoRoute($detail2->capno)))?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" align="right" class="c1"><span class="c3">
+              <input type="button" name="button5" id="button" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/>
+            </span></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+       <script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTableBooked'), 200);
+</script>
+    </div>
+  	</div>    
+    
+    <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">
+      Crecom Decided(<?=count($this->crecominbox)?>)</strong></h1>
+   	<div class="accordion_content">
+	  <div id="vertical_container" >
+     <table width="95%" align="center" cellpadding="2" cellspacing="1" id="DecidedCrecom">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="9%" align="center" class="c3">Score</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?  foreach($this->crecominbox as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=$detail2->score_tag
+			//$this->viewScore($detail2->score,$detail2->capbasis,'view')?></td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail2->date_decided))
+			//date('m-d-Y h:ia',strtotime($this->getLastDateAutoRoute($detail2->capno))) ?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="c1">&nbsp;</th>
+            <th class="c3"><input type="button" name="button2" id="button3" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+      <script type="text/javascript">
+		var x = new ScrollableTable(document.getElementById('DecidedCrecom'), 200);
+	  </script>
+    </div> </div>
+    
+    <!------------------------End of Crecom DecideAccordion---------------------------->	
+
+ <h1 class="accordion_toggle"><strong style="font-size: 12px;font-family: verdana;">
+ Sub-Crecom Decided(<?=count($this->subcrecominbox)?>)</strong></h1>
+    <div class="accordion_content">
+	    <div id="vertical_container" >
+<table width="95%" align="center" cellpadding="2" cellspacing="1" id="DecidedSubCrecom">
+        <thead>
+          <tr>
+            <th width="40%" class="c1">Name</th>
+            <th width="13%" class="c2">Amount of Loan</th>
+            <th width="8%" align="center" class="c3">DP %</th>
+            <th width="11%" align="center" class="c3">Term</th>
+            <th width="9%" align="center" class="c3">Score</th>
+            <th width="19%" align="center" class="c3">Date Submitted</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?  foreach($this->subcrecominbox as $detail2) { ?>
+          <tr id='rowS<?=$counter2?>' onmouseover="this.style.background='#c0c0c0';this.style.cursor='pointer';this.style.color='black'"
+        onmouseout="this.style.background='<?=$this->getColor($detail2->account_status)?>';this.style.color='black'" ondblclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$detail2->capno?>'" onclick="radioClick2('S<?=$counter2?>');rowSelect2('rowS<?=$counter2?>')" style="background:<?=$this->getColor($detail2->account_status)?>" >
+            <td class="c1"><input type="radio" name="radio2" id="S<?=$counter2?>" value="<?=$detail2->capno?>" />
+              <?=$detail2->borrower_lname?>
+              ,
+              <?=$detail2->borrower_fname?>
+              <?=$detail2->borrower_mname?>
+              </th></td>
+            <td align="center" class="c2"><span class="c1"> P
+              <?=number_format($detail2->amountloan, 2)?>
+            </span></td>
+            <td align="center" class="c3"><?	  
+        $explode = explode('.',$detail2->downpayment_percent);
+		echo $explode[0].'.'.substr($explode[1],0,2);?>
+              %</td>
+            <td align="center" class="c3"><?=$detail2->loanterm?>
+              months </td>
+            <td align="center" class="c3"><?=$detail2->score_tag
+			//$this->viewScore($detail2->score,$detail2->capbasis,'view')?></td>
+            <td align="center" class="c3"><?=date('m-d-Y h:ia',strtotime($detail2->date_decided))
+			//date('m-d-Y h:ia',strtotime($this->getLastDateAutoRoute($detail2->capno))) ?></td>
+          </tr>
+          <? $counter2++; } ?>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4" class="c1">&nbsp;</th>
+            <th class="c3"><input type="button" name="button2" id="button3" value="View" onclick="openDecision2('<?=$this->baseURL();?>/index/routedecisionview/cap/'+get_radio_value2(),'Credit Decision',1000,400)"/></th>
+            <th class="c3"><strong>
+              <input type="button" name="button3" id="button4" value="View CRAW" onclick = "openCraw2();" />
+            </strong></th>
+          </tr>
+        </tfoot>
+      </table>
+      <script type="text/javascript">
+		var x = new ScrollableTable(document.getElementById('DecidedSubCrecom'), 200);
+	  </script>
+    </div> </div> 
+  
+	<div class="page-footer">
+
+
+	</div>
+	
+</div>
+
+
+</form>
+</center>
+<script type="text/javascript">
+var x = new ScrollableTable(document.getElementById('myScrollTable2'), 200);
+</script>
+<p>&nbsp;</p>
+<script type="text/javascript" >
+  
+	//
+	// You can hide the accordions on page load like this, it maintains accessibility
+	//
+	// Special thanks go out to Will Shaver @ http://primedigit.com/
+	//
+	var verticalAccordions = $$('.accordion_toggle');
+	verticalAccordions.each(function(accordion) {
+		$(accordion.next(0)).setStyle({
+		  height: '0px'
+		});
+	});
+
+	
+</script>

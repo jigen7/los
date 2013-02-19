@@ -1,0 +1,406 @@
+
+  <table border="1" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+      <tr>
+        <td><strong>eDOCS - SEARCH</strong></td>
+        <td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/edocs/'"><strong> Return </strong></td>
+      </tr>
+    </table>
+    <table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="2%">&nbsp;</td>
+        <td width="9%">&nbsp;</td>
+        <td width="21%">&nbsp;</td>
+        <td colspan="3">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Cap No.</strong></td>
+        <td><?=$this->capno?></td>
+        <td colspan="5">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td width="15%">&nbsp;</td>
+        <td width="5%">&nbsp;</td>
+        <td width="15%">&nbsp;</td>
+        <td width="15%">&nbsp;</td>
+        <td width="18%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><strong>Borrower</strong></td>
+        <td colspan="2"><?=$this->accntdetail->borrower_lname?>, 
+        <?=$this->accntdetail->borrower_fname?> <?=$this->accntdetail->borrower_mname?>.</td>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2"><?=$this->form->submit?></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
+      </tr>
+	 <tr>
+     <td colspan="8">
+  	  <div class="tabber">
+      
+	  <div class="tabbertab">
+ 	  <h2>BORROWER</h2>
+        <form action="" method="post" name="edocsborrower" id="edocsborrower" enctype="multipart/form-data">
+</form>
+      
+      <table width="100%" border="0" align="center">
+
+<tr>
+  <th width="97" scope="col">Document Type</th>
+
+    <th width="93" scope="col">Name</th>
+     <th width="117" scope="col">Date Uploaded</th>
+     <th width="85" scope="col">Uploaded By</th>
+    <th width="94" scope="col">View</th>
+     <th width="86" scope="col">Action</th>
+ </tr>
+
+<?php  foreach($this->imageborrower as $images) : ?>  
+
+     <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+       <td align="center"><?=$this->escape($images->docu_type);?></td>        					
+    <td align="center"><?=$this->escape($images->description);?></td>
+    <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+    <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+    <? if ($images->filetype== 'img') { ?>
+ <td align="center">
+    <a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%" border="0"/>
+    </a></td>
+    <? } else { ?>
+    <td width="86" align="center">
+       <a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank">
+    <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" style="border-style: none"/></a></td>
+    <? } ?>
+    
+      </tr>
+  <?php endforeach; ?>
+</table>
+    
+  	  </div>
+      
+      	  <div class="tabbertab">
+ 	  <h2>CV</h2>
+        <form action="" method="post" name="edocscv" id="edocscv" enctype="multipart/form-data">
+</form>
+        <table width="100%" border="0" align="center">
+          <tr>
+            <th width="97" scope="col">Document Type</th>
+            <th width="93" scope="col">Name</th>
+            <th width="117" scope="col">Date Uploaded</th>
+            <th width="85" scope="col">Uploaded By</th>
+            <th width="94" scope="col">View</th>
+            <th width="86" scope="col">Action</th>
+          </tr>
+          <?php  foreach($this->imagecv as $images) : ?>
+          <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+            <td align="center"><?=$this->escape($images->docu_type);?></td>
+            <td align="center"><?=$this->escape($images->description);?></td>
+            <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+            <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+            <? if ($images->filetype== 'img') { ?>
+            <td align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%"/> </a></td>
+            <? } else { ?>
+            <td width="86" align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"> <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" border="0" style="border-style: none"/></a></td>
+            <? } ?>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+   	    </div>
+      
+      	  <div class="tabbertab">
+ 	  <h2>CI</h2>
+      <form action="" method="post" name="edocsci" id="edocsci" enctype="multipart/form-data">
+</form>
+      <table width="100%" border="0" align="center">
+        <tr>
+          <th width="97" scope="col">Document Type</th>
+          <th width="93" scope="col">Name</th>
+          <th width="117" scope="col">Date Uploaded</th>
+          <th width="85" scope="col">Uploaded By</th>
+          <th width="94" scope="col">View</th>
+          <th width="86" scope="col">Action</th>
+        </tr>
+        <?php  foreach($this->imageci as $images) : ?>
+        <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+          <td align="center"><?=$this->escape($images->docu_type);?></td>
+          <td align="center"><?=$this->escape($images->description);?></td>
+          <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+          <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+          <? if ($images->filetype== 'img') { ?>
+          <td align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%" border="0"/> </a></td>
+          <? } else { ?>
+          <td width="86" align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"> <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" style="border-style: none"/></a></td>
+          <? } ?>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+   	    </div>
+      
+      	  <div class="tabbertab">
+ 	  <h2>COLLATERAL</h2>
+ <form action="" method="post" name="edocscollateral" id="edocscollateral" enctype="multipart/form-data">
+</form>
+      
+      <table width="100%" border="0" align="center">
+
+<tr>
+  <th width="97" scope="col">Document Type</th>
+
+    <th width="93" scope="col">Name</th>
+     <th width="117" scope="col">Date Uploaded</th>
+     <th width="85" scope="col">Uploaded By</th>
+    <th width="94" scope="col">View</th>
+     <th width="86" scope="col">Action</th>
+ </tr>
+
+<?php  foreach($this->imagecollateral as $images) : ?>  
+
+     <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+       <td align="center"><?=$this->escape($images->docu_type);?></td>        					
+    <td align="center"><?=$this->escape($images->description);?></td>
+    <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+    <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+    <? if ($images->filetype== 'img') { ?>
+ <td align="center">
+    <a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%" border="0"/>
+    </a></td>
+    <? } else { ?>
+    <td width="86" align="center">
+       <a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank">
+    <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" style="border-style: none"/></a></td>
+    <? } ?>
+    
+      </tr>
+  <?php endforeach; ?>
+</table>
+  	  </div>
+      
+      	  <div class="tabbertab">
+ 	  <h2>EMPLOYMENT DOCS</h2>
+         <form action="" method="post" name="edocsemploy" id="edocsemploy" enctype="multipart/form-data">
+</form>
+         <table width="100%" border="0" align="center">
+           <tr>
+             <th width="97" scope="col">Document Type</th>
+             <th width="93" scope="col">Name</th>
+             <th width="117" scope="col">Date Uploaded</th>
+             <th width="85" scope="col">Uploaded By</th>
+             <th width="94" scope="col">View</th>
+             <th width="86" scope="col">Action</th>
+           </tr>
+           <?php  foreach($this->imageemploy as $images) : ?>
+           <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+             <td align="center"><?=$this->escape($images->docu_type);?></td>
+             <td align="center"><?=$this->escape($images->description);?></td>
+             <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+             <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+             <? if ($images->filetype== 'img') { ?>
+             <td align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%" border="0"/> </a></td>
+             <? } else { ?>
+             <td width="86" align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"> <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" style="border-style: none"/></a></td>
+             <? } ?>
+            </tr>
+           <?php endforeach; ?>
+         </table>
+   	    </div>
+      
+      	  <div class="tabbertab">
+ 	  <h2>OTHER DOCS</h2>
+      <form action="" method="post" name="edocsothers" id="edocsothers" enctype="multipart/form-data">
+</form>
+      <table width="100%" border="0" align="center">
+        <tr>
+          <th width="97" scope="col">Document Type</th>
+          <th width="93" scope="col">Name</th>
+          <th width="117" scope="col">Date Uploaded</th>
+          <th width="85" scope="col">Uploaded By</th>
+          <th width="94" scope="col">View</th>
+          <th width="86" scope="col">Action</th>
+        </tr>
+        <?php  foreach($this->imageothers as $images) : ?>
+        <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'">
+          <td align="center"><?=$this->escape($images->docu_type);?></td>
+          <td align="center"><?=$this->escape($images->description);?></td>
+          <td align="center"><?=$this->escape(date("m/d/Y",strtotime($images->uploaded_date)));?></td>
+          <td align="center"><?=$this->escape($images->uploaded_by);?></td>
+          <? if ($images->filetype== 'img') { ?>
+          <td align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"><img src="<?=$this->baseUrl()?>/edocs/showthumb/id/<?=$images->id?>" width = "40%" border="0"/> </a></td>
+          <? } else { ?>
+          <td width="86" align="center"><a href="<?=$this->baseUrl()?>/edocs/show/id/<?=$images->id?>/type/<?=$images->filetype?>" target="_blank"> <img src="<?=$this->baseUrl()?>/images/pdf.jpg" width = "50%" style="border-style: none"/></a></td>
+          <? } ?>
+          </tr>
+        <?php endforeach; ?>
+      </table>
+   	    </div>
+  
+  </div>
+</td></tr>
+        </table>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocsborrower")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["edocsborrower"];
+   	  if (frm.sel_doc_borrower.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocscollateral")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation1()
+	{
+	  var frm = document.forms["edocscollateral"];
+   	  if (frm.sel_doc_collateral.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation1");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocscv")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation2()
+	{
+	  var frm = document.forms["edocscv"];
+   	  if (frm.sel_doc_cv.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation2");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocsci")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation3()
+	{
+	  var frm = document.forms["edocsci"];
+   	  if (frm.sel_doc_ci.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation3");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocsemploy")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation4()
+	{
+	  var frm = document.forms["edocsemploy"];
+   	  if (frm.sel_doc_employ.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation4");
+
+
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("edocsothers")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("desc","req","Description Required!!");
+frmvalidator.addValidation("file","req","Please Select Item!");
+
+ function DoCustomValidation5()
+	{
+	  var frm = document.forms["edocsothers"];
+   	  if (frm.sel_doc_others.value == ''){
+	    	  sfm_show_error_msg("Please Select Document Type");
+			  return false }
+	{
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation5");
+
+
+</script>

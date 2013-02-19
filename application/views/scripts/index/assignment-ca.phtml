@@ -1,0 +1,106 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+.style1 {font-size: 9pt}
+</Style>
+
+<form action="" method="post" name="assignment_ca">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CA ASSIGNMENTS </strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table width="586" border="0">
+  <tr>
+    <td width="74"><a href="#" class="style1">Fast track </a></td>
+    <td width="62"><div align="left"><a href="#" class="style1">Regular</a></div></td>
+    <td width="48"><a href="#">Promo</a></td>
+    <td width="384"><a href="#">All</a></td>
+  </tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td width="12%" align="center"><strong>CAP NO. </strong></td>
+    <td width="25%" align="center"><strong>BORROWER</strong></td>
+    <td width="13%" align="center"><strong>TYPE OF APPLICATION </strong></td>
+    <td width="14%" align="center"><strong>SENDER</strong></td>
+    <td width="11%" align="center"><strong>DATE/TIME RECEIVED </strong></td>
+    <td width="12%" align="center"><strong>ASSIGNED TO </strong></td>
+    <td width="13%" align="center"><strong>APPLICATION STATUS </strong></td>
+  </tr>
+  <? if ($this->rows){?>
+  <?php foreach($this->rows as $row) : ?>
+  <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$row->capno?>'">
+    <td><?=$row->capno?></td>
+    <td><?=$row->borrower_lname.','.$row->borrower_fname.' '.substr($row->borrower_mname, 0,1).'.';?></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <?php endforeach; ?>
+  <? } ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" rules=NONE frame=BOX>
+  <tr>
+    <td><strong>REMARKS</strong></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td>&nbsp;</td>
+    <td width="13%" align="center" ><strong>
+      <input type="submit" name="button" id="button" value="Assign Task" />
+    </strong></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</form>
+<p>&nbsp;</p>

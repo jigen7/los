@@ -1,0 +1,48 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 9pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+
+<form action="" method="post" name="decision" id="myForm">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid none solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>Save Remarks</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5"><strong>
+      <?=$this->getBorrowerName($this->capno)?>
+    </strong></td>
+  </tr>
+      <? foreach($this->history as $details) { ?>
+  <tr>
+    <td colspan="5"><hr style="color: #fff; background-color: #fff; border: 1px dotted #000000; border-style: none none dotted;"/>&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="28%" align="center"><?=date('m-d-Y h:i a',strtotime($details->datetime));
+			  ?></td>
+    <td width="68%" colspan="3"><?=$details->remarks?></td>
+  </tr>
+  <? } ?>
+</table>
+</form>
+
+

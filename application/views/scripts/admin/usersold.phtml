@@ -1,0 +1,221 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+
+
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>ADMIN - Manage Users</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<form id="signup" name="signup" method="post" action="">
+
+<table width="39%" border="0" align="center">
+  <tr>
+    <td width="46%"><strong>Sign Up User</strong></td>
+    <td width="54%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Full Name:</td>
+    <td><?=$this->form->fullname?></td>
+  </tr>
+  <tr>
+    <td>Department</td>
+    <td><?=$this->form->department?></td>
+  </tr>
+  <tr>
+    <td>Branch:</td>
+    <td><?=$this->form->branch?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Username:</td>
+    <td><?=$this->form->username?></td>
+  </tr>
+  <tr>
+    <td>Password:</td>
+    <td><?=$this->form->password?></td>
+  </tr>
+  <tr>
+    <td>Confirm Password:</td>
+    <td><?=$this->form->confirmPassword?></td>
+  </tr>
+  <tr>
+    <td>Role:</td>
+    <td><?=$this->form->roles?></td>
+  </tr>
+  <tr id="alhm" style="display:none">
+    <td>Auto Loan Marketing Head</td>
+    <td><?=$this->form->almh?></td>
+  </tr>
+    <tr id="dh" style="display:none">
+    <td>Division Head</td>
+    <td><?=$this->form->dh?></td>
+  </tr>
+    <tr id="ah" style="display:none">
+    <td>Area Head</td>
+    <td><?=$this->form->ah?></td>
+  </tr>
+  <tr  id="mo" style="display:none">
+    <td>Marketing Officer</td>
+    <td><?=$this->form->mo?></td>
+  </tr>
+
+
+  <tr id="csh" style="display:none">
+    <td>Credit Services Head</td>
+    <td><?=$this->form->csh?></td>
+  </tr>
+  <tr id="co" style="display:none">
+    <td>Credit Officer</td>
+    <td><?=$this->form->co?></td>
+  </tr>
+  <tr id="lo" style="display:none">
+    <td>Loan Officer</td>
+    <td><?=$this->form->lo?></td>
+  </tr>
+  <tr id="crah" style="display:none">
+    <td>Credit Risk Analytics Head</td>
+    <td><?=$this->form->crah?></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <input type="submit" name="button" id="button" value="Sign Up" />
+    </td>
+  </tr>
+</table>
+
+<table width="80%" border="0" align="center">
+  <tr>
+  <td width="27%"><strong>Name</strong></td>
+  <td width="26%"><strong>Department</strong></td>
+    <td width="24%"><strong>Username</strong></td>
+    <td width="23%"><strong>Roles</strong></td>
+  </tr>
+   <?php foreach($this->userDetail as $user) :?>
+  <tr>
+   <td><?=$user->name?></td>
+   <td><?=$user->department?></td>
+   <td><?=$user->username?></td>
+   <td><?=$user->role_type?></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+
+</form>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("signup")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("fullname","req","Please Enter Fullname!!");
+//frmvalidator.addValidation("department","req","Please Enter Employee Department!!");
+//frmvalidator.addValidation("branch","req","Please Enter Employee Designated Branch!!");
+frmvalidator.addValidation("username","req","Please Enter Employee Username!!");
+frmvalidator.addValidation("password","req","Please Enter Employee Password!!");
+frmvalidator.addValidation("confirmPassword","req","Please Enter Confirm Password!!");
+
+  function DoCustomValidation()
+	{
+	 var frm = document.forms["signup"];
+	 var frm2 = document.getElementById("button");
+	 if (frm.password.value != frm.confirmPassword.value){
+	    	  sfm_show_error_msg("Password and Confirm Password Do not match");
+			  return false }
+   	  else if (frm.roles.value == 0){
+	    	  sfm_show_error_msg("Please Enter Employee Role");
+			  return false }
+	  	else if (frm.roles.value == 'MA' && frm.almh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Auto Loan Marketing Head");
+			  return false }
+	  	else if (frm.roles.value == 'MA' && frm.dh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Division Head");
+			  return false }
+	  	else if (frm.roles.value == 'MA' && frm.ah.value == 0){
+	    	  sfm_show_error_msg("Please Enter Area Head");
+			  return false }
+	  	else if (frm.roles.value == 'MA' && frm.mo.value == 0){
+	    	  sfm_show_error_msg("Please Enter Marketing Officer");
+			  return false }
+	
+	 	else if (frm.roles.value == 'MO' && frm.almh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Auto Loan Marketing Head");
+			  return false }
+	  	else if (frm.roles.value == 'MO' && frm.dh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Division Head");
+			  return false }
+	  	else if (frm.roles.value == 'MO' && frm.ah.value == 0){
+	    	  sfm_show_error_msg("Please Enter Area Head");
+			  return false }
+			  
+	 	else if (frm.roles.value == 'AH' && frm.almh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Auto Loan Marketing Head");
+			  return false }
+	  	else if (frm.roles.value == 'AH' && frm.dh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Division Head");
+			  return false }
+		else if (frm.roles.value == 'DH' && frm.almh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Auto Loan Marketing Head");
+			  return false }
+		else if (frm.roles.value == 'CA' && frm.csh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Services Head");
+			  return false }
+	  	else if (frm.roles.value == 'CA' && frm.co.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Officer");
+			  return false }
+			  		 else if (frm.roles.value == 'AP' && frm.csh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Services Head");
+			  return false }
+	  	else if (frm.roles.value == 'AP' && frm.co.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Officer");
+			  return false }
+		else if (frm.roles.value == 'CI' && frm.csh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Services Head");
+			  return false }
+	  	else if (frm.roles.value == 'CI' && frm.co.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Officer");
+			  return false }
+		else if (frm.roles.value == 'CO' && frm.csh.value == 0){
+	    	  sfm_show_error_msg("Please Enter Credit Services Head");
+			  return false }
+		else if (frm.roles.value == 'LA' && frm.lo.value == 0){
+	    	  sfm_show_error_msg("Please Enter Loan Officer");
+			  return false }
+		else if (frm.roles.value == 'CRAA' && frm.crah.value == 0){
+	    	  sfm_show_error_msg("Credit Risk Analytics Head");
+			  return false }
+
+
+
+
+		  
+	  	{
+	    return true;
+	 	 }
+	
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+</script>
+
+
+

@@ -1,0 +1,23 @@
+borrower_business 	-------
+borrower_business_ca	-------	bus_multiplier
+borrower_business_ca    -------
+
+
+
+borrower_crawform
+----------------------date
+----------------------score
+----------------------source_info
+
+
+
+borrower_credit_decision
+---------------------------score
+
+
+
+borrower_employment
+borrower_employment_ca
+borrower_employment_ma
+-------------------------emp_multiplier
+-------------------------emp_actual_position

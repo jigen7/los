@@ -1,0 +1,378 @@
+    <script type="text/javascript">
+    <!--
+    $(function () {
+        var cat = $('#categorySelect');
+        var el = $('#elementSelect');
+
+        // note that we're assigning in reverse order
+        // to allow the chaining change trigger to work
+        cat.selectChain({
+            target: el,
+            url: '<?=$this->baseUrl();?>/inc/query.php',
+            data: { ajax: true }
+        }).trigger('change');
+
+    });
+    //-->
+ </script>
+    <script src="<?=$this->baseUrl();?>/js/select-chain.js" type="text/javascript" charset="utf-8"></script>
+ <script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<style type="text/css">
+.commenthidden {display:none}
+.commentshown {display:inline}
+</style>
+<script type="text/Javascript">
+function togglecomments (postid) {
+var whichpost = document.getElementById(postid);
+if (whichpost.className=="commentshown") { whichpost.className="commenthidden"; } else { whichpost.className="commentshown"; }
+} </script>
+
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>    
+   
+
+
+
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BANK ACCOUNTS</font></strong></td>
+  </tr>
+</table>
+<br />
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="16%" align="center"><strong>BANK</strong></td>
+    <td width="23%" align="center"><strong>BRANCH</strong></td>
+    <td width="15%" align="center"><strong>TYPE OF ACCOUNT</strong></td>
+    <td width="13%" align="center"><strong>ACCOUNT NO.</strong></td>
+    <td width="11%" align="center"><strong>ADB</strong></td>
+    <td width="12%" align="center"><strong>DATE OPENED</strong></td>
+    <td width="10%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->bankdetail as $bankdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$bankdetails->bank?></td>
+    <td align="center"><?=$bankdetails->branch?></td>
+    <td align="center"><?=$bankdetails->account_type?></td>
+    <td align="center"><?=$bankdetails->account_no?></td>
+    <td align="center">P<?=$bankdetails->adb?></td>
+    <td align="center"><?=$bankdetails->date_opened?></td>
+    <td align="center"><input name="button" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Bank Detail?')) window.location='<?=$this->baseUrl().'/index/delbank/id/'.$bankdetails->id.'/cap/'.$this->capno?>'" value="Delete" /></td>
+  </tr>
+  <?php endforeach; ?>
+  
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('bank_details')"
+ >Add Bank Details</a> 
+ <div align="center" id="bank_details" class="commenthidden">
+
+<form name="bank" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="12%" align="center">Bank</td>
+  <td width="17%" align="center">Branch</td>
+  <td width="20%" align="center">Type of Account</td>
+  <td width="18%" align="center">Account No.</td>
+  <td width="14%" align="center">ADB</td>
+  <td width="19%" align="center">Date Opened</td>
+  </tr>
+<tr align="left">
+  <td align="center"><?=$this->form->bank?></td>
+  <td align="center"><?=$this->form->branch?></td>
+  <td align="center"><?=$this->form->account_type?></td>
+  <td align="center"><?=$this->form->account_no?></td>
+  <td align="center"><?=$this->form->adb?></td>
+  <td align="center"><?=$this->form->date_opened?></td>
+</tr>
+<tr align="left">
+  <td colspan="6" align="center"><input name="submit" type="submit" value="Add Bank Details" /></td>
+</tr>
+</table>
+</form>
+</div>
+<br />
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">REAL ESTATE</font></strong></td>
+  </tr>
+</table>
+<br />
+
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>LOCATION</strong></td>
+    <td width="33%" align="center"><strong>LOT AREA</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+    <td width="11%" align="center">&nbsp;</td>
+  </tr>
+   <?php foreach($this->real_estatedetail as $real_estatedetails) :?>
+  <tr align="left">
+    <td align="center"><?=$real_estatedetails->location?></td>
+    <td align="center"><?=$real_estatedetails->lot_area?></td>
+    <td align="center">P    
+    <?=$real_estatedetails->real_emv?></td>
+    <td align="left"><div align="center">
+      <input name="button2" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this AutoMobile Detail?')) window.location='<?=$this->baseUrl().'/index/delrealestate/id/'.$real_estatedetails->id.'/cap/'.$this->capno?>'" value="Delete" />
+    </div></td>
+  </tr>
+    <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('real_details')"
+ >Add Real Estate Details</a>
+<div align="center" id="real_details" class="commenthidden">
+
+<form name="realestate" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">LOCATION</td>
+  <td width="33%" align="center">LOT AREA</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+<tr align="left">
+  <td align="center"><?=$this->form->location?></td>
+  <td align="center">
+    <?=$this->form->lot_area?></td>
+  <td align="center">P<?=$this->form->real_emv?></td>
+  <td align="left"><input name="submit" type="submit" value="Add Real Estate Details" id="submit" /></td>
+</tr>
+  </tr>
+
+</table>
+</form>
+</div>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">AUTOMOBILE</font></strong></td>
+  </tr>
+</table>
+<br />
+
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>YEAR/MAKE</strong></td>
+    <td width="33%" align="center"><strong>MODEL</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+    <td width="11%" align="center">&nbsp;</td>
+  </tr>
+   <?php foreach($this->automobiledetail as $automobiledetails) :?>
+  <tr align="left">
+    <td align="center"><?=$automobiledetails->year_make?></td>
+    <td align="center"><?=$automobiledetails->model?></td>
+    <td align="center">P    
+    <?=$automobiledetails->auto_emv?></td>
+    <td align="left"><div align="center">
+      <input name="button2" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this AutoMobile Detail?')) window.location='<?=$this->baseUrl().'/index/delautomobile/id/'.$automobiledetails->id.'/cap/'.$this->capno?>'" value="Delete" />
+    </div></td>
+  </tr>
+    <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('automobile_details')"
+ >Add Automobile Details</a>
+<div align="center" id="automobile_details" class="commenthidden">
+
+<form name="automobile" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">YEAR/ MAKE</td>
+  <td width="33%" align="center">MODEL</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+<tr align="left">
+  <td align="center"><?=$this->form->year_make?></td>
+  <td align="center">
+    <?=$this->form->model?></td>
+  <td align="center">P<?=$this->form->auto_emv?></td>
+  <td align="left"><input name="submit" type="submit" value="Add AutoMobile Details" id="submit" /></td>
+</tr>
+  </tr>
+
+</table>
+</form>
+</div>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">SHARES OF STOCK</font></strong></td>
+  </tr>
+</table>
+<br />
+
+
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="26%" align="center"><strong>COMPANY NAME</strong></td>
+    <td width="33%" align="center"><strong>NO. OF SHARES</strong></td>
+    <td width="30%" align="center"><strong>ESTIMATED MARKET VALUE</strong></td>
+    <td width="11%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->sharesdetail as $sharesdetails) :?>
+  <tr align="left">
+    <td align="center"><?=$sharesdetails->company?></td>
+    <td align="center"><?=$sharesdetails->num_share?></td>
+    <td align="center">P    
+    <?=$sharesdetails->shares_emv?></td>
+    <td align="left"><div align="center">
+      <input name="button3" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Credit Card Detail?')) window.location='<?=$this->baseUrl().'/index/delsharesstock/id/'.$sharesdetails->id.'/cap/'.$this->capno?>'" value="Delete" />
+    </div></td>
+  </tr>
+      <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('shares_stock')"
+ >Add Shares of Stock Details</a>
+<div align="center" id="shares_stock" class="commenthidden">
+
+<form name="sharesstock" method="post">
+<table width="100%" border="0">
+<tr align="left">
+  <td width="26%" align="center">COMPANY NAME</td>
+  <td width="33%" align="center">NO. OF SHARES</td>
+  <td width="30%" align="center">ESTIMATED MARKET VALUE</td>
+  <td width="11%" align="center">&nbsp;</td>
+  </tr>
+
+<tr align="left">
+  <td align="center"><?=$this->form->company?></td>
+  <td align="center"><?=$this->form->num_share?></td>
+  <td align="center">P    <?=$this->form->shares_emv?></td>
+  
+  <td align="left"><input name="submit" type="submit" value="Add Shares of Stock" id="submit" /></td>
+</tr>
+
+
+</table>
+</form>
+</div>
+
+</p>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: white white white white;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td height="18" colspan="5" bgcolor="#FF3333"><strong><font color="#FFFF00">BUSINESS FINANCIALS</font></strong></td>
+  </tr>
+</table><br />
+<a aiotitle="click to expand" href="javascript:togglecomments('business_financial_asset')"
+ ></a>
+<div align="center" id="business_financial_asset" class="commenthidden">
+  <form method="post" name="realestate" id="realestate">
+    <table width="100%" border="0">
+      <tr align="left">
+        <td width="26%" align="center">ASSET</td>
+        <td width="33%" align="center">EMV</td>
+        <td width="30%" align="center">REMARKS</td>
+        <td width="11%" align="center">&nbsp;</td>
+      </tr>
+      <tr align="left">
+        <td align="center"><?=$this->form->business_asset?></td>
+        <td align="center"> P
+          <?=$this->form->business_asset_emv?></td>
+        <td align="center"><?=$this->form->business_asset_remarks?></td>
+        <td align="left"><input name="submit" type="submit" value="Add Business Financial Details" id="submit2" /></td>
+      </tr>
+      <tr>
+        <td></tr></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<table width="100%" border="0">
+  <tr align="left">
+    <td width="22%" align="center"><strong>ASSET</strong></td>
+    <td width="37%" align="center"><strong>EMV</strong></td>
+    <td width="30%" align="center"><strong>REMARKS</strong></td>
+    <td width="11%" align="center">&nbsp;</td>
+  </tr>
+  <?php foreach($this->bus_finance_detail as $bus_finance_details) :?>
+  <tr align="left">
+    <td height="26" align="center"><?=$bus_finance_details->business_asset?></td>
+    <td align="center">P
+      <?=number_format($bus_finance_details->business_asset_emv,2)?></td>
+    <td align="center"><?=$bus_finance_details->business_asset_remarks?></td>
+    <td align="left"><div align="center">
+      <input name="button4" type="button" onclick="javascript: if (confirm('Are you sure you want to delete this Business Financial Detail?')) window.location='<?=$this->baseUrl().'/index/delbusfinance/id/'.$bus_finance_details->id.'/cap/'.$this->capno?>'" value="Delete" />
+    </div></td>
+  </tr>
+  <?php endforeach; ?>
+</table>
+<a aiotitle="click to expand" href="javascript:togglecomments('business_financial_asset')"
+ >Add Business Financial Details</a>
+ 
+ 
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("realestate")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("location","req","Location is Required!");
+frmvalidator.addValidation("lot_area","req","Lot Area is Required!");
+frmvalidator.addValidation("real_emv","req","Estimated Market Value for Real Estate is Required!");
+
+</script>
+  
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("automobile")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("year_make","req","Year Make is Required!");
+frmvalidator.addValidation("model","req","Model is Required!");
+frmvalidator.addValidation("auto_emv","req","Estimated Market Value for AutoMobile is Required!");
+</script>
+  
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("sharesstock")
+frmvalidator.EnableMsgsTogether();
+
+frmvalidator.addValidation("company","req","Company is Required!");
+frmvalidator.addValidation("num_share","req","No. of Share is Required!");
+frmvalidator.addValidation("shares_emv","req","Estimated Market Value for Share of Stock is Required!");
+</script>
+
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("bank")
+frmvalidator.EnableMsgsTogether();
+
+//frmvalidator.addValidation("branch","req","Branch is Required!!");
+
+//frmvalidator.addValidation("account_no","req","Bank Account No. is Required!!");
+//frmvalidator.addValidation("adb","req","ADB is Required!!");
+
+//frmvalidator.addValidation("date_opened","req","Date Opened is Required!!");
+frmvalidator.addValidation("date_opened","regexp=(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)[0-9]{2}","Invalid Date Format MM/DD/YYYY");
+
+ function DoCustomValidationBank()
+	{
+	  var frm = document.forms["bank"];
+	  	var dateString2 = frm.date_opened.value;
+		var dateopened = new Date(dateString2);
+		var myDate = new Date();
+   	  if (frm.bank.value == '0'){
+	    	  sfm_show_error_msg("Please Choose Bank");
+			  return false }
+	   else if (dateopened>myDate)
+	  {
+			  sfm_show_error_msg("Date Opened :You cannot input a future date!!");
+   			  return false
+	  }	 
+	  
+	  {
+	    return true;
+	  }
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidationBank");
+</script>

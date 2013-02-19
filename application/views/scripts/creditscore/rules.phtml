@@ -1,0 +1,66 @@
+<script type="text/javascript">
+
+	function addRule(){
+		var rule = document.getElementById('ruleName').value;		
+		var desc = document.getElementById('ruleDesc').value;
+		if(rule == ""){ alert("rule name?");
+		}else if(desc == ""){ alert("description?");
+		}else if(rule != "" && desc != ""){
+			var hRuleName = document.getElementById('hRuleName');
+			var hRuleDesc = document.getElementById('hRuleDesc');		
+			hRuleName.value = rule;
+			hRuleDesc.value = desc;	
+			document.product.submit();			
+		}
+	}		
+
+</script>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->weights?>/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<p></p>
+<input name="hRuleName" type="hidden" id="hRuleName">
+<input name="hRuleDesc" type="hidden" id="hRuleDesc">
+<body>
+	<table width="575" cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable1" >
+		<thead>
+			<tr>
+				<th width="114" align="center">Rule</th>
+				<th width="343" align="center">Description</th>
+                <th width="100" align="center">Action</th>
+			</tr>
+        	<tr>
+				<td align="center"><?=$this->form->ruleName?></td>
+				<td align="center"><?=$this->form->ruleDesc?></td>
+                <td align="center"><input type="Submit" name="button" id="button" value="Add" onClick="addRule()"/></td>
+            </tr>              	
+		</thead>
+		<tbody>
+        	<? foreach($this->rules as $rrow) {?>
+        	<tr onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+            	onmouseout="this.style.background='white';this.style.color='black'">
+				<td><?=$rrow->rule?></td>
+				<td><?=$rrow->description?></td>
+                <td><a href="<?=$this->baseUrl()?>/creditscore/ocs/prod/<?=$this->prodType?>/namever/<?=$rrow->namever;?>/rule/<?=$rrow->rule?>/place/<?=$this->place?>">Edit</a> / 
+                    <a href="<?=$this->baseUrl()?>/creditscore/deleterule/prod/<?=$this->prodType?>/namever/<?=$rrow->namever;?>/id/<?=$rrow->id?>/place/<?=$this->place?>">Delete</a></td>
+            </tr>    
+            <? } ?>
+		</tbody>
+	</table><p></p>
+	<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 230);</script>    
+    <p style="color:red"/><b/><?=$this->checkInput?>
+</body>
+         
+</center>	
+</form>

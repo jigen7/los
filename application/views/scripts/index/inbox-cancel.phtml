@@ -1,0 +1,67 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 10pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>
+<form action="" method="post" name="decided">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CANCEL</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/'"><strong>
+      Return
+    </strong></td>
+</tr>
+</table>
+<table width="100%" border="1" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;" id="myTable" class="tablesorter">
+    <thead>
+  <tr>
+    <th width="8%" align="center"><strong>CAP NO.</strong></td>
+    <th width="25%" align="center"><strong>BORROWER</strong></td>
+    <th width="11%" align="center"><strong>TYPE OF APPLICATION </strong></td>
+    <th width="10%" align="center"><strong>SENT BY </strong></td>
+    <th width="12%" align="center"><strong>DATE/TIME RECEIVED </strong></td>
+    <th width="11%" align="center"><strong>DECISION</strong></td>
+    <th width="10%" align="center"><strong>DATE/TIME DECIDED </strong></td>
+    <td width="13%" align="center"><strong>TAT</strong></td>
+  </tr>
+  	</thead>
+    <tbody>
+  <? if ($this->rows){?>
+  <?php foreach($this->rows as $row) : ?>
+  <tr onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="window.location.href='<?=$this->baseUrl()?>/index/account/cap/<?=$row->capno?>'">
+    <td align="center"><?=$row->capno?></td>
+    <td align="center"><?=$row->borrower_lname.','.$row->borrower_fname.' '.substr($row->borrower_mname, 0,1).'.';?></td>
+    <td align="center"><?=$row->application_type?></td>
+    <td align="center"><?=$this->getLastUser($row->capno)?></td>
+    <td align="center"><?=date("m/d/Y/ h:i a",strtotime($row->submitted_co_date))?></td>
+    <td align="center"><?=$row->account_status?></td>
+    <td><? $temp = $this->getDecideddate($row->capno,$row->account_status);
+	echo date("m/d/Y/ h:i a",strtotime($temp));?></td>
+    <td><?=$this->dateTimeDiff($row->submitted_co_date,$temp)?></td>
+  </tr>
+  <?php endforeach; ?>
+  <? } ?>
+</tbody>
+</table>
+</form>
+<p>
+  <?= $this->paginationControl($this->rows, 'Sliding', 'pagination.phtml'); ?>
+</p>

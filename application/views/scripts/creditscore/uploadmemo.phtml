@@ -1,0 +1,105 @@
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 100);</script>
+<body>
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td width="77%" align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title; ?></strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->func?>/prod/<?=$this->prodType?>/namever/<?=$this->namever?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<p>&nbsp;</p>
+
+<center>
+<div style="float:top">
+<fieldset  >
+	<legend><b/>MEMORANDUM</legend>
+	<table width="244" border="0">
+		<tr>
+		    <td width="165" align='right'><b/>Name</td>
+		    <td width="10"><?=$this->form->modelName?></td>
+			<td width="15"><?=$this->form->uploadName?></td>
+			<td width="15"><?=$this->form->browse?></td>
+			<td width="15"><?=$this->form->upload?></td>
+		</tr>
+	</table>
+	<table class="scrolltable" cellspacing="1" cellpadding="2" id="myScrollTable" style="width:500;">
+		<thead>
+			<tr>
+				<th width="102" class="c1">Model Name</th>
+				<th width="146" class="c2">Date Uploaded</th>
+				<th width="114" class="c3">Uploaded By</th>
+				<th width="51" class="c3">View</th>
+				<th width="59" class="c3">Action</th>
+			</tr>	
+	  </thead>
+		<tbody>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">30</td>
+				<td class="c1">extra1</td>
+				<td class="c2">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">31</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">32</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">33</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">34</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">35</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r1">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">36</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+			<tr class="r2">
+				<td class="c1">John</td>
+				<td class="c2">Smith</td>
+				<td class="c3">37</td>
+				<td class="c3">extra1</td>
+				<td class="c3">extra2</td>
+			</tr>
+		</tbody>
+	</table>
+
+</fieldset></div>          
+</center>	
+</form>
+</body>
+<p>&nbsp;</p>

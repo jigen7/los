@@ -1,0 +1,84 @@
+<form action="" method="post" name="product">
+	<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+		border-style: solid solid solid solid;border-color: black black black black;
+		border-collapse: collapse;background-color: white;">
+		<tr>
+			<td align="left" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick=""><strong>
+		        <?=$this->title;?></strong></td>
+            <td width="5%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+		        onclick="window.open('<?=$this->baseURL();?>/creditscore/viewocs/prod/<?=$this->prodType?>/namever/<?=$this->namever?>','viewocs','width=800,height=300,scrollbars=yes,resizable=no, menubar =yes');"><strong>
+                OCS</strong></td>                
+            <td width="7%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/viewmemo/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>/'"><strong>
+		        eDOCS</strong></td>
+			<td width="17%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/accounthistory/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        ACCOUNT HISTORY</strong></td>
+			<td width="12%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" 
+                onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/audittrail/prod/<?=$this->prodType?>/namever/<?=$this->namever?>/place/<?=$this->place?>'"><strong>
+		        AUDIT TRAIL</strong></td>                
+			<td width="10%" align="center" onMouseOver="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+		        onmouseout="this.style.background='white';this.style.color='black'" onClick="window.location.href='<?=$this->baseUrl()?>/creditscore/<?=$this->place?>/prod/<?=$this->prodType?>'"><strong>
+		        RETURN</strong></td>
+		</tr>
+	</table>
+<center>
+<body>
+<table width="456" border="0">
+      <tr><td><h2/><b/><?=ucfirst($this->namever)?></td>
+          <td width="164" style="font-size:9px; font:Arial, Helvetica, sans-serif""><p>*<strong>Color coding</strong> for the changes in weights
+          <span style="font-size:9px; color:#00F; font:Arial, Helvetica, sans-serif">-Blue represent an increase in weight &nbsp;</span>
+          <span style="font-size:9px; color:#F00; font:Arial, Helvetica, sans-serif">-Red represent a decrease in weight</span></p></td>
+      </tr>
+      <? $tver = $this->version - 1;?>
+      <tr><td width="282"><b/><? if($this->version > 1) echo "Updated Version of: ".$this->name." ".$tver;?></td><td></td></tr>
+      <tr><td colspan="2"><b/>Validity Period:<?=date("m-d-Y", strtotime($this->vpfrom))?> - <?=date("m-d-Y", strtotime($this->vpto))?></td></tr>
+      <tr><td colspan="2"><b/>Regular/Promo: <?=$this->RegularPromo($this->namever)?></td></tr>
+      <tr><td colspan="2"><b/>Business Center:<?=$this->BusinessCenter($this->namever)?></td><td></td></tr>
+</table>
+
+<table cellspacing="1" cellpadding="2" class="scrolltable" id="myScrollTable" >
+	<thead>
+		<tr>
+			<th width="152" rowspan="2" align="center">FIELD</th>
+			<th width="174" rowspan="2" align="center">ATTRIBUTE</th>
+			<th colspan="2" align="center">WEIGHT</th>
+		</tr>	
+		<tr>
+			<th width="77" align="center">FROM</th>
+			<th width="74" align="center">TO</th>
+		</tr>
+	</thead>
+	<tbody>
+        <? foreach($this->afields as $row) : ?>
+        <tr onMouseOver="this.style.background='gray';this.style.cursor='pointer';this.style.color='white'"
+            onmouseout="this.style.background='white';this.style.color='black'">
+            <?php
+				$style = "";
+				$wfrom = ($this->version == 1)? 0 :  $this->RetrieveHelper($this->namever, $row->namefield, $row->attribute);
+				if($wfrom != $row->wto) $style = ($wfrom > $row->wto)? "style=\"color:#F00\"" : "style=\"color:#00F\"";
+			?>
+            <td height="26" <?php echo $style;?>><?=$row->namefield?></td>
+            <td <?php echo $style;?>><?=$row->attribute?></td>
+            <td align="center" <?php echo $style;?>><?=$wfrom?></td>
+            <td align="center" <?php echo $style;?>><?=$row->wto?></td>
+        </tr>
+        <? endforeach; ?>
+	</tbody>
+</table>
+<p></p>
+</body>
+<? if($this->status == 'APPROVAL'){ ?>
+<table>
+    <tr>
+        <td><input name="returntocra" type="button" value="Return to CRA" onClick="window.open('<?=$this->baseURL();?>/creditscore/returntocra/prod/<?=$this->prodType?>/namever/<?=$this->namever?>','mywindow','width=375,height=200,scrollbars=yes,resizable=no, menubar =yes');"/></td>
+        <td><input name="returnapprove" type="button" value="Approve" onClick="window.open('<?=$this->baseURL();?>/creditscore/returnapprove/prod/<?=$this->prodType?>/namever/<?=$this->namever?>','mywindow','width=375,height=200,scrollbars=yes,resizable=no, menubar =yes');"/></td>
+    </tr>
+</table>
+<? } ?>
+<center>
+<script type="text/javascript">var t = new ScrollableTable(document.getElementById('myScrollTable'), 300);</script>

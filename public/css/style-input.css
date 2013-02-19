@@ -1,0 +1,10 @@
+input {background-color:ffffff;font-family:Arial;font-size:8pt;color:000000;}
+input.btn { 
+color:#000; 
+font: bold 84% 'trebuchet ms',helvetica,sans-serif; 
+background-color:#fff; 
+border:2px solid; 
+border-color: #000 #000 #000 #000; 
+} 
+input:focus, input.sffocus { background: #659EC7; }
+

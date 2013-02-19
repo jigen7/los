@@ -1,0 +1,233 @@
+<?php
+
+class Zend_Controller_Action_Helper_CreditScore extends
+                Zend_Controller_Action_Helper_Abstract
+{
+    function direct($accounts)
+    {
+	
+	//Multiple Scoring
+	$csmodel = new Model_Creditscore_CSModel();
+	//$modelFields = new Model_Creditscore_ModelFieldsCategory();
+	//echo ($accounts->account);
+	//echo "Borrower : ".$accounts->account."<br>";
+	//echo ("Model Use ".$accounts->model_use);
+	//echo "<br>";
+	$finalArr = array();
+	$modelArr = explode(',',$accounts->model_use);
+	array_pop($modelArr);
+	// Per Model 
+	foreach($modelArr as $x){
+	//Scoring procedure
+
+	$model_namever = $csmodel->getModelById($x);
+	//echo $model_namever;
+	
+	//Get Fields of the Model
+	$model_fields = getModelsFields($model_namever);
+	
+	
+	$sum = 0;
+	$newArr = getValues($model_fields,$accounts->account,$model_namever);
+	foreach($newArr as $t => $h){
+	//echo($t.'=>'.$h['value'].'='.$h['weight']);	
+	$sum += $h['weight'];
+	}
+	//echo '  '.$sum;
+	//echo "<br>";
+	
+	
+	$finalArr[$model_namever]['modelver'] = $model_namever;
+	$finalArr[$model_namever]['modelver_id'] = $x;
+	$finalArr[$model_namever]['sum'] = $sum;
+	$finalArr[$model_namever]['attr'] = $newArr;
+
+	}//end of each model
+	return $finalArr;
+	//print_r($modelArr);
+    }
+	
+	function scoreMultipleAccount($accounts){
+	$csmodel = new Model_Creditscore_CSModel();
+
+	$modelArr = explode(',',$accounts->model_use);
+	array_pop($modelArr);
+	
+	//preint_r($modelArr);	
+	
+	//echo $accounts->account; // CAPNO
+	$scoremodule = Zend_Controller_Action_HelperBroker::getStaticHelper('ScoreModule2');
+		
+	$string = $scoremodule->storeattr($accounts->account,'multiple');
+	//parse_str($string,$output);
+	//print_r_format($output);			
+	
+	foreach($modelArr as $x){
+		//Scoring procedure
+
+		$model_namever = $csmodel->getModelById($x);
+		//echo $model_namever;
+	
+		//Get Fields of the Model
+		//$model_fields = getModelsFields($model_namever);
+	
+	parse_str($this->scoreIndivdualAccount($string,$model_namever),$output);
+	
+	print_r_format($output);
+	}
+	}
+	
+	function scoreIndivdualAccount($rowArr,$modelver){
+		//array that will be pass
+		
+		//preint_r($rowArr);
+		//echo $rowArr['attributes'];
+		
+		if(!$modelver){
+			$modelver = 'currentcbsimodel 1';
+		}
+		
+		parse_str($rowArr['attributes'], $output);		
+		
+		//preint_r($output);
+		$model_fields = getModelsFields($modelver);
+		
+		//preint_r($model_fields);
+		$sum = 0;
+		foreach($model_fields as $field){
+				//echo $output[$field];
+				
+		$wt = getWeights($output[$field],$modelver,$field);		
+        $ScoreString .= $Amp . $field . '=' . $wt .'&';
+		$sum = $sum + $wt;
+		}
+		$ScoreString .= 'totalscore=' . $sum.'&';
+		$ScoreString .= 'lastid=' . $rowArr['lastid'].'&';
+		$ScoreString .= 'capno=' . $rowArr['capno'].'&';
+		$ScoreString .= 'capbasis=' . $output['capbasis'].'&';
+		$ScoreString .= 'empbus_status=' . $output['empbus_status'].'&';
+		$ScoreString .= 'modelused=' . $modelver.'&';
+	
+		//echo $ScoreString;
+		
+		//parse_str($ScoreString,$output2);
+		//preint_r($output2);
+		return $ScoreString;
+		
+		
+	}	
+}
+
+
+function getModelsFields($namever)
+	{
+		$model_category = new Model_Creditscore_ModelFieldsCategory();
+		$array = array('field','namever');
+		$select = $model_category->select();
+		$select->where('namever LIKE ?',$namever)
+		->distinct('field')
+		->from($model_category,$array);
+		$output = $model_category->fetchAll($select);
+		//echo $select;
+		$fields = array();
+		
+		foreach($output as $x){
+		$fields[]= $x->field;
+		}
+
+		$model_range = new Model_Creditscore_ModelFieldsNumeric();
+		$select2 = $model_range->select();
+		$select2->where('namever LIKE ?',$namever)
+		->distinct('field')
+		->from($model_range,$array);
+		$output2 = $model_range->fetchAll($select2);
+
+		foreach($output2 as $x){
+		$fields[]= $x->field;
+		}
+		
+		return $fields;
+		
+	}	
+
+function getWeights($fieldvalue,$modelver,$field){
+	$category = new Model_Creditscore_ModelFieldsCategory();
+	
+	
+	if($fieldvalue){
+	/***Field**/
+	$fieldsTable = new Model_Creditscore_FieldsTable();
+	$selectfield = $fieldsTable->select();
+	$selectfield->where("field like ?",$field);
+	$fieldDetail = $fieldsTable->fetchRow($selectfield);
+	$fieldType = $fieldDetail->type;
+	/**End of Field**/
+	
+	// Query the Category Table
+	$select = $category->select();
+		// to change if id is used
+		if($fieldType == 'String'){
+		$select->where("attribute like ?",$fieldvalue);
+		}
+		else if($fieldType == 'Numeric'){
+		$select->where("seq = ?",$fieldvalue);
+		}
+		$select->where("field like ?",$field);
+		$select->where("namever like ?",$modelver);
+		$detail = $category->fetchRow($select);
+	
+	//Query the Range Numeric Table
+	$range = new Model_Creditscore_ModelFieldsNumeric();
+	$select = $range->select();
+	$select->where("namever like ?",$modelver);
+	$select->where("field like ?",$field);
+	$detail2 = $range->fetchAll($select);
+	$detail2count = $detail2->count();
+	//echo $detail2count;
+	
+	
+	if(($detail) && ($detail2count == 0)) {
+	$wt = $detail->wto;
+	
+		echo "none Range-".$field.'-'.$fieldvalue.'<br>';
+	}
+	else if((!$detail) && ($detail2count > 0)) {
+		echo "Range-".$field.'-'.$fieldvalue.'<br>';
+		
+		$fieldvalue = str_replace(',','',$fieldvalue);
+		// downpayment issue
+		if($field == 'downpayment_percent' || $field == 'loanterm'){
+		foreach($detail2 as $x) : 
+		if (($fieldvalue > $x->rfrom) && ($fieldvalue <= $x->rto)){
+		$wt = $x->wto;			
+		}
+		endforeach;
+		} else {
+		foreach($detail2 as $x) : 
+		if (($fieldvalue >= $x->rfrom) && ($fieldvalue < $x->rto)){
+		$wt = $x->wto;			
+		}
+		endforeach;
+		}
+	
+	}else{
+		echo "Undefined-".$field.'-'.$fieldvalue.'<br>';
+	}
+	
+	
+	return $wt;
+	} else {
+		return 0;
+	}
+	// insert OCS code
+}
+
+function getHighBus(){
+
+
+}
+
+function getHighEmp(){
+
+
+}

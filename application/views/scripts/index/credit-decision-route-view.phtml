@@ -1,0 +1,274 @@
+
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/tooltip.js"></script>  
+<Style>
+BODY, P,TD{ font-family: Arial,Verdana,Helvetica, sans-serif; font-size: 9pt }
+A{font-family: Arial,Verdana,Helvetica, sans-serif;}
+B {	font-family : Arial, Helvetica, sans-serif;	font-size : 12px;	font-weight : bold;}
+.error_strings{ font-family:Verdana; font-size:10px; color:#660000;}
+</Style>
+<SCRIPT language="JavaScript">
+var counter = false;
+function submitform()
+{
+ if(document.decision.onsubmit())
+ {//this check triggers the validations
+    document.decision.submit();
+	setTimeout(refr(),5000);
+	
+ }
+}
+
+function refr(){
+	if (window.opener && !window.opener.closed) {
+	//window.opener.location.reload();
+	}
+}
+
+function winResize(){
+	if(!counter){
+		counter = true;
+window.resizeTo(800,600);	
+
+}else {
+window.resizeTo(800,245);	
+	counter = false;
+}
+}
+
+function popupUnloadHandler() {
+	if (window.opener && !window.opener.closed) {
+//window.opener.location.reload(); }
+	}
+}
+window.onunload = popupUnloadHandler;
+
+
+function Maximize()
+{
+window.innerWidth = screen.width;
+window.innerHeight = screen.height;
+window.screenX = 0;
+window.screenY = 0;
+alwaysLowered = false;
+}
+</SCRIPT> 
+<script type="text/javascript" src="<?=$this->baseUrl();?>/js/mybic.js"></script>
+<script>
+	var glo;
+	function getdataback() {
+		ajaxObj = new XMLHTTP("<?=$this->baseUrl();?>/inc/mybic_server.php");
+		// lets turn on debugging so we can see what we're sending and receiving
+		//ajaxObj.debug=1;
+		ajaxObj.method="GET";
+		 ajaxObj.call("action=getdata&username=<?=$this->loggedInUser();?>",respGetData);
+
+		//alert(getCity());
+	}
+	
+	function respGetData(resp) {
+		//document.getElementById('content').innerHTML = resp;
+		//return resp;
+		//document.writeln(resp);
+		glo = resp;
+	}
+</script>
+<form action="" method="post" name="decision">
+<table border=1 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+
+<tr>
+	<td><strong>CREDIT DECISION 
+	  <?=$this->detail->routetag?>
+	</strong></td>
+
+	<td width="13%" align="center" onmouseover="this.style.background='red';this.style.cursor='pointer';this.style.color='white'"
+        onmouseout="this.style.background='white';this.style.color='black'" onclick="self.close()"><strong>
+      EXIT
+    </strong></td>
+</tr>
+</table>
+<script>
+getdataback();
+</script>
+<table border=0 width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="6" align="right"><a href="#" onClick="javascript:Maximize()">Maximize</A> &nbsp;</td>
+    </tr>
+  <tr>
+    <td width="5%">&nbsp;</td>
+    <td colspan="4"><strong>Borrower Name: 
+      <?=$this->detail->borrower_lname?>, 
+      <?=$this->detail->borrower_fname?>
+      <?=$this->detail->borrower_mname?>
+    </strong></td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="6" align="center">Amount of Loan: P
+      <?=number_format($this->detail->amountloan,2)?>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      DP%:
+      <?=$this->detail->downpayment_percent?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      Term:
+      <?=$this->detail->loanterm?>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        <?
+        if($this->loggedInUserType() != 'ALMH' && $this->loggedInUserType() != 'MO' && 
+		$this->loggedInUserType() != 'CA' && $this->loggedInUserType() != 'MA'){
+		//echo "Score:".$this->viewScore($this->detail->score,$this->detail->capbasis,'view');
+		echo "Score:".$this->detail->score_tag." ".$this->detail->score_tag_orig;
+		}
+		?>
+
+      </td>
+    </tr>
+    <? if($this->loggedInUserType() == 'CORPSEC'){ ?>
+    <tr>
+    <td colspan="6" align="center">
+    <center>
+    <input type="button" name="edocs" id="edocs" value="eDOCS" style="width:120px" onclick = "window.open('<?=$this->baseURL();?>/edocs/account/cap/<?=$this->capno?>','mywindow','width=800,height=400,scrollbars=yes,resizable=no')"/>  
+    </center>
+    </td>
+    </tr>
+  <? } ?>
+  <? foreach($this->history as $details) { ?>
+ <tr>
+    <td colspan="6"><hr style="color: #fff; background-color: #fff; border: 1px dotted #000000; border-style: none none dotted;"/>&nbsp;</td>
+    </tr>
+  <tr style="font-size: 16px">
+    <td rowspan="3">&nbsp;</td>
+    <td width="26%" align="center"><?=$this->viewMa($details->approved_by)?></td>
+     <td width="18%"  rowspan="3" align="center"><?=$this->getAutoRoutingImage($details->decision)?></td>
+    <td width="18" colspan="3" rowspan="3"><?=$details->reason?></td>
+    </tr>
+  <tr>
+    <td align="center"><?=$this->crawApprovalDate($details->date_type,$details->date_approval);
+			  ?></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>
+      <?=$details->decision?>
+    </strong></td>
+  </tr>
+  <? } ?>
+  </table>
+</form>
+<br />
+<? if(strpos($this->detail->routetag,'-CRECOM')!==false || strpos($this->detail->routetag,'-EXE-BOD')!==false){ ?>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="4"><strong>Crecom</strong></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="29%" align="center"><strong> Authority</strong></td>
+    <td width="13%" align="center">&nbsp;</td>
+    <td width="54%" align="center"><strong>Remarks</strong></td>
+  </tr>
+  <? foreach($this->crecomDetail as $details) { ?>
+  <tr>
+    <td colspan="4"><hr style="color: #fff; background-color: #fff; border: 1px dotted #000000; border-style: none none dotted;"/></td>
+  </tr>
+  <tr>
+    <td rowspan="4">&nbsp;</td>
+    <td align="center"><?=$this->viewMa($details->user)?></td>
+    <td rowspan="4" align="center"><?=$this->getAutoRoutingImage($details->decision)?></td>
+    <td rowspan="4"><?=$details->remarks?></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>
+      <? if($details->role == $this->loggedInUserType()) { ?>
+      <input type="button" value="<?=$details->decision ?>" onclick="javascript:window.open('<?=$this->baseURL();?>/autorouting/recalldecision/cap/<?=$details->capno?>/act/<?=$details->decision?>/grp/crecom/id/<?=$details->id?>','recallwindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');"/>
+      <? }
+	 else {
+	 echo ucfirst($details->decision);
+	 }
+	 ?>
+    </strong></td>
+  </tr>
+  <tr>
+    <td align="center"><?=ucfirst($details->role)?>
+      -
+      <?=ucfirst($details->type)?></td>
+  </tr>
+  <tr>
+    <td align="center"><?=date('m-d-Y h:i a',strtotime($details->date_decision));?></td>
+  </tr>
+  <? } ?>
+</table>
+<? } ?>
+<br />
+<? if(strpos($this->detail->routetag,'-SUBCRECOM')!==false){ ?>
+<table border="0" width="100%" style="border-width: 2px 2px 2px 2px;border-spacing: 1px;
+	border-style: solid solid solid solid;border-color: black black black black;
+	border-collapse: collapse;background-color: white;">
+  <tr>
+    <td colspan="4"><strong>Sub Crecom</strong></td>
+  </tr>
+  <tr>
+    <td width="4%">&nbsp;</td>
+    <td width="29%" align="center"><strong> Authority</strong></td>
+    <td width="13%" align="center">&nbsp;</td>
+    <td width="54%" align="center"><strong>Remarks</strong></td>
+  </tr>
+  <? foreach($this->subcrecomDetail as $details) { ?>
+  <tr>
+    <td colspan="4"><hr style="color: #fff; background-color: #fff; border: 1px dotted #000000; border-style: none none dotted;"/></td>
+  </tr>
+  <tr>
+    <td rowspan="4">&nbsp;</td>
+    <td align="center"><?=$this->viewMa($details->user)?></td>
+    <td rowspan="4" align="center"><?=$this->getAutoRoutingImage($details->decision)?></td>
+    <td rowspan="4"><?=$details->remarks?></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>
+      <? if($details->role == $this->loggedInUserType()) { ?>
+      <input type="button" value="<?=$details->decision ?>" onclick="javascript:window.open('<?=$this->baseURL();?>/autorouting/recalldecision/cap/<?=$details->capno?>/act/<?=$details->decision?>/grp/crecom/id/<?=$details->id?>','recallwindow','width=500,height=200,scrollbars=yes,resizable=no,left=0,top=0,status=no');"/>
+      <? }
+	 else {
+	 echo ucfirst($details->decision);
+	 }
+	 ?>
+    </strong></td>
+  </tr>
+  <tr>
+    <td align="center"><?=ucfirst($details->role)?>
+      -
+      <?=ucfirst($details->type)?></td>
+  </tr>
+  <tr>
+    <td align="center"><?=date('m-d-Y h:i a',strtotime($details->date_decision));?></td>
+  </tr>
+  <? } ?>
+</table>
+<? } ?>
+<script language="JavaScript" type="text/javascript">
+
+var frmvalidator = new Validator("decision")
+frmvalidator.EnableMsgsTogether();
+
+
+ function DoCustomValidation()
+	{
+	  var frm = document.forms["decision"];
+	  	    if (frm.digiPass.value !=  glo)
+	  		{
+	    	  sfm_show_error_msg("Wrong Digital Password Please Enter Again");
+   			  return false
+	  		}
+
+		  	{
+	    return true;
+			}
+	}
+	  frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+</script>
